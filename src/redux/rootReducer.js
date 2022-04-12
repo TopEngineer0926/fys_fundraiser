@@ -10,6 +10,7 @@ import campaigns from '@src/views/campaigns/store'
 import donations from '@src/views/donations/store'
 import organizations from '@src/views/orgs/organizations/store'
 import leagues from '@src/views/orgs/leagues/store'
+import clubs from '@src/views/orgs/clubs/store'
 import teams from '@src/views/orgs/teams/store'
 import email from '@src/views/apps/email/store'
 import invoice from '@src/views/apps/invoice/store'
@@ -34,6 +35,7 @@ const rootReducer = {
   fundraisers, 
   organizations, 
   leagues, 
+  clubs, 
   teams, 
   campaigns, 
   donations

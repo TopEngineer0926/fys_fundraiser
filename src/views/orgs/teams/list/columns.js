@@ -30,41 +30,6 @@ const renderClient = row => {
   }
 }
 
-// ** Renders Role Columns
-const renderRole = row => {
-  const roleObj = {
-    subscriber: {
-      class: 'text-primary',
-      icon: User
-    },
-    maintainer: {
-      class: 'text-success',
-      icon: Database
-    },
-    editor: {
-      class: 'text-info',
-      icon: Edit2
-    },
-    author: {
-      class: 'text-warning',
-      icon: Settings
-    },
-    admin: {
-      class: 'text-danger',
-      icon: Slack
-    }
-  }
-
-  const Icon = roleObj[row.role] ? roleObj[row.role].icon : Edit2
-
-  return (
-    <span className='text-truncate text-capitalize align-middle'>
-      <Icon size={18} className={`${roleObj[row.role] ? roleObj[row.role].class : ''} me-50`} />
-      {row.role}
-    </span>
-  )
-}
-
 const statusObj = {
   pending: 'light-warning',
   active: 'light-success',
@@ -72,6 +37,15 @@ const statusObj = {
 }
 
 export const columns = [
+
+  {
+    name: 'Team',
+    sortable: true,
+    minWidth: '200px',
+    sortField: 'teamName',
+    selector: row => row.teamName,
+    cell: row => row.teamName 
+  },
   {
     name: 'Primary Contact',
     sortable: true,
@@ -93,14 +67,6 @@ export const columns = [
         </div>
       </div>
     )
-  },
-  {
-    name: 'Role',
-    sortable: true,
-    minWidth: '172px',
-    sortField: 'role',
-    selector: row => row.role,
-    cell: row => renderRole(row)
   },
   {
     name: 'Plan',

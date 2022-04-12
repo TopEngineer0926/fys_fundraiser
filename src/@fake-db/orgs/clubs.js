@@ -4,10 +4,10 @@ import mock from '../mock'
 import { paginateArray } from '../utils'
 
 const data = {
-  teams: [
+  clubs: [
     {
       id: 4987,
-      teamName: 'Clemson Tigers', 
+      clubName: 'Clemson Tigers', 
       issuedDate: '13 Dec 2019',
       primary_contact: {
         email_address: 'don85@johnson.com',
@@ -22,7 +22,7 @@ const data = {
     },
     {
       id: 4988,
-      teamName: 'San Diego State', 
+      clubName: 'San Diego State', 
       issuedDate: '13 Dec 2019',
       primary_contact: {
         email_address: 'don85@johnson.com',
@@ -39,23 +39,23 @@ const data = {
 }
 
 // GET ALL DATA
-mock.onGet('/api/teams/list/all-data').reply(200, data.teams)
+mock.onGet('/api/clubs/list/all-data').reply(200, data.clubs)
 
-// POST: Add new team
-mock.onPost('/orgs/teams/add-team').reply(config => {
+// POST: Add new club
+mock.onPost('/orgs/clubs/add-club').reply(config => {
   // Get event from post data
-  const team = JSON.parse(config.data)
-  const highestValue = data.teams.reduce((a, b) => (a.id > b.id ? a : b)).id
+  const club = JSON.parse(config.data)
+  const highestValue = data.clubs.reduce((a, b) => (a.id > b.id ? a : b)).id
 
-  team.id = highestValue + 1
+  club.id = highestValue + 1
 
-  data.teams.push(team)
+  data.clubs.push(club)
 
-  return [201, { team }]
+  return [201, { club }]
 })
 
 // GET Updated DATA
-mock.onGet('/api/teams/list/data').reply(config => {
+mock.onGet('/api/clubs/list/data').reply(config => {
   const {
     q = '',
     page = 1,
@@ -70,18 +70,18 @@ mock.onGet('/api/teams/list/data').reply(config => {
   /* eslint-disable  */
   const queryLowered = q.toLowerCase()
 
-  const dataAsc = data.teams.sort((a, b) => (a[sortColumn] < b[sortColumn] ? -1 : 1))
+  const dataAsc = data.clubs.sort((a, b) => (a[sortColumn] < b[sortColumn] ? -1 : 1))
 
   const dataToFilter = sort === 'asc' ? dataAsc : dataAsc.reverse()
 
   const filteredData = dataToFilter.filter(
-    team =>
-      (team.email.toLowerCase().includes(queryLowered) ||
-      team.fullName.toLowerCase().includes(queryLowered) ||
-      team.billing.toLowerCase().includes(queryLowered)) &&
-      team.role === (role || team.role) &&
-      team.currentPlan === (currentPlan || team.currentPlan) &&
-      team.status === (status || team.status)
+    club =>
+      (club.email.toLowerCase().includes(queryLowered) ||
+      club.fullName.toLowerCase().includes(queryLowered) ||
+      club.billing.toLowerCase().includes(queryLowered)) &&
+      club.role === (role || club.role) &&
+      club.currentPlan === (currentPlan || club.currentPlan) &&
+      club.status === (status || club.status)
   )
   /* eslint-enable  */
 
@@ -89,28 +89,28 @@ mock.onGet('/api/teams/list/data').reply(config => {
     200,
     {
       total: filteredData.length,
-      teams: paginateArray(filteredData, perPage, page)
+      clubs: paginateArray(filteredData, perPage, page)
     }
   ]
 })
 
 // GET USER
-mock.onGet('/api/teams/team').reply(config => {
+mock.onGet('/api/clubs/club').reply(config => {
   const { id } = config
-  const team = data.teams.find(i => i.id === id)
-  return [200, { team }]
+  const club = data.clubs.find(i => i.id === id)
+  return [200, { club }]
 })
 
 // DELETE: Deletes User
-mock.onDelete('/apps/teams/delete').reply(config => {
-  // Get team id from URL
-  let teamId = config.id
+mock.onDelete('/apps/clubs/delete').reply(config => {
+  // Get club id from URL
+  let clubId = config.id
 
   // Convert Id to number
-  teamId = Number(teamId)
+  clubId = Number(clubId)
 
-  const teamIndex = data.teams.findIndex(t => t.id === teamId)
-  data.teams.splice(teamIndex, 1)
+  const clubIndex = data.clubs.findIndex(t => t.id === clubId)
+  data.clubs.splice(clubIndex, 1)
 
   return [200]
 })

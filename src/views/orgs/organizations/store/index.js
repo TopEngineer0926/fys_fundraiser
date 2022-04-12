@@ -4,39 +4,66 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 // ** Axios Imports
 import axios from 'axios'
 
-export const getData = createAsyncThunk('appOrganization/getData', async params => {
-  const response = await axios.get('/orgs/organization/organizations', params)
+export const getAllData = createAsyncThunk('appOrganizations/getAllData', async () => {
+  const response = await axios.get('/api/organizations/list/all-data')
+  return response.data
+})
+
+export const getData = createAsyncThunk('appOrganizations/getData', async params => {
+  const response = await axios.get('/api/organizations/list/data', params)
   return {
     params,
     data: response.data.organizations,
-    allData: response.data.allData,
     totalPages: response.data.total
   }
 })
 
-export const deleteOrganization = createAsyncThunk('appOrganization/deleteOrganization', async (id, { dispatch, getState }) => {
-  await axios.delete('/orgs/organization/delete', { id })
-  await dispatch(getData(getState().organization.params))
+export const getOrganization = createAsyncThunk('appOrganizations/getOrganization', async id => {
+  const response = await axios.get('/api/organizations/organization', { id })
+  return response.data.organization 
+})
+
+export const addOrganization = createAsyncThunk('appOrganizations/addOrganization', async (organization, { dispatch, getState }) => {
+  await axios.post('/organizations/add-organization', organization)
+  await dispatch(getData(getState().organizations.params))
+  await dispatch(getAllData())
+  return organization
+})
+
+export const deleteOrganization = createAsyncThunk('appOrganizations/deleteOrganization', async (id, { dispatch, getState }) => {
+  await axios.delete('/organizations/delete', { id })
+  await dispatch(getData(getState().organizations.params))
+  await dispatch(getAllData())
   return id
 })
 
-export const appOrganizationSlice = createSlice({
-  name: 'appOrganization',
+export const appOrganizationsSlice = createSlice({
+  name: 'appOrganizations',
   initialState: {
     data: [],
     total: 1,
     params: {},
-    allData: []
+    allData: [],
+    selectedUser: null
   },
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(getData.fulfilled, (state, action) => {
-      state.data = action.payload.data
-      state.allData = action.payload.allData
-      state.total = action.payload.totalPages
-      state.params = action.payload.params
-    })
+    builder
+      .addCase(getAllData.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.allData = action.payload
+      })
+      .addCase(getData.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.data = action.payload.data
+        state.params = action.payload.params
+        state.total = action.payload.totalPages
+      })
+      .addCase(getOrganization.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.selectedUser = action.payload
+      })
   }
 })
 
-export default appOrganizationSlice.reducer
+export default appOrganizationsSlice.reducer

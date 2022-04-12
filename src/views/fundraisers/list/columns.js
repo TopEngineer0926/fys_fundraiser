@@ -63,7 +63,7 @@ export const columns = [
   },
   {
     name: 'Team(s)',
-    minWidth: '230px',
+    minWidth: '200px',
     sortable: true,
     sortField: 'teams',
     selector: row => row.teams,
@@ -71,7 +71,7 @@ export const columns = [
   },
   {
     name: 'Total Donations',
-    minWidth: '230px',
+    minWidth: '130px',
     sortable: true,
     sortField: 'total_donations',
     selector: row => row.total_donations,
@@ -79,7 +79,7 @@ export const columns = [
   },
   {
     name: 'Actions',
-    minWidth: '200px',
+    minWidth: '250px',
     cell: row => (
       <div className='column-action'>
         <Link to={`/fundraisers/${row.id}`} target="_blank" id={`pw-tooltip-${row.id}`}>

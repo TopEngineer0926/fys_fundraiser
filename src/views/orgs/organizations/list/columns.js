@@ -1,135 +1,180 @@
 // ** React Imports
-import { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
 // ** Custom Components
 import Avatar from '@components/avatar'
 
 // ** Store & Actions
-// import { store } from '@store/store'
-// import { deleteOrganization } from '../store'
+import { store } from '@store/store'
+import { getOrganization, deleteOrganization } from '../store'
+
+// ** Icons Imports
+import { Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2, Archive } from 'react-feather'
 
 // ** Reactstrap Imports
-import {
-  Badge,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  UncontrolledTooltip,
-  UncontrolledDropdown
-} from 'reactstrap'
+import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 
-// ** Third Party Components
-import {
-  Eye,
-  Send,
-  Edit,
-  Copy,
-  Save,
-  Info,
-  Trash,
-  PieChart,
-  Download,
-  TrendingUp,
-  CheckCircle,
-  MoreVertical,
-  ArrowDownCircle
-} from 'react-feather'
-
-// ** renders client column
+// ** Renders Client Columns
 const renderClient = row => {
-  const stateNum = Math.floor(Math.random() * 6),
-    states = ['light-success', 'light-danger', 'light-warning', 'light-info', 'light-primary', 'light-secondary'],
-    color = states[stateNum]
-
   if (row.avatar.length) {
-    return <Avatar className='me-50' img={row.avatar} width='32' height='32' />
+    return <Avatar className='me-1' img={row.avatar} width='32' height='32' />
   } else {
-    return <Avatar color={color} className='me-50' content={row.client ? row.client.name : 'John Doe'} initials />
+    return (
+      <Avatar
+        initials
+        className='me-1'
+        color={row.avatarColor || 'light-primary'}
+        content={row.fullName || 'John Doe'}
+      />
+    )
   }
 }
 
-// ** Table columns
+// ** Renders Role Columns
+const renderRole = row => {
+  const roleObj = {
+    subscriber: {
+      class: 'text-primary',
+      icon: User
+    },
+    maintainer: {
+      class: 'text-success',
+      icon: Database
+    },
+    editor: {
+      class: 'text-info',
+      icon: Edit2
+    },
+    author: {
+      class: 'text-warning',
+      icon: Settings
+    },
+    admin: {
+      class: 'text-danger',
+      icon: Slack
+    }
+  }
+
+  const Icon = roleObj[row.role] ? roleObj[row.role].icon : Edit2
+
+  return (
+    <span className='text-truncate text-capitalize align-middle'>
+      <Icon size={18} className={`${roleObj[row.role] ? roleObj[row.role].class : ''} me-50`} />
+      {row.role}
+    </span>
+  )
+}
+
+const statusObj = {
+  pending: 'light-warning',
+  active: 'light-success',
+  inactive: 'light-secondary'
+}
+
 export const columns = [
   {
-    name: '#',
-    sortable: true,
-    sortField: 'id',
-    maxWidth: '107px',
-    // selector: row => row.id,
-    cell: row => row.id
-  },
-  {
+    name: 'Organization',
     sortable: true,
     minWidth: '300px',
-    name: 'Organization Name',
-    sortField: 'org_name',
-    cell: row => row.org_name,
-    selector: row => row.org_name
-  },
-  {
-    name: 'Primary Contact',
-    sortable: true,
-    minWidth: '250px',
-    sortField: 'client.name',
-    // selector: row => row.client.name,
-    cell: row => {
-      const name = row.client ? row.client.name : 'John Doe',
-        email = row.client ? row.client.companyEmail : 'johnDoe@email.com'
-      return (
-        <div className='d-flex justify-content-left align-items-center'>
-          {renderClient(row)}
-          <div className='d-flex flex-column'>
-            <h6 className='user-name text-truncate mb-0'>{name}</h6>
-            <small className='text-truncate text-muted mb-0'>{email}</small>
-          </div>
-        </div>
-      )
-    }
-  },
-  {
-    sortable: true,
-    minWidth: '200px',
-    name: 'Registration Date',
-    sortField: 'createDate',
-    cell: row => row.createDate
-    // selector: row => row.dueDate
-  },
-  {
-    sortable: true,
-    minWidth: '200px',
-    name: 'Leagues',
-    sortField: 'leagues',
-    cell: row => row.leagues
-    // selector: row => row.dueDate
-  },
-  {
-    sortable: true,
-    minWidth: '200px',
-    name: 'Clubs',
-    sortField: 'clubs',
-    cell: row => row.clubs
-    // selector: row => row.dueDate
-  },
-  {
-    sortable: true,
-    minWidth: '200px',
-    name: 'Teams',
-    sortField: 'teams',
-    cell: row => row.teams
-    // selector: row => row.dueDate
-  },
-  {
-    name: 'Action',
-    minWidth: '110px',
+    sortField: 'fullName',
+    selector: row => row.fullName,
     cell: row => (
-      <div className='column-action d-flex align-items-center'>
-        <Link to={`/orgs/organization/preview/${row.id}`} id={`pw-tooltip-${row.id}`}>
-          <Eye size={17} className='mx-1' />
-        </Link>
-        <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.id}`}>
-          View Public Site
-        </UncontrolledTooltip>
+      <div className='d-flex justify-content-left align-items-center'>
+        {renderClient(row)}
+        <div className='d-flex flex-column'>
+          <Link
+            to={`/organizations/view/${row.id}`}
+            className='user_name text-truncate text-body'
+            onClick={() => store.dispatch(getOrganization(row.id))}
+          >
+            <span className='fw-bolder'>{row.fullName}</span>
+          </Link>
+          <small className='text-truncate text-muted mb-0'>{row.email}</small>
+        </div>
+      </div>
+    )
+  },
+  {
+    name: 'Role',
+    sortable: true,
+    minWidth: '172px',
+    sortField: 'role',
+    selector: row => row.role,
+    cell: row => renderRole(row)
+  },
+  {
+    name: 'Plan',
+    minWidth: '138px',
+    sortable: true,
+    sortField: 'currentPlan',
+    selector: row => row.currentPlan,
+    cell: row => <span className='text-capitalize'>{row.currentPlan}</span>
+  },
+  {
+    name: 'Billing',
+    minWidth: '230px',
+    sortable: true,
+    sortField: 'billing',
+    selector: row => row.billing,
+    cell: row => <span className='text-capitalize'>{row.billing}</span>
+  },
+  {
+    name: 'Organization',
+    minWidth: '230px',
+    sortable: true,
+    sortField: 'organization',
+    selector: row => row.organization,
+    cell: row => <span className='text-capitalize'>{row.organization}</span>
+  },
+  {
+    name: 'Status',
+    minWidth: '138px',
+    sortable: true,
+    sortField: 'status',
+    selector: row => row.status,
+    cell: row => (
+      <Badge className='text-capitalize' color={statusObj[row.status]} pill>
+        {row.status}
+      </Badge>
+    )
+  },
+  {
+    name: 'Actions',
+    minWidth: '100px',
+    cell: row => (
+      <div className='column-action'>
+        <UncontrolledDropdown>
+          <DropdownToggle tag='div' className='btn btn-sm'>
+            <MoreVertical size={14} className='cursor-pointer' />
+          </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem
+              tag={Link}
+              className='w-100'
+              to={`/fundriasers/view/${row.id}`}
+              onClick={() => store.dispatch(getOrganization(row.id))}
+            >
+              <FileText size={14} className='me-50' />
+              <span className='align-middle'>Details</span>
+            </DropdownItem>
+            <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
+              <Archive size={14} className='me-50' />
+              <span className='align-middle'>Edit</span>
+            </DropdownItem>
+            <DropdownItem
+              tag='a'
+              href='/'
+              className='w-100'
+              onClick={e => {
+                e.preventDefault()
+                store.dispatch(deleteOrganization(row.id))
+              }}
+            >
+              <Trash2 size={14} className='me-50' />
+              <span className='align-middle'>Delete</span>
+            </DropdownItem>
+          </DropdownMenu>
+        </UncontrolledDropdown>
       </div>
     )
   }

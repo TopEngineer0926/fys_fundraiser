@@ -271,7 +271,7 @@ const TeamsList = () => {
 
   return (
     <Fragment>
-      <Card>
+      <Card hidden="true">
         <CardHeader>
           <CardTitle tag='h4'>Filters</CardTitle>
         </CardHeader>
@@ -360,6 +360,9 @@ const TeamsList = () => {
       </Card>
 
       <Card className='overflow-hidden'>
+        <CardHeader>
+          <CardTitle tag='h4'>Teams</CardTitle>
+        </CardHeader>
         <div className='react-dataTable'>
           <DataTable
             noHeader

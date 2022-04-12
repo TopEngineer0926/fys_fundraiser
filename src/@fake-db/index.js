@@ -5,6 +5,7 @@ import './pages/faq'
 
 import './orgs/organizations'
 import './orgs/leagues'
+import './orgs/clubs'
 import './orgs/teams'
 import './fundraisers/fundraiser'
 import './campaigns/campaign'

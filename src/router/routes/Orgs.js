@@ -10,9 +10,9 @@ const LeagueList = lazy(() => import('../../views/orgs/leagues/list'))
 const LeagueView = lazy(() => import('../../views/orgs/leagues/view'))
 const LeaguePublicView = lazy(() => import('../../views/orgs/leagues/public'))
 
-const ClubAdd = lazy(() => import('../../views/orgs/clubs/add'))
 const ClubList = lazy(() => import('../../views/orgs/clubs/list'))
-const ClubEdit = lazy(() => import('../../views/orgs/clubs/edit'))
+const ClubView = lazy(() => import('../../views/orgs/clubs/view'))
+const ClubPublicView = lazy(() => import('../../views/orgs/clubs/public'))
 
 const TeamList = lazy(() => import('../../views/orgs/teams/list'))
 const TeamView = lazy(() => import('../../views/orgs/teams/view'))
@@ -59,12 +59,21 @@ const OrgRoutes = [
     path: '/orgs/clubs/list'
   },
   {
-    element: <ClubEdit />,
-    path: '/orgs/clubs/edit/:id'
+    path: '/orgs/clubs/view',
+    element: <Navigate to='/orgs/clubs/view/1' />
   },
   {
-    element: <ClubAdd />,
-    path: '/orgs/clubs/add'
+    path: '/orgs/clubs/:club_slug',
+    element: <ClubPublicView />, 
+    meta: {
+      layout: 'blank',
+      publicRoute: true,
+      restricted: false
+    }
+  },
+  {
+    element: <ClubView />,
+    path: '/orgs/clubs/view/:id'
   },
 
   {

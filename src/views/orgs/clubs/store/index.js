@@ -4,39 +4,66 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 // ** Axios Imports
 import axios from 'axios'
 
-export const getData = createAsyncThunk('appInvoice/getData', async params => {
-  const response = await axios.get('/apps/invoice/invoices', params)
+export const getAllData = createAsyncThunk('appClubs/getAllData', async () => {
+  const response = await axios.get('/api/clubs/list/all-data')
+  return response.data
+})
+
+export const getData = createAsyncThunk('appClubs/getData', async params => {
+  const response = await axios.get('/api/clubs/list/data', params)
   return {
     params,
-    data: response.data.invoices,
-    allData: response.data.allData,
+    data: response.data.clubs,
     totalPages: response.data.total
   }
 })
 
-export const deleteInvoice = createAsyncThunk('appInvoice/deleteInvoice', async (id, { dispatch, getState }) => {
-  await axios.delete('/apps/invoice/delete', { id })
-  await dispatch(getData(getState().invoice.params))
+export const getClub = createAsyncThunk('appClubs/getClub', async id => {
+  const response = await axios.get('/api/clubs/club', { id })
+  return response.data.club 
+})
+
+export const addClub = createAsyncThunk('appClubs/addClub', async (club, { dispatch, getState }) => {
+  await axios.post('/clubs/add-club', club)
+  await dispatch(getData(getState().clubs.params))
+  await dispatch(getAllData())
+  return club
+})
+
+export const deleteClub = createAsyncThunk('appClubs/deleteClub', async (id, { dispatch, getState }) => {
+  await axios.delete('/clubs/delete', { id })
+  await dispatch(getData(getState().clubs.params))
+  await dispatch(getAllData())
   return id
 })
 
-export const appInvoiceSlice = createSlice({
-  name: 'appInvoice',
+export const appClubsSlice = createSlice({
+  name: 'appClubs',
   initialState: {
     data: [],
     total: 1,
     params: {},
-    allData: []
+    allData: [],
+    selectedUser: null
   },
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(getData.fulfilled, (state, action) => {
-      state.data = action.payload.data
-      state.allData = action.payload.allData
-      state.total = action.payload.totalPages
-      state.params = action.payload.params
-    })
+    builder
+      .addCase(getAllData.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.allData = action.payload
+      })
+      .addCase(getData.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.data = action.payload.data
+        state.params = action.payload.params
+        state.total = action.payload.totalPages
+      })
+      .addCase(getClub.fulfilled, (state, action) => {
+        console.log(action.payload)
+        state.selectedUser = action.payload
+      })
   }
 })
 
-export default appInvoiceSlice.reducer
+export default appClubsSlice.reducer

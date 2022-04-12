@@ -84,7 +84,7 @@ const CustomHeader = ({ toggleSidebar, handlePerPage, rowsPerPage, handleFilter,
 
           <div className='d-flex align-items-center table-header-actions'>
             <Button className='add-new-user' color='primary' onClick={toggleSidebar}>
-              Add New League
+              Add New Organization
             </Button>
           </div>
         </Col>
@@ -93,10 +93,10 @@ const CustomHeader = ({ toggleSidebar, handlePerPage, rowsPerPage, handleFilter,
   )
 }
 
-const LeaguesList = () => {
+const OrganizationsList = () => {
   // ** Store Vars
   const dispatch = useDispatch()
-  const store = useSelector(state => state.leagues)
+  const store = useSelector(state => state.organizations)
   
   // ** States
   const [sort, setSort] = useState('desc')
@@ -140,7 +140,7 @@ const LeaguesList = () => {
   ]
 
   const planOptions = [
-    { value: '', label: 'Select League' },
+    { value: '', label: 'Select Organization' },
     { value: 'basic', label: 'Basic' },
     { value: 'company', label: 'Company' },
     { value: 'enterprise', label: 'Enterprise' },
@@ -361,7 +361,7 @@ const LeaguesList = () => {
 
       <Card className='overflow-hidden'>
         <CardHeader>
-          <CardTitle tag='h4'>Leagues</CardTitle>
+          <CardTitle tag='h4'>Organizations</CardTitle>
         </CardHeader>
         <div className='react-dataTable'>
           <DataTable
@@ -396,4 +396,4 @@ const LeaguesList = () => {
   )
 }
 
-export default LeaguesList
+export default OrganizationsList
