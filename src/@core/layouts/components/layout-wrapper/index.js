@@ -1,15 +1,26 @@
+// ** Styles
+import 'animate.css/animate.css'
+
 // ** React Imports
-import { Fragment, useEffect, memo } from 'react'
+import {
+  Fragment,
+  memo,
+  useEffect
+} from 'react'
 
 // ** Third Party Components
 import classnames from 'classnames'
-
 // ** Store & Actions
-import { useSelector, useDispatch } from 'react-redux'
-import { handleContentWidth, handleMenuCollapsed, handleMenuHidden } from '@store/layout'
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux'
 
-// ** Styles
-import 'animate.css/animate.css'
+import {
+  handleContentWidth,
+  handleMenuCollapsed,
+  handleMenuHidden
+} from '@store/layout'
 
 const LayoutWrapper = props => {
   // ** Props

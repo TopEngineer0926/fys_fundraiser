@@ -1,15 +1,14 @@
 // ** Icons Import
 import {
   Box,
-  Mail,
-  User,
-  Circle,
-  Shield,
   Calendar,
-  FileText,
   CheckSquare,
+  Circle,
+  FileText,
+  MessageSquare,
+  Shield,
   ShoppingCart,
-  MessageSquare
+  User
 } from 'react-feather'
 
 export default [

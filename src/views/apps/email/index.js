@@ -1,29 +1,35 @@
+// ** Styles
+import '@styles/react/apps/app-email.scss'
+
+import {
+  Fragment,
+  useEffect,
+  useState
+} from 'react'
+
+// ** Third Party Components
+import classnames from 'classnames'
+// ** Store & Actions
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux'
 // ** React Imports
 import { useParams } from 'react-router-dom'
-import { Fragment, useEffect, useState } from 'react'
 
 // ** Email App Component Imports
 import Mails from './Mails'
 import Sidebar from './Sidebar'
-
-// ** Third Party Components
-import classnames from 'classnames'
-
-// ** Store & Actions
-import { useDispatch, useSelector } from 'react-redux'
 import {
   getMails,
-  selectMail,
-  updateMails,
   paginateMail,
-  selectAllMail,
-  updateMailLabel,
   resetSelectedMail,
-  selectCurrentMail
+  selectAllMail,
+  selectCurrentMail,
+  selectMail,
+  updateMailLabel,
+  updateMails
 } from './store'
-
-// ** Styles
-import '@styles/react/apps/app-email.scss'
 
 const EmailApp = () => {
   // ** States

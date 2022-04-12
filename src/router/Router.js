@@ -2,13 +2,19 @@
 import { lazy } from 'react'
 
 // ** Router imports
-import { useRoutes, Navigate } from 'react-router-dom'
+import {
+  Navigate,
+  useRoutes
+} from 'react-router-dom'
 
 // ** Layouts
 import BlankLayout from '@layouts/BlankLayout'
 
 // ** Utils
-import { getUserData, getHomeRouteForLoggedInUser } from '../utility/Utils'
+import {
+  getHomeRouteForLoggedInUser,
+  getUserData
+} from '../utility/Utils'
 
 // ** Components
 const Error = lazy(() => import('../views/pages/misc/Error'))
