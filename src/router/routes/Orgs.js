@@ -2,9 +2,9 @@
 import { lazy } from 'react'
 import { Navigate } from 'react-router-dom'
 
-const OrganizationAdd = lazy(() => import('../../views/orgs/organizations/add'))
 const OrganizationList = lazy(() => import('../../views/orgs/organizations/list'))
-const OrganizationEdit = lazy(() => import('../../views/orgs/organizations/edit'))
+const OrganizationView = lazy(() => import('../../views/orgs/organizations/view'))
+const OrganizationPublicView = lazy(() => import('../../views/orgs/organizations/public'))
 
 const LeagueList = lazy(() => import('../../views/orgs/leagues/list'))
 const LeagueView = lazy(() => import('../../views/orgs/leagues/view'))
@@ -19,17 +19,28 @@ const TeamView = lazy(() => import('../../views/orgs/teams/view'))
 const TeamPublicView = lazy(() => import('../../views/orgs/teams/public'))
 
 const OrgRoutes = [
+  
+
   {
     element: <OrganizationList />,
     path: '/orgs/organizations/list'
   },
   {
-    element: <OrganizationEdit />,
-    path: '/orgs/organizations/edit/:id'
+    path: '/orgs/organizations/view',
+    element: <Navigate to='/orgs/organizations/view/1' />
   },
   {
-    element: <OrganizationAdd />,
-    path: '/orgs/organizations/add'
+    path: '/orgs/organizations/:org_slug',
+    element: <OrganizationPublicView />, 
+    meta: {
+      layout: 'blank',
+      publicRoute: true,
+      restricted: false
+    }
+  },
+  {
+    element: <OrganizationView />,
+    path: '/orgs/organizations/view/:id'
   },
 
   {
