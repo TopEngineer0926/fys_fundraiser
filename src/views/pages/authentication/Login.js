@@ -138,6 +138,7 @@ const Login = () => {
                     <span className='fw-bold'>Admin:</span> admin@demo.com
                   </small>
                 </p>
+                <br/>
                 <p>
                   <small className='me-50'>
                     <span className='fw-bold'>Organization Admin:</span> client1@demo.com
@@ -161,6 +162,12 @@ const Login = () => {
                 <p>
                   <small className='me-50'>
                     <span className='fw-bold'>Player Admin:</span> client5@demo.com
+                  </small>
+                </p>
+                <p>
+                  <small className='me-50'>
+                    <br/>
+                    <span className='fw-bold'>Password:</span> password
                   </small>
                 </p>
               </div>

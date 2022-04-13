@@ -1,17 +1,30 @@
 // ** React Imports
 import { Fragment } from 'react'
 
+import {
+  ChevronLeft,
+  ChevronRight
+} from 'react-feather'
+import {
+  Controller,
+  useForm
+} from 'react-hook-form'
+// ** Reactstrap Imports
+import {
+  Button,
+  Col,
+  Form,
+  FormFeedback,
+  Input,
+  Label,
+  Row
+} from 'reactstrap'
 // ** Third Party Components
 import * as yup from 'yup'
-import { useForm, Controller } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { ChevronLeft, ChevronRight } from 'react-feather'
-
-// ** Reactstrap Imports
-import { Form, Label, Input, Row, Col, Button, FormFeedback } from 'reactstrap'
 
 // ** Custom Components
 import InputPasswordToggle from '@components/input-password-toggle'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 const defaultValues = {
   email: '',
