@@ -10,7 +10,11 @@ const DashboardRoutes = [
   },
   {
     path: '/dashboard/ecommerce',
-    element: <DashboardEcommerce />
+    element: <DashboardEcommerce />,
+    meta: {
+      action: 'read',
+      resource: 'dashboards'
+    }
   }
 ]
 

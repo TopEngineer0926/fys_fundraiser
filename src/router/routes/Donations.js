@@ -1,5 +1,6 @@
 // ** React Imports
 import { lazy } from 'react'
+
 import { Navigate } from 'react-router-dom'
 
 const DonationList = lazy(() => import('../../views/donations/list'))
@@ -9,7 +10,11 @@ const DonationPublicView = lazy(() => import('../../views/donations/public'))
 const DonationRoutes = [
   {
     element: <DonationList />,
-    path: '/donations/list'
+    path: '/donations/list',
+    meta: {
+      action: 'read',
+      resource: 'donations'
+    }
   },
   {
     path: '/donations/view',

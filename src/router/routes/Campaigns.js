@@ -1,5 +1,6 @@
 // ** React Imports
 import { lazy } from 'react'
+
 import { Navigate } from 'react-router-dom'
 
 const CampaignList = lazy(() => import('../../views/campaigns/list'))
@@ -9,7 +10,11 @@ const CampaignPublicView = lazy(() => import('../../views/campaigns/public'))
 const CampaignRoutes = [
   {
     element: <CampaignList />,
-    path: '/campaigns/list'
+    path: '/campaigns/list',
+    meta: {
+      action: 'read',
+      resource: 'campaigns'
+    }
   },
   {
     path: '/campaigns/view',

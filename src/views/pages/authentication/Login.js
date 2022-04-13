@@ -62,15 +62,15 @@ const ToastContent = ({ t, name, role }) => {
           <h6>{name}</h6>
           <X size={12} className='cursor-pointer' onClick={() => toast.dismiss(t.id)} />
         </div>
-        <span>You have successfully logged in as an {role} user to Vuexy. Now you can start to explore. Enjoy!</span>
+        <span>You have successfully logged in as an {role} user to fYS. Now you can start to explore. Enjoy!</span>
       </div>
     </div>
   )
 }
 
 const defaultValues = {
-  password: 'admin',
-  loginEmail: 'admin@demo.com'
+  password: 'password',
+  loginEmail: 'client1@demo.com'
 }
 
 const Login = () => {
@@ -98,7 +98,7 @@ const Login = () => {
           ability.update(res.data.userData.ability)
           navigate(getHomeRouteForLoggedInUser(data.role))
           toast(t => (
-            <ToastContent t={t} role={data.role || 'admin'} name={data.fullName || data.username || 'John Doe'} />
+            <ToastContent t={t} role={data.role || 'admin'} name={data.fullName || data.username} />
           ))
         })
         .catch(err => console.log(err))
@@ -117,7 +117,7 @@ const Login = () => {
     <div className='auth-wrapper auth-cover'>
       <Row className='auth-inner m-0'>
         <Link className='brand-logo' to='/' onClick={e => e.preventDefault()}>
-          <img src={require('@src/assets/images/logo/FYS-horizontal.png').default} style={{width: "120px", height: "30px"}}></img>
+          <img src={require('@src/assets/images/logo/FYS-horizontal.png').default} style={{width: "auto", height: "30px"}}></img>
           <h2 className='brand-text text-primary ms-1'>fYS</h2>
         </Link>
         <Col className='d-none d-lg-flex align-items-center p-5' lg='8' sm='12'>
@@ -135,12 +135,32 @@ const Login = () => {
               <div className='alert-body font-small-2'>
                 <p>
                   <small className='me-50'>
-                    <span className='fw-bold'>Admin:</span> admin@demo.com | admin
+                    <span className='fw-bold'>Admin:</span> admin@demo.com
                   </small>
                 </p>
                 <p>
                   <small className='me-50'>
-                    <span className='fw-bold'>Client:</span> client@demo.com | client
+                    <span className='fw-bold'>Organization Admin:</span> client1@demo.com
+                  </small>
+                </p>
+                <p>
+                  <small className='me-50'>
+                    <span className='fw-bold'>League Admin:</span> client2@demo.com
+                  </small>
+                </p>
+                <p>
+                  <small className='me-50'>
+                    <span className='fw-bold'>Club Admin:</span> client3@demo.com
+                  </small>
+                </p>
+                <p>
+                  <small className='me-50'>
+                    <span className='fw-bold'>Team Admin:</span> client4@demo.com
+                  </small>
+                </p>
+                <p>
+                  <small className='me-50'>
+                    <span className='fw-bold'>Player Admin:</span> client5@demo.com
                   </small>
                 </p>
               </div>

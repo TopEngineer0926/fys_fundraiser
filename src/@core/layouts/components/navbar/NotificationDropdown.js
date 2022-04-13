@@ -1,16 +1,28 @@
 // ** React Imports
 import { Fragment } from 'react'
 
-// ** Custom Components
-import Avatar from '@components/avatar'
-
 // ** Third Party Components
 import classnames from 'classnames'
+import {
+  AlertTriangle,
+  Bell,
+  Check,
+  X
+} from 'react-feather'
 import PerfectScrollbar from 'react-perfect-scrollbar'
-import { Bell, X, Check, AlertTriangle } from 'react-feather'
-
 // ** Reactstrap Imports
-import { Button, Badge, Input, DropdownMenu, DropdownItem, DropdownToggle, UncontrolledDropdown } from 'reactstrap'
+import {
+  Badge,
+  Button,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Input,
+  UncontrolledDropdown
+} from 'reactstrap'
+
+// ** Custom Components
+import Avatar from '@components/avatar'
 
 const NotificationDropdown = () => {
   // ** Notification Array

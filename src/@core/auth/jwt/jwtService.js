@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 import jwtDefaultConfig from './jwtDefaultConfig'
 
 export default class JwtService {

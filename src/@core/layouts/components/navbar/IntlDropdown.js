@@ -1,9 +1,13 @@
+import ReactCountryFlag from 'react-country-flag'
 // ** Third Party Components
 import { useTranslation } from 'react-i18next'
-import ReactCountryFlag from 'react-country-flag'
-
 // ** Reactstrap Imports
-import { UncontrolledDropdown, DropdownMenu, DropdownItem, DropdownToggle } from 'reactstrap'
+import {
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  UncontrolledDropdown
+} from 'reactstrap'
 
 const IntlDropdown = () => {
   // ** Hooks

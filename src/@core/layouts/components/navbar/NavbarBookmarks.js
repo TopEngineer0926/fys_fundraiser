@@ -1,28 +1,37 @@
-// ** React Imports
-import { Link } from 'react-router-dom'
-import { Fragment, useEffect, useState } from 'react'
+import {
+  Fragment,
+  useEffect,
+  useState
+} from 'react'
 
+import classnames from 'classnames'
 // ** Third Party Components
 import * as Icon from 'react-feather'
-import classnames from 'classnames'
+// ** Store & Actions
+import {
+  useDispatch,
+  useSelector
+} from 'react-redux'
+// ** React Imports
+import { Link } from 'react-router-dom'
+// ** Reactstrap Imports
+import {
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  UncontrolledTooltip
+} from 'reactstrap'
 
 // ** Custom Component
 import Autocomplete from '@components/autocomplete'
-
-// ** Reactstrap Imports
 import {
-  NavItem,
-  NavLink,
-  DropdownMenu,
-  DropdownItem,
-  DropdownToggle,
-  UncontrolledTooltip,
-  UncontrolledDropdown
-} from 'reactstrap'
-
-// ** Store & Actions
-import { useDispatch, useSelector } from 'react-redux'
-import { getBookmarks, updateBookmarked, handleSearchQuery } from '@store/navbar'
+  getBookmarks,
+  handleSearchQuery,
+  updateBookmarked
+} from '@store/navbar'
 
 const NavbarBookmarks = props => {
   // ** Props

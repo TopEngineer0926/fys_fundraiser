@@ -1,17 +1,19 @@
 // ** React Imports
 import { useState } from 'react'
-import { Link, useLocation } from 'react-router-dom'
 
 // ** Third Party Components
 import classnames from 'classnames'
-import { usePopper } from 'react-popper'
 import { useTranslation } from 'react-i18next'
-
-// ** Utils
-import { hasActiveChild } from '@layouts/utils'
+import { usePopper } from 'react-popper'
+import {
+  Link,
+  useLocation
+} from 'react-router-dom'
 
 // ** Hooks
 import { useRTL } from '@hooks/useRTL'
+// ** Utils
+import { hasActiveChild } from '@layouts/utils'
 
 // ** Horizontal Menu Items Component
 import HorizontalNavMenuItems from './HorizontalNavMenuItems'

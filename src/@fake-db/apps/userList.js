@@ -1,5 +1,4 @@
 import mock from '../mock'
-
 // ** Utils
 import { paginateArray } from '../utils'
 

@@ -1,22 +1,13 @@
 // ** Icons Import
-import {
-  Box,
-  Mail,
-  User,
-  Circle,
-  Shield,
-  Calendar,
-  FileText,
-  CheckSquare,
-  ShoppingCart,
-  MessageSquare
-} from 'react-feather'
+import { Box } from 'react-feather'
 
 export default [
   {
     id: 'settings',
     title: 'Settings',
     icon: <Box />,
+    action: 'read',
+    resource: 'settings',
     navLink: '/settings/list'
   }
 ]

@@ -1,11 +1,13 @@
 // ** Icons Import
-import { Home, Activity, ShoppingCart } from 'react-feather'
+import { Home } from 'react-feather'
 
 export default [
   {
     id: 'dashboards',
     title: 'Dashboards',
-    icon: <Home /> //,
+    icon: <Home />,
+    action: 'read',
+    resource: 'dashboards'
     // children: [
     //   {
     //     id: 'analyticsDash',

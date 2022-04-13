@@ -1,20 +1,24 @@
 // ** React Imports
-import { useEffect, useState } from 'react'
+import {
+  useEffect,
+  useState
+} from 'react'
 
 // ** Third Party Components
 import axios from 'axios'
 import classnames from 'classnames'
 import * as Icon from 'react-feather'
-
-// ** Reactstrap Imports
-import { NavItem, NavLink } from 'reactstrap'
-
 // ** Store & Actions
 import { useDispatch } from 'react-redux'
-import { handleSearchQuery } from '@store/navbar'
+// ** Reactstrap Imports
+import {
+  NavItem,
+  NavLink
+} from 'reactstrap'
 
 // ** Custom Components
 import Autocomplete from '@components/autocomplete'
+import { handleSearchQuery } from '@store/navbar'
 
 const NavbarSearch = () => {
   // ** Store Vars
@@ -95,7 +99,7 @@ const NavbarSearch = () => {
             filterKey='title'
             filterHeaderKey='groupTitle'
             grouped={true}
-            placeholder='Explore Vuexy...'
+            placeholder='Explore fYS...'
             autoFocus={true}
             onSuggestionItemClick={handleSuggestionItemClick}
             externalClick={handleExternalClick}

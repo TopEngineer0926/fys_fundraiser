@@ -1,25 +1,38 @@
+import {
+  useEffect,
+  useState
+} from 'react'
+
+// ** Third Party Components
+import {
+  CheckSquare,
+  CreditCard,
+  HelpCircle,
+  Mail,
+  MessageSquare,
+  Power,
+  Settings,
+  User
+} from 'react-feather'
+// ** Store & Actions
+import { useDispatch } from 'react-redux'
 // ** React Imports
 import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+// ** Reactstrap Imports
+import {
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  UncontrolledDropdown
+} from 'reactstrap'
 
 // ** Custom Components
 import Avatar from '@components/avatar'
-
-// ** Utils
-import { isUserLoggedIn } from '@utils'
-
-// ** Store & Actions
-import { useDispatch } from 'react-redux'
-import { handleLogout } from '@store/authentication'
-
-// ** Third Party Components
-import { User, Mail, CheckSquare, MessageSquare, Settings, CreditCard, HelpCircle, Power } from 'react-feather'
-
-// ** Reactstrap Imports
-import { UncontrolledDropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap'
-
 // ** Default Avatar Image
 import defaultAvatar from '@src/assets/images/portrait/small/avatar-s-11.jpg'
+import { handleLogout } from '@store/authentication'
+// ** Utils
+import { isUserLoggedIn } from '@utils'
 
 const UserDropdown = () => {
   // ** Store Vars

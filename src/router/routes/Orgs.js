@@ -1,5 +1,6 @@
 // ** React Imports
 import { lazy } from 'react'
+
 import { Navigate } from 'react-router-dom'
 
 const OrganizationList = lazy(() => import('../../views/orgs/organizations/list'))
@@ -23,7 +24,11 @@ const OrgRoutes = [
 
   {
     element: <OrganizationList />,
-    path: '/orgs/organizations/list'
+    path: '/orgs/organizations/list',
+    meta: {
+      action: 'read',
+      resource: 'org-organizations'
+    }
   },
   {
     path: '/orgs/organizations/view',
@@ -45,7 +50,11 @@ const OrgRoutes = [
 
   {
     element: <LeagueList />,
-    path: '/orgs/leagues/list'
+    path: '/orgs/leagues/list',
+    meta: {
+      action: 'read',
+      resource: 'org-leagues'
+    }
   },
   {
     path: '/orgs/leagues/view',
@@ -67,7 +76,11 @@ const OrgRoutes = [
 
   {
     element: <ClubList />,
-    path: '/orgs/clubs/list'
+    path: '/orgs/clubs/list',
+    meta: {
+      action: 'read',
+      resource: 'org-clubs'
+    }
   },
   {
     path: '/orgs/clubs/view',
@@ -89,7 +102,11 @@ const OrgRoutes = [
 
   {
     element: <TeamList />,
-    path: '/orgs/teams/list'
+    path: '/orgs/teams/list',
+    meta: {
+      action: 'read',
+      resource: 'org-teams'
+    }
   },
   {
     path: '/orgs/teams/view',

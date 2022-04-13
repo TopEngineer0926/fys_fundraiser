@@ -1,16 +1,17 @@
-import mock from '../mock'
 import jwt from 'jsonwebtoken'
+
+import mock from '../mock'
 
 const data = {
   users: [
     {
       id: 1,
-      fullName: 'John Doe',
-      username: 'johndoe',
-      password: 'admin',
+      fullName: 'Admin',
+      username: 'Admin',
+      password: 'password',
       avatar: require('@src/assets/images/portrait/small/avatar-s-11.jpg').default,
       email: 'admin@demo.com',
-      role: 'admin',
+      role: 'Admin',
       ability: [
         {
           action: 'manage',
@@ -23,12 +24,12 @@ const data = {
     },
     {
       id: 2,
-      fullName: 'Jane Doe',
-      username: 'janedoe',
-      password: 'client',
-      avatar: require('@src/assets/images/avatars/1-small.png').default,
-      email: 'client@demo.com',
-      role: 'client',
+      fullName: 'Organization Admin',
+      username: 'Organization Admin',
+      password: 'password',
+      avatar: require('@src/assets/images/portrait/small/avatar-s-11.jpg').default,
+      email: 'client1@demo.com',
+      role: 'Organization Admin',
       ability: [
         {
           action: 'read',
@@ -36,12 +37,188 @@ const data = {
         },
         {
           action: 'read',
-          subject: 'Auth'
+          subject: 'dashboards'
+        },
+        {
+          action: 'read',
+          subject: 'campaigns'
+        },
+        {
+          action: 'read',
+          subject: 'fundraisers'
+        },
+        {
+          action: 'read',
+          subject: 'reports'
+        },
+        {
+          action: 'read',
+          subject: 'org-organizations'
+        },
+        {
+          action: 'read',
+          subject: 'org-leagues'
+        },
+        {
+          action: 'read',
+          subject: 'org-clubs'
+        },
+        {
+          action: 'read',
+          subject: 'org-teams'
         }
       ],
       extras: {
         eCommerceCartItemsCount: 5
       }
+    },
+    {
+      id: 3,
+      fullName: 'League Admin',
+      username: 'League Admin',
+      password: 'password',
+      avatar: require('@src/assets/images/portrait/small/avatar-s-11.jpg').default,
+      email: 'client2@demo.com',
+      role: 'League Admin',
+      ability: [
+        {
+          action: 'read',
+          subject: 'ACL'
+        },
+        {
+          action: 'read',
+          subject: 'dashboards'
+        },
+        {
+          action: 'read',
+          subject: 'campaigns'
+        },
+        {
+          action: 'read',
+          subject: 'fundraisers'
+        },
+        {
+          action: 'read',
+          subject: 'reports'
+        },
+        {
+          action: 'read',
+          subject: 'org-leagues'
+        },
+        {
+          action: 'read',
+          subject: 'org-clubs'
+        },
+        {
+          action: 'read',
+          subject: 'org-teams'
+        }
+      ]
+    },
+    {
+      id: 4,
+      fullName: 'Club Admin',
+      username: 'Club Admin',
+      password: 'password',
+      avatar: require('@src/assets/images/portrait/small/avatar-s-11.jpg').default,
+      email: 'client3@demo.com',
+      role: 'Club Admin',
+      ability: [
+        {
+          action: 'read',
+          subject: 'ACL'
+        },
+        {
+          action: 'read',
+          subject: 'dashboards'
+        },
+        {
+          action: 'read',
+          subject: 'campaigns'
+        },
+        {
+          action: 'read',
+          subject: 'fundraisers'
+        },
+        {
+          action: 'read',
+          subject: 'reports'
+        },
+        {
+          action: 'read',
+          subject: 'org-clubs'
+        },
+        {
+          action: 'read',
+          subject: 'org-teams'
+        }
+      ]
+    },
+    {
+      id: 5,
+      fullName: 'Team Admin',
+      username: 'Team Admin',
+      password: 'password',
+      avatar: require('@src/assets/images/portrait/small/avatar-s-11.jpg').default,
+      email: 'client4@demo.com',
+      role: 'Team Admin',
+      ability: [
+        {
+          action: 'read',
+          subject: 'ACL'
+        },
+        {
+          action: 'read',
+          subject: 'donations'
+        },
+        {
+          action: 'read',
+          subject: 'dashboards'
+        },
+        {
+          action: 'read',
+          subject: 'campaigns'
+        },
+        {
+          action: 'read',
+          subject: 'fundraisers'
+        },
+        {
+          action: 'read',
+          subject: 'reports'
+        },
+        {
+          action: 'read',
+          subject: 'org-teams'
+        }
+      ]
+    },
+    {
+      id: 6,
+      fullName: 'Player',
+      username: 'Player',
+      password: 'password',
+      avatar: require('@src/assets/images/portrait/small/avatar-s-11.jpg').default,
+      email: 'client5@demo.com',
+      role: 'Player',
+      ability: [
+        {
+          action: 'read',
+          subject: 'ACL'
+        },
+        {
+          action: 'read',
+          subject: 'campaigns'
+        },
+        {
+          action: 'read',
+          subject: 'fundraisers'
+        },
+        {
+          action: 'read',
+          subject: 'donations'
+        }
+      ]
     }
   ]
 }
