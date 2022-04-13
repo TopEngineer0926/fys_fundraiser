@@ -69,8 +69,13 @@ const ToastContent = ({ t, name, role }) => {
 }
 
 const defaultValues = {
+<<<<<<< HEAD
   password: 'password',
   loginEmail: 'client1@demo.com'
+=======
+  password: '',
+  loginEmail: ''
+>>>>>>> 31c085a77a06b64fa0b4152a42e27185863e6ba8
 }
 
 const Login = () => {
@@ -125,10 +130,10 @@ const Login = () => {
             <img className='img-fluid' src={source} alt='Login Cover' />
           </div>
         </Col>
-        <Col className='d-flex align-items-center auth-bg px-2 p-lg-5' lg='4' sm='12'>
+        <Col className='d-flex align-items-center auth-bg px-2 p-lg-6' lg='4' sm='12'>
           <Col className='px-xl-2 mx-auto' sm='8' md='6' lg='12'>
             <CardTitle tag='h2' className='fw-bold mb-1'>
-              Welcome to fYS! 👋
+              Welcome to FundYouthSports! 👋
             </CardTitle>
             <CardText className='mb-2'>Please sign-in to your account and start the adventure</CardText>
             <Alert color='primary'>
