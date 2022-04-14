@@ -2,7 +2,7 @@
 import '@styles/react/pages/page-authentication.scss'
 
 // ** React Imports
-import { useContext } from 'react'
+import axios from 'axios'
 
 import {
   Facebook,
@@ -15,8 +15,6 @@ import {
   Controller,
   useForm
 } from 'react-hook-form'
-// ** Store & Actions
-import { useDispatch } from 'react-redux'
 import {
   Link,
   useNavigate
@@ -38,10 +36,6 @@ import {
 import InputPasswordToggle from '@components/input-password-toggle'
 // ** Custom Hooks
 import { useSkin } from '@hooks/useSkin'
-import useJwt from '@src/auth/jwt/useJwt'
-// ** Context
-import { AbilityContext } from '@src/utility/context/Can'
-import { handleLogin } from '@store/authentication'
 
 const defaultValues = {
   email: '',
@@ -52,10 +46,8 @@ const defaultValues = {
 
 const Register = () => {
   // ** Hooks
-  const ability = useContext(AbilityContext)
   const { skin } = useSkin()
   const navigate = useNavigate()
-  const dispatch = useDispatch()
   const {
     control,
     setError,
@@ -69,24 +61,22 @@ const Register = () => {
   const onSubmit = data => {
     const tempData = { ...data }
     delete tempData.terms
-    if (Object.values(tempData).every(field => field.length > 0) && data.terms === true) {
-      const { username, email, password } = data
-      useJwt
-        .register({ username, email, password })
+
+    if (Object.values(tempData).every(field => field.length > 0)) {
+      axios
+        .post(`https://fys-api.herokuapp.com/api/v1/entrance/user`, {
+          email: data.email,
+          username: data.username,
+          password: data.password
+        })
         .then(res => {
-          if (res.data.error) {
-            for (const property in res.data.error) {
-              if (res.data.error[property] !== null) {
-                setError(property, {
-                  type: 'manual',
-                  message: res.data.error[property]
-                })
-              }
-            }
+          debugger
+          if (res.data.hasError) {
+            setError(property, {
+              type: 'manual',
+              message: res.data.message
+            })
           } else {
-            const data = { ...res.data.user, accessToken: res.data.accessToken }
-            ability.update(res.data.user.ability)
-            dispatch(handleLogin(data))
             navigate('/')
           }
         })

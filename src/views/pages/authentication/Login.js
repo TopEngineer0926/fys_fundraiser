@@ -3,6 +3,7 @@ import '@styles/react/pages/page-authentication.scss'
 
 // ** React Imports
 import { useContext } from 'react'
+import axios from 'axios'
 
 import {
   Coffee,
@@ -43,7 +44,6 @@ import Avatar from '@components/avatar'
 import InputPasswordToggle from '@components/input-password-toggle'
 // ** Custom Hooks
 import { useSkin } from '@hooks/useSkin'
-import useJwt from '@src/auth/jwt/useJwt'
 // ** Context
 import { AbilityContext } from '@src/utility/context/Can'
 // ** Actions
@@ -90,9 +90,12 @@ const Login = () => {
 
   const onSubmit = data => {
     if (Object.values(data).every(field => field.length > 0)) {
-      useJwt
-        .login({ email: data.loginEmail, password: data.password })
+      axios.post(`https://fys-api.herokuapp.com/api/v1/login`, {
+          email:  data.loginEmail,
+          password: data.password
+        })
         .then(res => {
+          debugger
           const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
           dispatch(handleLogin(data))
           ability.update(res.data.userData.ability)
