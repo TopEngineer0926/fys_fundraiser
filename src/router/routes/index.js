@@ -1,35 +1,32 @@
 // ** React Imports
 import { Fragment } from 'react'
 
-// ** Routes Imports
-import OrgRoutes from './Orgs'
-import FundraiserRoutes from './Fundraisers'
-import CampaignRoutes from './Campaigns'
-import DonationRoutes from './Donations'
-
-import AppRoutes from './Apps'
-import FormRoutes from './Forms'
-import PagesRoutes from './Pages'
-import TablesRoutes from './Tables'
-import ChartsRoutes from './Charts'
-import DashboardRoutes from './Dashboards'
-import UiElementRoutes from './UiElements'
-import ExtensionsRoutes from './Extensions'
-import PageLayoutsRoutes from './PageLayouts'
-import AuthenticationRoutes from './Authentication'
-
-// ** Layouts
-import BlankLayout from '@layouts/BlankLayout'
-import VerticalLayout from '@src/layouts/VerticalLayout'
-import HorizontalLayout from '@src/layouts/HorizontalLayout'
-import LayoutWrapper from '@src/@core/layouts/components/layout-wrapper'
-
+import PrivateRoute from '@components/routes/PrivateRoute'
 // ** Route Components
 import PublicRoute from '@components/routes/PublicRoute'
-import PrivateRoute from '@components/routes/PrivateRoute'
-
+// ** Layouts
+import BlankLayout from '@layouts/BlankLayout'
+import LayoutWrapper from '@src/@core/layouts/components/layout-wrapper'
+import HorizontalLayout from '@src/layouts/HorizontalLayout'
+import VerticalLayout from '@src/layouts/VerticalLayout'
 // ** Utils
 import { isObjEmpty } from '@utils'
+
+import AppRoutes from './Apps'
+import AuthenticationRoutes from './Authentication'
+import CampaignRoutes from './Campaigns'
+import ChartsRoutes from './Charts'
+import DashboardRoutes from './Dashboards'
+import DonationRoutes from './Donations'
+import ExtensionsRoutes from './Extensions'
+import FormRoutes from './Forms'
+import FundraiserRoutes from './Fundraisers'
+// ** Routes Imports
+import OrgRoutes from './Orgs'
+import PageLayoutsRoutes from './PageLayouts'
+import PagesRoutes from './Pages'
+import TablesRoutes from './Tables'
+import UiElementRoutes from './UiElements'
 
 const getLayout = {
   blank: <BlankLayout />,
@@ -132,4 +129,4 @@ const getRoutes = layout => {
   return AllRoutes
 }
 
-export { DefaultRoute, TemplateTitle, Routes, getRoutes }
+export { DefaultRoute, getRoutes, Routes, TemplateTitle }

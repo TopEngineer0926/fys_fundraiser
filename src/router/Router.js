@@ -21,6 +21,11 @@ const Error = lazy(() => import('../views/pages/misc/Error'))
 const Login = lazy(() => import('../views/pages/authentication/Login'))
 const NotAuthorized = lazy(() => import('../views/pages/misc/NotAuthorized'))
 
+const PublicHome = lazy(() => import('../views/public-pages/Home'))
+const PublicLandingPage = lazy(() => import('../views/public-pages/LandingPage'))
+const PublicDonationForm = lazy(() => import('../views/public-pages/DonationForm'))
+const PublicThankYou = lazy(() => import('../views/public-pages/ThankYou'))
+
 const Router = ({ allRoutes }) => {
   const getHomeRoute = () => {
     const user = getUserData()
@@ -32,6 +37,16 @@ const Router = ({ allRoutes }) => {
   }
 
   const routes = useRoutes([
+    {
+      path: '/public',
+      element: <BlankLayout />,
+      children: [
+        { path: '/public', element: <PublicHome />},
+        { path: '/public/landingpage', element: <PublicLandingPage />},
+        { path: '/public/donationform', element: <PublicDonationForm />},
+        { path: '/public/thankyou', element: <PublicThankYou />}
+      ]
+    },
     {
       path: '/',
       index: true,

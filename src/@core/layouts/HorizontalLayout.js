@@ -137,7 +137,7 @@ const HorizontalLayout = props => {
         })}
       >
         {!navbar && (
-          <div className='navbar-header d-xl-block d-none'>
+          <div className='navbar-header d-xl-block d-none'style={{left: "1rem"}}>
             <ul className='nav navbar-nav'>
               <NavItem>
                 <Link to='/' className='navbar-brand'>
