@@ -69,8 +69,8 @@ const ToastContent = ({ t, name, role }) => {
 }
 
 const defaultValues = {
-  password: 'password',
-  loginEmail: 'client1@demo.com'
+  password: '',
+  loginEmail: ''
 }
 
 const Login = () => {
@@ -118,7 +118,7 @@ const Login = () => {
       <Row className='auth-inner m-0'>
         <Link className='brand-logo' to='/' onClick={e => e.preventDefault()}>
           <img src={require('@src/assets/images/logo/FYS-horizontal.png').default} style={{width: "auto", height: "30px"}}></img>
-          <h2 className='brand-text text-primary ms-1'>fYS</h2>
+          <h2 className='brand-text text-primary ms-1'>Fundraiser Console</h2>
         </Link>
         <Col className='d-none d-lg-flex align-items-center p-5' lg='8' sm='12'>
           <div className='w-100 d-lg-flex align-items-center justify-content-center px-5'>
@@ -130,57 +130,7 @@ const Login = () => {
             <CardTitle tag='h2' className='fw-bold mb-1'>
               Welcome to FundYouthSports! 👋
             </CardTitle>
-            <CardText className='mb-2'>Please sign-in to your account and start the adventure</CardText>
-            <Alert color='primary'>
-              <div className='alert-body font-small-2'>
-                <p>
-                  <small className='me-50'>
-                    <span className='fw-bold'>Admin:</span> admin@demo.com
-                  </small>
-                </p>
-                <br/>
-                <p>
-                  <small className='me-50'>
-                    <span className='fw-bold'>Organization Admin:</span> client1@demo.com
-                  </small>
-                </p>
-                <p>
-                  <small className='me-50'>
-                    <span className='fw-bold'>League Admin:</span> client2@demo.com
-                  </small>
-                </p>
-                <p>
-                  <small className='me-50'>
-                    <span className='fw-bold'>Club Admin:</span> client3@demo.com
-                  </small>
-                </p>
-                <p>
-                  <small className='me-50'>
-                    <span className='fw-bold'>Team Admin:</span> client4@demo.com
-                  </small>
-                </p>
-                <p>
-                  <small className='me-50'>
-                    <span className='fw-bold'>Player Admin:</span> client5@demo.com
-                  </small>
-                </p>
-                <p>
-                  <small className='me-50'>
-                    <br/>
-                    <span className='fw-bold'>Password:</span> password
-                  </small>
-                </p>
-              </div>
-              <HelpCircle
-                id='login-tip'
-                className='position-absolute'
-                size={18}
-                style={{ top: '10px', right: '10px' }}
-              />
-              <UncontrolledTooltip target='login-tip' placement='left'>
-                This is just for ACL demo purpose.
-              </UncontrolledTooltip>
-            </Alert>
+            <CardText className='mb-2'>Please sign-in to manage your campaigns.</CardText>
             <Form className='auth-login-form mt-2' onSubmit={handleSubmit(onSubmit)}>
               <div className='mb-1'>
                 <Label className='form-label' for='login-email'>

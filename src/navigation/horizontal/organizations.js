@@ -8,7 +8,7 @@ import {
 export default [
   {
     id: 'orgs',
-    title: 'Organizations',
+    title: 'Fundraising Entities',
     icon: <Box />,
     children: [
       {
