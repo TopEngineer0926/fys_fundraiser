@@ -40,22 +40,6 @@ const statusOptions = [
   { value: 'suspended', label: 'Suspended' }
 ]
 
-const countryOptions = [
-  { value: 'uk', label: 'UK' },
-  { value: 'usa', label: 'USA' },
-  { value: 'france', label: 'France' },
-  { value: 'russia', label: 'Russia' },
-  { value: 'canada', label: 'Canada' }
-]
-
-const languageOptions = [
-  { value: 'english', label: 'English' },
-  { value: 'spanish', label: 'Spanish' },
-  { value: 'french', label: 'French' },
-  { value: 'german', label: 'German' },
-  { value: 'dutch', label: 'Dutch' }
-]
-
 const MySwal = withReactContent(Swal)
 
 const UserInfoCard = ({ selectedUser }) => {
@@ -72,8 +56,8 @@ const UserInfoCard = ({ selectedUser }) => {
   } = useForm({
     defaultValues: {
       username: selectedUser.username,
-      lastName: selectedUser.fullName.split(' ')[1],
-      firstName: selectedUser.fullName.split(' ')[0]
+      lastName: selectedUser.primary_contact.last_name,
+      firstName: selectedUser.primary_contact.first_name
     }
   })
 
@@ -95,7 +79,7 @@ const UserInfoCard = ({ selectedUser }) => {
           initials
           color={selectedUser.avatarColor || 'light-primary'}
           className='rounded mt-3 mb-2'
-          content={selectedUser.fullName}
+          content={selectedUser.primary_contact.full_name}
           contentStyles={{
             borderRadius: 0,
             fontSize: 'calc(48px)',
@@ -128,43 +112,8 @@ const UserInfoCard = ({ selectedUser }) => {
   const handleReset = () => {
     reset({
       username: selectedUser.username,
-      lastName: selectedUser.fullName.split(' ')[1],
-      firstName: selectedUser.fullName.split(' ')[0]
-    })
-  }
-
-  const handleSuspendedClick = () => {
-    return MySwal.fire({
-      title: 'Are you sure?',
-      text: "You won't be able to revert user!",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Yes, Suspend user!',
-      customClass: {
-        confirmButton: 'btn btn-primary',
-        cancelButton: 'btn btn-outline-danger ms-1'
-      },
-      buttonsStyling: false
-    }).then(function (result) {
-      if (result.value) {
-        MySwal.fire({
-          icon: 'success',
-          title: 'Suspended!',
-          text: 'User has been suspended.',
-          customClass: {
-            confirmButton: 'btn btn-success'
-          }
-        })
-      } else if (result.dismiss === MySwal.DismissReason.cancel) {
-        MySwal.fire({
-          title: 'Cancelled',
-          text: 'Cancelled Suspension :)',
-          icon: 'error',
-          customClass: {
-            confirmButton: 'btn btn-success'
-          }
-        })
-      }
+      lastName: selectedUser.primary_contact.last_name,
+      firstName: selectedUser.primary_contact.first_name
     })
   }
 
@@ -177,7 +126,7 @@ const UserInfoCard = ({ selectedUser }) => {
               {renderUserImg()}
               <div className='d-flex flex-column align-items-center text-center'>
                 <div className='user-info'>
-                  <h4>{selectedUser !== null ? selectedUser.fullName : 'Eleanor Aguilar'}</h4>
+                  <h4>{selectedUser !== null ? selectedUser.primary_contact.full_name : 'Eleanor Aguilar'}</h4>
                   {selectedUser !== null ? (
                     <Badge color={roleColors[selectedUser.role]} className='text-capitalize'>
                       {selectedUser.role}
@@ -217,7 +166,7 @@ const UserInfoCard = ({ selectedUser }) => {
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Billing Email:</span>
-                  <span>{selectedUser.email}</span>
+                  <span>{selectedUser.primary_contact.email}</span>
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Status:</span>
@@ -225,35 +174,12 @@ const UserInfoCard = ({ selectedUser }) => {
                     {selectedUser.status}
                   </Badge>
                 </li>
-                <li className='mb-75'>
-                  <span className='fw-bolder me-25'>Role:</span>
-                  <span className='text-capitalize'>{selectedUser.role}</span>
-                </li>
-                <li className='mb-75'>
-                  <span className='fw-bolder me-25'>Tax ID:</span>
-                  <span>Tax-{selectedUser.contact.substr(selectedUser.contact.length - 4)}</span>
-                </li>
-                <li className='mb-75'>
-                  <span className='fw-bolder me-25'>Contact:</span>
-                  <span>{selectedUser.contact}</span>
-                </li>
-                <li className='mb-75'>
-                  <span className='fw-bolder me-25'>Language:</span>
-                  <span>English</span>
-                </li>
-                <li className='mb-75'>
-                  <span className='fw-bolder me-25'>Country:</span>
-                  <span>England</span>
-                </li>
               </ul>
             ) : null}
           </div>
           <div className='d-flex justify-content-center pt-2'>
             <Button color='primary' onClick={() => setShow(true)}>
               Edit
-            </Button>
-            <Button className='ms-1' color='danger' outline onClick={handleSuspendedClick}>
-              Suspended
             </Button>
           </div>
         </CardBody>
@@ -333,68 +259,6 @@ const UserInfoCard = ({ selectedUser }) => {
                   theme={selectThemeColors}
                   defaultValue={statusOptions[statusOptions.findIndex(i => i.value === selectedUser.status)]}
                 />
-              </Col>
-              <Col md={6} xs={12}>
-                <Label className='form-label' for='tax-id'>
-                  Tax ID
-                </Label>
-                <Input
-                  id='tax-id'
-                  placeholder='Tax-1234'
-                  defaultValue={selectedUser.contact.substr(selectedUser.contact.length - 4)}
-                />
-              </Col>
-              <Col md={6} xs={12}>
-                <Label className='form-label' for='contact'>
-                  Contact
-                </Label>
-                <Input id='contact' defaultValue={selectedUser.contact} placeholder='+1 609 933 4422' />
-              </Col>
-              <Col md={6} xs={12}>
-                <Label className='form-label' for='language'>
-                  language
-                </Label>
-                <Select
-                  id='language'
-                  isClearable={false}
-                  className='react-select'
-                  classNamePrefix='select'
-                  options={languageOptions}
-                  theme={selectThemeColors}
-                  defaultValue={languageOptions[0]}
-                />
-              </Col>
-              <Col md={6} xs={12}>
-                <Label className='form-label' for='country'>
-                  Country
-                </Label>
-                <Select
-                  id='country'
-                  isClearable={false}
-                  className='react-select'
-                  classNamePrefix='select'
-                  options={countryOptions}
-                  theme={selectThemeColors}
-                  defaultValue={countryOptions[0]}
-                />
-              </Col>
-              <Col xs={12}>
-                <div className='d-flex align-items-center mt-1'>
-                  <div className='form-switch'>
-                    <Input type='switch' defaultChecked id='billing-switch' name='billing-switch' />
-                    <Label className='form-check-label' htmlFor='billing-switch'>
-                      <span className='switch-icon-left'>
-                        <Check size={14} />
-                      </span>
-                      <span className='switch-icon-right'>
-                        <X size={14} />
-                      </span>
-                    </Label>
-                  </div>
-                  <Label className='form-check-label fw-bolder' for='billing-switch'>
-                    Use as a billing address?
-                  </Label>
-                </div>
               </Col>
               <Col xs={12} className='text-center mt-2 pt-50'>
                 <Button type='submit' className='me-1' color='primary'>

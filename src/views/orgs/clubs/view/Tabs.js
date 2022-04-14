@@ -21,41 +21,31 @@ const UserTabs = ({ active, toggleTab }) => {
         <NavItem>
           <NavLink active={active === '1'} onClick={() => toggleTab('1')}>
             <User className='font-medium-3 me-50' />
-            <span className='fw-bold'>Fundraising Details</span>
+            <span className='fw-bold'>Teams</span>
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink active={active === '2'} onClick={() => toggleTab('2')}>
             <Lock className='font-medium-3 me-50' />
-            <span className='fw-bold'>Contacts</span>
+            <span className='fw-bold'>Campaigns</span>
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink active={active === '3'} onClick={() => toggleTab('3')}>
             <Lock className='font-medium-3 me-50' />
-            <span className='fw-bold'>Security</span>
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink active={active === '4'} onClick={() => toggleTab('4')}>
-            <Bell className='font-medium-3 me-50' />
-            <span className='fw-bold'>Notifications</span>
+            <span className='fw-bold'>Users</span>
           </NavLink>
         </NavItem>
       </Nav>
       <TabContent activeTab={active}>
         <TabPane tabId='1'>
           <FundraiserTeamsList />
-          <InvoiceList />
         </TabPane>
         <TabPane tabId='2'>
           <ContactList />
         </TabPane>
         <TabPane tabId='3'>
           <SecurityTab />
-        </TabPane>
-        <TabPane tabId='4'>
-          <Notifications />
         </TabPane>
       </TabContent>
     </Fragment>

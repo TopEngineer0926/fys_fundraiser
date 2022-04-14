@@ -360,7 +360,7 @@ const ClubsList = () => {
       </Card>
 
       <Card className='overflow-hidden'>
-        <CardHeader tag='h4'>Clubs</CardHeader>
+        <CardHeader tag='h4'>Chapters</CardHeader>
         <div className='react-dataTable'>
           <DataTable
             noHeader

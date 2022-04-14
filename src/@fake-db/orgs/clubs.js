@@ -7,33 +7,35 @@ const data = {
   clubs: [
     {
       id: 4987,
-      clubName: 'Clemson Tigers', 
-      issuedDate: '13 Dec 2019',
+      org_name: 'Clemson Tigers', 
+      createdOn: '13 Dec 2019',
       primary_contact: {
         email_address: 'don85@johnson.com',
-        city: 'Clemson', 
-        state: 'South Carolina', 
         phone: '(616) 865-4180',
-        name: 'Jordan Stevenson'
+        first_name: 'Jordan', 
+        last_name: 'Stevenson', 
+        full_name: 'Jordan Stevenson'
       },
+      active_campaigns: 1, 
       total_donations: 4354, 
-      avatar: require('@src/assets/images/avatars/10-small.png').default,
-      createDate: '23 Apr 2019'
+      status: 'active',
+      avatar: require('@src/assets/images/avatars/10-small.png').default
     },
     {
-      id: 4988,
-      clubName: 'San Diego State', 
-      issuedDate: '13 Dec 2019',
+      id: 4987,
+      org_name: 'Oregon Ducks', 
+      createdOn: '13 Dec 2019',
       primary_contact: {
         email_address: 'don85@johnson.com',
-        city: 'San Diego', 
-        state: 'California', 
         phone: '(616) 865-4180',
-        name: 'Jordan Stevenson'
+        first_name: 'Matt', 
+        last_name: 'Dool', 
+        full_name: 'Matt Dool'
       },
+      active_campaigns: 1, 
       total_donations: 4354, 
-      avatar: require('@src/assets/images/avatars/9-small.png').default,
-      createDate: '23 Apr 2019'
+      status: 'active',
+      avatar: require('@src/assets/images/avatars/10-small.png').default
     }
   ]
 }

@@ -30,41 +30,6 @@ const renderClient = row => {
   }
 }
 
-// ** Renders Role Columns
-const renderRole = row => {
-  const roleObj = {
-    subscriber: {
-      class: 'text-primary',
-      icon: User
-    },
-    maintainer: {
-      class: 'text-success',
-      icon: Database
-    },
-    editor: {
-      class: 'text-info',
-      icon: Edit2
-    },
-    author: {
-      class: 'text-warning',
-      icon: Settings
-    },
-    admin: {
-      class: 'text-danger',
-      icon: Slack
-    }
-  }
-
-  const Icon = roleObj[row.role] ? roleObj[row.role].icon : Edit2
-
-  return (
-    <span className='text-truncate text-capitalize align-middle'>
-      <Icon size={18} className={`${roleObj[row.role] ? roleObj[row.role].class : ''} me-50`} />
-      {row.role}
-    </span>
-  )
-}
-
 const statusObj = {
   pending: 'light-warning',
   active: 'light-success',
@@ -72,59 +37,61 @@ const statusObj = {
 }
 
 export const columns = [
+  
   {
-    name: 'Club',
+    name: 'Chapter Name',
+    minWidth: '250px',
+    sortable: true,
+    sortField: 'org_name',
+    className: 'fw-bolder',
+    selector: row => row.org_name,
+    cell: row => <span className='text-capitalize'>{row.org_name}</span>
+  },
+  {
+    name: 'Primary Contact',
     sortable: true,
     minWidth: '300px',
-    sortField: 'fullName',
-    selector: row => row.fullName,
+    sortField: 'primary_contact.last_name',
+    selector: row => row.primary_contact.full_name,
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
         {renderClient(row)}
         <div className='d-flex flex-column'>
           <Link
-            to={`/clubs/view/${row.id}`}
+            to={`/orgs/clubs/view/${row.id}`}
             className='user_name text-truncate text-body'
             onClick={() => store.dispatch(getClub(row.id))}
           >
-            <span className='fw-bolder'>{row.fullName}</span>
+            <span className='fw-bolder'>{row.primary_contact.full_name}</span>
           </Link>
-          <small className='text-truncate text-muted mb-0'>{row.email}</small>
+          <small className='text-truncate text-muted mb-0'>{row.primary_contact.email_address}</small>
         </div>
       </div>
     )
   },
   {
-    name: 'Role',
-    sortable: true,
-    minWidth: '172px',
-    sortField: 'role',
-    selector: row => row.role,
-    cell: row => renderRole(row)
-  },
-  {
-    name: 'Plan',
+    name: 'Phone Number',
     minWidth: '138px',
     sortable: true,
-    sortField: 'currentPlan',
-    selector: row => row.currentPlan,
-    cell: row => <span className='text-capitalize'>{row.currentPlan}</span>
+    sortField: 'primary_contact.phone',
+    selector: row => row.primary_contact.phone,
+    cell: row => <span className='text-capitalize'>{row.primary_contact.phone}</span>
   },
   {
-    name: 'Billing',
-    minWidth: '230px',
+    name: 'Campaigns',
+    minWidth: '150px',
     sortable: true,
-    sortField: 'billing',
-    selector: row => row.billing,
-    cell: row => <span className='text-capitalize'>{row.billing}</span>
+    sortField: 'active_campaigns',
+    selector: row => row.active_campaigns,
+    cell: row => <span className='text-capitalize'>{row.active_campaigns}</span>
   },
   {
-    name: 'Club',
-    minWidth: '230px',
+    name: 'Total Donations',
+    minWidth: '200px',
     sortable: true,
-    sortField: 'club',
-    selector: row => row.club,
-    cell: row => <span className='text-capitalize'>{row.club}</span>
+    sortField: 'total_donations',
+    selector: row => row.total_donations,
+    cell: row => <span className='text-capitalize'>{row.total_donations}</span>
   },
   {
     name: 'Status',
