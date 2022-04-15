@@ -9,7 +9,7 @@ import {
   Coffee,
   Facebook,
   GitHub,
-  HelpCircle,
+  Lock,
   Mail,
   Twitter,
   X
@@ -67,6 +67,22 @@ const ToastContent = ({ t, name, role }) => {
     </div>
   )
 }
+const ToastError = ({ t }) => {
+  return (
+    <div className='d-flex'>
+      <div className='me-1'>
+        <Avatar size='sm' color='danger' icon={<Lock size={12} />} />
+      </div>
+      <div className='d-flex flex-column'>
+        <div className='d-flex justify-content-between'>
+          <h6></h6>
+          <X size={12} className='cursor-pointer' onClick={() => toast.dismiss(t?.id)} />
+        </div>
+        <span>The user name or password are incorrect. This is easily corrected by typing the correct user name and password.</span>
+      </div>
+    </div>
+  )
+}
 
 const defaultValues = {
   password: '',
@@ -91,18 +107,25 @@ const Login = () => {
   const onSubmit = data => {
     if (Object.values(data).every(field => field.length > 0)) {
       axios.post(`https://fys-api.herokuapp.com/api/v1/login`, {
-          email:  data.loginEmail,
-          password: data.password
-        })
+        email: data.loginEmail,
+        password: data.password
+      })
         .then(res => {
-          debugger
-          const data = { ...res.data.userData, accessToken: res.data.accessToken, refreshToken: res.data.refreshToken }
-          dispatch(handleLogin(data))
-          ability.update(res.data.userData.ability)
-          navigate(getHomeRouteForLoggedInUser(data.role))
-          toast(t => (
-            <ToastContent t={t} role={data.role || 'admin'} name={data.fullName || data.username} />
-          ))
+          if (!(res.data.hasError)) {
+  
+            const data = { ...res.data.data, accessToken: res.data.data.token, refreshToken: res.data.data.token, abilities: res?.data?.data?.abilities }
+            dispatch(handleLogin(data))
+            ability.update(res.data.data?.abilities)
+            navigate(getHomeRouteForLoggedInUser(res.data.data.role || 'admin'))
+            toast(t => (
+              <ToastContent t={t} role={data.role || 'admin'} name={res.data.data.email || res.data.data.username} />
+            ))
+          } else {
+            toast(t => (
+              <ToastError t={t} />
+            ))
+          }
+
         })
         .catch(err => console.log(err))
     } else {
@@ -120,7 +143,7 @@ const Login = () => {
     <div className='auth-wrapper auth-cover'>
       <Row className='auth-inner m-0'>
         <Link className='brand-logo' to='/' onClick={e => e.preventDefault()}>
-          <img src={require('@src/assets/images/logo/FYS-horizontal.png').default} style={{width: "auto", height: "30px"}}></img>
+          <img src={require('@src/assets/images/logo/FYS-horizontal.png').default} style={{ width: "auto", height: "30px" }}></img>
           <h2 className='brand-text text-primary ms-1'>Fundraiser Console</h2>
         </Link>
         <Col className='d-none d-lg-flex align-items-center p-5' lg='8' sm='12'>

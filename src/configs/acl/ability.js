@@ -7,6 +7,8 @@ import { initialAbility } from './initialAbility'
 // ? You can update this if you store user abilities to more secure place
 // ! Anyone can update localStorage so be careful and please update this
 const userData = JSON.parse(localStorage.getItem('userData'))
-const existingAbility = userData ? userData.ability : null
+// eslint-disable-next-line semi
+console.log("handleLogin###", userData);
+const existingAbility = userData ? userData.abilities : null
 
 export default new Ability(existingAbility || initialAbility)
