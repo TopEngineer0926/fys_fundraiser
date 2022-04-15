@@ -2,7 +2,7 @@
 import { useState, Fragment } from 'react'
 
 // ** Reactstrap Imports
-import { Row, Col, Card, Form, CardBody, Button, Badge, Modal, Input, Label, ModalBody, ModalHeader } from 'reactstrap'
+import { Row, Col, Card, Form, CardBody, Button, Badge, Modal, Input, Label, ModalBody, ModalHeader, CardHeader } from 'reactstrap'
 
 // ** Third Party Components
 import Swal from 'sweetalert2'
@@ -20,19 +20,19 @@ import { selectThemeColors } from '@utils'
 // ** Styles
 import '@styles/react/libs/react-select/_react-select.scss'
 
-const roleColors = {
-  editor: 'light-info',
-  admin: 'light-danger',
-  author: 'light-warning',
-  maintainer: 'light-success',
-  subscriber: 'light-primary'
-}
+// const roleColors = {
+//   editor: 'light-info',
+//   admin: 'light-danger',
+//   author: 'light-warning',
+//   maintainer: 'light-success',
+//   subscriber: 'light-primary'
+// }
 
-const statusColors = {
-  active: 'light-success',
-  pending: 'light-warning',
-  inactive: 'light-secondary'
-}
+// const statusColors = {
+//   active: 'light-success',
+//   pending: 'light-warning',
+//   inactive: 'light-secondary'
+// }
 
 const statusOptions = [
   { value: 'active', label: 'Active' },
@@ -62,38 +62,38 @@ const UserInfoCard = ({ selectedUser }) => {
   })
 
   // ** render user img
-  const renderUserImg = () => {
-    if (selectedUser !== null && selectedUser.avatar.length) {
-      return (
-        <img
-          height='110'
-          width='110'
-          alt='user-avatar'
-          src={selectedUser.avatar}
-          className='img-fluid rounded mt-3 mb-2'
-        />
-      )
-    } else {
-      return (
-        <Avatar
-          initials
-          color={selectedUser.avatarColor || 'light-primary'}
-          className='rounded mt-3 mb-2'
-          content={selectedUser.primary_contact.full_name}
-          contentStyles={{
-            borderRadius: 0,
-            fontSize: 'calc(48px)',
-            width: '100%',
-            height: '100%'
-          }}
-          style={{
-            height: '110px',
-            width: '110px'
-          }}
-        />
-      )
-    }
-  }
+  // const renderUserImg = () => {
+  //   if (selectedUser !== null && selectedUser.avatar.length) {
+  //     return (
+  //       <img
+  //         height='110'
+  //         width='110'
+  //         alt='user-avatar'
+  //         src={selectedUser.avatar}
+  //         className='img-fluid rounded mt-3 mb-2'
+  //       />
+  //     )
+  //   } else {
+  //     return (
+  //       <Avatar
+  //         initials
+  //         color={selectedUser.avatarColor || 'light-primary'}
+  //         className='rounded mt-3 mb-2'
+  //         content={selectedUser.primary_contact.full_name}
+  //         contentStyles={{
+  //           borderRadius: 0,
+  //           fontSize: 'calc(48px)',
+  //           width: '100%',
+  //           height: '100%'
+  //         }}
+  //         style={{
+  //           height: '110px',
+  //           width: '110px'
+  //         }}
+  //       />
+  //     )
+  //   }
+  // }
 
   const onSubmit = data => {
     if (Object.values(data).every(field => field.length > 0)) {
@@ -120,59 +120,23 @@ const UserInfoCard = ({ selectedUser }) => {
   return (
     <Fragment>
       <Card>
+        <CardHeader><h2>{selectedUser.name}</h2></CardHeader>
         <CardBody>
-          <div className='user-avatar-section'>
-            <div className='d-flex align-items-center flex-column'>
-              {renderUserImg()}
-              <div className='d-flex flex-column align-items-center text-center'>
-                <div className='user-info'>
-                  <h4>{selectedUser !== null ? selectedUser.primary_contact.full_name : 'Eleanor Aguilar'}</h4>
-                  {selectedUser !== null ? (
-                    <Badge color={roleColors[selectedUser.role]} className='text-capitalize'>
-                      {selectedUser.role}
-                    </Badge>
-                  ) : null}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='d-flex justify-content-around my-2 pt-75'>
-            <div className='d-flex align-items-start me-2'>
-              <Badge color='light-primary' className='rounded p-75'>
-                <Check className='font-medium-2' />
-              </Badge>
-              <div className='ms-75'>
-                <h4 className='mb-0'>1.23k</h4>
-                <small>Tasks Done</small>
-              </div>
-            </div>
-            <div className='d-flex align-items-start'>
-              <Badge color='light-primary' className='rounded p-75'>
-                <Briefcase className='font-medium-2' />
-              </Badge>
-              <div className='ms-75'>
-                <h4 className='mb-0'>568</h4>
-                <small>Projects Done</small>
-              </div>
-            </div>
-          </div>
-          <h4 className='fw-bolder border-bottom pb-50 mb-1'>Details</h4>
+          <h4 className='fw-bolder border-bottom pb-50 mb-1'>Primary Contact</h4>
           <div className='info-container'>
             {selectedUser !== null ? (
               <ul className='list-unstyled'>
                 <li className='mb-75'>
-                  <span className='fw-bolder me-25'>Username:</span>
-                  <span>{selectedUser.username}</span>
+                  <span className='fw-bolder me-25'>Name:</span>
+                  <span>{selectedUser.primary_contact.full_name}</span>
                 </li>
                 <li className='mb-75'>
-                  <span className='fw-bolder me-25'>Billing Email:</span>
-                  <span>{selectedUser.primary_contact.email}</span>
+                  <span className='fw-bolder me-25'>Email:</span>
+                  <span>{selectedUser.primary_contact.email_address}</span>
                 </li>
                 <li className='mb-75'>
-                  <span className='fw-bolder me-25'>Status:</span>
-                  <Badge className='text-capitalize' color={statusColors[selectedUser.status]}>
-                    {selectedUser.status}
-                  </Badge>
+                  <span className='fw-bolder me-25'>Phone:</span>
+                  <span>{selectedUser.primary_contact.phone}</span>
                 </li>
               </ul>
             ) : null}
@@ -188,62 +152,62 @@ const UserInfoCard = ({ selectedUser }) => {
         <ModalHeader className='bg-transparent' toggle={() => setShow(!show)}></ModalHeader>
         <ModalBody className='px-sm-5 pt-50 pb-5'>
           <div className='text-center mb-2'>
-            <h1 className='mb-1'>Edit User Information</h1>
-            <p>Updating user details will receive a privacy audit.</p>
+            <h1 className='mb-1'>Edit Chapter Information</h1>
+            <p>Update details related to this Chapter</p>
           </div>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <Row className='gy-1 pt-75'>
               <Col md={6} xs={12}>
-                <Label className='form-label' for='firstName'>
-                  First Name
+                <Label className='form-label' for='org_name'>
+                  Club Name
                 </Label>
                 <Controller
                   defaultValue=''
                   control={control}
-                  id='firstName'
-                  name='firstName'
+                  id='org_name'
+                  name='org_name'
                   render={({ field }) => (
-                    <Input {...field} id='firstName' placeholder='John' invalid={errors.firstName && true} />
+                    <Input {...field} id='org_name' placeholder='' invalid={errors.org_name && true} />
                   )}
                 />
               </Col>
               <Col md={6} xs={12}>
-                <Label className='form-label' for='lastName'>
-                  Last Name
+                <Label className='form-label' for='club_logo'>
+                  Club Logo
                 </Label>
                 <Controller
                   defaultValue=''
                   control={control}
-                  id='lastName'
-                  name='lastName'
+                  id='club_logo'
+                  name='club_logo'
                   render={({ field }) => (
-                    <Input {...field} id='lastName' placeholder='Doe' invalid={errors.lastName && true} />
+                    <Input {...field} id='club_logo' placeholder='Doe' invalid={errors.club_logo && true} />
                   )}
                 />
               </Col>
               <Col xs={12}>
-                <Label className='form-label' for='username'>
-                  Username
+                <Label className='form-label' for='aboutInfo'>
+                  About the Chapter
                 </Label>
                 <Controller
                   defaultValue=''
                   control={control}
-                  id='username'
-                  name='username'
+                  id='aboutInfo'
+                  name='aboutInfo'
                   render={({ field }) => (
-                    <Input {...field} id='username' placeholder='john.doe.007' invalid={errors.username && true} />
+                    <Input type="textarea" {...field} id='aboutInfo' placeholder='john.doe.007' invalid={errors.aboutInfo && true} />
                   )}
                 />
               </Col>
               <Col md={6} xs={12}>
-                <Label className='form-label' for='billing-email'>
-                  Billing Email
+                <Label className='form-label' for='federailEin'>
+                  Federal EIN
                 </Label>
                 <Input
                   type='email'
-                  id='billing-email'
-                  defaultValue={selectedUser.email}
-                  placeholder='example@domain.com'
+                  id='federailEin'
+                  defaultValue=''
+                  placeholder='XXXXXXX-XX'
                 />
               </Col>
               <Col md={6} xs={12}>

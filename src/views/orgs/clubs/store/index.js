@@ -6,15 +6,26 @@ import axios from 'axios'
 
 export const getAllData = createAsyncThunk('appClubs/getAllData', async () => {
   const response = await axios.get('/api/clubs/list/all-data')
+  //const response = await axios.get('http://fys-api.herokuapp.com/api/v1/admin/organization/list')
+  //console.log(response.data.data)
+  // const clubs = {
+  //   clubs: response.data
+  // }
   return response.data
 })
 
 export const getData = createAsyncThunk('appClubs/getData', async params => {
   const response = await axios.get('/api/clubs/list/data', params)
+  //const response = await axios.get('http://fys-api.herokuapp.com/api/v1/admin/organization/list', params)
+  //console.log(response.data.data)
+  // const clubs = {
+  //   clubs: response.data
+  // }
   return {
     params,
-    data: response.data.clubs,
-    totalPages: response.data.total
+    data: response.data,
+    totalPages: response.data
+    //totalPages: 1
   }
 })
 
@@ -50,11 +61,15 @@ export const appClubsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(getAllData.fulfilled, (state, action) => {
+        console.log("tom")
         console.log(action.payload)
+        console.log("brown")
         state.allData = action.payload
       })
       .addCase(getData.fulfilled, (state, action) => {
+        console.log("tom2")
         console.log(action.payload)
+        console.log("brown2")
         state.data = action.payload.data
         state.params = action.payload.params
         state.total = action.payload.totalPages

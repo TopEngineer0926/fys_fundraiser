@@ -6,6 +6,7 @@ const themeConfig = {
     appName: '',
     appLogoImage: require('@src/assets/images/logo/FYS-horizontal.png').default
   },
+  baseApi: 'http://fys-api.herokuapp.com/api/v1',
   layout: {
     isRTL: false,
     skin: 'light', // light, dark, bordered, semi-dark

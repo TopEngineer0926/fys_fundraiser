@@ -50,9 +50,9 @@ const ClubView = () => {
     </div>
   ) : (
     <Alert color='danger'>
-      <h4 className='alert-heading'>Club not found</h4>
+      <h4 className='alert-heading'>Chapter not found</h4>
       <div className='alert-body'>
-        Club with id: {id} doesn't exist. Check list of all Clubs: <Link to='/clubs/list'>Clubs List</Link>
+        Chapter with id: {id} doesn't exist. Check list of all Chapters: <Link to='/clubs/list'>Chapters List</Link>
       </div>
     </Alert>
   )

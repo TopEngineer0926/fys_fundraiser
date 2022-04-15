@@ -8,11 +8,9 @@ import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap'
 import { User, Lock, Bookmark, Bell, Link } from 'react-feather'
 
 // ** User Components
-import InvoiceList from './InvoiceList'
-import SecurityTab from './SecurityTab'
-import Notifications from './Notifications'
-import ContactList from './ContactList'
+import CampaignList from './CampaignList'
 import FundraiserTeamsList from './FundraiserTeamsList'
+import UserList from './UserList'
 
 const UserTabs = ({ active, toggleTab }) => {
   return (
@@ -42,10 +40,10 @@ const UserTabs = ({ active, toggleTab }) => {
           <FundraiserTeamsList />
         </TabPane>
         <TabPane tabId='2'>
-          <ContactList />
+          <CampaignList />
         </TabPane>
         <TabPane tabId='3'>
-          <SecurityTab />
+          <UserList />
         </TabPane>
       </TabContent>
     </Fragment>

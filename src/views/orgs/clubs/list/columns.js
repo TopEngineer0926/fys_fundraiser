@@ -17,7 +17,7 @@ import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
 // ** Renders Client Columns
 const renderClient = row => {
   if (row.avatar.length) {
-    return <Avatar className='me-1' img={row.avatar} width='32' height='32' />
+    return <Avatar className='me-1' img={row.avatar || '/assets/images/avatars/10-small.png'} width='32' height='32' />
   } else {
     return (
       <Avatar
@@ -42,10 +42,10 @@ export const columns = [
     name: 'Chapter Name',
     minWidth: '250px',
     sortable: true,
-    sortField: 'org_name',
+    sortField: 'name',
     className: 'fw-bolder',
-    selector: row => row.org_name,
-    cell: row => <span className='text-capitalize'>{row.org_name}</span>
+    selector: row => row.name,
+    cell: row => <span className='text-capitalize'>{row.name}</span>
   },
   {
     name: 'Primary Contact',

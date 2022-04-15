@@ -7,7 +7,8 @@ const data = {
   clubs: [
     {
       id: 4987,
-      org_name: 'Clemson Tigers', 
+      uuid: '', 
+      name: 'Clemson Tigers', 
       createdOn: '13 Dec 2019',
       primary_contact: {
         email_address: 'don85@johnson.com',
@@ -23,7 +24,8 @@ const data = {
     },
     {
       id: 4987,
-      org_name: 'Oregon Ducks', 
+      uuid: '', 
+      name: 'Oregon Ducks', 
       createdOn: '13 Dec 2019',
       primary_contact: {
         email_address: 'don85@johnson.com',
