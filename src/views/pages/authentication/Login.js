@@ -106,13 +106,12 @@ const Login = () => {
 
   const onSubmit = data => {
     if (Object.values(data).every(field => field.length > 0)) {
-      axios.post(`https://fys-api.herokuapp.com/api/v1/login`, {
+      axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/login`, {
         email: data.loginEmail,
         password: data.password
       })
         .then(res => {
           if (!(res.data.hasError)) {
-  
             const data = { ...res.data.data, accessToken: res.data.data.token, refreshToken: res.data.data.token, abilities: res?.data?.data?.abilities }
             dispatch(handleLogin(data))
             ability.update(res.data.data?.abilities)
@@ -125,7 +124,6 @@ const Login = () => {
               <ToastError t={t} />
             ))
           }
-
         })
         .catch(err => console.log(err))
     } else {

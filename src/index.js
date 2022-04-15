@@ -49,6 +49,8 @@ import './assets/scss/style.scss'
 // ** Service Worker
 import * as serviceWorker from './serviceWorker'
 
+require('dotenv').config()
+
 // ** Lazy load app
 const LazyApp = lazy(() => import('./App'))
 ReactDOM.render(
