@@ -24,7 +24,7 @@ import { useSkin } from '@hooks/useSkin'
 const LoginCover = () => {
   const { skin } = useSkin()
 
-  const illustration = skin === 'dark' ? 'login-v2-dark.svg' : 'login-v2.svg',
+  const illustration = skin === 'dark' ? '3.jpg' : '3.jpg',
     source = require(`@src/assets/images/pages/${illustration}`).default
 
   return (
