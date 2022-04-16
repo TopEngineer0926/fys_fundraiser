@@ -64,13 +64,12 @@ const Register = () => {
 
     if (Object.values(tempData).every(field => field.length > 0)) {
       axios
-        .post(`https://fys-api.herokuapp.com/api/v1/entrance/user`, {
+        .post(`${process.env.REACT_APP_BASE_URL}/api/v1/entrance/user`, {
           email: data.email,
           username: data.username,
           password: data.password
         })
         .then(res => {
-          debugger
           if (res.data.hasError) {
             setError(property, {
               type: 'manual',

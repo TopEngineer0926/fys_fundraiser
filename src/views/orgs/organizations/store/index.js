@@ -5,7 +5,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const getAllData = createAsyncThunk('appOrganizations/getAllData', async () => {
-  const response = await axios.get('/api/organizations/list/all-data')
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/list`)
   return response.data
 })
 
