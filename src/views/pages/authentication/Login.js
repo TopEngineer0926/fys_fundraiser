@@ -83,8 +83,6 @@ const ToastError = ({ t }) => {
     </div>
   )
 }
-// eslint-disable-next-line semi
-const REACT_APP_BASE_URL = 'https://fys-api.herokuapp.com';
 
 const defaultValues = {
   password: '',
@@ -108,7 +106,7 @@ const Login = () => {
 
   const onSubmit = data => {
     if (Object.values(data).every(field => field.length > 0)) {
-      axios.post(`${REACT_APP_BASE_URL}/api/v1/login`, {
+      axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/login`, {
         email: data.loginEmail,
         password: data.password
       })
