@@ -55,9 +55,9 @@ const UserInfoCard = ({ selectedUser }) => {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      username: selectedUser.username,
-      lastName: selectedUser.primary_contact.last_name,
-      firstName: selectedUser.primary_contact.first_name
+      username: selectedUser?.username,
+      lastName: selectedUser?.primary_contact?.last_name,
+      firstName: selectedUser?.primary_contact?.first_name
     }
   })
 
@@ -112,8 +112,8 @@ const UserInfoCard = ({ selectedUser }) => {
   const handleReset = () => {
     reset({
       username: selectedUser.username,
-      lastName: selectedUser.primary_contact.last_name,
-      firstName: selectedUser.primary_contact.first_name
+      lastName: selectedUser?.primary_contact?.last_name,
+      firstName: selectedUser?.primary_contact?.first_name
     })
   }
 
@@ -128,15 +128,15 @@ const UserInfoCard = ({ selectedUser }) => {
               <ul className='list-unstyled'>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Name:</span>
-                  <span>{selectedUser.primary_contact.full_name}</span>
+                  <span>{selectedUser?.name}</span>
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Email:</span>
-                  <span>{selectedUser.primary_contact.email_address}</span>
+                  <span>{selectedUser?.email}</span>
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Phone:</span>
-                  <span>{selectedUser.primary_contact.phone}</span>
+                  <span>{selectedUser.phone}</span>
                 </li>
               </ul>
             ) : null}

@@ -10,9 +10,11 @@ export const getAllData = createAsyncThunk('appClubs/getAllData', async () => {
 })
 
 export const getData = createAsyncThunk('appClubs/getData', async params => {
-  const response = await axios.get('/api/clubs/list/data', params)
-  //const response = await axios.get('http://fys-api.herokuapp.com/api/v1/admin/organization/list', params)
-  //console.log(response.data.data)
+  // const response = await axios.get('/api/clubs/list/data', params)
+  console.log("getData params:", params)
+
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/?organization=`, params)
+  console.log("getData A", response.data)
   // const clubs = {
   //   clubs: response.data
   // }
@@ -25,8 +27,10 @@ export const getData = createAsyncThunk('appClubs/getData', async params => {
 })
 
 export const getClub = createAsyncThunk('appClubs/getClub', async id => {
-  const response = await axios.get('/api/clubs/club', { id })
-  return response.data.club 
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/?organization=${id}`)
+  console.log("getClub ABC", response.data)
+
+  return response.data 
 })
 
 export const addClub = createAsyncThunk('appClubs/addClub', async (club, { dispatch, getState }) => {
