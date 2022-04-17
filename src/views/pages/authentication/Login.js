@@ -106,7 +106,7 @@ const Login = () => {
 
   const onSubmit = data => {
     if (Object.values(data).every(field => field.length > 0)) {
-      axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/login`, {
+      axios.post(`https://fys-api.herokuapp.com/api/v1/login`, {
         email: data.loginEmail,
         password: data.password
       })
