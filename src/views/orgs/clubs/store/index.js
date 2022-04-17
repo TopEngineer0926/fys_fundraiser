@@ -5,12 +5,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const getAllData = createAsyncThunk('appClubs/getAllData', async () => {
-  const response = await axios.get('/api/clubs/list/all-data')
-  //const response = await axios.get('http://fys-api.herokuapp.com/api/v1/admin/organization/list')
-  //console.log(response.data.data)
-  // const clubs = {
-  //   clubs: response.data
-  // }
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/list`)
   return response.data
 })
 
@@ -62,9 +57,9 @@ export const appClubsSlice = createSlice({
     builder
       .addCase(getAllData.fulfilled, (state, action) => {
         console.log("tom")
-        console.log(action.payload)
+        console.log(action.payload.data)
         console.log("brown")
-        state.allData = action.payload
+        state.allData = action.payload.data
       })
       .addCase(getData.fulfilled, (state, action) => {
         console.log("tom2")
@@ -76,7 +71,7 @@ export const appClubsSlice = createSlice({
       })
       .addCase(getClub.fulfilled, (state, action) => {
         console.log(action.payload)
-        state.selectedUser = action.payload
+        state.selectedUser = action.payload.data
       })
   }
 })

@@ -16,15 +16,15 @@ import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
 
 // ** Renders Client Columns
 const renderClient = row => {
-  if (row.avatar.length) {
-    return <Avatar className='me-1' img={row.avatar || '/assets/images/avatars/10-small.png'} width='32' height='32' />
+  if (row?.logo) {
+    return <Avatar className='me-1' img={row.logo || '/assets/images/avatars/10-small.png'} width='32' height='32' />
   } else {
     return (
       <Avatar
         initials
         className='me-1'
         color={row.avatarColor || 'light-primary'}
-        content={row.fullName || 'John Doe'}
+        content={row.name || 'John Doe'}
       />
     )
   }
@@ -52,7 +52,7 @@ export const columns = [
     sortable: true,
     minWidth: '300px',
     sortField: 'primary_contact.last_name',
-    selector: row => row.primary_contact.full_name,
+    selector: row => row.name,
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
         {renderClient(row)}
@@ -62,9 +62,9 @@ export const columns = [
             className='user_name text-truncate text-body'
             onClick={() => store.dispatch(getClub(row.id))}
           >
-            <span className='fw-bolder'>{row.primary_contact.full_name}</span>
+            <span className='fw-bolder'>{row.name}</span>
           </Link>
-          <small className='text-truncate text-muted mb-0'>{row.primary_contact.email_address}</small>
+          <small className='text-truncate text-muted mb-0'>{row.email}</small>
         </div>
       </div>
     )
@@ -74,8 +74,8 @@ export const columns = [
     minWidth: '138px',
     sortable: true,
     sortField: 'primary_contact.phone',
-    selector: row => row.primary_contact.phone,
-    cell: row => <span className='text-capitalize'>{row.primary_contact.phone}</span>
+    selector: row => row.phone,
+    cell: row => <span className='text-capitalize'>{row.phone}</span>
   },
   {
     name: 'Campaigns',
