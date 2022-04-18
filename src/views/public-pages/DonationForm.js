@@ -220,17 +220,14 @@ const DonationForm = () => {
             <div className="myFlex" style={{ paddingBottom: "3rem" }}>
               <h1 className='myCenter' style={{ color: "black", fontWeight: "bold" }}>Payments Method</h1>
             </div>
-            <div className="App">
               {clientSecret && (
                 <Elements options={options} stripe={stripePromise}>
                   <CheckoutForm />
                 </Elements>
               )}
-              
-            </div>
             <div className='row' style={{ paddingBottom: "0rem" }}>
               <div className='col-md-2 myFlex'>
-                <a className="myLeft donate_btn" href="thankyou">Donate Now</a>
+                {/* <a className="myLeft donate_btn" href="thankyou">Donate Now</a> */}
               </div>
             </div>
           </Container>

@@ -79,9 +79,9 @@ export default function CheckoutForm() {
     return (
         <form id="payment-form" onSubmit={handleSubmit}>
             <PaymentElement id="payment-element" />
-            <button disabled={isLoading || !stripe || !elements} id="submit">
+            <button className="myLeft donate_btn" disabled={isLoading || !stripe || !elements} id="submit">
                 <span id="button-text">
-                    {isLoading ? <div className="spinner" id="spinner"></div> : "Pay now"}
+                    {isLoading ? <div className="spinner" id="spinner"></div> : "Donate Now"}
                 </span>
             </button>
             {/* Show any error or success messages */}
