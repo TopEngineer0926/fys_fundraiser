@@ -1,11 +1,13 @@
 import './public-pages.scss'
 import '@styles/react/libs/swiper/swiper.scss'
 
+import Carousel from 'react-elastic-carousel'
 import {
   Container,
   Progress
 } from 'reactstrap'
-import SwiperCore, {
+
+/* import SwiperCore, {
   Autoplay,
   EffectCoverflow,
   EffectCube,
@@ -18,21 +20,20 @@ import SwiperCore, {
 import {
   Swiper,
   SwiperSlide
-} from 'swiper/react/swiper-react'
-
+} from 'swiper/react/swiper-react' */
 import Footer from './Footer'
 import NavBar from './NavBar'
 
-SwiperCore.use([Navigation, Pagination, EffectFade, EffectCube, EffectCoverflow, Autoplay, Lazy, Virtual])
+// SwiperCore.use([Navigation, Pagination, EffectFade, EffectCube, EffectCoverflow, Autoplay, Lazy, Virtual])
 
-const sponsor_swiper_params = {
+/* const sponsor_swiper_params = {
   className: 'swiper-centered-slides swiper-container p-1',
   slidesPerView: 'auto',
   spaceBetween: 30,
   centeredSlides: true,
   navigation: true,
   slideToClickedSlide: true
-}
+} */
 
 const Team = ({ team_id }) => {
   return (
@@ -172,7 +173,27 @@ const Home = () => {
               <h1 className='myCenter' style={{color: "black", fontWeight: "bold"}}>Our Sponsors</h1>
             </div>
             <div>
-              <Swiper dir={'ltr'} {...sponsor_swiper_params}>
+              <Carousel itemPadding={[10, 50]} itemsToShow={3}
+              renderPagination={({}) => {
+                return (<div></div>)
+              }}
+              >
+                <div className='swiper-slide myFlex'><img src={require('@src/assets/images/public_pages/sponsors/sponsor1.png').default} className='myCenter'></img></div>
+                <div className='swiper-slide myFlex'><img src={require('@src/assets/images/public_pages/sponsors/sponsor1.png').default} className='myCenter'></img></div>
+                <div className='swiper-slide myFlex'><img src={require('@src/assets/images/public_pages/sponsors/sponsor1.png').default} className='myCenter'></img></div>
+                <div className='swiper-slide myFlex'><img src={require('@src/assets/images/public_pages/sponsors/sponsor1.png').default} className='myCenter'></img></div>
+                <div className='swiper-slide myFlex'><img src={require('@src/assets/images/public_pages/sponsors/sponsor1.png').default} className='myCenter'></img></div>
+                <div className='swiper-slide myFlex'><img src={require('@src/assets/images/public_pages/sponsors/sponsor1.png').default} className='myCenter'></img></div>
+                <div className='swiper-slide myFlex'><img src={require('@src/assets/images/public_pages/sponsors/sponsor1.png').default} className='myCenter'></img></div>
+                <div className='swiper-slide myFlex'><img src={require('@src/assets/images/public_pages/sponsors/sponsor1.png').default} className='myCenter'></img></div>
+                <div className='swiper-slide myFlex'><img src={require('@src/assets/images/public_pages/sponsors/sponsor1.png').default} className='myCenter'></img></div>
+                <div className='swiper-slide myFlex'><img src={require('@src/assets/images/public_pages/sponsors/sponsor1.png').default} className='myCenter'></img></div>
+                <div className='swiper-slide myFlex'><img src={require('@src/assets/images/public_pages/sponsors/sponsor1.png').default} className='myCenter'></img></div>
+                <div className='swiper-slide myFlex'><img src={require('@src/assets/images/public_pages/sponsors/sponsor1.png').default} className='myCenter'></img></div>
+                <div className='swiper-slide myFlex'><img src={require('@src/assets/images/public_pages/sponsors/sponsor1.png').default} className='myCenter'></img></div>
+
+              </Carousel>
+              {/* <Swiper dir={'ltr'} {...sponsor_swiper_params}>
                 <SwiperSlide className='rounded swiper-shadow'>
                   <img src={require('@src/assets/images/public_pages/sponsors/sponsor1.png').default} className='myCenter'></img>
                 </SwiperSlide>
@@ -206,7 +227,7 @@ const Home = () => {
                 <SwiperSlide className='rounded swiper-shadow'>
                   <img src={require('@src/assets/images/public_pages/sponsors/sponsor1.png').default} className='myCenter'></img>
                 </SwiperSlide>
-              </Swiper>
+              </Swiper> */}
             </div>
           </Container>
         </div>
