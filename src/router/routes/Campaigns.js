@@ -8,6 +8,7 @@ const CampaignView = lazy(() => import('../../views/campaigns/view'))
 
 const PublicHome = lazy(() => import('../../views/public-pages/Home'))
 const PublicDonationForm = lazy(() => import('../../views/public-pages/DonationForm'))
+const PublicThankYou = lazy(() => import('../../views/public-pages/ThankYou'))
 
 const CampaignRoutes = [
   {
@@ -34,6 +35,15 @@ const CampaignRoutes = [
   {
     path: '/campaigns/:campaign_slug/donate',
     element: <PublicDonationForm />, 
+    meta: {
+      layout: 'blank',
+      publicRoute: true,
+      restricted: false
+    }
+  },
+  {
+    path: '/campaigns/:campaign_slug/thank-you',
+    element: <PublicThankYou />, 
     meta: {
       layout: 'blank',
       publicRoute: true,
