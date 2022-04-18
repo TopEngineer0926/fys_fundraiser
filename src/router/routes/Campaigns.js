@@ -5,7 +5,9 @@ import { Navigate } from 'react-router-dom'
 
 const CampaignList = lazy(() => import('../../views/campaigns/list'))
 const CampaignView = lazy(() => import('../../views/campaigns/view'))
-const CampaignPublicView = lazy(() => import('../../views/campaigns/public'))
+
+const PublicHome = lazy(() => import('../../views/public-pages/Home'))
+const PublicDonationForm = lazy(() => import('../../views/public-pages/DonationForm'))
 
 const CampaignRoutes = [
   {
@@ -22,7 +24,16 @@ const CampaignRoutes = [
   },
   {
     path: '/campaigns/:campaign_slug',
-    element: <CampaignPublicView />, 
+    element: <PublicHome />, 
+    meta: {
+      layout: 'blank',
+      publicRoute: true,
+      restricted: false
+    }
+  },
+  {
+    path: '/campaigns/:campaign_slug/donate',
+    element: <PublicDonationForm />, 
     meta: {
       layout: 'blank',
       publicRoute: true,
