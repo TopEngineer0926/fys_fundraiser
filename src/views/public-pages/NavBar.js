@@ -18,11 +18,11 @@ import {
 const NavBar = () => {
   return (
     <div id="Navbar">
-        <Container fluid="md">
+        <Container fluid="md" style={{maxWidth: "1100px"}}>
           <Row>
-            <Col md="3" className='myFlex'>
-              <NavLink href='#' className="myLeft">
-                <img src={require('@src/assets/images/public_pages/logo.svg').default} className='logo'></img>
+            <Col md="4" className='myFlex'>
+              <NavLink href='' className="myLeft">
+                <img src={require('@src/assets/images/public_pages/logo.png').default} className='logo'></img>
               </NavLink>
             </Col>
             <Col md="7" className='myFlex'>
@@ -39,30 +39,30 @@ const NavBar = () => {
                     navbar
                   >
                     <NavItem className='NavItem'>
-                      <NavLink href="#features" className='NavLink'>
+                      <NavLink href="" className='NavLink'>
+                        Home
+                      </NavLink>
+                    </NavItem>
+                    <NavItem className='NavItem'>
+                      <NavLink href="public/how-it-works" className='NavLink'>
                         How It Works
                       </NavLink>
                     </NavItem>
                     <NavItem className='NavItem'>
-                      <NavLink href="#pricing" className='NavLink'>
-                        Register League
+                      <NavLink href="public/our-story/" className='NavLink'>
+                        Our Story
                       </NavLink>
                     </NavItem>
                     <NavItem className='NavItem'>
-                      <NavLink href="#pricing" className='NavLink'>
-                        Register Team
-                      </NavLink>
-                    </NavItem>
-                    <NavItem className='NavItem'>
-                      <NavLink href="#pricing" className='NavLink'>
-                        Contact
+                      <NavLink href="public/contact-us" className='NavLink'>
+                        Contact-Us
                       </NavLink>
                     </NavItem>
                   </Nav>
                 </Collapse>
               </Navbar>
             </Col>
-            <Col md="2" className='myFlex'>
+            <Col md="1" className='myFlex'>
               <Dropdown toggle={() => {}} className="myRight">
                 <DropdownToggle className='dropdownToogle'
                   data-toggle="dropdown"

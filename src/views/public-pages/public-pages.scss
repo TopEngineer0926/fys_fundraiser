@@ -1,3 +1,7 @@
+.container {
+  max-width: 1100px;
+  padding: 0rem 4rem 0rem 4rem;
+}
 #Navbar {
     background: white;
     padding: 1rem 0rem;
@@ -11,14 +15,16 @@
         padding: 0rem 1rem;
     }
     .NavLink {
-        color: black;
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: rgb(0, 0, 200);
         &:hover {
-            color: blue;
+            color: black;
         }
     }
-    .dropdownToogle {
+/*     .dropdownToogle {
         cursor: pointer;
-    }
+    } */
 }
 #footer {
     padding-bottom: 0px;
@@ -50,50 +56,53 @@
 #home {
     #banner {
       background: rgb(240, 240, 240);
-      .description1 {
-        height: 50%;
-      }
-      .description2 {
-        height: 50%;
-        border-radius: 10px;
-        padding-left: 1rem;
-        padding-right: 1rem;
-        background: white;
-        .row1 {
-          height: 50%;
-          margin-left: 0px;
-          margin-right: 0px;
+      .donate_btn {
+        background-color: #0d6efd;
+        color: white;
+        font-weight: bold;
+        border-radius: 8px;
+        padding: 0.6rem 1.5rem 0.5rem 1.5rem !important;
+        &:hover {
+            background: #21d3a0 !important;
         }
-        .row2 {
-          height: 50%;
-          margin-left: 0px;
-          margin-right: 0px;
-          .progressBar {
-            padding-left: 0px;
-            padding-right: 0px;
-            height: 1.5rem;
-            border-radius: 10px;
-            .progress-bar {
-              background: #21d3a0 !important;
-              border-radius: 8px;
-            }
-          }
+        .svg {
+          margin-bottom: 3px;
         }
       }
-    }
-    #description {
       .title {
-        padding: 0px 0px 2rem 0px;
+        padding-bottom: 1rem;
+        h5 {
+          font-weight: bold;
+        }
       }
       .content {
-        color: gray;
+        h2 {
+          font-weight: bold;
+        }
       }
     }
     #teams {
       background: rgb(240, 240, 240);
+      .viewTeam_btn {
+        width: 100%;
+        background-color: #0d6efd;
+        color: white;
+        font-weight: bold;
+        border-radius: 8px;
+        padding: 0.6rem 1.5rem 0.5rem 1.5rem !important;
+        &:hover {
+            background: #21d3a0 !important;
+        }
+        .svg {
+          margin-bottom: 3px;
+        }
+      }
     }
     #sponsors {
-  
+      .swiper-slide {
+        width: 160px;
+        height: 80px;
+      }
     }
 }
 #landingpage {
@@ -245,11 +254,7 @@
       }
 }
 .donate_btn {
-    border-radius: 8px;
-    padding: 1rem 1rem !important;
-    &:hover {
-        background: #21d3a0 !important;
-    }
+    
 }
 
 .myFlex {
