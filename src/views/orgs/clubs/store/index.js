@@ -4,14 +4,20 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 // ** Axios Imports
 import axios from 'axios'
 
+import { getUserData } from '@utils'
+
+
 export const getAllData = createAsyncThunk('appClubs/getAllData', async () => {
-  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/list`)
+  const user = getUserData()
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/filter?organizationType=6f268b50-94cb-4790-83c6-a1d520578c42&user=${user.id}`)
   return response.data
 })
 
 export const getData = createAsyncThunk('appClubs/getData', async params => {
+  const user = getUserData()
+
   // const response = await axios.get('/api/clubs/list/data', params)
-  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/list`, params)
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/filter?organizationType=6f268b50-94cb-4790-83c6-a1d520578c42&user=${user.id}`, params)
   // const clubs = {
   //   clubs: response.data
   // }
