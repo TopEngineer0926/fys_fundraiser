@@ -33,6 +33,24 @@ export const getClub = createAsyncThunk('appClubs/getClub', async id => {
   return response.data 
 })
 
+export const getClubTeams = createAsyncThunk('appClubs/getClubTeams', async id => {
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/filter?parent=${id}`)
+
+  return response.data 
+})
+
+export const getClubCampaigns = createAsyncThunk('appClubs/getClubCampaigns', async id => {
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/filter?organization=${id}`)
+
+  return response.data 
+})
+
+export const getClubUsers = createAsyncThunk('appClubs/getClubUsers', async id => {
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/user_organizations/filter?organization=${id}`)
+
+  return response.data 
+})
+
 export const addClub = createAsyncThunk('appClubs/addClub', async (club, { dispatch, getState }) => {
   await axios.post('/clubs/add-club', club)
   await dispatch(getData(getState().clubs.params))
@@ -60,21 +78,14 @@ export const appClubsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(getAllData.fulfilled, (state, action) => {
-        console.log("tom")
-        console.log(action.payload.data)
-        console.log("brown")
         state.allData = action.payload.data
       })
       .addCase(getData.fulfilled, (state, action) => {
-        console.log("tom2")
-        console.log(action.payload)
-        console.log("brown2")
         state.data = action.payload.data
         state.params = action.payload.params
         state.total = action.payload.totalPages
       })
       .addCase(getClub.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.selectedUser = action.payload.data
       })
   }

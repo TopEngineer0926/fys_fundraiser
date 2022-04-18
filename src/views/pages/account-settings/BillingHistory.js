@@ -55,99 +55,25 @@ const invoiceStatusObj = {
   'Past Due': { color: 'light-danger', icon: Info },
   'Partial Payment': { color: 'light-warning', icon: PieChart }
 }
-
-const data = [
-  {
-    id: 4987,
-    issuedDate: '13 Dec 2019',
-    client: {
-      address: '7777 Mendez Plains',
-      company: 'Hall-Robbins PLC',
-      companyEmail: 'don85@johnson.com',
-      country: 'USA',
-      contact: '(616) 865-4180',
-      name: 'Jordan Stevenson'
-    },
-    service: 'Software Development',
-    total: 3428,
-    avatar: '',
-    invoiceStatus: 'Paid',
-    balance: '$724',
-    dueDate: '23 Apr 2019'
-  },
-  {
-    id: 4988,
-    issuedDate: '17 Jul 2019',
-    client: {
-      address: '04033 Wesley Wall Apt. 961',
-      company: 'Mccann LLC and Sons',
-      companyEmail: 'brenda49@taylor.info',
-      country: 'Haiti',
-      contact: '(226) 204-8287',
-      name: 'Stephanie Burns'
-    },
-    service: 'UI/UX Design & Development',
-    total: 5219,
-    avatar: require('@src/assets/images/avatars/10-small.png').default,
-    invoiceStatus: 'Downloaded',
-    balance: 0,
-    dueDate: '15 Dec 2019'
-  },
-  {
-    id: 4989,
-    issuedDate: '19 Oct 2019',
-    client: {
-      address: '5345 Robert Squares',
-      company: 'Leonard-Garcia and Sons',
-      companyEmail: 'smithtiffany@powers.com',
-      country: 'Denmark',
-      contact: '(955) 676-1076',
-      name: 'Tony Herrera'
-    },
-    service: 'Unlimited Extended License',
-    total: 3719,
-    avatar: require('@src/assets/images/avatars/1-small.png').default,
-    invoiceStatus: 'Paid',
-    balance: 0,
-    dueDate: '03 Nov 2019'
-  },
-  {
-    id: 4990,
-    issuedDate: '06 Mar 2020',
-    client: {
-      address: '19022 Clark Parks Suite 149',
-      company: 'Smith, Miller and Henry LLC',
-      companyEmail: 'mejiageorge@lee-perez.com',
-      country: 'Cambodia',
-      contact: '(832) 323-6914',
-      name: 'Kevin Patton'
-    },
-    service: 'Software Development',
-    total: 4749,
-    avatar: require('@src/assets/images/avatars/9-small.png').default,
-    invoiceStatus: 'Sent',
-    balance: 0,
-    dueDate: '11 Feb 2020'
-  },
-  {
-    id: 4991,
-    issuedDate: '08 Feb 2020',
-    client: {
-      address: '8534 Saunders Hill Apt. 583',
-      company: 'Garcia-Cameron and Sons',
-      companyEmail: 'brandon07@pierce.com',
-      country: 'Martinique',
-      contact: '(970) 982-3353',
-      name: 'Mrs. Julie Donovan MD'
-    },
-    service: 'UI/UX Design & Development',
-    total: 4056,
-    avatar: require('@src/assets/images/avatars/10-small.png').default,
-    invoiceStatus: 'Draft',
-    balance: '$815',
-    dueDate: '30 Jun 2019'
-  }
-]
+// {
+//   id: 4987,
+//   issuedDate: '13 Dec 2019',
+//   client: {
+//     address: '7777 Mendez Plains',
+//     company: 'Hall-Robbins PLC',
+//     companyEmail: 'don85@johnson.com',
+//     country: 'USA',
+//     contact: '(616) 865-4180',
+//     name: 'Jordan Stevenson'
+//   },
+//   service: 'Software Development',
+//   total: 3428,
+//   avatar: '',
+//   invoiceStatus: 'Paid',
+//   balance: '$724',
+//   dueDate: '23 Apr 2019'
+// }
+const data = []
 
 const columns = [
   {
@@ -259,7 +185,7 @@ const BillingHistory = () => (
   <div className='invoice-list-wrapper'>
     <Card>
       <CardHeader className='py-1'>
-        <CardTitle tag='h4'>Billing History</CardTitle>
+        <CardTitle tag='h4'>Donation History</CardTitle>
         <UncontrolledButtonDropdown>
           <DropdownToggle outline caret>
             Export

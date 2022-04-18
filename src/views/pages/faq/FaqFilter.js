@@ -15,7 +15,7 @@ const FaqFilter = ({ searchTerm, setSearchTerm, getFAQData }) => {
       <Card
         className='faq-search'
         style={{
-          backgroundImage: `url(${require('@src/assets/images/banner/banner.png').default})`
+          backgroundColor: "rgba(186, 191, 199, 0.12) !important"
         }}
       >
         <CardBody className='text-center'>

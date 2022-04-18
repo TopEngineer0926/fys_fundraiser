@@ -49,26 +49,17 @@ const cardsObj = {
   mastercard: mastercardCC
 }
 
-const data = [
-  {
-    cardCvc: '587',
-    name: 'Tom McBride',
-    expiryDate: '12/24',
-    imgAlt: 'Mastercard',
-    badgeColor: 'primary',
-    cardStatus: 'Primary',
-    cardNumber: '5577 0000 5577 9865',
-    imgSrc: require('@src/assets/images/icons/payments/mastercard.png').default
-  },
-  {
-    cardCvc: '681',
-    imgAlt: 'Visa card',
-    expiryDate: '02/24',
-    name: 'Mildred Wagner',
-    cardNumber: '4532 3616 2070 5678',
-    imgSrc: require('@src/assets/images/icons/payments/visa.png').default
-  }
-]
+// {
+//   cardCvc: '587',
+//   name: 'Tom McBride',
+//   expiryDate: '12/24',
+//   imgAlt: 'Mastercard',
+//   badgeColor: 'primary',
+//   cardStatus: 'Primary',
+//   cardNumber: '5577 0000 5577 9865',
+//   imgSrc: require('@src/assets/images/icons/payments/mastercard.png').default
+// }
+const data = []
 
 const PaymentMethods = () => {
   // ** States
@@ -124,19 +115,6 @@ const PaymentMethods = () => {
                     />
                     <Label className='form-check-label' for='card-radio'>
                       Credit/Debit/ATM Card
-                    </Label>
-                  </div>
-                  <div className='form-check mb-1'>
-                    <Input
-                      type='radio'
-                      value='paypal'
-                      id='paypal-radio'
-                      name='payment-method-radio'
-                      checked={paymentMethod === 'paypal'}
-                      onChange={() => setPaymentMethod('paypal')}
-                    />
-                    <Label className='form-check-label' for='paypal-radio'>
-                      PayPal account
                     </Label>
                   </div>
                 </Col>

@@ -45,7 +45,11 @@ export const columns = [
     sortField: 'name',
     className: 'fw-bolder',
     selector: row => row.name,
-    cell: row => <span className='text-capitalize'>{row.name}</span>
+    cell: row => (<Link
+      to={`/orgs/clubs/view/${row.id}`}
+      className='user_name text-truncate text-body'
+      onClick={() => store.dispatch(getCampaign(row.id))}><span className='text-capitalize'>{row.name}</span></Link>
+    )
   },
   {
     name: 'Primary Contact',

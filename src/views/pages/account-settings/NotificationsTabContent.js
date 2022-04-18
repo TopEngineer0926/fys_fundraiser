@@ -3,22 +3,11 @@ import { Row, Col, Card, CardTitle, CardHeader, CardBody, Table, Input, Button }
 
 const typesArr = [
   {
-    title: 'New for you',
-    defaultChecked: ['email']
-  },
-  {
-    title: 'Account activity',
-    defaultChecked: ['browser', 'app']
-  },
-  {
-    title: 'A new browser used to sign in',
-    defaultChecked: ['email', 'browser', 'app']
-  },
-  {
-    title: 'A new device is linked',
-    defaultChecked: ['browser']
-  }
+      title: 'New Donations',
+      defaultChecked: ['email']
+  }  
 ]
+
 const NotificationsTabContent = () => {
   return (
     <Card>
@@ -68,8 +57,8 @@ const NotificationsTabContent = () => {
         <Row className='gy-2'>
           <Col md='6'>
             <h5 className='mb-1'>When should we send you notifications?</h5>
-            <Input type='select' defaultValue='Full Access Always'>
-              <option value='full-access'>Full Access Always</option>
+            <Input type='select' defaultValue='Always'>
+              <option value='full-access'>Always</option>
               <option value='only-online'>Only when I'm online</option>
               <option value='never'>Never</option>
             </Input>
