@@ -1,9 +1,22 @@
-// ** Third Party Components
-import { Swiper, SwiperSlide } from 'swiper/react/swiper-react'
-import { Play, DollarSign, HelpCircle, FileText, Archive } from 'react-feather'
-
+import {
+  Archive,
+  DollarSign,
+  FileText,
+  HelpCircle,
+  Play
+} from 'react-feather'
 // ** Reactstrap Imports
-import { Card, CardHeader, CardTitle, CardBody } from 'reactstrap'
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  CardTitle
+} from 'reactstrap'
+// ** Third Party Components
+import {
+  Swiper,
+  SwiperSlide
+} from 'swiper/react/swiper-react'
 
 const SwiperCenterSlidesStyle = ({ isRtl }) => {
   const params = {
