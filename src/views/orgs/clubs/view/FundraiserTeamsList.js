@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // ** Reactstrap Imports
 import { Input, Label, Modal, ModalHeader, ModalBody, Form, Row, Col, Button, Card, CardHeader, Progress } from 'reactstrap'
@@ -14,41 +14,8 @@ import Avatar from '@components/avatar'
 
 // ** Styles
 import '@styles/react/libs/tables/react-dataTable-component.scss'
-
-const chapterTeams = [
-  {
-    id: 4987,
-    uuid: '', 
-    name: '14U Ducks', 
-    createdOn: '13 Dec 2019',
-    primary_contact: {
-      email_address: 'don85@johnson.com',
-      phone: '(616) 865-4180',
-      first_name: 'Jordan', 
-      last_name: 'Stevenson', 
-      full_name: 'Jordan Stevenson'
-    },
-    total_players: 22, 
-    total_donations: 4354, 
-    status: 'active'
-  },
-  {
-    id: 4987,
-    uuid: '', 
-    name: '1U Ducks', 
-    createdOn: '13 Dec 2019',
-    primary_contact: {
-      email_address: 'don85@johnson.com',
-      phone: '(616) 865-4180',
-      first_name: 'Jordan', 
-      last_name: 'Stevenson', 
-      full_name: 'Jordan Stevenson'
-    },
-    total_players: 12, 
-    total_donations: 4354, 
-    status: 'active'
-  }
-]
+import { getClubTeams } from '../store'
+import { useDispatch, useSelector} from 'react-redux'
 
 export const columns = [
   
@@ -60,13 +27,13 @@ export const columns = [
     sortable: true,
     minWidth: '300px',
     name: 'Primary Contact',
-    selector: row => row.primary_contact.full_name,
+    selector: row => row.name,
     cell: row => {
       return (
         <div className='d-flex justify-content-left align-items-center'>
           <div className='d-flex flex-column'>
-            <span className='text-truncate fw-bolder'>{row.primary_contact.full_name}</span>
-            <small className='text-muted'>{row.primary_contact.email_address}</small>
+            <span className='text-truncate fw-bolder'>{row.name}</span>
+            <small className='text-muted'>{row.email}</small>
           </div>
         </div>
       )
@@ -83,9 +50,16 @@ export const columns = [
 ]
 
 const FundraiserTeamsList = () => {
+  const dispatch = useDispatch()
+  const store = useSelector(state => state.clubs)
 
   const [show, setShow] = useState(false)
 
+  useEffect(() => {
+    const id = window.location.pathname.split("/").pop()
+    dispatch(getClubTeams(id))
+   
+  }, [dispatch])
   // ** Hook
   const {
     control,
@@ -255,7 +229,7 @@ const FundraiserTeamsList = () => {
           noHeader
           responsive
           columns={columns}
-          data={chapterTeams}
+          data={store.clubTeams}
           className='react-dataTable'
           sortIcon={<ChevronDown size={10} />}
         />
