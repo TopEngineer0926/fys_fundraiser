@@ -37,7 +37,7 @@ const sponsor_swiper_params = {
 
 const Team = ({ team_id }) => {
   return (
-    <div style={{background: "white", borderRadius: '1rem', padding: "2rem"}}>
+    <div style={{background: "white", borderRadius: '1rem', padding: "2rem", marginBottom: "2rem"}}>
       <div className='myFlex' style={{paddingBottom: "1rem"}}>
         <img src={require(`@src/assets/images/public_pages/teams/team${team_id}.svg`).default} className='myCenter'></img>
       </div>
@@ -142,6 +142,17 @@ const Home = () => {
           <Container fluid="md" className='container'>
             <div className='myFlex' style={{paddingBottom: "3rem"}}>
               <h1 className='myLeft' style={{color: "black", fontWeight: "bold"}}>Our Teams</h1>
+            </div>
+            <div className='row'>
+              <div className='col-md-4'>
+                <Team team_id={1} />
+              </div>
+              <div className='col-md-4'>
+                <Team team_id={2} />
+              </div>
+              <div className='col-md-4'>
+                <Team team_id={3} />
+              </div>
             </div>
             <div className='row'>
               <div className='col-md-4'>

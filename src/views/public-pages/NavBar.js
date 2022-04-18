@@ -17,7 +17,7 @@ import {
 
 const NavBar = () => {
   return (
-    <div id="Navbar">
+    <div id="Navbar" style={{borderBottom: "solid 1px rgb(200, 200, 200)"}}>
         <Container fluid="md" style={{maxWidth: "1100px"}}>
           <Row>
             <Col md="4" className='myFlex'>
