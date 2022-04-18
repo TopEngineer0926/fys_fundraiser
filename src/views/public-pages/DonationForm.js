@@ -21,7 +21,7 @@ import NavBar from './NavBar'
 import CheckoutForm from "./CheckoutForm"
 import axios from 'axios'
 
-const stripePromise = loadStripe(`${process.env.STRIPE_TEST_PUBLIC_KEY}`)
+const stripePromise = loadStripe("pk_test_51KnwltAfcKEcHq5CQqmctsPDYdYzaU3NviORmdsys9vxPDfyxisuE6BWkecwmSu3cjLeNVVwRPFLEbHZuX8f6FGk003H6nGaZr")
 
 const DonationForm = () => {
 
