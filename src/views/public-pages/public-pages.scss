@@ -27,31 +27,20 @@
     } */
 }
 #footer {
-    padding-bottom: 0px;
-    background-image: url('../../assets/images/public_pages/footerBg.png');
-    .contact {
-        padding-bottom: 5rem;
-        border-bottom: 1px solid white;
-        .col {
-            padding-right: 5rem;
-            .row1 {
-                padding-bottom: 1rem;
-                h5 {
-                    color: white;
-                }
-            }
-            .row2 {
-                padding-bottom: 1rem;
-                h6 {
-                    color: white;
-                }
-            }
-        }
+  .navLink {
+    padding: 0rem 1rem;
+    color: white;
+  }
+  .getStarted_btn {
+    background-color: #c43439;
+    color: white;
+    font-weight: bold;
+    border-radius: 5rem;
+    padding: 1rem 1.5rem 0.9rem 1.5rem !important;
+    &:hover {
+        background: #720004 !important;
     }
-    .description {
-      padding: 1rem 0px;
-      color: white;
-    }
+  }
 }
 #home {
     #banner {
@@ -253,29 +242,28 @@
         /* fill: #f5f5f7; */
       }
 }
-.donate_btn {
-    
+
+.myComponent {
+    padding: 5rem 0rem;
 }
 
 .myFlex {
-    display: flex;
+  display: flex;
 }
 .myCenter {
-    margin: auto;
+  margin: auto;
 }
 .myLeft {
-    margin: auto;
-    margin-left: 0px;
+  margin: auto;
+  margin-left: 0px;
 }
 .myRight {
-    margin: auto;
-    margin-right: 0px;
+  margin: auto;
+  margin-right: 0px;
 }
 .myBottom {
-    margin-bottom: 0px;
-}
-.myComponent {
-    padding: 5rem 0rem;
+  margin: auto;
+  margin-bottom: 0px;
 }
 .myWidth {
     width: 100%;

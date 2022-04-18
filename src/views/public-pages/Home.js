@@ -26,14 +26,6 @@ import NavBar from './NavBar'
 
 SwiperCore.use([Navigation, Grid, Pagination, EffectFade, EffectCube, EffectCoverflow, Autoplay, Lazy, Virtual])
 
-const team_swiper_params = {
-  slidesPerView: 3,
-  spaceBetween: 30,
-  pagination: {
-    clickable: true
-  },
-  navigation: true
-}
 const sponsor_swiper_params = {
   className: 'swiper-centered-slides swiper-container p-1',
   slidesPerView: 'auto',
@@ -45,7 +37,7 @@ const sponsor_swiper_params = {
 
 const Team = ({ team_id }) => {
   return (
-    <div style={{background: "white", borderRadius: '1rem', padding: "2rem", marginBottom: "5rem"}}>
+    <div style={{background: "white", borderRadius: '1rem', padding: "2rem"}}>
       <div className='myFlex' style={{paddingBottom: "1rem"}}>
         <img src={require(`@src/assets/images/public_pages/teams/team${team_id}.svg`).default} className='myCenter'></img>
       </div>
@@ -151,36 +143,16 @@ const Home = () => {
             <div className='myFlex' style={{paddingBottom: "3rem"}}>
               <h1 className='myLeft' style={{color: "black", fontWeight: "bold"}}>Our Teams</h1>
             </div>
-            <div className=''>
-              <Swiper {...team_swiper_params}>
-                <SwiperSlide>
-                  <Team team_id={1} />
-                </SwiperSlide>
-                <SwiperSlide>
-                <Team team_id={2} />
-                </SwiperSlide>
-                <SwiperSlide>
-                <Team team_id={3} />
-                </SwiperSlide>
-                <SwiperSlide>
-                <Team team_id={2} />
-                </SwiperSlide>
-                <SwiperSlide>
+            <div className='row'>
+              <div className='col-md-4'>
                 <Team team_id={1} />
-                </SwiperSlide>
-                <SwiperSlide>
+              </div>
+              <div className='col-md-4'>
                 <Team team_id={2} />
-                </SwiperSlide>
-                <SwiperSlide>
+              </div>
+              <div className='col-md-4'>
                 <Team team_id={3} />
-                </SwiperSlide>
-                <SwiperSlide>
-                <Team team_id={2} />
-                </SwiperSlide>
-                <SwiperSlide>
-                <Team team_id={1} />
-                </SwiperSlide>
-              </Swiper>
+              </div>
             </div>
           </Container>
         </div>
