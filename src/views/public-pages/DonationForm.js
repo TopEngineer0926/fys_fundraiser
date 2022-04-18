@@ -18,8 +18,10 @@ import {
 import { Elements } from "@stripe/react-stripe-js"
 import Footer from './Footer'
 import NavBar from './NavBar'
+const stripePromise = loadStripe(`${process.env.REACT_APP_BASE_URL}`)
 
 const DonationForm = () => {
+
   // const payment_methods = [
   //   { type: "paypal", text: "Credit Card", checked: true },
   //   { type: "applepay", text: "Apple Pay", checked: false },
