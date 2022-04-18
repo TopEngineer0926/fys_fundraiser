@@ -11,10 +11,7 @@ export const getAllData = createAsyncThunk('appClubs/getAllData', async () => {
 
 export const getData = createAsyncThunk('appClubs/getData', async params => {
   // const response = await axios.get('/api/clubs/list/data', params)
-  console.log("getData params:", params)
-
-  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/?organization=`, params)
-  console.log("getData A", response.data)
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/list`, params)
   // const clubs = {
   //   clubs: response.data
   // }
@@ -28,15 +25,17 @@ export const getData = createAsyncThunk('appClubs/getData', async params => {
 
 export const getClub = createAsyncThunk('appClubs/getClub', async id => {
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/?organization=${id}`)
-  console.log("getClub ABC", response.data)
-
   return response.data 
 })
 
 export const getClubTeams = createAsyncThunk('appClubs/getClubTeams', async id => {
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/filter?parent=${id}`)
-
   return response.data 
+})
+export const addClubTeam = createAsyncThunk('appClubs/addClubTeam', async (clubTeam, { dispatch }) => {
+  await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/organization/create`, clubTeam)
+  await dispatch(getClubTeams())
+  return clubTeam
 })
 
 export const getClubCampaigns = createAsyncThunk('appClubs/getClubCampaigns', async id => {
@@ -72,6 +71,9 @@ export const appClubsSlice = createSlice({
     total: 1,
     params: {},
     allData: [],
+    clubTeams:[],
+    clubCampaigns:[],
+    clubUsers:[],
     selectedUser: null
   },
   reducers: {},
@@ -87,6 +89,15 @@ export const appClubsSlice = createSlice({
       })
       .addCase(getClub.fulfilled, (state, action) => {
         state.selectedUser = action.payload.data
+      })
+      .addCase(getClubTeams.fulfilled, (state, action) => {
+        state.clubTeams = action.payload.data
+      })
+      .addCase(getClubCampaigns.fulfilled, (state, action) => {
+        state.clubCampaigns = action.payload.data
+      })
+      .addCase(getClubUsers.fulfilled, (state, action) => {
+        state.clubUsers = action.payload.data
       })
   }
 })

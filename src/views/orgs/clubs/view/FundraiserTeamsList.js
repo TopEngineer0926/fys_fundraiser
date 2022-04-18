@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // ** Reactstrap Imports
 import { Input, Label, Modal, ModalHeader, ModalBody, Form, Row, Col, Button, Card, CardHeader, Progress } from 'reactstrap'
@@ -14,41 +14,8 @@ import Avatar from '@components/avatar'
 
 // ** Styles
 import '@styles/react/libs/tables/react-dataTable-component.scss'
-
-const chapterTeams = [
-  {
-    id: 4987,
-    uuid: '', 
-    name: '14U Ducks', 
-    createdOn: '13 Dec 2019',
-    primary_contact: {
-      email_address: 'don85@johnson.com',
-      phone: '(616) 865-4180',
-      first_name: 'Jordan', 
-      last_name: 'Stevenson', 
-      full_name: 'Jordan Stevenson'
-    },
-    total_players: 22, 
-    total_donations: 4354, 
-    status: 'active'
-  },
-  {
-    id: 4987,
-    uuid: '', 
-    name: '1U Ducks', 
-    createdOn: '13 Dec 2019',
-    primary_contact: {
-      email_address: 'don85@johnson.com',
-      phone: '(616) 865-4180',
-      first_name: 'Jordan', 
-      last_name: 'Stevenson', 
-      full_name: 'Jordan Stevenson'
-    },
-    total_players: 12, 
-    total_donations: 4354, 
-    status: 'active'
-  }
-]
+import { getClubTeams, addClubTeam } from '../store'
+import { useDispatch, useSelector} from 'react-redux'
 
 export const columns = [
   
@@ -60,13 +27,13 @@ export const columns = [
     sortable: true,
     minWidth: '300px',
     name: 'Primary Contact',
-    selector: row => row.primary_contact.full_name,
+    selector: row => row.name,
     cell: row => {
       return (
         <div className='d-flex justify-content-left align-items-center'>
           <div className='d-flex flex-column'>
-            <span className='text-truncate fw-bolder'>{row.primary_contact.full_name}</span>
-            <small className='text-muted'>{row.primary_contact.email_address}</small>
+            <span className='text-truncate fw-bolder'>{row.name}</span>
+            <small className='text-muted'>{row.email}</small>
           </div>
         </div>
       )
@@ -83,9 +50,16 @@ export const columns = [
 ]
 
 const FundraiserTeamsList = () => {
+  const dispatch = useDispatch()
+  const store = useSelector(state => state.clubs)
 
   const [show, setShow] = useState(false)
 
+  useEffect(() => {
+    const id = window.location.pathname.split("/").pop()
+    dispatch(getClubTeams(id))
+   
+  }, [dispatch, store.clubTeams])
   // ** Hook
   const {
     control,
@@ -98,6 +72,11 @@ const FundraiserTeamsList = () => {
 
   const onSubmit = data => {
     if (Object.values(data).every(field => field.length > 0)) {
+      data.organizationType = '43ea97ae-c3fe-410a-9c8b-ff10fdf520ae'
+      data.parent = window.location.pathname.split("/").pop()
+      const userData = localStorage.getItem('userData')
+      data.user = JSON.parse(userData).uuid
+      dispatch(addClubTeam(data))
       setShow(false)
     } else {
       for (const key in data) {
@@ -137,81 +116,170 @@ const FundraiserTeamsList = () => {
           <ModalHeader className='bg-transparent' toggle={() => setShow(!show)}></ModalHeader>
           <ModalBody className='px-sm-5 pt-50 pb-5'>
             <div className='text-center mb-2'>
-              <h1 className='mb-1'>Edit Team Information</h1>
+              <h1 className='mb-1'>Add/Edit Team Information</h1>
               <p>Updating user details will receive a privacy audit.</p>
             </div>
             <Form onSubmit={handleSubmit(onSubmit)}>
               <Row className='gy-1 pt-75'>
                 <Col md={6} xs={12}>
-                  <Label className='form-label' for='firstName'>
-                    First Name
+                  <Label className='form-label' for='name'>
+                    Name
                   </Label>
                   <Controller
                     defaultValue=''
                     control={control}
-                    id='firstName'
-                    name='firstName'
+                    id='name'
+                    name='name'
                     render={({ field }) => (
-                      <Input {...field} id='firstName' placeholder='John' invalid={errors.firstName && true} />
+                      <Input {...field} id='name' placeholder='John' invalid={errors.name && true} />
                     )}
                   />
                 </Col>
                 <Col md={6} xs={12}>
-                  <Label className='form-label' for='lastName'>
-                    Last Name
-                  </Label>
-                  <Controller
-                    defaultValue=''
-                    control={control}
-                    id='lastName'
-                    name='lastName'
-                    render={({ field }) => (
-                      <Input {...field} id='lastName' placeholder='Doe' invalid={errors.lastName && true} />
-                    )}
-                  />
-                </Col>
-                <Col xs={12}>
-                  <Label className='form-label' for='username'>
-                    Username
-                  </Label>
-                  <Controller
-                    defaultValue=''
-                    control={control}
-                    id='username'
-                    name='username'
-                    render={({ field }) => (
-                      <Input {...field} id='username' placeholder='john.doe.007' invalid={errors.username && true} />
-                    )}
-                  />
-                </Col>
-                <Col md={6} xs={12}>
-                  <Label className='form-label' for='billing-email'>
+                  <Label className='form-label' for='email'>
                     Billing Email
                   </Label>
-                  <Input
-                    type='email'
-                    id='billing-email'
+                  <Controller
                     defaultValue=''
-                    placeholder='example@domain.com'
+                    control={control}
+                    id='email'
+                    name='email'
+                    render={({ field }) => (
+                      <Input {...field} id='email' placeholder='john.doe.007' invalid={errors.email && true} />
+                    )}
                   />
                 </Col>
                 <Col md={6} xs={12}>
-                  <Label className='form-label' for='tax-id'>
+                  <Label className='form-label' for='website'>
+                  Website
+                  </Label>
+                  <Controller
+                    defaultValue=''
+                    control={control}
+                    id='website'
+                    name='website'
+                    render={({ field }) => (
+                      <Input {...field} id='website' placeholder='website.com' invalid={errors.website && true} />
+                    )}
+                  />
+                </Col>
+                
+                <Col md={6} xs={12}>
+                  <Label className='form-label' for='tax'>
                     Tax ID
                   </Label>
-                  <Input
-                    id='tax-id'
-                    placeholder='Tax-1234'
+                  <Controller
                     defaultValue=''
+                    control={control}
+                    id='tax'
+                    name='tax'
+                    render={({ field }) => (
+                      <Input {...field} id='tax' placeholder='Tax-1234' invalid={errors.tax && true} />
+                    )}
                   />
                 </Col>
                 <Col md={6} xs={12}>
-                  <Label className='form-label' for='contact'>
+                  <Label className='form-label' for='phone'>
                     Contact
                   </Label>
-                  <Input id='contact' defaultValue='' placeholder='+1 609 933 4422' />
+                  <Controller
+                    defaultValue=''
+                    control={control}
+                    id='phone'
+                    name='phone'
+                    render={({ field }) => (
+                      <Input {...field} id='phone' placeholder='+1 609 933 4422' invalid={errors.phone && true} />
+                    )}
+                  />
                 </Col>
+                {/* Address */}
+                <Col md={6} xs={12}>
+                  <Label className='form-label' for='phone'>
+                  Address
+                  </Label>
+                  <Controller
+                    defaultValue=''
+                    control={control}
+                    id='address1'
+                    name='address1'
+                    render={({ field }) => (
+                      <Input {...field} id='address1' placeholder='' invalid={errors.address1 && true} />
+                    )}
+                  />
+                </Col>
+                <Col md={6} xs={12}>
+                  <Label className='form-label' for='city'>
+                  City
+                  </Label>
+                  <Controller
+                    defaultValue=''
+                    control={control}
+                    id='city'
+                    name='city'
+                    render={({ field }) => (
+                      <Input {...field} id='city' placeholder='' invalid={errors.city && true} />
+                    )}
+                  />
+                </Col>
+                <Col md={6} xs={12}>
+                  <Label className='form-label' for='state'>
+                  State
+                  </Label>
+                  <Controller
+                    defaultValue=''
+                    control={control}
+                    id='state'
+                    name='state'
+                    render={({ field }) => (
+                      <Input {...field} id='state' placeholder='' invalid={errors.state && true} />
+                    )}
+                  />
+                </Col>
+                <Col md={6} xs={12}>
+                  <Label className='form-label' for='zip'>
+                  Zip
+                  </Label>
+                  <Controller
+                    defaultValue=''
+                    control={control}
+                    id='zip'
+                    name='zip'
+                    render={({ field }) => (
+                      <Input {...field} id='zip' placeholder='' invalid={errors.zip && true} />
+                    )}
+                  />
+                </Col>
+                <Col md={6} xs={12}>
+                  <Label className='form-label' for='country'>
+                  Country
+                  </Label>
+                  <Controller
+                    defaultValue=''
+                    control={control}
+                    id='country'
+                    name='country'
+                    render={({ field }) => (
+                      <Input {...field} id='country' placeholder='' invalid={errors.country && true} />
+                    )}
+                  />
+                </Col>
+
+
                 <Col xs={12}>
+                  <Label className='form-label' for='aboutUs'>
+                  About Us
+                  </Label>
+                  <Controller
+                    defaultValue=''
+                    control={control}
+                    id='aboutUs'
+                    name='aboutUs'
+                    render={({ field }) => (
+                      <Input {...field} id='aboutUs' placeholder='' invalid={errors.aboutUs && true} />
+                    )}
+                  />
+                </Col>
+                {/* <Col xs={12}>
                   <div className='d-flex align-items-center mt-1'>
                     <div className='form-switch'>
                       <Input type='switch' defaultChecked id='billing-switch' name='billing-switch' />
@@ -228,7 +296,7 @@ const FundraiserTeamsList = () => {
                       Use as a billing address?
                     </Label>
                   </div>
-                </Col>
+                </Col> */}
                 <Col xs={12} className='text-center mt-2 pt-50'>
                   <Button type='submit' className='me-1' color='primary'>
                     Submit
@@ -255,7 +323,7 @@ const FundraiserTeamsList = () => {
           noHeader
           responsive
           columns={columns}
-          data={chapterTeams}
+          data={store.clubTeams}
           className='react-dataTable'
           sortIcon={<ChevronDown size={10} />}
         />
