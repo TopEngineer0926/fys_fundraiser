@@ -18,9 +18,10 @@ import { loadStripe } from "@stripe/stripe-js"
 import { Elements } from "@stripe/react-stripe-js"
 import Footer from './Footer'
 import NavBar from './NavBar'
+import CheckoutForm from "./CheckoutForm"
 import axios from 'axios'
 
-const stripePromise = loadStripe(`${process.env.REACT_APP_BASE_URL}`)
+const stripePromise = loadStripe(`${process.env.STRIPE_TEST_PUBLIC_KEY}`)
 
 const DonationForm = () => {
 
@@ -36,11 +37,12 @@ const DonationForm = () => {
     // await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/stripe/pi`, {})
     axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/stripe/pi`, {
       cardAmount: 2000,
-      transferGroup: "transfer123",
+      transferGroup: "transfer11123456",
       items: "asdf"
   })
       .then((data) => { 
-        setClientSecret(data.data.clientSecret)
+        console.log("ASDF : ", data.data.data)
+        setClientSecret(data.data.data.client_secret)
 })
   }, [])
   const appearance = {
@@ -224,6 +226,7 @@ const DonationForm = () => {
                   <CheckoutForm />
                 </Elements>
               )}
+              
             </div>
             <div className='row' style={{ paddingBottom: "0rem" }}>
               <div className='col-md-2 myFlex'>
