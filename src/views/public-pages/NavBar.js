@@ -49,7 +49,7 @@ const NavBar = () => {
                       </NavLink>
                     </NavItem>
                     <NavItem className='NavItem'>
-                      <NavLink href="public/our-story/" className='NavLink'>
+                      <NavLink href="public/our-story" className='NavLink'>
                         Our Story
                       </NavLink>
                     </NavItem>
