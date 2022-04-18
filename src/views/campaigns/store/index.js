@@ -5,7 +5,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const getAllData = createAsyncThunk('appCampaigns/getAllData', async () => {
-  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/filter?organization=${id}`)
+  const response = await axios.get(`${process.env.React_App_BASE_URL}/api/v1/campaign/filter?organization=${id}`)
   return response.data
 })
 

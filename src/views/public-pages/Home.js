@@ -1,5 +1,8 @@
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import './public-pages.scss'
 import '@styles/react/libs/swiper/swiper.scss'
+import axios from 'axios'
 
 import Carousel from 'react-elastic-carousel'
 import {
@@ -34,8 +37,22 @@ import NavBar from './NavBar'
   navigation: true,
   slideToClickedSlide: true
 } */
+const Team = ({ team_id, compaign }) => {
+  const [teams, setTeams] = useState()
 
-const Team = ({ team_id }) => {
+  useEffect(() => {
+    async function getTeams() {
+      const res = await axios.get(`${process.env.React_App_BASE_URL}/organization_campaign/donate?campaign=${compaign?.id}`)
+      res
+        .json()
+        .then(res => setTeams(res))
+        .catch(() => setError(false))
+    }
+
+    getTeams()
+    console.log(teams)
+  })
+
   return (
     <div style={{background: "white", borderRadius: '1rem', padding: "2rem", marginBottom: "2rem"}}>
       <div className='myFlex' style={{paddingBottom: "1rem"}}>
@@ -66,6 +83,23 @@ const Team = ({ team_id }) => {
 }
 
 const Home = () => {
+
+  const [compaign, setCompaign] = useState()
+
+  useEffect(() => {
+    async function getCompaign() {
+      const { url_slug } = useParams()
+      debugger
+      const res = await axios.get(`${process.env.React_App_BASE_URL}/campaign/donate?url_slug=${url_slug}`)
+      res
+        .json()
+        .then(res => { setCompaign(res) })
+        .catch(() => setError(false))
+    }
+
+    getCompaign()
+  })
+
   return (
     <div>
       <NavBar></NavBar>
@@ -82,7 +116,7 @@ const Home = () => {
                     <p className="myLeft" style={{fontSize:"3rem", fontWeight: "bold", color: "black"}}>Athletic Club</p>
                   </div>
                   <div className='col-md-6 myFlex'>
-                    <a className="myRight donate_btn" href="public/landingpage">Donate <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span></a>
+                    <a className="myRight donate_btn" href="/campaigns/tomtesting/donate">Donate <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span></a>
                   </div>
                 </div>
                 <div className='' style={{background: "white", borderRadius: "1rem", padding: "1rem 0rem 1rem 0rem"}}>
@@ -145,24 +179,24 @@ const Home = () => {
             </div>
             <div className='row'>
               <div className='col-md-4'>
-                <Team team_id={1} />
+                <Team team_id={1} compaign={compaign}  />
               </div>
               <div className='col-md-4'>
-                <Team team_id={2} />
+                <Team team_id={2} compaign={compaign} />
               </div>
               <div className='col-md-4'>
-                <Team team_id={3} />
+                <Team team_id={3} compaign={compaign} />
               </div>
             </div>
             <div className='row'>
               <div className='col-md-4'>
-                <Team team_id={1} />
+                <Team team_id={1} compaign={compaign} />
               </div>
               <div className='col-md-4'>
-                <Team team_id={2} />
+                <Team team_id={2} compaign={compaign} />
               </div>
               <div className='col-md-4'>
-                <Team team_id={3} />
+                <Team team_id={3} compaign={compaign} />
               </div>
             </div>
           </Container>
