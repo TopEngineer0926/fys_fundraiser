@@ -10,7 +10,6 @@ import SwiperCore, {
   EffectCoverflow,
   EffectCube,
   EffectFade,
-  Grid,
   Lazy,
   Navigation,
   Pagination,
@@ -24,7 +23,7 @@ import {
 import Footer from './Footer'
 import NavBar from './NavBar'
 
-SwiperCore.use([Navigation, Grid, Pagination, EffectFade, EffectCube, EffectCoverflow, Autoplay, Lazy, Virtual])
+SwiperCore.use([Navigation, Pagination, EffectFade, EffectCube, EffectCoverflow, Autoplay, Lazy, Virtual])
 
 const team_swiper_params = {
   slidesPerView: 3,
