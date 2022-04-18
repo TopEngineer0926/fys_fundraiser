@@ -59,7 +59,13 @@ const FundraiserTeamsList = () => {
     const id = window.location.pathname.split("/").pop()
     dispatch(getClubTeams(id))
    
-  }, [dispatch, store.clubTeams])
+  }, [dispatch])
+  
+  useEffect(() => {
+    const id = window.location.pathname.split("/").pop()
+    dispatch(getClubTeams(id))
+   
+  }, [store.clubTeams])
   // ** Hook
   const {
     control,
@@ -77,6 +83,9 @@ const FundraiserTeamsList = () => {
       const userData = localStorage.getItem('userData')
       data.user = JSON.parse(userData).uuid
       dispatch(addClubTeam(data))
+      const id = window.location.pathname.split("/").pop()
+      dispatch(getClubTeams(id))
+
       setShow(false)
     } else {
       for (const key in data) {

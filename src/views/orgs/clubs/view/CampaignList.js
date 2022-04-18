@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // ** Reactstrap Imports
 import { Input, Label, Modal, ModalHeader, ModalBody, Form, Row, Col, Button, Card, CardHeader, Progress } from 'reactstrap'
@@ -8,6 +8,9 @@ import Select from 'react-select'
 import { Check, ChevronDown, X } from 'react-feather'
 import { useForm, Controller } from 'react-hook-form'
 import DataTable from 'react-data-table-component'
+import { getClubCampaigns } from '../store'
+import { useDispatch, useSelector} from 'react-redux'
+
 
 // ** Custom Components
 import Avatar from '@components/avatar'
@@ -15,34 +18,34 @@ import Avatar from '@components/avatar'
 // ** Styles
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
-const projectsArr = [
-  {
-    progress: 60,
-    total_donations: 12350,
-    hours: '210:30h',
-    progressColor: 'info',
-    totalTasks: '233/240',
-    subtitle: 'React Project',
-    title: 'BGC eCommerce App',
-    start_date: '04/15/2022', 
-    end_date: '05/01/2022', 
-    campaign_goal: 25000,
-    img: require('@src/assets/images/icons/brands/react-label.png').default
-  },
-  {
-    hours: '89h',
-    total_donations: 9350,
-    progress: 15,
-    totalTasks: '9/50',
-    progressColor: 'danger',
-    subtitle: 'UI/UX Project',
-    title: 'Falcon Logo Design',
-    start_date: '05/15/2022', 
-    end_date: '06/01/2022', 
-    campaign_goal: 15000,
-    img: require('@src/assets/images/icons/brands/xd-label.png').default
-  }
-]
+// const projectsArr = [
+//   {
+//     progress: 60,
+//     total_donations: 12350,
+//     hours: '210:30h',
+//     progressColor: 'info',
+//     totalTasks: '233/240',
+//     subtitle: 'React Project',
+//     title: 'BGC eCommerce App',
+//     start_date: '04/15/2022', 
+//     end_date: '05/01/2022', 
+//     campaign_goal: 25000,
+//     img: require('@src/assets/images/icons/brands/react-label.png').default
+//   },
+//   {
+//     hours: '89h',
+//     total_donations: 9350,
+//     progress: 15,
+//     totalTasks: '9/50',
+//     progressColor: 'danger',
+//     subtitle: 'UI/UX Project',
+//     title: 'Falcon Logo Design',
+//     start_date: '05/15/2022', 
+//     end_date: '06/01/2022', 
+//     campaign_goal: 15000,
+//     img: require('@src/assets/images/icons/brands/xd-label.png').default
+//   }
+// ]
 
 export const columns = [
   {
@@ -85,7 +88,8 @@ export const columns = [
 const CampaignList = () => {
 
   const [show, setShow] = useState(false)
-
+  const dispatch = useDispatch()
+  const store = useSelector(state => state.clubs)
   // ** Hook
   const {
     control,
@@ -95,6 +99,11 @@ const CampaignList = () => {
   } = useForm({
     
   })
+  useEffect(() => {
+    const id = window.location.pathname.split("/").pop()
+    dispatch(getClubCampaigns(id))
+   
+  }, [dispatch])
 
   const onSubmit = data => {
     if (Object.values(data).every(field => field.length > 0)) {
@@ -255,7 +264,7 @@ const CampaignList = () => {
           noHeader
           responsive
           columns={columns}
-          data={projectsArr}
+          data={store.clubCampaigns}
           className='react-dataTable'
           sortIcon={<ChevronDown size={10} />}
         />
