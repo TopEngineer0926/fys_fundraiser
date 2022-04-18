@@ -60,6 +60,12 @@ const FundraiserTeamsList = () => {
     dispatch(getClubTeams(id))
    
   }, [dispatch])
+  
+  useEffect(() => {
+    const id = window.location.pathname.split("/").pop()
+    dispatch(getClubTeams(id))
+   
+  }, [store.clubTeams])
   // ** Hook
   const {
     control,
