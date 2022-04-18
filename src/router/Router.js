@@ -43,7 +43,7 @@ const Router = ({ allRoutes }) => {
       children: [
         { path: '/campaign/:url_slug', element: <PublicHome />},
         { path: '/campaign/landingpage', element: <PublicLandingPage />},
-        { path: '/campaign/donationform', element: <PublicDonationForm />},
+        { path: '/campaign//:url_slug/donate', element: <PublicDonationForm />},
         { path: '/campaign/thankyou', element: <PublicThankYou />}
       ]
     },

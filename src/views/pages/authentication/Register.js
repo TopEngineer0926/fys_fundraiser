@@ -64,7 +64,7 @@ const Register = () => {
 
     if (Object.values(tempData).every(field => field.length > 0)) {
       axios
-        .post(`${process.env.React_App_BASE_URL}/api/v1/entrance/user`, {
+        .post(`${process.env.REACT_APP_BASE_URL}/api/v1/entrance/user`, {
           email: data.email,
           username: data.username,
           password: data.password

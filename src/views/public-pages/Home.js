@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+// import { useParams } from 'react-router-dom'
 import './public-pages.scss'
 import '@styles/react/libs/swiper/swiper.scss'
 import axios from 'axios'
@@ -37,12 +37,13 @@ import NavBar from './NavBar'
   navigation: true,
   slideToClickedSlide: true
 } */
-const Team = ({ team_id, compaign }) => {
+const Team = ({ team_id }) => {
   const [teams, setTeams] = useState()
 
   useEffect(() => {
     async function getTeams() {
-      const res = await axios.get(`${process.env.React_App_BASE_URL}/organization_campaign/donate?campaign=${compaign?.id}`)
+      const id = window.location.pathname.split("/").pop()
+      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/organization_campaign/donate?campaign=${id}`)
       res
         .json()
         .then(res => setTeams(res))
@@ -50,7 +51,7 @@ const Team = ({ team_id, compaign }) => {
     }
 
     getTeams()
-    console.log(teams)
+    console.log("getTeams -> ", teams)
   })
 
   return (
@@ -88,9 +89,8 @@ const Home = () => {
 
   useEffect(() => {
     async function getCompaign() {
-      const { url_slug } = useParams()
-      debugger
-      const res = await axios.get(`${process.env.React_App_BASE_URL}/campaign/donate?url_slug=${url_slug}`)
+      const url_slug = window.location.pathname.split("/").pop()
+      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/campaign/donate?url_slug=${url_slug}&ip_address=127.0.0.1`)
       res
         .json()
         .then(res => { setCompaign(res) })
