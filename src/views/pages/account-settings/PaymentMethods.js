@@ -184,7 +184,7 @@ const PaymentMethods = () => {
                               <X size={14} />
                             </span>
                           </Label>
-                          <Label className='form-check-label' className='fw-bolder ms-1' for='save-card'>
+                          <Label className='form-check-label fw-bolder ms-1' for='save-card'>
                             Save Card for future billing?
                           </Label>
                         </div>
