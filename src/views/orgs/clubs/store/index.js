@@ -32,6 +32,11 @@ export const getClubTeams = createAsyncThunk('appClubs/getClubTeams', async id =
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/filter?parent=${id}`)
   return response.data 
 })
+export const addClubTeam = createAsyncThunk('appClubs/addClubTeam', async (clubTeam, { dispatch }) => {
+  await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/organization/create`, clubTeam)
+  await dispatch(getClubTeams())
+  return clubTeam
+})
 
 export const getClubCampaigns = createAsyncThunk('appClubs/getClubCampaigns', async id => {
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/filter?organization=${id}`)
@@ -67,6 +72,8 @@ export const appClubsSlice = createSlice({
     params: {},
     allData: [],
     clubTeams:[],
+    clubCampaigns:[],
+    clubUsers:[],
     selectedUser: null
   },
   reducers: {},
@@ -85,6 +92,12 @@ export const appClubsSlice = createSlice({
       })
       .addCase(getClubTeams.fulfilled, (state, action) => {
         state.clubTeams = action.payload.data
+      })
+      .addCase(getClubCampaigns.fulfilled, (state, action) => {
+        state.clubCampaigns = action.payload.data
+      })
+      .addCase(getClubUsers.fulfilled, (state, action) => {
+        state.clubUsers = action.payload.data
       })
   }
 })
