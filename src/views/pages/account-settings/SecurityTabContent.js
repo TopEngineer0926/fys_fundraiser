@@ -13,8 +13,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import InputPasswordToggle from '@components/input-password-toggle'
 
 // ** Demo Components
-import ApiKeysList from './ApiKeysList'
-import CreateApiKey from './CreateApikey'
 import TwoFactorAuth from './TwoFactorAuth'
 import RecentDevices from './RecentDevices'
 
@@ -161,8 +159,6 @@ const SecurityTabContent = () => {
         </CardBody>
       </Card>
       <TwoFactorAuth />
-      <CreateApiKey />
-      <ApiKeysList />
       <RecentDevices />
     </Fragment>
   )

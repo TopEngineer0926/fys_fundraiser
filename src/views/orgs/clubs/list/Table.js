@@ -242,7 +242,6 @@ const ClubsList = () => {
       return filters[k].length > 0
     })
 
-    console.log(store.data.length)
     if (store.data.length > 0) {
       return store.data
     } else if (store.data.length === 0 && isFiltered) {
@@ -360,7 +359,6 @@ const ClubsList = () => {
       </Card>
 
       <Card className='overflow-hidden'>
-        <CardHeader tag='h4'>Chapters</CardHeader>
         <div className='react-dataTable'>
           <DataTable
             noHeader

@@ -13,6 +13,9 @@ import { Row, Col, Alert } from 'reactstrap'
 import UserTabs from './Tabs'
 import UserInfoCard from './UserInfoCard'
 
+// ** Custom Component
+import Breadcrumbs from '@components/breadcrumbs'
+
 // ** Styles
 import '@styles/react/apps/app-users.scss'
 
@@ -39,6 +42,7 @@ const ClubView = () => {
 
   return store.selectedUser !== null && store.selectedUser !== undefined ? (
     <div className='app-user-view'>
+      <Breadcrumbs title='My Chapters' data={[{ title: 'Entities' }, { title: 'My Chapters' }, { title: store.selectedUser.name }]} />
       <Row>
         <Col xl='4' lg='5' xs={{ order: 1 }} md={{ order: 0, size: 5 }}>
           <UserInfoCard selectedUser={store.selectedUser} />

@@ -19,11 +19,11 @@ export const getData = createAsyncThunk('appOrganizations/getData', async params
 })
 
 export const getOrganization = createAsyncThunk('appOrganizations/getOrganization', async id => {
-  const response = await axios.get('/api/organizations/organization', { id })
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/admin/organization/filter?organizationType=${id}`)
   return response.data.organization 
 })
 
-export const addOrganization = createAsyncThunk('appOrganizations/addOrganization', async (organization, { dispatch, getState }) => {
+export const addOrganization = createAsyncThunk(`${process.env.REACT_APP_BASE_URL}/organization/create`, async (organization, { dispatch, getState }) => {
   await axios.post('/organizations/add-organization', organization)
   await dispatch(getData(getState().organizations.params))
   await dispatch(getAllData())

@@ -91,7 +91,7 @@ const Faqs = ({ data }) => {
 
   return (
     <div id='faq-tabs'>
-      <Row>
+      <Row hidden='true'>
         <Col lg='3' md='4' sm='12'>
           <div className='faq-navigation d-flex justify-content-between flex-column mb-2 mb-md-0'>
             <Nav tag='ul' className='nav-left' pills vertical>

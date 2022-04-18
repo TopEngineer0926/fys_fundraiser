@@ -167,12 +167,12 @@ const NotificationDropdown = () => {
     <UncontrolledDropdown tag='li' className='dropdown-notification nav-item me-25'>
       <DropdownToggle tag='a' className='nav-link' href='/' onClick={e => e.preventDefault()}>
         <Bell size={21} />
-        <Badge pill color='danger' className='badge-up'>
+        {/* <Badge pill color='danger' className='badge-up'>
           5
-        </Badge>
+        </Badge> */}
       </DropdownToggle>
       <DropdownMenu end tag='ul' className='dropdown-menu-media mt-0'>
-        <li className='dropdown-menu-header'>
+        {/* <li className='dropdown-menu-header'>
           <DropdownItem className='d-flex' tag='div' header>
             <h4 className='notification-title mb-0 me-auto'>Notifications</h4>
             <Badge tag='div' color='light-primary' pill>
@@ -185,7 +185,7 @@ const NotificationDropdown = () => {
           <Button color='primary' block>
             Read all notifications
           </Button>
-        </li>
+        </li> */}
       </DropdownMenu>
     </UncontrolledDropdown>
   )
