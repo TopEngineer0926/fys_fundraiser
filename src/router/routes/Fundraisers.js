@@ -7,6 +7,10 @@ const FundraiserList = lazy(() => import('../../views/fundraisers/list'))
 const FundraiserView = lazy(() => import('../../views/fundraisers/view'))
 const FundraiserPublicView = lazy(() => import('../../views/fundraisers/public'))
 
+const PublicLandingPage = lazy(() => import('../../views/public-pages/LandingPage'))
+const PublicDonationForm = lazy(() => import('../../views/public-pages/DonationForm'))
+const PublicThankYou = lazy(() => import('../../views/public-pages/ThankYou'))
+
 const FundraiserRoutes = [
   {
     element: <FundraiserList />,
@@ -22,7 +26,25 @@ const FundraiserRoutes = [
   },
   {
     path: '/fundraisers/:fundraiser_slug',
-    element: <FundraiserPublicView />, 
+    element: <PublicLandingPage />, 
+    meta: {
+      layout: 'blank',
+      publicRoute: true,
+      restricted: false
+    }
+  },
+  {
+    path: '/fundraisers/:fundraiser_slug/donate',
+    element: <PublicDonationForm />, 
+    meta: {
+      layout: 'blank',
+      publicRoute: true,
+      restricted: false
+    }
+  },
+  {
+    path: '/fundraisers/:fundraiser_slug/thank-you',
+    element: <PublicThankYou />, 
     meta: {
       layout: 'blank',
       publicRoute: true,

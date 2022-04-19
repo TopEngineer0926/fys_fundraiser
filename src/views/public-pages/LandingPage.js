@@ -1,14 +1,40 @@
 import './public-pages.scss'
 
+import React, {
+    useEffect,
+    useState
+  } from 'react'
 import {
   Container,
   Progress
 } from 'reactstrap'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 import Footer from './Footer'
 import NavBar from './NavBar'
 
 const LandingPage = () => {
+    const { fundraiser_slug } = useParams()
+    const [fundraiser, setFundraiser] = useState()
+    // eslint-disable-next-line no-unused-vars
+    const [team, setTeam] = useState()
+    async function getTeam() {
+      const id = (fundraiser && fundraiser.id) || window.location.pathname.split("/").pop()
+      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/organization_campaign/donate?campaign=${id}`)
+      setTeam(res.data.data)
+    }
+    async function getFundraiser() {
+      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/donate?url_slug=${fundraiser_slug}&ip_address=127.0.0.1`)
+      setFundraiser(res.data.data[0])
+    }
+    useEffect(() => {
+      getFundraiser()
+      getTeam()
+    }, [fundraiser_slug])
+    useEffect(() => {
+      getTeam()
+    }, [fundraiser])
     return (
         <div>
             <NavBar></NavBar>

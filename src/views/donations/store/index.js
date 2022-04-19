@@ -25,7 +25,6 @@ export const getDonation = createAsyncThunk('appDonations/getDonation', async id
 
 export const addDonation = createAsyncThunk(`${process.env.REACT_APP_BASE_URL}/admin/donation_form/`, async (donation, { dispatch, getState }) => {
   await axios.post('/donations/add-donation', donation)
-  debugger
   await dispatch(getData(getState().donations.params))
   await dispatch(getAllData())
   return donation

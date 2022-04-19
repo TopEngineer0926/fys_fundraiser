@@ -52,22 +52,23 @@ const Home = () => {
   const { campaign_slug } = useParams()
   const [campaign, setCampaign] = useState()
   const [teams, setTeams] = useState()
-
+  async function getTeams() {
+    const id = (campaign && campaign.id) || window.location.pathname.split("/").pop()
+    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/organization_campaign/donate?campaign=${id}`)
+    setTeams(res.data.data)
+  }
+  async function getCampaign() {
+    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/donate?url_slug=${campaign_slug}&ip_address=127.0.0.1`)
+    setCampaign(res.data.data[0])
+  }
   useEffect(() => {
-    async function getCampaign() {
-      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/donate?url_slug=${campaign_slug}&ip_address=127.0.0.1`)
-      setCampaign(res.data.data[0])
-    }
     getCampaign()
     console.log(campaign)
-    async function getTeams() {
-      const id = (campaign && campaign.id) || window.location.pathname.split("/").pop()
-      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/organization_campaign/donate?campaign=${id}`)
-      setTeams(res.data.data)
-    }
+  }, [campaign_slug])
+  useEffect(() => {
     getTeams()
     console.log(teams)
-  })
+  }, [campaign])
 
   return (
     <div>
@@ -77,15 +78,15 @@ const Home = () => {
           <Container fluid="md" className='container'>
             <div className='row'>
               <div className='col-md-4 myFlex'>
-                <img src={(campaign && campaign.logoImage) || ""} alt="logoImage" className='myCenter'></img>
+                <img src={(campaign && campaign.logoImage) || ""} style={{maxWidth:"100%"}} alt="logoImage" className='myCenter'></img>
               </div>
               <div className='col-md-8'>
                 <div className='row' style={{paddingBottom: "2rem"}}>
                   <div className='col-md-6 myFlex'>
-                    <p className="myLeft" style={{fontSize:"3rem", fontWeight: "bold", color: "black"}}>{(campaign && campaign.organization.name) || ""}</p>
+                    <p className="myLeft" style={{fontSize:"2rem", lineHeight:"2rem", fontWeight: "bold", color: "black"}}>{(campaign && campaign.organization.name) || ""}</p>
                   </div>
                   <div className='col-md-6 myFlex'>
-                    <a className="myRight donate_btn" href="/campaigns/tomtesting/donate">Donate <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span></a>
+                    <a className="myRight donate_btn" href={`/campaigns/${campaign_slug}/donate`}>Donate <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span></a>
                   </div>
                 </div>
                 <div className='' style={{background: "white", borderRadius: "1rem", padding: "1rem 0rem 1rem 0rem"}}>
@@ -123,7 +124,7 @@ const Home = () => {
                       />
                     </div>
                     <div className='myFlex'>
-                      <h5 className="myCenter" style={{fontWeight: "bold"}}>${(campaign && campaign.currentDonations.toString()) || ""} Raised of our ${(campaign && campaign.goalAmount.toString()) || ""} goal.</h5>
+                      <h5 className="myCenter" style={{fontWeight: "bold"}}>${(campaign && campaign.currentDonations.toString()) || ""} Raised of our ${(campaign && campaign.fundRaisingGoal.toString()) || ""} goal.</h5>
                     </div>
                   </div>
                 </div>

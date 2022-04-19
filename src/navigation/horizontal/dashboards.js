@@ -7,7 +7,8 @@ export default [
     title: 'Dashboards',
     icon: <Home />,
     action: 'read',
-    resource: 'dashboards'
+    resource: 'dashboards',
+    navLink: '/dashboard/'
     // children: [
     //   {
     //     id: 'analyticsDash',
