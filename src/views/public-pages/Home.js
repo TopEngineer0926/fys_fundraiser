@@ -52,22 +52,22 @@ const Home = () => {
   const { campaign_slug } = useParams()
   const [campaign, setCampaign] = useState()
   const [teams, setTeams] = useState()
-
+  async function getTeams() {
+    const id = (campaign && campaign.id) || window.location.pathname.split("/").pop()
+    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/organization_campaign/donate?campaign=${id}`)
+    setTeams(res.data.data)
+  }
+  async function getCampaign() {
+    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/donate?url_slug=${campaign_slug}&ip_address=127.0.0.1`)
+    setCampaign(res.data.data[0])
+  }
   useEffect(() => {
-    async function getCampaign() {
-      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/donate?url_slug=${campaign_slug}&ip_address=127.0.0.1`)
-      setCampaign(res.data.data[0])
-    }
-
     getCampaign()
-
-    async function getTeams() {
-      const id = (campaign && campaign.id) || window.location.pathname.split("/").pop()
-      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/organization_campaign/donate?campaign=${id}`)
-      setTeams(res.data.data)
-    }
     getTeams()
   }, [campaign_slug])
+  useEffect(() => {
+    getTeams()
+  }, [campaign])
 
   return (
     <div>
