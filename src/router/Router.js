@@ -42,7 +42,7 @@ const Router = ({ allRoutes }) => {
       element: <BlankLayout />,
       children: [
         { path: '/campaign/:url_slug', element: <PublicHome />},
-        { path: '/campaign/landingpage', element: <PublicLandingPage />},
+        { path: '/campaign/fundraiser/:fundraiser_slug', element: <PublicLandingPage />},
         { path: '/campaign//:url_slug/donate', element: <PublicDonationForm />},
         { path: '/campaign/thankyou', element: <PublicThankYou />}
       ]
