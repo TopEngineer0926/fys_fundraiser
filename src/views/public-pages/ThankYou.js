@@ -12,9 +12,9 @@ const ThankYou = () => {
       <div id='thankyou' style={{background: "white"}}>
         <div className='myComponent'>
           <Container fluid="md" className='container'>
-            <div className='myFlex' style={{paddingBottom: "3rem"}}>
+            {/* <div className='myFlex' style={{paddingBottom: "3rem"}}>
               <img className="myCenter" src={require('@src/assets/images/public_pages/congratulation.svg').default} style={{width: "490px"}}></img>
-            </div>
+            </div> */}
             <div className='myFlex' style={{paddingBottom: "3rem"}}>
               <h2 className='myCenter' style={{color: "black", fontWeight: "bold"}}>THANKS Brooklyn Simmons</h2>
             </div>
