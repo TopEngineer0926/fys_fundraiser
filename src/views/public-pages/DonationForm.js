@@ -51,8 +51,10 @@ const DonationForm = () => {
   //   { type: "googlepay", text: "Google Pay", checked: false }
   // ]
   const [clientSecret, setClientSecret] = useState("")
-  
-  function createStripeIntent() {
+
+  useEffect(() => {
+    // Create PaymentIntent as soon as the page loads
+    // await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/stripe/pi`, {})
     axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/stripe/pi`, {
       cardAmount: donationAmount * 100,
       transferGroup: "transfer11123456",
@@ -61,11 +63,6 @@ const DonationForm = () => {
       .then((data) => {
         setClientSecret(data.data.data.client_secret)
       })
-  }
-
-  useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
-    createStripeIntent()
   }, [])
   const appearance = {
     theme: 'stripe'
