@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 // ** Axios Imports
 import axios from 'axios'
 
-export const getAllData = createAsyncThunk('appDonations/getAllData', async () => {
+export const getAllData = createAsyncThunk(`${process.env.REACT_APP_BASE_URL}/admin/donation_form/list`, async () => {
   const response = await axios.get('/api/donations/list/all-data')
   return response.data
 })
@@ -23,8 +23,9 @@ export const getDonation = createAsyncThunk('appDonations/getDonation', async id
   return response.data.donation 
 })
 
-export const addDonation = createAsyncThunk('appDonations/addDonation', async (donation, { dispatch, getState }) => {
+export const addDonation = createAsyncThunk(`${process.env.REACT_APP_BASE_URL}/admin/donation_form/`, async (donation, { dispatch, getState }) => {
   await axios.post('/donations/add-donation', donation)
+  debugger
   await dispatch(getData(getState().donations.params))
   await dispatch(getAllData())
   return donation

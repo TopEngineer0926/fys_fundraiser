@@ -38,13 +38,13 @@ const Router = ({ allRoutes }) => {
 
   const routes = useRoutes([
     {
-      path: '/public',
+      path: '/campaign',
       element: <BlankLayout />,
       children: [
-        { path: '/public', element: <PublicHome />},
-        { path: '/public/landingpage', element: <PublicLandingPage />},
-        { path: '/public/donationform', element: <PublicDonationForm />},
-        { path: '/public/thankyou', element: <PublicThankYou />}
+        { path: '/campaign/:url_slug', element: <PublicHome />},
+        { path: '/campaign/landingpage', element: <PublicLandingPage />},
+        { path: '/campaign//:url_slug/donate', element: <PublicDonationForm />},
+        { path: '/campaign/thankyou', element: <PublicThankYou />}
       ]
     },
     {
