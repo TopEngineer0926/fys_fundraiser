@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 // import { useParams } from 'react-router-dom'
 import './public-pages.scss'
 import '@styles/react/libs/swiper/swiper.scss'
@@ -85,19 +86,19 @@ const Team = ({ team_id }) => {
 
 const Home = () => {
 
-  const [compaign, setCompaign] = useState()
+  const [campaign, setCampaign] = useState()
 
   useEffect(() => {
-    async function getCompaign() {
-      const url_slug = window.location.pathname.split("/").pop()
-      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/campaign/donate?url_slug=${url_slug}&ip_address=127.0.0.1`)
+    async function getCampaign() {
+      const { campaign_slug } = useParams()
+      const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/campaign/donate?url_slug=${campaign_slug}&ip_address=127.0.0.1`)
       res
         .json()
-        .then(res => { setCompaign(res) })
+        .then(res => { console.log(res); setCampaign(res) })
         .catch(() => setError(false))
     }
 
-    getCompaign()
+    getCampaign()
   })
 
   return (
@@ -179,24 +180,24 @@ const Home = () => {
             </div>
             <div className='row'>
               <div className='col-md-4'>
-                <Team team_id={1} compaign={compaign}  />
+                <Team team_id={1} campaign={campaign}  />
               </div>
               <div className='col-md-4'>
-                <Team team_id={2} compaign={compaign} />
+                <Team team_id={2} campaign={campaign} />
               </div>
               <div className='col-md-4'>
-                <Team team_id={3} compaign={compaign} />
+                <Team team_id={3} campaign={campaign} />
               </div>
             </div>
             <div className='row'>
               <div className='col-md-4'>
-                <Team team_id={1} compaign={compaign} />
+                <Team team_id={1} campaign={campaign} />
               </div>
               <div className='col-md-4'>
-                <Team team_id={2} compaign={compaign} />
+                <Team team_id={2} campaign={campaign} />
               </div>
               <div className='col-md-4'>
-                <Team team_id={3} compaign={compaign} />
+                <Team team_id={3} campaign={campaign} />
               </div>
             </div>
           </Container>
