@@ -1,11 +1,31 @@
 import './public-pages.scss'
+import React, {
+  useEffect, useState
+} from 'react'
 
 import { Container } from 'reactstrap'
+import axios from 'axios'
 
 import Footer from './Footer'
 import NavBar from './NavBar'
 
 const ThankYou = () => {
+  const [amount, setAmount] = useState(0)
+  const [name, setName] = useState()
+
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams(window.location.search)
+    const params = Object.fromEntries(urlSearchParams.entries())
+    axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/stripe/sd`, {
+      ...params
+    })
+      .then((data) => { 
+        setAmount(data.data.data.donationAmount)
+        setName(data.data.data.name)
+      })
+
+  }, [])
+
   return (
     <div>
       <NavBar></NavBar>
@@ -16,10 +36,10 @@ const ThankYou = () => {
               <img className="myCenter" src={require('@src/assets/images/public_pages/congratulation.svg').default} style={{width: "490px"}}></img>
             </div> */}
             <div className='myFlex' style={{paddingBottom: "3rem"}}>
-              <h2 className='myCenter' style={{color: "black", fontWeight: "bold"}}>THANKS Brooklyn Simmons</h2>
+              <h2 className='myCenter' style={{color: "black", fontWeight: "bold"}}>THANKS {name}</h2>
             </div>
             <div className='myFlex' style={{paddingBottom: "3rem"}}>
-              <h4 className='myCenter' style={{color: "black"}}>Your Donation of $100.00 has been Processed!</h4>
+              <h4 className='myCenter' style={{color: "black"}}>Your Donation of ${amount}.00 has been Processed!</h4>
             </div>
             <div className='myFlex' style={{paddingBottom: "5rem"}}>
               <h5 className='myCenter' style={{lineHeight: "1.5rem", textAlign: "center"}}>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas.</h5>

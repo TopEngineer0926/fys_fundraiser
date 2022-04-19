@@ -61,22 +61,36 @@ const DonationForm = () => {
   const [clientSecret, setClientSecret] = useState("")
 
   useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
-    // await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/stripe/pi`, {})
+
+    if (clientSecret) {
+      console.log("clientSecret", clientSecret)
+      setIsContinue(!isContinue)
+    }
+    
+  }, [clientSecret])
+
+  const updateClientSecret = (value) => {
+    console.log("1---> updateClientSecret")
+    setClientSecret(value)
+  }
+  function paymentIntent() {
     axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/stripe/pi`, {
       cardAmount: donationAmount * 100,
       transferGroup: "transfer11123456",
-      items: "asdf"
+      items: "asdf",
+      firstName: formValues.firstName,
+      lastName: formValues.lastName,
+      email: formValues.email,
+      user: '',
+      campaign: campaign_slug,
+      organization: '',
+      fundraiser: ''
     })
       .then((data) => {
         setClientSecret(data.data.data.client_secret)
+        
       })
-  }, [])
-
-  const updateClientSecret = (value) => {
-    setClientSecret(value)
   }
-
   const appearance = {
     theme: 'stripe'
   }
@@ -105,7 +119,7 @@ const DonationForm = () => {
 
   const setActiveTab = (e) => {
     e.preventDefault()
-    setIsContinue(!isContinue)
+    paymentIntent()
   }
   const options = {
     clientSecret,
