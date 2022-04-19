@@ -263,7 +263,7 @@ const DonationForm = () => {
               <div className='col-md-2'></div>
               <div className='col-md-8'>
                 <div className='form-check form-check-primary'>
-                  <Input type='checkbox' id='checkbox1' defaultChecked />
+                  <Input type='checkbox' id='checkbox1' />
                   <Label className='form-check-label label' for='checkbox1'>
                     Make this an anonymous donation
                   </Label>
