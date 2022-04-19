@@ -132,7 +132,7 @@ const DonationForm = () => {
           <Container fluid="md" className='container'>
             <div className='row'>
               <div className='col-md-3 myFlex'>
-                <img src={campaign?.logoImage} className='myCenter'></img>
+                <img src={campaign?.logoImage} className='myCenter' style={{maxWidth:"100%"}}></img>
               </div>
               <div className='col-md-9 myFlex'>
                 <div className='myLeft' style={{ marginLeft: "2rem" }}>
