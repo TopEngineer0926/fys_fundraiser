@@ -63,10 +63,11 @@ const Home = () => {
   }
   useEffect(() => {
     getCampaign()
-    getTeams()
+    console.log(campaign)
   }, [campaign_slug])
   useEffect(() => {
     getTeams()
+    console.log(teams)
   }, [campaign])
 
   return (
