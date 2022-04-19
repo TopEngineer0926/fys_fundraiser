@@ -32,7 +32,10 @@ const stripePromise = loadStripe("pk_test_51KnwltAfcKEcHq5CQqmctsPDYdYzaU3NviORm
 
 const DonationForm = () => {
   const [isContinue, setIsContinue] = useState(false)
+  const [customDonation, setCustomDonation] = useState(false)
   const [donationAmount, setDonationAmount] = useState(10)
+  const [trasectionFee, setTrasectionFee] = useState(true)
+  const [donationCheckbox, setDonationCheckbox] = useState(true)
   const [formValues, setFormValues] = useState({
       firstName:"",
       lastName:"",
@@ -80,6 +83,12 @@ const DonationForm = () => {
 
   const changeDonationAmount = (e) => {
     const ammount = parseInt(e.target.innerHTML.split('$')[1])
+    setDonationAmount(ammount)
+    setCustomDonation(false)
+  }
+
+  const addCustomDonationAmount = (e) => {
+    const ammount = e.target.value
     setDonationAmount(ammount)
   }
 
@@ -164,10 +173,10 @@ const DonationForm = () => {
             <div className='row' style={{ paddingBottom: "4rem" }}>
               <div className='col-md-1'></div>
               <div className='col-md-4' style={{ padding: "1rem" }}>
-                <Input type='text' id='readonlyInput' readOnly value={`$${donationAmount}` } style={{ textAlign: "center", marginBottom: "2rem", height: "4rem", fontSize: "1.5rem" }} />
+                <Input type='text' id='readonlyInput' readOnly={!customDonation} value={`${donationAmount}`} style={{ textAlign: "center", marginBottom: "2rem", height: "4rem", fontSize: "1.5rem" }} onChange={addCustomDonationAmount} />
                 <div className='form-check form-check-primary'>
-                  <Input type='checkbox' id='checkbox' defaultChecked />
-                  <Label className='form-check-label label' for='checkbox'>
+                  <Input type='checkbox' id='checkbox' checked={trasectionFee} onChange={() => { setTrasectionFee(!trasectionFee) }} />
+                  <Label className='form-check-label label' for='checkbox' >
                     I like to cover all transaction fees
                   </Label>
                 </div>
@@ -192,7 +201,7 @@ const DonationForm = () => {
                     <Button.Ripple color='primary' className="myCenter donation_btn" onClick={changeDonationAmount}>$100</Button.Ripple>
                   </div>
                   <div className="col-md-4 myFlex" style={{ padding: "1rem" }}>
-                    <Button.Ripple color='primary' className="myCenter donation_btn" onClick={() => { setDonationAmount(10) }}>CUSTOM</Button.Ripple>
+                    <Button.Ripple color='primary' className="myCenter donation_btn" onClick={() => { setCustomDonation(true) }}>CUSTOM</Button.Ripple>
                   </div>
                 </div>
               </div>
@@ -263,7 +272,7 @@ const DonationForm = () => {
               <div className='col-md-2'></div>
               <div className='col-md-8'>
                 <div className='form-check form-check-primary'>
-                  <Input type='checkbox' id='checkbox1' defaultChecked />
+                  <Input type='checkbox' id='checkbox1' checked={donationCheckbox} onChange={() => { setDonationCheckbox(!donationCheckbox) }} />
                   <Label className='form-check-label label' for='checkbox1'>
                     Make this an anonymous donation
                   </Label>
