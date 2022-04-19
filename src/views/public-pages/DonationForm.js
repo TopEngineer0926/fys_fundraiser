@@ -32,8 +32,13 @@ const stripePromise = loadStripe("pk_test_51KnwltAfcKEcHq5CQqmctsPDYdYzaU3NviORm
 
 const DonationForm = () => {
   const [isContinue, setIsContinue] = useState(false)
-  const [donationAmount] = useState(10)
-
+  const [donationAmount, setDonationAmount] = useState(10)
+  const [formValues, setFormValues] = useState({
+      firstName:"",
+      lastName:"",
+      email:"",
+      message: ""
+  })
 
   const { campaign_slug } = useParams()
   const [campaign, setCampaign] = useState()
@@ -64,13 +69,35 @@ const DonationForm = () => {
         setClientSecret(data.data.data.client_secret)
       })
   }, [])
+
+  const updateClientSecret = (value) => {
+    setClientSecret(value)
+  }
+
   const appearance = {
     theme: 'stripe'
   }
+
+  const changeDonationAmount = (e) => {
+    const ammount = parseInt(e.target.innerHTML.split('$')[1])
+    setDonationAmount(ammount)
+  }
+
+  const ChangeFormValues = (e) => {
+    const key = e.target.name
+    const val = e.target.value
+    setFormValues(preVal => {
+      return {
+        ...preVal,
+        [key]: val
+      }
+    })
+  }
+
   const setActiveTab = (e) => {
     e.preventDefault()
     setIsContinue(!isContinue)
-}
+  }
   const options = {
     clientSecret,
     appearance
@@ -148,24 +175,24 @@ const DonationForm = () => {
               <div className='col-md-6'>
                 <div className='row'>
                   <div className="col-md-4 myFlex" style={{ padding: "1rem" }}>
-                    <Button.Ripple  color='primary' className="myCenter donation_btn ">$10</Button.Ripple>
+                    <Button.Ripple  color='primary' className="myCenter donation_btn " onClick={changeDonationAmount}>$10</Button.Ripple>
                   </div>
                   <div className="col-md-4 myFlex" style={{ padding: "1rem" }}>
-                    <Button.Ripple color='primary'  className="myCenter donation_btn">$20</Button.Ripple>
+                    <Button.Ripple color='primary'  className="myCenter donation_btn" onClick={changeDonationAmount}>$20</Button.Ripple>
                   </div>
                   <div className="col-md-4 myFlex" style={{ padding: "1rem" }}>
-                    <Button.Ripple color='primary' className="myCenter donation_btn">$50</Button.Ripple>
+                    <Button.Ripple color='primary' className="myCenter donation_btn" onClick={changeDonationAmount}>$50</Button.Ripple>
                   </div>
                 </div>
                 <div className='row'>
                   <div className="col-md-4 myFlex" style={{ padding: "1rem" }}>
-                    <Button.Ripple color='primary' className="myCenter donation_btn">$75</Button.Ripple>
+                    <Button.Ripple color='primary' className="myCenter donation_btn" onClick={changeDonationAmount}>$75</Button.Ripple>
                   </div>
                   <div className="col-md-4 myFlex" style={{ padding: "1rem" }}>
-                    <Button.Ripple color='primary' className="myCenter donation_btn">$100</Button.Ripple>
+                    <Button.Ripple color='primary' className="myCenter donation_btn" onClick={changeDonationAmount}>$100</Button.Ripple>
                   </div>
                   <div className="col-md-4 myFlex" style={{ padding: "1rem" }}>
-                    <Button.Ripple color='primary' className="myCenter donation_btn">CUSTOM</Button.Ripple>
+                    <Button.Ripple color='primary' className="myCenter donation_btn" onClick={() => { setDonationAmount(10) }}>CUSTOM</Button.Ripple>
                   </div>
                 </div>
               </div>
@@ -185,7 +212,7 @@ const DonationForm = () => {
                   <InputGroupText>
                     <User size={14} />
                   </InputGroupText>
-                  <Input type='text' id='firstname' placeholder='First name' />
+                  <Input type='text' id='firstname' placeholder='First name' name="firstName" value={formValues.firstName} onChange={ChangeFormValues} />
                 </InputGroup>
               </div>
               <div className='col-md-4'>
@@ -196,7 +223,7 @@ const DonationForm = () => {
                   <InputGroupText>
                     <User size={14} />
                   </InputGroupText>
-                  <Input type='text' id='lastname' placeholder='Last name' />
+                  <Input type='text' id='lastname' placeholder='Last name' name="lastName" value={formValues.lastName} onChange={ChangeFormValues} />
                 </InputGroup>
               </div>
               <div className='col-md-2'></div>
@@ -211,7 +238,7 @@ const DonationForm = () => {
                   <InputGroupText>
                     <Mail size={14} />
                   </InputGroupText>
-                  <Input type='email' id='email' placeholder='Enter your email' />
+                  <Input type='email' id='email' placeholder='Enter your email' name="email" value={formValues.email} onChange={ChangeFormValues} />
                 </InputGroup>
               </div>
               <div className='col-md-2'></div>
@@ -226,7 +253,7 @@ const DonationForm = () => {
                   <InputGroupText style={{}}>
                     <Mail size={14} />
                   </InputGroupText>
-                  <Input type='textarea' name='text' id='message' rows='3' placeholder='Enter your message' />
+                  <Input type='textarea' id='message' rows='3' placeholder='Enter your message' name="messages" value={formValues.message} onChange={ChangeFormValues} />
                 </InputGroup>
               </div>
               <div className='col-md-2'></div>
@@ -256,9 +283,9 @@ const DonationForm = () => {
             <div className="myFlex" style={{ paddingBottom: "3rem" }}>
               <h1 className='myCenter' style={{ color: "black", fontWeight: "bold" }}>Payments Method</h1>
             </div>
-            {clientSecret && (
+            {(
               <Elements options={options} stripe={stripePromise}>
-                <CheckoutForm />
+                <CheckoutForm formData={formValues} donationAmount={donationAmount} updateClientSecret={updateClientSecret}  />
               </Elements>
             )}
             <div className='row' style={{ paddingBottom: "0rem" }}>
