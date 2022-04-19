@@ -67,7 +67,7 @@ const Home = () => {
       setTeams(res.data.data)
     }
     getTeams()
-  })
+  }, [campaign_slug])
 
   return (
     <div>
