@@ -123,7 +123,7 @@ const Home = () => {
                       />
                     </div>
                     <div className='myFlex'>
-                      <h5 className="myCenter" style={{fontWeight: "bold"}}>${(campaign && campaign.currentDonations.toString()) || ""} Raised of our ${(campaign && campaign.goalAmount.toString()) || ""} goal.</h5>
+                      <h5 className="myCenter" style={{fontWeight: "bold"}}>${(campaign && campaign.currentDonations.toString()) || ""} Raised of our ${(campaign && campaign.fundRaisingGoal.toString()) || ""} goal.</h5>
                     </div>
                   </div>
                 </div>
