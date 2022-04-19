@@ -58,15 +58,15 @@ const Home = () => {
       const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/donate?url_slug=${campaign_slug}&ip_address=127.0.0.1`)
       setCampaign(res.data.data[0])
     }
-
     getCampaign()
-
+    console.log(campaign)
     async function getTeams() {
       const id = (campaign && campaign.id) || window.location.pathname.split("/").pop()
       const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/organization_campaign/donate?campaign=${id}`)
       setTeams(res.data.data)
     }
     getTeams()
+    console.log(teams)
   })
 
   return (
