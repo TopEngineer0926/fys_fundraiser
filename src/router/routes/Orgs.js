@@ -32,7 +32,11 @@ const OrgRoutes = [
   },
   {
     path: '/orgs/organizations/view',
-    element: <Navigate to='/orgs/organizations/view/1' />
+    element: <Navigate to='/orgs/organizations/view/1' />,
+    meta: {
+      action: 'read',
+      resource: 'org-organizations'
+    }
   },
   {
     path: '/orgs/organizations/:org_slug',
@@ -40,12 +44,18 @@ const OrgRoutes = [
     meta: {
       layout: 'blank',
       publicRoute: true,
-      restricted: false
+      restricted: false,
+      action: 'read',
+      resource: 'org-organizations'
     }
   },
   {
     element: <OrganizationView />,
-    path: '/orgs/organizations/view/:id'
+    path: '/orgs/organizations/view/:id',
+    meta: {
+      action: 'read',
+      resource: 'org-organizations'
+    }
   },
 
   {
@@ -58,7 +68,11 @@ const OrgRoutes = [
   },
   {
     path: '/orgs/leagues/view',
-    element: <Navigate to='/orgs/leagues/view/1' />
+    element: <Navigate to='/orgs/leagues/view/1' />,
+    meta: {
+      action: 'read',
+      resource: 'org-leagues'
+    }
   },
   {
     path: '/orgs/leagues/:league_slug',
@@ -66,12 +80,18 @@ const OrgRoutes = [
     meta: {
       layout: 'blank',
       publicRoute: true,
-      restricted: false
+      restricted: false,
+      action: 'read',
+      resource: 'org-leagues'
     }
   },
   {
     element: <LeagueView />,
-    path: '/orgs/leagues/view/:id'
+    path: '/orgs/leagues/view/:id',
+    meta: {
+      action: 'read',
+      resource: 'org-leagues'
+    }
   },
 
   {
@@ -84,7 +104,11 @@ const OrgRoutes = [
   },
   {
     path: '/orgs/clubs/view',
-    element: <Navigate to='/orgs/clubs/view/1' />
+    element: <Navigate to='/orgs/clubs/view/1' />,
+    meta: {
+      action: 'read',
+      resource: 'org-clubs'
+    }
   },
   {
     path: '/orgs/clubs/:club_slug',
@@ -92,12 +116,18 @@ const OrgRoutes = [
     meta: {
       layout: 'blank',
       publicRoute: true,
-      restricted: false
+      restricted: false,
+      action: 'read',
+      resource: 'org-clubs'
     }
   },
   {
     element: <ClubView />,
-    path: '/orgs/clubs/view/:id'
+    path: '/orgs/clubs/view/:id',
+    meta: {
+      action: 'read',
+      resource: 'org-clubs'
+    }
   },
 
   {
@@ -110,7 +140,11 @@ const OrgRoutes = [
   },
   {
     path: '/orgs/teams/view',
-    element: <Navigate to='/orgs/teams/view/1' />
+    element: <Navigate to='/orgs/teams/view/1' />,
+    meta: {
+      action: 'read',
+      resource: 'org-teams'
+    }
   },
   {
     path: '/orgs/teams/:team_slug',
@@ -118,12 +152,18 @@ const OrgRoutes = [
     meta: {
       layout: 'blank',
       publicRoute: true,
-      restricted: false
+      restricted: false,
+      action: 'read',
+      resource: 'org-teams'
     }
   },
   {
     element: <TeamView />,
-    path: '/orgs/Teams/view/:id'
+    path: '/orgs/Teams/view/:id',
+    meta: {
+      action: 'read',
+      resource: 'org-teams'
+    }
   }
 ]
 

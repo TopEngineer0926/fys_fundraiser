@@ -203,7 +203,7 @@ const Login = () => {
                 Sign in
               </Button>
             </Form>
-            <p className='text-center mt-2'>
+            {/* <p className='text-center mt-2'>
               <span className='me-25'>New on our platform?</span>
               <Link to='/register'>
                 <span>Create an account</span>
@@ -225,7 +225,7 @@ const Login = () => {
               <Button className='me-0' color='github'>
                 <GitHub size={14} />
               </Button>
-            </div>
+            </div> */}
           </Col>
         </Col>
       </Row>

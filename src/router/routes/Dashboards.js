@@ -5,6 +5,14 @@ const DashboardEcommerce = lazy(() => import('../../views/dashboard/ecommerce'))
 
 const DashboardRoutes = [
   {
+    path: '/dashboard',
+    element: <DashboardAnalytics />,
+    meta: {
+      action: 'read',
+      resource: 'dashboards'
+    }
+  },
+  {
     path: '/dashboard/analytics',
     element: <DashboardAnalytics />
   },

@@ -10,7 +10,7 @@ import { Button } from 'reactstrap'
 import { useSkin } from '@hooks/useSkin'
 // ** Utils
 import {
-  getHomeRouteForLoggedInUser,
+  
   getUserData
 } from '@utils'
 
@@ -40,7 +40,7 @@ const NotAuthorized = () => {
             tag={Link}
             color='primary'
             className='btn-sm-block mb-1'
-            to={user ? getHomeRouteForLoggedInUser(user.role) : '/'}
+            to={user ? '/dashboard' : '/dashboard'}
           >
             Back to Home
           </Button>
