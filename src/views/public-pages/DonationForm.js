@@ -1,7 +1,12 @@
 import './public-pages.scss'
 import '@styles/react/libs/input-number/input-number.scss'
-import React, { useState, useEffect } from "react"
 
+import React, {
+  useEffect,
+  useState
+} from 'react'
+
+import axios from 'axios'
 import {
   Mail,
   User
@@ -14,12 +19,13 @@ import {
   InputGroupText,
   Label
 } from 'reactstrap'
-import { loadStripe } from "@stripe/stripe-js"
-import { Elements } from "@stripe/react-stripe-js"
+
+import { Elements } from '@stripe/react-stripe-js'
+import { loadStripe } from '@stripe/stripe-js'
+
+import CheckoutForm from './CheckoutForm'
 import Footer from './Footer'
 import NavBar from './NavBar'
-import CheckoutForm from "./CheckoutForm"
-import axios from 'axios'
 
 const stripePromise = loadStripe("pk_test_51KnwltAfcKEcHq5CQqmctsPDYdYzaU3NviORmdsys9vxPDfyxisuE6BWkecwmSu3cjLeNVVwRPFLEbHZuX8f6FGk003H6nGaZr")
 
