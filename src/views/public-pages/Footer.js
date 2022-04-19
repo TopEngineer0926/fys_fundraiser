@@ -5,7 +5,7 @@ import { Container } from 'reactstrap'
 const Footer = () => {
   return (
     <div id="footer">
-        <div className='myComponent' style={{background: "#232d41"}}>
+        {/* <div className='myComponent' style={{background: "#232d41"}}>
             <Container fluid="md" className='container'>
                 <div className='row'>
                     <div className="col-md-8 myFlex">
@@ -16,18 +16,18 @@ const Footer = () => {
                     </div>
                 </div>
             </Container>
-        </div>
+        </div> */}
         <div style={{background: "#222222", padding: "2rem"}}>
             <Container fluid="md" className='container'>
                 <div className='row'>
                     <div className='col-md-6 myFlex'>
-                        <a href='' className="navLink">Home</a>
-                        <a href='public/how-it-works' className="navLink">How It Works</a>
-                        <a href='public/our-story' className="navLink">Our Story</a>
-                        <a href='public/contact-us' className="navLink">Contact-Us</a>
+                        <a href='https://fundyouthsports.com/' className="navLink">Home</a>
+                        <a href='https://fundyouthsports.com/how-it-works' className="navLink">How It Works</a>
+                        <a href='https://fundyouthsports.com/our-story' className="navLink">Our Story</a>
+                        <a href='https://fundyouthsports.com/contact-us' className="navLink">Contact-Us</a>
                     </div>
                     <div className='col-md-6 myFlex'>
-                        <h5 className='myRight' style={{color: "white"}}>© 2022 Fund Youth Sports, Inc.</h5>
+                        <h5 className='myRight' style={{color: "white"}}>©2022 Fund Youth Sports, Inc.</h5>
                     </div>
                 </div>
             </Container>
