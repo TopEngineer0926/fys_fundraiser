@@ -196,13 +196,13 @@ const DonationsList = () => {
       return filters[k].length > 0
     })
 
-    console.log(store.data.length)
-    if (store.data.length > 0) {
-      return store.data
-    } else if (store.data.length === 0 && isFiltered) {
+    if ((store.allData.data || []).length > 0) {
+      return (store.allData.data || [])
+    } else if ((store.allData.data || []).length === 0 && isFiltered) {
       return []
     } else {
-      return store.allData.slice(0, rowsPerPage)
+      console.log(store.allData.data)
+      return (store.allData.data || []).slice(0, rowsPerPage)
     }
   }
 

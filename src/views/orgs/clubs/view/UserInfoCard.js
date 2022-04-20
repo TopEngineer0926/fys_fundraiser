@@ -128,7 +128,7 @@ const UserInfoCard = ({ selectedUser }) => {
               <ul className='list-unstyled'>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Name:</span>
-                  <span>{selectedUser?.name}</span>
+                  <span>{selectedUser?.username}</span>
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Email:</span>

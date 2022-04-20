@@ -15,20 +15,21 @@ import { Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2,
 import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 
 // ** Renders Client Columns
-const renderClient = row => {
-  if (row.avatar.length) {
-    return <Avatar className='me-1' img={row.avatar} width='32' height='32' />
-  } else {
-    return (
-      <Avatar
-        initials
-        className='me-1'
-        color={row.avatarColor || 'light-primary'}
-        content={row.fullName || 'John Doe'}
-      />
-    )
-  }
-}
+// const renderClient = row => {
+//   console.log(row, 'row')
+//   if (row.avatar.length) {
+//     return <Avatar className='me-1' img={row.avatar} width='32' height='32' />
+//   } else {
+//     return (
+//       <Avatar
+//         initials
+//         className='me-1'
+//         color={row.avatarColor || 'light-primary'}
+//         content={row.fullName || 'John Doe'}
+//       />
+//     )
+//   }
+// }
 
 // ** Renders Role Columns
 const renderRole = row => {
@@ -80,7 +81,7 @@ export const columns = [
     selector: row => row.fullName,
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
-        {renderClient(row)}
+        {/* {renderClient(row)} */}
         <div className='d-flex flex-column'>
           <Link
             to={`/donations/view/${row.id}`}
