@@ -16,8 +16,8 @@ import { Badge, UncontrolledTooltip, UncontrolledDropdown, DropdownToggle, Dropd
 
 // ** Renders Client Columns
 const renderClient = row => {
-  if (row.avatar.length) {
-    return <Avatar className='me-1' img={row.avatar} width='32' height='32' />
+  if (row?.avatar?.length) {
+    return <Avatar className='me-1' img={row?.avatar} width='32' height='32' />
   } else {
     return (
       <Avatar
@@ -36,7 +36,7 @@ export const columns = [
     sortable: true,
     minWidth: '300px',
     sortField: 'fullName',
-    selector: row => row.fullName,
+    selector: row => `${row.firstName} ${row.lastName}`,
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
         {renderClient(row)}
@@ -46,7 +46,7 @@ export const columns = [
             className='user_name text-truncate text-body'
             onClick={() => store.dispatch(getFundraiser(row.id))}
           >
-            <span className='fw-bolder'>{row.fullName}</span>
+            <span className='fw-bolder'>{`${row.firstName} ${row.lastName}`}</span>
           </Link>
           <small className='text-truncate text-muted mb-0'>{row.email}</small>
         </div>
@@ -58,8 +58,8 @@ export const columns = [
     minWidth: '138px',
     sortable: true,
     sortField: 'parentName',
-    selector: row => row.parentName,
-    cell: row => row.parentName
+    selector: row => `${row.parentFirstName} ${row.parentLastName}`,
+    cell: row => `${row.parentFirstName} ${row.parentLastName}`
   },
   {
     name: 'Team(s)',
@@ -73,9 +73,9 @@ export const columns = [
     name: 'Total Donations',
     minWidth: '130px',
     sortable: true,
-    sortField: 'total_donations',
-    selector: row => row.total_donations,
-    cell: row => row.total_donations
+    sortField: 'totalDonations',
+    selector: row => row.totalDonations,
+    cell: row => row.totalDonations
   },
   {
     name: 'Actions',

@@ -5,7 +5,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const getAllData = createAsyncThunk('appCampaigns/getAllData', async () => {
-  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/filter?organization=${id}`)
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/campaign/list`)
   return response.data
 })
 
@@ -50,15 +50,15 @@ export const appCampaignsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(getAllData.fulfilled, (state, action) => {
-        console.log(action.payload)
-        state.allData = action.payload
+        state.allData = action.payload.data
+        state.total = action.payload.data.length
       })
-      .addCase(getData.fulfilled, (state, action) => {
-        console.log(action.payload)
-        state.data = action.payload.data
-        state.params = action.payload.params
-        state.total = action.payload.totalPages
-      })
+      // .addCase(getData.fulfilled, (state, action) => {
+      //   console.log(action.payload)
+      //   // state.data = action.payload.data
+      //   // state.params = action.payload.params
+      //   // state.total = action.payload.totalPages
+      // })
       .addCase(getCampaign.fulfilled, (state, action) => {
         console.log(action.payload)
         state.selectedUser = action.payload

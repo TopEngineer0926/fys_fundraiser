@@ -16,7 +16,7 @@ import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
 
 // ** Renders Client Columns
 const renderClient = row => {
-  if (row.avatar.length) {
+  if (row.avatar?.length) {
     return <Avatar className='me-1' img={row.avatar} width='32' height='32' />
   } else {
     return (
@@ -24,7 +24,7 @@ const renderClient = row => {
         initials
         className='me-1'
         color={row.avatarColor || 'light-primary'}
-        content={row.fullName || 'John Doe'}
+        content={row.title || 'John Doe'}
       />
     )
   }
@@ -76,8 +76,8 @@ export const columns = [
     name: 'Campaign',
     sortable: true,
     minWidth: '300px',
-    sortField: 'fullName',
-    selector: row => row.fullName,
+    sortField: 'title',
+    selector: row => row.title,
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
         {renderClient(row)}
@@ -87,7 +87,7 @@ export const columns = [
             className='user_name text-truncate text-body'
             onClick={() => store.dispatch(getCampaign(row.id))}
           >
-            <span className='fw-bolder'>{row.fullName}</span>
+            <span className='fw-bolder'>{row.title}</span>
           </Link>
           <small className='text-truncate text-muted mb-0'>{row.email}</small>
         </div>
@@ -123,8 +123,8 @@ export const columns = [
     minWidth: '230px',
     sortable: true,
     sortField: 'organization',
-    selector: row => row.organization,
-    cell: row => <span className='text-capitalize'>{row.organization}</span>
+    selector: row => row.organization?.name,
+    cell: row => <span className='text-capitalize'>{row.organization?.name}</span>
   },
   {
     name: 'Status',

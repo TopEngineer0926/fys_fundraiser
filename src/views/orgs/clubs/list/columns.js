@@ -62,9 +62,9 @@ export const columns = [
         {renderClient(row)}
         <div className='d-flex flex-column'>
           <Link
-            to={`/orgs/clubs/view/${row.uuid}`}
+            to={`/orgs/clubs/view/${row.id}`}
             className='user_name text-truncate text-body'
-            onClick={() => store.dispatch(getClub(row.uuid))}
+            onClick={() => store.dispatch(getClub(row.id))}
           >
             <span className='fw-bolder'>{row.name}</span>
           </Link>

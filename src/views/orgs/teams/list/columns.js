@@ -16,15 +16,15 @@ import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem
 
 // ** Renders Client Columns
 const renderClient = row => {
-  if (row.avatar.length) {
-    return <Avatar className='me-1' img={row.avatar} width='32' height='32' />
+  if (row?.avatar?.length) {
+    return <Avatar className='me-1' img={row?.avatar} width='32' height='32' />
   } else {
     return (
       <Avatar
         initials
         className='me-1'
-        color={row.avatarColor || 'light-primary'}
-        content={row.fullName || 'John Doe'}
+        color={row?.avatarColor || 'light-primary'}
+        content={row?.name || 'John Doe'}
       />
     )
   }
@@ -43,15 +43,15 @@ export const columns = [
     sortable: true,
     minWidth: '200px',
     sortField: 'teamName',
-    selector: row => row.teamName,
-    cell: row => row.teamName 
+    selector: row => row.name,
+    cell: row => row.name 
   },
   {
     name: 'Primary Contact',
     sortable: true,
     minWidth: '300px',
     sortField: 'primary_contact.name',
-    selector: row => row.primary_contact.name,
+    selector: row => row?.primary_contact?.name,
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
         {renderClient(row)}
@@ -61,9 +61,9 @@ export const columns = [
             className='user_name text-truncate text-body'
             onClick={() => store.dispatch(getTeam(row.id))}
           >
-            <span className='fw-bolder'>{row.primary_contact.name}</span>
+            <span className='fw-bolder'>{row?.primary_contact?.firstName}</span>
           </Link>
-          <small className='text-truncate text-muted mb-0'>{row.primary_contact.email_address}</small>
+          <small className='text-truncate text-muted mb-0'>{row?.primary_contact?.email}</small>
         </div>
       </div>
     )
@@ -89,17 +89,17 @@ export const columns = [
     minWidth: '230px',
     sortable: true,
     sortField: 'organization',
-    selector: row => row.organization,
-    cell: row => <span className='text-capitalize'>{row.organization}</span>
+    selector: row => row.parent.name,
+    cell: row => <span className='text-capitalize'>{row.parent.name}</span>
   },
   {
     name: 'Status',
     minWidth: '138px',
     sortable: true,
     sortField: 'status',
-    selector: row => row.status,
+    selector: row => row.enabled,
     cell: row => (
-      <Badge className='text-capitalize' color={statusObj[row.status]} pill>
+      <Badge className='text-capitalize' color={statusObj[row.enabled]} pill>
         {row.status}
       </Badge>
     )

@@ -50,14 +50,16 @@ export const appOrganizationsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(getAllData.fulfilled, (state, action) => {
-        console.log(action.payload)
-        state.allData = action.payload
+        console.log("getAllData --> appOrganizations", action.payload.data)
+        state.allData = action.payload.data
+        state.total = action.payload.data.length
       })
       .addCase(getData.fulfilled, (state, action) => {
         console.log(action.payload)
+        console.log("getData --> appOrganizations", action.payload)
         state.data = action.payload.data
         state.params = action.payload.params
-        state.total = action.payload.totalPages
+        state.total = action.payload.data.length
       })
       .addCase(getOrganization.fulfilled, (state, action) => {
         console.log(action.payload)

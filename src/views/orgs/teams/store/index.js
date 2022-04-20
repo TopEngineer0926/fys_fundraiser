@@ -5,7 +5,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const getAllData = createAsyncThunk('appTeams/getAllData', async () => {
-  const response = await axios.get('/api/teams/list/all-data')
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/teams/list`)
   return response.data
 })
 
@@ -50,14 +50,13 @@ export const appTeamsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(getAllData.fulfilled, (state, action) => {
-        console.log(action.payload)
-        state.allData = action.payload
+        state.allData = action.payload.data
+        state.total = action.payload.data.length
       })
       .addCase(getData.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.data = action.payload.data
         state.params = action.payload.params
-        state.total = action.payload.totalPages
+        state.total = action.payload.data.length
       })
       .addCase(getTeam.fulfilled, (state, action) => {
         console.log(action.payload)

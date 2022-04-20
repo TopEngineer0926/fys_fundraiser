@@ -242,13 +242,13 @@ const TeamsList = () => {
       return filters[k].length > 0
     })
 
-    console.log(store.data.length)
-    if (store.data.length > 0) {
+    console.log("teams- > allData", store)
+    if (store?.data?.length > 0) {
       return store.data
-    } else if (store.data.length === 0 && isFiltered) {
+    } else if (store?.data?.length === 0 && isFiltered) {
       return []
     } else {
-      return store.allData.slice(0, rowsPerPage)
+      return store.allData?.slice(0, rowsPerPage)
     }
   }
 
