@@ -44,7 +44,7 @@ const LandingPage = () => {
                     <Container fluid="md" className='container'>
                         <div className='row'>
                             <div className='col-md-3 myFlex'>
-                                <img src={require('@src/assets/images/public_pages/avatar_big.png').default} className='myCenter'></img>
+                                <img src={fundraiser?.avatar} className='myCenter'></img>
                             </div>
                             <div className='col-md-9 myFlex'>
                                 <div className='myLeft' style={{marginLeft: "2rem"}}>
