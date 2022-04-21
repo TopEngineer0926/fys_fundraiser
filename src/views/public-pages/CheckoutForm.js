@@ -64,7 +64,7 @@ export default function CheckoutForm(props) {
             elements,
             confirmParams: {
                 // Make sure to change this to your payment completion page
-                return_url: 'https://app.fundyouthsports.com/campaign/thankyou'
+                return_url: `${process.env.REACT_APP_FYS_APP_URL}/donation/thankyou`
             }
         })
 
