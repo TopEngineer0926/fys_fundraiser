@@ -167,7 +167,7 @@ const LandingPage = () => {
                         </div>
                     </Container>
                 </div>
-                <div id='banner' className='myComponent'>
+                {/* <div id='banner' className='myComponent'>
                     <Container fluid="md" className='container'>
                         <div className='myFlex' style={{paddingBottom: "4rem"}}>
                             <h1 className='myCenter' style={{fontSize: "2.5rem", color: "black", fontWeight: "bold"}}>MY TEAMS</h1>
@@ -230,7 +230,7 @@ const LandingPage = () => {
                         ))}
                         
                     </Container>
-                </div>
+                </div> */}
             </div>
             <Footer></Footer>
         </div>
