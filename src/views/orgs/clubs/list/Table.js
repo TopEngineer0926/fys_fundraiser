@@ -250,7 +250,7 @@ const ClubsList = () => {
       return store.allData.slice(0, rowsPerPage)
     }
   }
-
+  console.log({store})
   const handleSort = (column, sortDirection) => {
     setSort(sortDirection)
     setSortColumn(column.sortField)
