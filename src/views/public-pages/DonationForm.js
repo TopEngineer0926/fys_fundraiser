@@ -160,8 +160,7 @@ const DonationForm = () => {
               <div className='col-md-9 myFlex'>
                 <div className='myLeft' style={{ marginLeft: "2rem" }}>
                   <div className='myFlex' style={{ paddingBottom: "2rem" }}>
-                    <p className="myLeft" style={{ fontSize: "2.5rem", fontWeight: "bold", color: "black" }}>
-
+                    <p className="myLeft" style={{ fontSize: "2.5rem", lineHeight: "2.5rem", fontWeight: "bold", color: "black" }}>
                       {campaign?.title}
                     </p>
                   </div>
@@ -197,24 +196,24 @@ const DonationForm = () => {
               </div>
               <div className='col-md-6'>
                 <div className='row'>
-                  <div className="col-md-4 myFlex" style={{ padding: "1rem" }}>
+                  <div className="col-4 myFlex" style={{ padding: ".5rem" }}>
                     <Button.Ripple  color='primary' className="myCenter donation_btn " onClick={changeDonationAmount}>$10</Button.Ripple>
                   </div>
-                  <div className="col-md-4 myFlex" style={{ padding: "1rem" }}>
+                  <div className="col-4 myFlex" style={{ padding: ".5rem" }}>
                     <Button.Ripple color='primary'  className="myCenter donation_btn" onClick={changeDonationAmount}>$20</Button.Ripple>
                   </div>
-                  <div className="col-md-4 myFlex" style={{ padding: "1rem" }}>
+                  <div className="col-4 myFlex" style={{ padding: ".5rem" }}>
                     <Button.Ripple color='primary' className="myCenter donation_btn" onClick={changeDonationAmount}>$50</Button.Ripple>
                   </div>
                 </div>
                 <div className='row'>
-                  <div className="col-md-4 myFlex" style={{ padding: "1rem" }}>
+                  <div className="col-4 myFlex" style={{ padding: ".5rem" }}>
                     <Button.Ripple color='primary' className="myCenter donation_btn" onClick={changeDonationAmount}>$75</Button.Ripple>
                   </div>
-                  <div className="col-md-4 myFlex" style={{ padding: "1rem" }}>
+                  <div className="col-4 myFlex" style={{ padding: ".5rem" }}>
                     <Button.Ripple color='primary' className="myCenter donation_btn" onClick={changeDonationAmount}>$100</Button.Ripple>
                   </div>
-                  <div className="col-md-4 myFlex" style={{ padding: "1rem" }}>
+                  <div className="col-4 myFlex" style={{ padding: ".5rem" }}>
                     <Button.Ripple color='primary' className="myCenter donation_btn" onClick={() => { setCustomDonation(true) }}>CUSTOM</Button.Ripple>
                   </div>
                 </div>

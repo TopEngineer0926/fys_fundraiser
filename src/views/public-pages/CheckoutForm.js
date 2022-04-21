@@ -100,6 +100,7 @@ export default function CheckoutForm(props) {
     return (
         <form id="payment-form" onSubmit={handleSubmit}>
             <PaymentElement id="payment-element" />
+            <br />
             <button className="myLeft donate_btn" disabled={isLoading || !stripe || !elements} id="submit">
                 <span id="button-text" onClick={SubmitDonation}>
                     {isLoading ? <div className="spinner" id="spinner"></div> : "Donate Now"}
