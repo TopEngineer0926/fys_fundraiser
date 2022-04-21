@@ -19,21 +19,22 @@ const LandingPage = () => {
     const [fundraiser, setFundraiser] = useState()
     // eslint-disable-next-line no-unused-vars
     const [team, setTeam] = useState()
-    async function getTeam() {
-      const id = (fundraiser && fundraiser.id) || window.location.pathname.split("/").pop()
+    async function getTeam(id) {
       const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/organization_campaign/donate?campaign=${id}`)
+      console.log(`${process.env.REACT_APP_BASE_URL}/api/v1/organization_campaign/donate?campaign=${id}`, res.data.data)
+
       setTeam(res.data.data)
     }
     async function getFundraiser() {
       const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/donate?url_slug=${fundraiser_slug}&ip_address=127.0.0.1`)
-      setFundraiser(res.data.data[0])
+      setFundraiser(res.data.data)
     }
     useEffect(() => {
       getFundraiser()
       getTeam()
     }, [fundraiser_slug])
     useEffect(() => {
-      getTeam()
+      getTeam(fundraiser?.campaign?.id)
     }, [fundraiser])
     return (
         <div>
@@ -48,16 +49,16 @@ const LandingPage = () => {
                             <div className='col-md-9 myFlex'>
                                 <div className='myLeft' style={{marginLeft: "2rem"}}>
                                     <div className='myFlex' style={{paddingBottom: "2rem"}}>
-                                        <p className="myLeft" style={{fontSize:"2.5rem", fontWeight: "bold", color: "black"}}>Brooklyn Simmons</p>
+                                        <p className="myLeft" style={{fontSize:"2.5rem", fontWeight: "bold", color: "black"}}>{fundraiser?.firstName} {fundraiser?.lastName}</p>
                                     </div>
                                     <div className='myFlex' style={{paddingBottom: "2.5rem"}}>
-                                        <h5 className="myLeft" style={{fontWeight: "bold", color: "black"}}>Athletic Club</h5>
+                                        <h5 className="myLeft" style={{fontWeight: "bold", color: "black"}}>{fundraiser?.organization?.name}</h5>
                                     </div>
                                     <div className='myFlex' style={{paddingBottom: "2rem"}}>
-                                        <h3 className="myLeft" style={{fontWeight: "bold", color: "blue"}}>$200 Raised for</h3>
+                                        <h3 className="myLeft" style={{fontWeight: "bold", color: "blue"}}>${fundraiser?.campaign?.fundRaisingGoal} Raised for</h3>
                                     </div>
                                     <div className='myFlex' style={{paddingBottom: "0rem"}}>
-                                        <h5 className="myLeft" style={{fontWeight: "bold", color: "black"}}>Valley Athletics Club held a charity fundraising event</h5>
+                                        <h5 className="myLeft" style={{fontWeight: "bold", color: "black"}}>{fundraiser?.campaign?.shortDescription}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -74,7 +75,7 @@ const LandingPage = () => {
                                         <h5 className='myCenter'>Total Donations</h5>
                                     </div>
                                     <div className='myFlex content'>
-                                        <h2 className='myCenter'>20</h2>
+                                        <h2 className='myCenter'>{fundraiser?.campaign?.currentDonors}</h2>
                                     </div>
                                     </div>
                                     <div className='col-md-4'>
@@ -82,7 +83,7 @@ const LandingPage = () => {
                                         <h5 className='myCenter'>Average Donation</h5>
                                     </div>
                                     <div className='myFlex content'>
-                                        <h2 className='myCenter'>$75</h2>
+                                        <h2 className='myCenter'>${fundraiser?.campaign?.averageDonation}</h2>
                                     </div>
                                     </div>
                                     <div className='col-md-4'>
@@ -90,7 +91,7 @@ const LandingPage = () => {
                                         <h5 className='myCenter'>Total Raised</h5>
                                     </div>
                                     <div className='myFlex content'>
-                                        <h2 className='myCenter'>$200</h2>
+                                        <h2 className='myCenter'>${fundraiser?.campaign?.currentDonations}</h2>
                                     </div>
                                     </div>
                                 </div>
@@ -102,7 +103,7 @@ const LandingPage = () => {
                                     />
                                     </div>
                                     <div className='myFlex'>
-                                    <h5 className="myCenter" style={{fontWeight: "bold"}}>$200 Raised of our $15,000 goal.</h5>
+                                    <h5 className="myCenter" style={{fontWeight: "bold"}}>${fundraiser?.campaign?.donationMin} Raised of our ${fundraiser?.campaign?.donationMax}  goal.</h5>
                                     </div>
                                 </div>
                             </div>
@@ -114,7 +115,7 @@ const LandingPage = () => {
                             <h1 className='myCenter' style={{color: "black", fontWeight: "bold"}}>Why am I Fundraising</h1>
                         </div>
                         <div className='myFlex'>
-                            <h5 className='myLeft' style={{lineHeight: "1.5", textAlign: "center"}}>Aliquam pulvinar vestibulum blandit. Donec sed nisl libero. Fusce dignissim luctus sem eu dapibus. Pellentesque vulputate quam a quam volutpat, sed ullamcorper erat commodo. Vestibulum sit amet ipsum vitae mauris mattis vulputate lacinia nec neque. Aenean quis consectetur nisi, ac interdum elit. Aliquam sit amet luctus elit, id tempus purus.</h5>
+                            <h5 className='myLeft' style={{lineHeight: "1.5", textAlign: "center"}}>{fundraiser?.fundraisingReason}</h5>
                         </div>
                         <div className='row' style={{padding: "3rem 0rem"}}>
                             <div style={{width: "20%"}}></div>
@@ -169,19 +170,20 @@ const LandingPage = () => {
                 <div id='banner' className='myComponent'>
                     <Container fluid="md" className='container'>
                         <div className='myFlex' style={{paddingBottom: "4rem"}}>
-                            <h1 className='myCenter' style={{fontSize: "2.5rem", color: "black", fontWeight: "bold"}}>MY TEAM</h1>
+                            <h1 className='myCenter' style={{fontSize: "2.5rem", color: "black", fontWeight: "bold"}}>MY TEAMS</h1>
                         </div>
-                        <div className='row'>
+                        {fundraiser?.orgs.map(org => (
+                            <div className='row'>
                             <div className='col-md-4 myFlex'>
-                                <img src={require('@src/assets/images/public_pages/club.png').default} className='myCenter'></img>
+                                <img src={org?.logo} className='myCenter'></img>
                             </div>
                             <div className='col-md-8'>
                                 <div className='row' style={{paddingBottom: "2rem"}}>
                                 <div className='col-md-6 myFlex'>
-                                    <p className="myLeft" style={{fontSize:"2rem", fontWeight: "bold", color: "black"}}>Athletic Club</p>
+                                    <p className="myLeft" style={{fontSize:"2rem", fontWeight: "bold", color: "black"}}>{org?.name}</p>
                                 </div>
                                 <div className='col-md-6 myFlex'>
-                                    <a className="myRight donate_btn" href="donationform">Donate <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span></a>
+                                    <a className="myRight donate_btn" href={`/campaigns/${org?.slug}`}>Donate <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span></a>
                                 </div>
                                 </div>
                                 <div className='' style={{background: "white", borderRadius: "1rem", padding: "1rem 0rem 1rem 0rem"}}>
@@ -191,7 +193,7 @@ const LandingPage = () => {
                                         <h5 className='myCenter'>Total Donations</h5>
                                     </div>
                                     <div className='myFlex content'>
-                                        <h2 className='myCenter'>20</h2>
+                                        <h2 className='myCenter'>{org?.campaign?.currentDonors}</h2>
                                     </div>
                                     </div>
                                     <div className='col-md-4'>
@@ -199,7 +201,7 @@ const LandingPage = () => {
                                         <h5 className='myCenter'>Average Donation</h5>
                                     </div>
                                     <div className='myFlex content'>
-                                        <h2 className='myCenter'>$75</h2>
+                                        <h2 className='myCenter'>${org?.campaign?.averageDonation}</h2>
                                     </div>
                                     </div>
                                     <div className='col-md-4'>
@@ -207,7 +209,7 @@ const LandingPage = () => {
                                         <h5 className='myCenter'>Total Raised</h5>
                                     </div>
                                     <div className='myFlex content'>
-                                        <h2 className='myCenter'>$200</h2>
+                                        <h2 className='myCenter'>${org?.campaign?.currentDonations}</h2>
                                     </div>
                                     </div>
                                 </div>
@@ -219,12 +221,14 @@ const LandingPage = () => {
                                     />
                                     </div>
                                     <div className='myFlex'>
-                                    <h5 className="myCenter" style={{fontWeight: "bold"}}>$200 Raised of our $15,000 goal.</h5>
+                                    <h5 className="myCenter" style={{fontWeight: "bold"}}>${org?.campaign?.donationMin} Raised of our ${org?.campaign?.donationMax} goal.</h5>
                                     </div>
                                 </div>
                                 </div>
                             </div>
                         </div>
+                        ))}
+                        
                     </Container>
                 </div>
             </div>

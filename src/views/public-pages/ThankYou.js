@@ -42,7 +42,11 @@ const ThankYou = () => {
               <h4 className='myCenter' style={{color: "black"}}>Your Donation of ${amount}.00 has been Processed!</h4>
             </div>
             <div className='myFlex' style={{paddingBottom: "5rem"}}>
-              <h5 className='myCenter' style={{lineHeight: "1.5rem", textAlign: "center"}}>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas.</h5>
+              <h5 className='myCenter' style={{lineHeight: "1.5rem", textAlign: "center"}}>
+                 We appreciate your help in continuing our mission to provide opportunities for personal growth and development in our athletes through youth sports programs.
+                 It makes a huge difference when people like you make an investment in our young athletes.
+                 Thank you for making a difference.
+              </h5>
             </div>
             <div className='row myFlex' style={{paddingBottom: "3rem"}}>
               <div className='col-md-6' style={{padding: "10px"}}>
