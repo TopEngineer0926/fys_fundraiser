@@ -28,7 +28,7 @@ import Footer from './Footer'
 import NavBar from './NavBar'
 import { useParams } from 'react-router-dom'
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_SECRET_KEY)
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_PUBLIC_KEY)
 
 const DonationForm = () => {
   const [isContinue, setIsContinue] = useState(false)
