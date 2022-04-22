@@ -24,7 +24,7 @@ const Maintenance = () => {
     <div className='misc-wrapper'>
       <a className='brand-logo' href='/'>
         <img src={require('@src/assets/images/logo/FYS-horizontal.png').default} style={{width: "auto", height: "30px"}}></img>
-        <h2 className='brand-text text-primary ms-1'>fYS</h2>
+        <h2 className='brand-text text-primary ms-1'>Fundraising Portal</h2>
       </a>
       <div className='misc-inner p-2 p-sm-3'>
         <div className='w-100 text-center'>

@@ -22,7 +22,7 @@ const TwoStepsBasic = () => {
           <CardBody>
             <Link className='brand-logo' to='/' onClick={e => e.preventDefault()}>
               <img src={require('@src/assets/images/logo/FYS-horizontal.png').default} style={{width: "auto", height: "30px"}}></img>
-              <h2 className='brand-text text-primary ms-1'>fYS</h2>
+              <h2 className='brand-text text-primary ms-1'>Fundraising Portal</h2>
             </Link>
             <CardTitle tag='h2' className='fw-bolder mb-1'>
               Two Step Verification 💬

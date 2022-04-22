@@ -66,7 +66,7 @@ const RegisterMultiSteps = () => {
       <Row className='auth-inner m-0'>
         <Link className='brand-logo' to='/'>
           <img src={require('@src/assets/images/logo/FYS-horizontal.png').default} style={{width: "auto", height: "30px"}}></img>
-          <h2 className='brand-text text-primary ms-1'>fYS</h2>
+          <h2 className='brand-text text-primary ms-1'>Fundraising Portal</h2>
         </Link>
         <Col lg='3' className='d-none d-lg-flex align-items-center p-0'>
           <div className='w-100 d-lg-flex align-items-center justify-content-center'>
