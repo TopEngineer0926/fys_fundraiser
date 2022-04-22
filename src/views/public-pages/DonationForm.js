@@ -28,8 +28,8 @@ import Footer from './Footer'
 import NavBar from './NavBar'
 import { useParams } from 'react-router-dom'
 
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_PUBLIC_KEY)
-// const stripePromise = loadStripe("pk_test_51KnwltAfcKEcHq5CQqmctsPDYdYzaU3NviORmdsys9vxPDfyxisuE6BWkecwmSu3cjLeNVVwRPFLEbHZuX8f6FGk003H6nGaZr")
+// const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_PUBLIC_KEY)
+const stripePromise = loadStripe("pk_test_51Ki3ePKfYeuFPXSARtPYY3vEVPYUhaObzEc2jG9ThhXJmk2wll54vDOnjAexlk4EL3kv5HXpzrcuW2T80KDgsy1W006Z5Z3OpM")
 
 const DonationForm = () => {
   const [isContinue, setIsContinue] = useState(false)
@@ -60,6 +60,9 @@ const DonationForm = () => {
   //   { type: "googlepay", text: "Google Pay", checked: false }
   // ]
   const [clientSecret, setClientSecret] = useState("")
+  //donation
+  const [donation, setDonation] = useState("")
+
 
   useEffect(() => {
 
@@ -86,7 +89,9 @@ const DonationForm = () => {
       fundraiser: ''
     })
       .then((data) => {
-        setClientSecret(data.data.data.client_secret)
+        console.log("data.data.data####", data.data)
+        setClientSecret(data.data.data.paymentIntent.client_secret)
+        setDonation(data.data.data.donation)
         
       })
   }
@@ -306,7 +311,7 @@ const DonationForm = () => {
             </div>
             {(
               <Elements options={options} stripe={stripePromise}>
-                <CheckoutForm formData={formValues} donationAmount={donationAmount} updateClientSecret={updateClientSecret}  />
+                <CheckoutForm formData={formValues} donation = {donation}  donationAmount={donationAmount} updateClientSecret={updateClientSecret}  />
               </Elements>
             )}
             <div className='row' style={{ paddingBottom: "0rem" }}>

@@ -8,13 +8,16 @@ import {
   useStripe
 } from '@stripe/react-stripe-js'
 
-export default function CheckoutForm() {
+export default function CheckoutForm(props) {
     const stripe = useStripe()
     const elements = useElements()
 
     const [message, setMessage] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
-
+//props
+useEffect(() => {
+    console.log("##### props THANK YOU #####", props)
+}, [])
     useEffect(() => {
         if (!stripe) {
             return
@@ -61,7 +64,7 @@ export default function CheckoutForm() {
             elements,
             confirmParams: {
                 // Make sure to change this to your payment completion page
-                return_url: `${process.env.REACT_APP_FYS_APP_URL}/donation/thankyou`
+                return_url: `https://app.fundyouthsports.com/donations/${props.donation}/thank-you`
             }
         })
 

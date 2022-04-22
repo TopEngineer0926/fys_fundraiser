@@ -8,16 +8,20 @@ import axios from 'axios'
 
 import Footer from './Footer'
 import NavBar from './NavBar'
+import { useParams } from 'react-router-dom'
 
 const ThankYou = () => {
+  const { donation_slug } = useParams()
+
   const [amount, setAmount] = useState(0)
   const [name, setName] = useState()
 
   useEffect(() => {
+    console.log("############ donation_slug #############", donation_slug)
     const urlSearchParams = new URLSearchParams(window.location.search)
     const params = Object.fromEntries(urlSearchParams.entries())
     axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/stripe/sd`, {
-      ...params
+      ...params, donation: donation_slug
     })
       .then((data) => { 
         setAmount(data.data.data.donationAmount)
