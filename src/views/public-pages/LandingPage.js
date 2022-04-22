@@ -109,7 +109,7 @@ const LandingPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className='col-md-3 myFlex'>
+                            <div className='col-md-3 myFlex' style={{marginTop:"10px"}}>
                                 <a className="myCenter donate_btn" href={`/campaigns/${fundraiser?.campaign?.urlSlug}/donate`}>Donate Now <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span></a>
                             </div>
                         </div>
@@ -119,18 +119,18 @@ const LandingPage = () => {
                         <div className='myFlex'>
                             <h5 className='myLeft' style={{ lineHeight: "1.5", textAlign: "center" }}>{fundraiser?.fundraisingReason}</h5>
                         </div>
-                        <div className='row' style={{ padding: "3rem 0rem" }}>
-                            <div style={{ width: "20%" }}></div>
-                            <div style={{ width: "3%", padding: "5px" }} className="myFlex">
+                        <div className='row' style={{ padding: "3rem 0rem", justifyContent:"center"}}>
+                            <div className='first-div' style={{ width: "20%" }}></div>
+                            <div style={{ width: "3%", padding: "5px" }} className="myFlex second-div">
                                 <div className="myCenter" style={{ background: "#3157dd", width: "100%", height: "3px" }}></div>
                             </div>
                             <div style={{ width: "13%", padding: "5px" }} className="myFlex">
                                 <div className="myCenter" style={{ background: "#3157dd", width: "100%", height: "3px" }}></div>
                             </div>
-                            <div style={{ width: "28%" }} className="myFlex">
-                                <h2 className="myCenter" style={{ color: "black", fontWeight: "bold", fontSize: "2rem" }}> Share on Social</h2>
+                            <div style={{ width: "28%" }} className="myFlex third-div">
+                                <h2 className="myCenter share-on-social" style={{ color: "black", fontWeight: "bold", fontSize: "2rem" }}> Share on Social</h2>
                             </div>
-                            <div style={{ width: "3%", padding: "5px" }} className="myFlex">
+                            <div style={{ width: "3%", padding: "5px" }} className="myFlex fourth-div">
                                 <div className="myCenter" style={{ background: "#3157dd", width: "100%", height: "3px" }}></div>
                             </div>
                             <div style={{ width: "13%", padding: "5px" }} className="myFlex">

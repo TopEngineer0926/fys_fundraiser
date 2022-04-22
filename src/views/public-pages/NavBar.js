@@ -19,13 +19,13 @@ const NavBar = () => {
   return (
     <div id="Navbar" style={{borderBottom: "solid 1px rgb(200, 200, 200)"}}>
         <Container fluid="md" style={{maxWidth: "1100px"}}>
-          <Row>
-            <Col md="4" className='myFlex'>
+          <Row className='navbar-styling'>
+            <Col md="4" xs="6" className='myFlex'>
               <NavLink href='https://fundyouthsports.com/' className="myLeft">
                 <img src={require('@src/assets/images/public_pages/logo.png').default} className='logo'></img>
               </NavLink>
             </Col>
-            <Col md="7" className='myFlex'>
+            <Col md="7" xs="3" className='myFlex'>
               <Navbar className='myCenter Navbar'
                 color="light"
                 container="md"
@@ -62,7 +62,7 @@ const NavBar = () => {
                 </Collapse>
               </Navbar>
             </Col>
-            <Col md="1" className='myFlex'>
+            <Col md="1" xs="3" className='myFlex'>
               <Dropdown toggle={() => {}} className="myRight">
                 <DropdownToggle className='dropdownToogle'
                   data-toggle="dropdown"

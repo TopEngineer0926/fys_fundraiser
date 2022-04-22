@@ -224,3 +224,36 @@
 .myWidth {
     width: 100%;
 }
+@media  (min-width:375px) and (max-width: 575px) {
+  .myLeft {
+    margin-left: 0px !important;
+    margin-top: 10px;
+    padding: 0;
+  }
+  .myCenter {
+    font-size: 1rem !important;
+  }
+  .navbar-styling {
+    justify-content: space-between;
+    align-items: center;
+  }
+  .navbar-styling img{
+    max-width: 150px !important;
+  }
+  .share-on-social h2{
+    font-size: 1rem !important;
+  }
+  .first-div{
+    width: 0px !important;
+  }
+  .second-div{
+    width: 0px !important;
+  }
+  .third-div{
+    width: 50% !important;
+  }
+  .fourth-div{
+    width: 0px !important;
+  }
+
+}
