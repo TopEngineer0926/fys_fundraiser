@@ -29,7 +29,7 @@ import NavBar from './NavBar'
 import { useParams } from 'react-router-dom'
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_PUBLIC_KEY)
-//const stripePromise = loadStripe("pk_test_51KnwltAfcKEcHq5CQqmctsPDYdYzaU3NviORmdsys9vxPDfyxisuE6BWkecwmSu3cjLeNVVwRPFLEbHZuX8f6FGk003H6nGaZr")
+// const stripePromise = loadStripe("pk_test_51KnwltAfcKEcHq5CQqmctsPDYdYzaU3NviORmdsys9vxPDfyxisuE6BWkecwmSu3cjLeNVVwRPFLEbHZuX8f6FGk003H6nGaZr")
 
 const DonationForm = () => {
   const [isContinue, setIsContinue] = useState(false)
@@ -64,14 +64,12 @@ const DonationForm = () => {
   useEffect(() => {
 
     if (clientSecret) {
-      console.log("clientSecret", clientSecret)
       setIsContinue(!isContinue)
     }
     
   }, [clientSecret])
 
   const updateClientSecret = (value) => {
-    console.log("1---> updateClientSecret")
     setClientSecret(value)
   }
   function paymentIntent() {

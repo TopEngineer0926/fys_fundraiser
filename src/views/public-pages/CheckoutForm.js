@@ -2,16 +2,13 @@ import React, {
   useEffect,
   useState
 } from 'react'
-
-import axios from 'axios'
-
 import {
   PaymentElement,
   useElements,
   useStripe
 } from '@stripe/react-stripe-js'
 
-export default function CheckoutForm(props) {
+export default function CheckoutForm() {
     const stripe = useStripe()
     const elements = useElements()
 
@@ -81,28 +78,12 @@ export default function CheckoutForm(props) {
 
         setIsLoading(false)
     }
-
-    const SubmitDonation = () => {
-        axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/stripe/pi`, {
-            cardAmount: props.donationAmount * 100,
-            transferGroup: "transfer11123456",
-            items: "asdf",
-            user: '',
-            firstName: props.formData.firstName,
-            lastName: props.formData.lastName,
-            email: props.formData.email
-        })
-        .then((data) => {
-            props.updateClientSecret(data.data.data.client_secret)
-        })
-    }
-
     return (
         <form id="payment-form" onSubmit={handleSubmit}>
             <PaymentElement id="payment-element" />
             <br />
             <button className="myLeft donate_btn" disabled={isLoading || !stripe || !elements} id="submit">
-                <span id="button-text" onClick={SubmitDonation}>
+                <span id="button-text">
                     {isLoading ? <div className="spinner" id="spinner"></div> : "Donate Now"}
                 </span>
             </button>
