@@ -72,6 +72,7 @@
     "react-router-dom": "6.2.2",
     "react-scripts": "4.0.2",
     "react-select": "5.2.0",
+    "react-share": "^4.4.0",
     "react-shepherd": "3.3.6",
     "react-slidedown": "2.4.5",
     "react-sortablejs": "6.0.0",
