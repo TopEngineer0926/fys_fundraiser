@@ -272,7 +272,7 @@ const FundraisersList = () => {
 
   return (
     <Fragment>
-      <Card>
+      <Card hidden="true">
         <CardHeader>
           <CardTitle tag='h4'>Filters</CardTitle>
         </CardHeader>

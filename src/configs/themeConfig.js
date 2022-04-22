@@ -3,7 +3,7 @@
 //Template config options
 const themeConfig = {
   app: {
-    appName: '',
+    appName: 'FUNDRAISER CONSOLE',
     appLogoImage: require('@src/assets/images/logo/FYS-horizontal.png').default
   },
   baseApi: 'http://fys-api.herokuapp.com/api/v1',
