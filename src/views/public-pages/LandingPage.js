@@ -44,7 +44,7 @@ const LandingPage = () => {
                     <Container fluid="md" className='container'>
                         <div className='row'>
                             <div className='col-md-3 myFlex'>
-                                <img src={fundraiser?.avatar} className='myCenter'></img>
+                                <img src={fundraiser?.avatar} style={{height:"250px", width:"300px", objectFit:"cover"}} className='myCenter'></img>
                             </div>
                             <div className='col-md-9 myFlex'>
                                 <div className='myLeft' style={{marginLeft: "2rem"}}>
@@ -108,7 +108,7 @@ const LandingPage = () => {
                                 </div>
                             </div>
                             <div className='col-md-3 myFlex'>
-                                <a className="myCenter donate_btn" href="donationform">Donate Now <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span></a>
+                                <a className="myCenter donate_btn" href={`/campaigns/${fundraiser?.campaign?.urlSlug}`}>Donate Now <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span></a>
                             </div>
                         </div>
                         <div className='myFlex' style={{paddingBottom: "1.5rem"}}>
