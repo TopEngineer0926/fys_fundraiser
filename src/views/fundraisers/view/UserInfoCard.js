@@ -71,9 +71,9 @@ const UserInfoCard = ({ selectedUser }) => {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      username: selectedUser.username,
-      lastName: selectedUser.fullName.split(' ')[1],
-      firstName: selectedUser.fullName.split(' ')[0]
+      username: `${selectedUser.firstName} ${selectedUser.lastName}`,
+      lastName: selectedUser.lastName,
+      firstName: selectedUser.firstName
     }
   })
 
@@ -127,9 +127,9 @@ const UserInfoCard = ({ selectedUser }) => {
 
   const handleReset = () => {
     reset({
-      username: selectedUser.username,
-      lastName: selectedUser.fullName.split(' ')[1],
-      firstName: selectedUser.fullName.split(' ')[0]
+      username: `${selectedUser.firstName} ${selectedUser.lastName}`,
+      lastName: selectedUser.lastName,
+      firstName: selectedUser.firstName
     })
   }
 
@@ -231,11 +231,11 @@ const UserInfoCard = ({ selectedUser }) => {
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Tax ID:</span>
-                  <span>Tax-{selectedUser.contact.substr(selectedUser.contact.length - 4)}</span>
+                  <span>Tax-{selectedUser.phone.substr(selectedUser.phone.length - 4)}</span>
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Contact:</span>
-                  <span>{selectedUser.contact}</span>
+                  <span>{selectedUser.phone}</span>
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Language:</span>
@@ -341,14 +341,14 @@ const UserInfoCard = ({ selectedUser }) => {
                 <Input
                   id='tax-id'
                   placeholder='Tax-1234'
-                  defaultValue={selectedUser.contact.substr(selectedUser.contact.length - 4)}
+                  defaultValue={selectedUser.phone.substr(selectedUser.phone.length - 4)}
                 />
               </Col>
               <Col md={6} xs={12}>
                 <Label className='form-label' for='contact'>
                   Contact
                 </Label>
-                <Input id='contact' defaultValue={selectedUser.contact} placeholder='+1 609 933 4422' />
+                <Input id='contact' defaultValue={selectedUser.phone} placeholder='+1 609 933 4422' />
               </Col>
               <Col md={6} xs={12}>
                 <Label className='form-label' for='language'>

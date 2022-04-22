@@ -19,8 +19,8 @@ export const getData = createAsyncThunk('appFundraisers/getData', async params =
 })
 
 export const getFundraiser = createAsyncThunk('appFundraisers/getFundraiser', async id => {
-  const response = await axios.get('/api/fundraisers/fundraiser', { id })
-  return response.data.fundraiser 
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/profile?id=${id}`)
+  return response.data
 })
 
 export const addFundraiser = createAsyncThunk('appFundraisers/addFundraiser', async (fundraiser, { dispatch, getState }) => {
