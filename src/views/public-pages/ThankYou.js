@@ -11,7 +11,7 @@ import NavBar from './NavBar'
 import { useParams } from 'react-router-dom'
 import { FacebookShareButton,  TwitterShareButton, EmailShareButton } from "react-share"
 
-const ThankYou = (props) => {
+const ThankYou = () => {
   const { donation_slug } = useParams()
 
   const [amount, setAmount] = useState(0)
@@ -20,7 +20,6 @@ const ThankYou = (props) => {
   const [donor, setDonor] = useState()
   const shareUrl = window.location.search
   useEffect(() => {
-    console.log("############ donation_slug #############", donation_slug)
     const urlSearchParams = new URLSearchParams(window.location.search)
 
     const params = Object.fromEntries(urlSearchParams.entries())
@@ -30,17 +29,36 @@ const ThankYou = (props) => {
       .then((data) => {
         setAmount(data.data.data.donationAmount)
         setName(data.data.data.name)
+        setDonor(data.data.data.donor)
+        setFundraiser(data.data.data.fundraiser)
       })
 
   }, [])
-  useEffect(() => {
-    console.log("TestuseEffect ")
-    setDonor(props.donor)
+  // useEffect(() => {
+  //   console.log("TestuseEffect ")
+  //   setDonor(props.donor)
 
-  }, [donor])
-  useEffect(() => {
-    setFundraiser(props.fundraiser)
-  }, [fundraiser])
+  // }, [donor])
+  // useEffect(() => {
+  //   setFundraiser(props.fundraiser)
+  // }, [fundraiser])
+  const fundraiserContactRegister = () => {
+    axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser_contact/register`, {
+      donor, 
+      fundraiser
+    })
+      .then((data) => {
+        console.log(data)
+      })
+  }
+  const donorRegister = () => {
+    axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/donor/register`, {
+      donor
+    })
+      .then((data) => {
+        console.log(data)
+      })
+  }
 
   return (
     <div>
@@ -69,7 +87,7 @@ const ThankYou = (props) => {
               {(fundraiser && donor) && (
                 <div className='col-md-6' style={{ padding: "10px" }}>
                 <div style={{ background: "#efefef", padding: "2rem" }}>
-                  <div className='myFlex' style={{ paddingBottom: "2rem" }}>
+                  <div onClick={fundraiserContactRegister} className='myFlex' style={{ paddingBottom: "2rem", cursor: "pointer" }}>
                     <img className="myCenter" src={require('@src/assets/images/public_pages/thanks1.svg').default}></img>
                   </div>
                   <div className='myFlex' style={{ paddingBottom: "2rem" }}>
@@ -84,7 +102,7 @@ const ThankYou = (props) => {
               {donor && (
                 <div className='col-md-6' style={{ padding: "10px" }}>
                 <div style={{ background: "#efefef", padding: "2rem" }}>
-                  <div className='myFlex' style={{ paddingBottom: "2rem" }}>
+                  <div onClick={donorRegister} className='myFlex' style={{ paddingBottom: "2rem", cursor: "pointer" }}>
                     <img className="myCenter" src={require('@src/assets/images/public_pages/thanks2.svg').default}></img>
                   </div>
                   <div className='myFlex' style={{ paddingBottom: "2rem" }}>

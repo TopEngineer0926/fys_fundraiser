@@ -29,7 +29,7 @@ import NavBar from './NavBar'
 import { useParams } from 'react-router-dom'
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_PUBLIC_KEY)
-//const stripePromise = loadStripe("pk_test_51Ki3ePKfYeuFPXSARtPYY3vEVPYUhaObzEc2jG9ThhXJmk2wll54vDOnjAexlk4EL3kv5HXpzrcuW2T80KDgsy1W006Z5Z3OpM")
+// const stripePromise = loadStripe("pk_test_51Ki3ePKfYeuFPXSARtPYY3vEVPYUhaObzEc2jG9ThhXJmk2wll54vDOnjAexlk4EL3kv5HXpzrcuW2T80KDgsy1W006Z5Z3OpM")
 
 const DonationForm = () => {
   const [isContinue, setIsContinue] = useState(false)
@@ -44,7 +44,11 @@ const DonationForm = () => {
       message: ""
   })
 
+  // eslint-disable-next-line no-unused-vars
   const { campaign_slug } = useParams()
+  const fundraiserId = new URLSearchParams(window.location.search).get(
+    "fundraiser"
+)
   const [campaign, setCampaign] = useState()
 
   async function getCampaign() {
@@ -62,7 +66,6 @@ const DonationForm = () => {
   const [clientSecret, setClientSecret] = useState("")
   //donation
   const [donation, setDonation] = useState("")
-
 
   useEffect(() => {
 
@@ -87,7 +90,7 @@ const DonationForm = () => {
       user: '',
       campaign: campaign_slug,
       organization: '',
-      fundraiser: ''
+      fundraiser: fundraiserId
     })
       .then((data) => {
         console.log("data.data.data####", data.data)
