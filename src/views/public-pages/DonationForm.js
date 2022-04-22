@@ -83,6 +83,7 @@ const DonationForm = () => {
       firstName: formValues.firstName,
       lastName: formValues.lastName,
       email: formValues.email,
+      message: formValues.message,
       user: '',
       campaign: campaign_slug,
       organization: '',
@@ -273,13 +274,13 @@ const DonationForm = () => {
               <div className='col-md-2'></div>
               <div className='col-md-8'>
                 <Label className='form-label label' for='message'>
-                  Enter a private message to {'{{fundraiser_name}}'}
+                Please enter a private message (optional) that will be delivered to this fundraiser.
                 </Label>
                 <InputGroup className='input-group-merge mb-2'>
                   <InputGroupText style={{}}>
                     <Mail size={14} />
                   </InputGroupText>
-                  <Input type='textarea' id='message' rows='3' placeholder='Enter your message' name="messages" value={formValues.message} onChange={ChangeFormValues} />
+                  <Input type='textarea' id='message' rows='3' placeholder='Enter your message' name="message" value={formValues.message} onChange={ChangeFormValues} />
                 </InputGroup>
               </div>
               <div className='col-md-2'></div>
