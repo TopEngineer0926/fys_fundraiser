@@ -13,22 +13,11 @@ import '@styles/react/libs/tables/react-dataTable-component.scss'
 
 const projectsArr = [
   {
-    progress: 60,
-    hours: '210:30h',
-    progressColor: 'info',
-    totalTasks: '233/240',
-    subtitle: 'React Project',
-    title: 'BGC eCommerce App',
+    org_name: 'Toms Team',
+    gm_fullname: 'Wanda Brown', 
+    gm_phone: '858-688-6383', 
+    gm_email: 'tbrown@tehcovia.com',
     img: require('@src/assets/images/icons/brands/react-label.png').default
-  },
-  {
-    hours: '89h',
-    progress: 15,
-    totalTasks: '9/50',
-    progressColor: 'danger',
-    subtitle: 'UI/UX Project',
-    title: 'Falcon Logo Design',
-    img: require('@src/assets/images/icons/brands/xd-label.png').default
   }
 ]
 
@@ -36,7 +25,7 @@ export const columns = [
   {
     sortable: true,
     minWidth: '300px',
-    name: 'Project',
+    name: 'Team',
     selector: row => row.title,
     cell: row => {
       return (
@@ -45,37 +34,24 @@ export const columns = [
             <Avatar className='me-1' img={row.img} alt={row.title} imgWidth='32' />
           </div>
           <div className='d-flex flex-column'>
-            <span className='text-truncate fw-bolder'>{row.title}</span>
-            <small className='text-muted'>{row.subtitle}</small>
+            <span className='text-truncate fw-bolder'>{row.org_name}</span>
+            <small className='text-muted'></small>
           </div>
         </div>
       )
     }
   },
   {
-    name: 'Total Tasks',
-    selector: row => row.totalTasks
+    name: 'Team Administrator',
+    selector: row => row.gm_fullname
   },
   {
-    name: 'Progress',
-    selector: row => row.progress,
-    sortable: true,
-    cell: row => {
-      return (
-        <div className='d-flex flex-column w-100'>
-          <small className='mb-1'>{`${row.progress}%`}</small>
-          <Progress
-            value={row.progress}
-            style={{ height: '6px' }}
-            className={`w-100 progress-bar-${row.progressColor}`}
-          />
-        </div>
-      )
-    }
+    name: 'Phone Number',
+    selector: row => row.gm_phone
   },
   {
-    name: 'Hours',
-    selector: row => row.hours
+    name: 'Email Address',
+    selector: row => row.gm_email
   }
 ]
 

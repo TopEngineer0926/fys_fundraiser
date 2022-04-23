@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 // ** Table Columns
-import { columns } from './columns'
+import { campaignListColumns } from './campaignListColumns'
 
 // ** Third Party Components
 import DataTable from 'react-data-table-component'
@@ -18,7 +18,8 @@ import {
   DropdownItem,
   DropdownToggle,
   UncontrolledButtonDropdown, 
-  Button
+  Button,
+  CardFooter
 } from 'reactstrap'
 
 // ** Store & Actions
@@ -93,13 +94,13 @@ const CampaignList = () => {
     <div className='invoice-list-wrapper'>
       <Card>
         <CardHeader className='py-1'>
-          <CardTitle tag='h4'>Campaigns</CardTitle>
+          <CardTitle tag='h4'>Fundraising Campaigns</CardTitle>
         </CardHeader>
         <div className='invoice-list-dataTable react-dataTable'>
           <DataTable
             noHeader
             sortServer
-            columns={columns}
+            columns={campaignListColumns}
             responsive={true}
             onSort={handleSort}
             data={dataToRender()}
@@ -108,6 +109,7 @@ const CampaignList = () => {
             defaultSortField='invoiceId'
           />
         </div>
+        <CardFooter>Show Campign Name, Organization, Start Date, End Date, Team Goal, Personal Goal</CardFooter>
       </Card>
     </div>
   )

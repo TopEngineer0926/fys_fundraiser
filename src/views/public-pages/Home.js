@@ -161,7 +161,7 @@ const Home = () => {
             </div>
           </Container>
         </div>
-        <div id="sponsors" className='myComponent'>
+        {/* <div id="sponsors" className='myComponent'>
           <Container fluid="md" className='container'>
             <div className='myFlex' style={{paddingBottom: "1.5rem"}}>
               <h1 className='myCenter' style={{color: "black", fontWeight: "bold"}}>Our Sponsors</h1>
@@ -189,7 +189,7 @@ const Home = () => {
               </Carousel>
             </div>
           </Container>
-        </div>
+        </div> */}
       </div>
       <Footer></Footer>
     </div>
