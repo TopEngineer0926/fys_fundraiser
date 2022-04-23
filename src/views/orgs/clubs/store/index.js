@@ -8,12 +8,14 @@ import { getUserData } from '@utils'
 
 
 export const getAllData = createAsyncThunk('appClubs/getAllData', async () => {
+  console.log("org-club-getalldata")
   const user = getUserData()
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/filter?organizationType=${process.env.REACT_APP_ORG_TYPE_CLUB}&user=${user.id}`)
   return response.data
 })
 
 export const getData = createAsyncThunk('appClubs/getData', async params => {
+  console.log("org-club-getdata")
   const user = getUserData()
   // const response = await axios.get('/api/clubs/list/data', params)
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/filter?organizationType=${process.env.REACT_APP_ORG_TYPE_CLUB}&user=${user.id}`, params)

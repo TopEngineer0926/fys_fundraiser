@@ -47,7 +47,10 @@ const StripeConnect = () => {
             </div>
             <div className='myFlex' style={{paddingBottom: "1rem"}}>
               <Button href={`${(account && account.url) || ''}`} color='primary' block className='mb-75'>
-                Setup your Stripe Express Account
+                Set up your Stripe Express Account
+              </Button>
+              <Button href='/login' color='secondary-outline' block className='mb-75' style={{marginLeft:"40px"}}>
+                Skip this step and set up Stripe later.
               </Button>
             </div>
             

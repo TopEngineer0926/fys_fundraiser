@@ -20,14 +20,18 @@ const Footer = () => {
         <div style={{background: "#222222", padding: "2rem"}}>
             <Container fluid="md" className='container'>
                 <div className='row'>
-                    <div className='col-md-6 myFlex'>
+                    <div className='col-md-6'>
                         <a href='https://fundyouthsports.com/' className="navLink">Home</a>
                         <a href='https://fundyouthsports.com/how-it-works' className="navLink">How It Works</a>
                         <a href='https://fundyouthsports.com/our-story' className="navLink">Our Story</a>
                         <a href='https://fundyouthsports.com/contact-us' className="navLink">Contact-Us</a>
                     </div>
-                    <div className='col-md-6 myFlex'>
-                        <h5 className='myRight' style={{color: "white"}}>©2022 Fund Youth Sports, Inc.</h5>
+                    <div className='col-md-6' style={{textAlign:"right"}}>
+                        <h5 className='navLink' style={{color: "white"}}>©2022 Fund Youth Sports, Inc.</h5>
+                        <p style={{paddingTop:"5px"}}>
+                        <a href="https://fundyouthsports.com/privacy-policy/" target="_blank" className="navLink">Privacy Policy</a>  | 
+                        <a href="https://fundyouthsports.com/terms-and-conditions/" target="_blank" className="navLink">Terms &amp; Conditions</a>
+                        </p>
                     </div>
                 </div>
             </Container>
