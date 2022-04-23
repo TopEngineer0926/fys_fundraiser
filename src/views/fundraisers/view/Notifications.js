@@ -3,20 +3,16 @@ import { Card, CardTitle, CardBody, Table, Input, Button } from 'reactstrap'
 
 const typesArr = [
   {
-    title: 'New for you',
+    title: 'New Campaign Starting',
     defaultChecked: ['email']
   },
   {
-    title: 'Account activity',
+    title: 'Donation Received',
     defaultChecked: ['browser', 'app']
   },
   {
-    title: 'A new browser used to sign in',
+    title: 'End of Campaign Summary',
     defaultChecked: ['email', 'browser', 'app']
-  },
-  {
-    title: 'A new device is linked',
-    defaultChecked: ['browser']
   }
 ]
 
