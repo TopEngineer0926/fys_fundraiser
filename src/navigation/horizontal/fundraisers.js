@@ -4,7 +4,7 @@ import { Box } from 'react-feather'
 export default [
   {
     id: 'fundraisers',
-    title: 'Fundraisers',
+    title: 'Players',
     icon: <Box />,
     action: 'read',
     resource: 'fundraisers',

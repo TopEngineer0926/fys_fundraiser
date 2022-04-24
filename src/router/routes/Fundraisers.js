@@ -53,7 +53,11 @@ const FundraiserRoutes = [
   },
   {
     element: <FundraiserView />,
-    path: '/fundraisers/view/:id'
+    path: '/fundraisers/view/:id',
+    meta: {
+      action: 'read',
+      resource: 'ACL'
+    }
   }
 ]
 
