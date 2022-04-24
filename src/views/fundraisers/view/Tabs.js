@@ -14,7 +14,7 @@ import Notifications from './Notifications'
 import ContactList from './ContactList'
 import FundraiserTeamsList from './FundraiserTeamsList'
 
-const UserTabs = ({ active, toggleTab }) => {
+const UserTabs = ({ fundraiser, active, toggleTab }) => {
   return (
     <Fragment>
       <Nav pills className='mb-2'>
@@ -49,7 +49,7 @@ const UserTabs = ({ active, toggleTab }) => {
           <CampaignList />
         </TabPane>
         <TabPane tabId='2'>
-          <ContactList />
+          <ContactList fundraiser={fundraiser} />
         </TabPane>
         <TabPane tabId='3'>
           <SecurityTab />

@@ -10,17 +10,18 @@ import DataTable from 'react-data-table-component'
 
 // ** Styles
 import '@styles/react/libs/tables/react-dataTable-component.scss'
+import FundraiserTeamsList from './FundraiserTeamsList'
 
-const projectsArr = [
-  {
-    firstName : 'Tom', 
-    lastName : 'Brown', 
-    email: 'tom@devnostic.com', 
-    phone: '858-688-6383', 
-    is_mobile: 'Yes', 
-    funds_gifted: 0
-  }
-]
+// const projectsArr = [
+//   {
+//     firstName : 'Tom', 
+//     lastName : 'Brown', 
+//     email: 'tom@devnostic.com', 
+//     phone: '858-688-6383', 
+//     is_mobile: 'Yes', 
+//     funds_gifted: 0
+//   }
+// ]
 
 export const columns = [
   {
@@ -48,7 +49,7 @@ export const columns = [
   }
 ]
 
-const ContactList = () => {
+const ContactList = ({fundraiser}) => {
 
   const [show, setShow] = useState(false)
 
@@ -183,7 +184,7 @@ const ContactList = () => {
           noHeader
           responsive
           columns={columns}
-          data={projectsArr}
+          data={fundraiser.contacts}
           className='react-dataTable'
           sortIcon={<ChevronDown size={10} />}
         />

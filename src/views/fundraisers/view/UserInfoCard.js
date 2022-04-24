@@ -147,7 +147,7 @@ const UserInfoCard = ({ selectedUser }) => {
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Parent / Guardian:</span>
-                  <span>{selectedUser.firstName} {selectedUser.lastName}</span>
+                  <span>{selectedUser.parentFirstName} {selectedUser.parentLastName}</span>
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Email Address:</span>
