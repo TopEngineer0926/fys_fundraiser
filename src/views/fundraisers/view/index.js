@@ -28,6 +28,12 @@ const FundraiserView = () => {
   useEffect(() => {
     dispatch(getFundraiser(id))
   }, [dispatch])
+  useEffect(() => {
+    if (!store.selectedUser) {
+      dispatch(getFundraiser(id))
+    }
+   
+  }, [store.selectedUser])
 
   const [active, setActive] = useState('1')
 
@@ -41,10 +47,10 @@ const FundraiserView = () => {
     <div className='app-user-view'>
       <Row>
         <Col xl='4' lg='5' xs={{ order: 1 }} md={{ order: 0, size: 5 }}>
-          <UserInfoCard selectedUser={store.selectedUser.data} />
+          <UserInfoCard selectedUser={store.selectedUser} />
         </Col>
         <Col xl='8' lg='7' xs={{ order: 0 }} md={{ order: 1, size: 7 }}>
-          <UserTabs fundraiser={store.selectedUser.data} active={active} toggleTab={toggleTab} />
+          <UserTabs fundraiser={store.selectedUser} active={active} toggleTab={toggleTab} />
         </Col>
       </Row>
     </div>

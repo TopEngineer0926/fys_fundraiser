@@ -20,10 +20,29 @@ export const getData = createAsyncThunk('appFundraisers/getData', async params =
 
 export const getFundraiser = createAsyncThunk('appFundraisers/getFundraiser', async id => {
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${id}`)
-  console.log(response.data)
+  return response.data.data
+})
+//getFundraiserCampaigns
+export const getFundraiserCampaigns = createAsyncThunk('appFundraisers/getFundraiserCampaigns', async id => {
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${id}/campaigns`)
+  return response.data.data
+})
+export const addFundraiserContacts = createAsyncThunk('appFundraisers/addFundraiserContacts', async (fundraiserContact) => {
+  await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser_contact`, fundraiserContact)
+  return fundraiserContact
+})
+//getFundraiserContacts
+export const getFundraiserContacts = createAsyncThunk('appFundraisers/getFundraiserContacts', async id => {
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${id}/contacts`)
+  console.log(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${id}/contacts`, response)
   return response.data
 })
-
+//fundraiserTeams
+export const getFundraiserTeams = createAsyncThunk('appFundraisers/getFundraiserTeams', async id => {
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${id}/teams`)
+  console.log(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${id}/teams`, response.data)
+  return response.data.data[0]
+})
 export const addFundraiser = createAsyncThunk('appFundraisers/addFundraiser', async (fundraiser, { dispatch, getState }) => {
   await axios.post('/fundraisers/add-fundraiser', fundraiser)
   await dispatch(getData(getState().fundraisers.params))
@@ -45,13 +64,16 @@ export const appFundraisersSlice = createSlice({
     total: 1,
     params: {},
     allData: [],
-    selectedUser: null
+    fundraiserCampaigns: [],
+    fundraiserTeams: [],
+    fundraiserContacts: [],
+    selectedUser: null,
+    isFundraiserContactAdded: false
   },
   reducers: {},
   extraReducers: builder => {
     builder
       .addCase(getAllData.fulfilled, (state, action) => {
-        console.log("getAllData --->  action.payload ", action.payload)
         state.allData = action.payload.data
       })
       // .addCase(getData.fulfilled, (state, action) => {
@@ -60,9 +82,20 @@ export const appFundraisersSlice = createSlice({
       //   state.params = action.payload.params
       //   state.total = action.payload.totalPages
       // })
+      //
+      .addCase(getFundraiserTeams.fulfilled, (state, action) => {
+        state.fundraiserTeams = action.payload.teams
+      })
       .addCase(getFundraiser.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.selectedUser = action.payload
+        state.fundraiserTeams = action.payload.teams || []
+        state.fundraiserCampaigns = action.payload.campaigns || []
+        state.fundraiserContacts = action.payload.contacts || []
+
+        
+      })
+      .addCase(addFundraiserContacts.fulfilled, (state) => {
+        state.isFundraiserContactAdded = true
       })
   }
 })

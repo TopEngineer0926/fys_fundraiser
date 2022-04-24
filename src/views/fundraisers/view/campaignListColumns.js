@@ -8,9 +8,9 @@ export const campaignListColumns = [
     name: 'Campaign Name',
     sortable: true,
     minWidth: '150px',
-    sortField: 'campaign_name',
-    selector: row => row.campaign_name,
-    cell: row => row.campaign_name
+    sortField: 'title',
+    selector: row => row.title,
+    cell: row => row.title
   },
   {
     minWidth: '200px',
@@ -20,13 +20,13 @@ export const campaignListColumns = [
   {
     minWidth: '200px',
     name: 'Team Goal',
-    selector: row => row.team_goal,
+    selector: row => row.goalAmount,
     cell: row => {
       return (
         <div className='d-flex justify-content-left align-items-center'>
           <div className='d-flex flex-column'>
-            <span className='text-truncate fw-bolder'>Received: ${row.team_actual}</span>
-            <small className='text-muted'>Goal: ${row.team_goal}</small>
+            <span className='text-truncate fw-bolder'>Received: ${row.goalAmount}</span>
+            <small className='text-muted'>Goal: ${row.goalAmount}</small>
           </div>
         </div>
       )
@@ -35,13 +35,13 @@ export const campaignListColumns = [
   {
     minWidth: '200px',
     name: 'Personal Goal',
-    selector: row => row.personal_goal,
+    selector: row => row.fundRaisingGoal,
     cell: row => {
       return (
         <div className='d-flex justify-content-left align-items-center'>
           <div className='d-flex flex-column'>
-            <span className='text-truncate fw-bolder'>Received: ${row.personal_total}</span>
-            <small className='text-muted'>Goal: ${row.personal_goal}</small>
+            <span className='text-truncate fw-bolder'>Received: ${row.fundRaisingGoal}</span>
+            <small className='text-muted'>Goal: ${row.fundRaisingGoal}</small>
           </div>
         </div>
       )

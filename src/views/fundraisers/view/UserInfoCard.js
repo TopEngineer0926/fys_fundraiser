@@ -44,7 +44,7 @@ const UserInfoCard = ({ selectedUser }) => {
 
   // ** render user img
   const renderUserImg = () => {
-    if (selectedUser !== null && selectedUser.avatar.length) {
+    if (selectedUser !== null && selectedUser?.avatar?.length) {
       return (
         <img
           height='110'
@@ -123,7 +123,7 @@ const UserInfoCard = ({ selectedUser }) => {
                 <Check className='font-medium-2' />
               </Badge>
               <div className='ms-75'>
-                <h4 className='mb-0'>5</h4>
+                <h4 className='mb-0'>{selectedUser.campaigns.length}</h4>
                 <small>Campaigns</small>
               </div>
             </div>

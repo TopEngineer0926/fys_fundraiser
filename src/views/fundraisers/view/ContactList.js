@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 
 // ** Reactstrap Imports
 import { Input, Label, Modal, ModalHeader, ModalBody, Form, Row, Col, Button, Card, CardHeader, Progress } from 'reactstrap'
@@ -7,10 +8,12 @@ import { Input, Label, Modal, ModalHeader, ModalBody, Form, Row, Col, Button, Ca
 import { ChevronDown } from 'react-feather'
 import { useForm, Controller } from 'react-hook-form'
 import DataTable from 'react-data-table-component'
+import { useDispatch, useSelector } from 'react-redux'
 
 // ** Styles
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 import FundraiserTeamsList from './FundraiserTeamsList'
+import { getFundraiser, addFundraiserContacts } from '../store'
 
 // const projectsArr = [
 //   {
@@ -49,8 +52,19 @@ export const columns = [
   }
 ]
 
-const ContactList = ({fundraiser}) => {
+const ContactList = () => {
+  const dispatch = useDispatch()
+  const store = useSelector(state => state.fundraisers)
 
+  const { id } = useParams()
+
+  // ** Get suer on mount
+  useEffect(() => {
+    dispatch(getFundraiser(id))
+  }, [dispatch])
+  useEffect(() => {
+    dispatch(getFundraiser(id))
+  }, [store.isFundraiserContactAdded])
   const [show, setShow] = useState(false)
 
   // ** Hook
@@ -65,6 +79,9 @@ const ContactList = ({fundraiser}) => {
 
   const onSubmit = data => {
     if (Object.values(data).every(field => field.length > 0)) {
+      data.fundraiser = id
+      console.log(data)
+      dispatch(addFundraiserContacts(data))
       setShow(false)
     } else {
       for (const key in data) {
@@ -140,22 +157,28 @@ const ContactList = ({fundraiser}) => {
                   <Label className='form-label' for='email'>
                     Email
                   </Label>
-                  <Input
-                    type='email'
-                    id='email'
+                  <Controller
                     defaultValue=''
-                    placeholder='example@domain.com'
+                    control={control}
+                    id='email'
+                    name='email'
+                    render={({ field }) => (
+                      <Input {...field} id='email' placeholder='example@domain.com' invalid={errors.lastName && true} />
+                    )}
                   />
                 </Col>
                 <Col md={6} xs={12}>
                   <Label className='form-label' for='phone'>
                     Phone Number
                   </Label>
-                  <Input
-                    type='text'
-                    id='phone'
+                  <Controller
                     defaultValue=''
-                    placeholder='888-888-8888'
+                    control={control}
+                    id='phone'
+                    name='phone'
+                    render={({ field }) => (
+                      <Input {...field} id='phone' placeholder='888-888-8888' invalid={errors.lastName && true} />
+                    )}
                   />
                 </Col>
                 <Col xs={12} className='text-center mt-2 pt-50'>
@@ -184,7 +207,7 @@ const ContactList = ({fundraiser}) => {
           noHeader
           responsive
           columns={columns}
-          data={fundraiser.contacts}
+          data={store.fundraiserContacts}
           className='react-dataTable'
           sortIcon={<ChevronDown size={10} />}
         />

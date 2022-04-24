@@ -1,3 +1,4 @@
+
 // ** Reactstrap Imports
 import { Card, CardHeader, Progress } from 'reactstrap'
 
@@ -7,34 +8,35 @@ import DataTable from 'react-data-table-component'
 
 // ** Custom Components
 import Avatar from '@components/avatar'
-
+// ** Store & Actions
+import { useSelector } from 'react-redux'
 // ** Styles
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
-const projectsArr = [
-  {
-    org_name: 'Toms Team',
-    gm_fullname: 'Wanda Brown', 
-    gm_phone: '858-688-6383', 
-    gm_email: 'tbrown@tehcovia.com',
-    img: require('@src/assets/images/icons/brands/react-label.png').default
-  }
-]
+// const projectsArr = [
+//   {
+//     org_name: 'Toms Team',
+//     gm_fullname: 'Wanda Brown', 
+//     gm_phone: '858-688-6383', 
+//     gm_email: 'tbrown@tehcovia.com',
+//     img: require('@src/assets/images/icons/brands/react-label.png').default
+//   }
+// ]
 
 export const columns = [
   {
     sortable: true,
     minWidth: '300px',
     name: 'Team',
-    selector: row => row.title,
+    selector: row => row.name,
     cell: row => {
       return (
         <div className='d-flex justify-content-left align-items-center'>
           <div className='avatar-wrapper'>
-            <Avatar className='me-1' img={row.img} alt={row.title} imgWidth='32' />
+            <Avatar className='me-1' img={row.logo} alt={row.name} imgWidth='32' />
           </div>
           <div className='d-flex flex-column'>
-            <span className='text-truncate fw-bolder'>{row.org_name}</span>
+            <span className='text-truncate fw-bolder'>{row.name}</span>
             <small className='text-muted'></small>
           </div>
         </div>
@@ -43,19 +45,23 @@ export const columns = [
   },
   {
     name: 'Team Administrator',
-    selector: row => row.gm_fullname
+    selector: row => row.name
   },
   {
     name: 'Phone Number',
-    selector: row => row.gm_phone
+    selector: row => row.phone
   },
   {
     name: 'Email Address',
-    selector: row => row.gm_email
+    selector: row => row.email
   }
 ]
 
 const FundraiserTeamsList = () => {
+// ** Store Vars
+const store = useSelector(state => state.fundraisers)
+
+  
   return (
     <Card>
       <CardHeader tag='h4'>Current Teams</CardHeader>
@@ -64,7 +70,7 @@ const FundraiserTeamsList = () => {
           noHeader
           responsive
           columns={columns}
-          data={projectsArr}
+          data={store.fundraiserTeams}
           className='react-dataTable'
           sortIcon={<ChevronDown size={10} />}
         />

@@ -1,6 +1,5 @@
 // ** React Imports
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
 
 // ** Table Columns
 import { campaignListColumns } from './campaignListColumns'
@@ -23,8 +22,7 @@ import {
 } from 'reactstrap'
 
 // ** Store & Actions
-import { getData } from '@src/views/campaigns/store'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 // ** Styles
 import '@styles/react/apps/app-invoice.scss'
@@ -32,62 +30,23 @@ import '@styles/react/libs/tables/react-dataTable-component.scss'
 
 const CampaignList = () => {
   // ** Store Vars
-  const dispatch = useDispatch()
-  const store = useSelector(state => state.campaigns)
+  const store = useSelector(state => state.fundraisers)
 
   // ** States
-  const [value] = useState('')
   const [rowsPerPage] = useState(6)
-  const [currentPage] = useState(1)
-  const [statusValue] = useState('')
-  const [sort, setSort] = useState('desc')
-  const [sortColumn, setSortColumn] = useState('id')
 
-  useEffect(() => {
-    dispatch(
-      getData({
-        sort,
-        q: value,
-        sortColumn,
-        page: currentPage,
-        perPage: rowsPerPage,
-        status: statusValue
-      })
-    )
-  }, [dispatch, store.data.length])
 
   const dataToRender = () => {
-    const filters = {
-      status: statusValue,
-      q: value
-    }
-
-    const isFiltered = Object.keys(filters).some(function (k) {
-      return filters[k].length > 0
-    })
-
-    if (store.data.length > 0) {
-      return store.data.slice(0, rowsPerPage)
-    } else if (store.data.length === 0 && isFiltered) {
-      return []
+    if (store?.fundraiserCampaigns && store?.fundraiserCampaigns.length > 0) {
+      return store?.fundraiserCampaigns?.slice(0, rowsPerPage)
     } else {
-      return store.allData.slice(0, rowsPerPage)
+      return [].slice(0, rowsPerPage)
     }
   }
 
   const handleSort = (column, sortDirection) => {
     setSort(sortDirection)
     setSortColumn(column.sortField)
-    dispatch(
-      getData({
-        q: value,
-        page: currentPage,
-        sort: sortDirection,
-        status: statusValue,
-        perPage: rowsPerPage,
-        sortColumn: column.sortField
-      })
-    )
   }
 
   return (
@@ -109,7 +68,6 @@ const CampaignList = () => {
             defaultSortField='invoiceId'
           />
         </div>
-        <CardFooter>Show Campign Name, Organization, Start Date, End Date, Team Goal, Personal Goal</CardFooter>
       </Card>
     </div>
   )
