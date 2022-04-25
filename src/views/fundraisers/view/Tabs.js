@@ -10,7 +10,7 @@ import { User, Lock, Bookmark, Bell, Link } from 'react-feather'
 // ** User Components
 import CampaignList from './CampaignList'
 import SecurityTab from './SecurityTab'
-import Notifications from './Notifications'
+// import Notifications from './Notifications'
 import ContactList from './ContactList'
 import FundraiserTeamsList from './FundraiserTeamsList'
 
@@ -36,12 +36,12 @@ const UserTabs = ({ fundraiser, active, toggleTab }) => {
             <span className='fw-bold'>Security</span>
           </NavLink>
         </NavItem>
-        <NavItem>
+        {/* <NavItem>
           <NavLink active={active === '4'} onClick={() => toggleTab('4')}>
             <Bell className='font-medium-3 me-50' />
             <span className='fw-bold'>Notifications</span>
           </NavLink>
-        </NavItem>
+        </NavItem> */}
       </Nav>
       <TabContent activeTab={active}>
         <TabPane tabId='1'>
@@ -56,9 +56,9 @@ const UserTabs = ({ fundraiser, active, toggleTab }) => {
         <TabPane tabId='3'>
           <SecurityTab />
         </TabPane>
-        <TabPane tabId='4'>
+        {/* <TabPane tabId='4'>
           <Notifications />
-        </TabPane>
+        </TabPane> */}
       </TabContent>
     </Fragment>
   )
