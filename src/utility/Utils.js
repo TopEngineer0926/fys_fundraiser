@@ -67,7 +67,7 @@ export const getHomeRouteForLoggedInUser = userRole => {
   if (userRole === 'League Admin') return '/access-control'
   if (userRole === 'Chapter Admin') return '/access-control'
   if (userRole === 'Team Admin') return '/access-control'
-  if (userRole === 'Fundraiser') return '/access-control'
+  if (userRole === 'Fundraiser') return '/fundraisers/list'
   if (userRole === 'Donor') return '/access-control' // should be donor/
   return '/login'
 }
