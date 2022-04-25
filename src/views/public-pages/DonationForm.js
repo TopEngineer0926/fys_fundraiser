@@ -45,19 +45,30 @@ const DonationForm = () => {
   })
 
   // eslint-disable-next-line no-unused-vars
-  const { fundraiser_slug } = useParams()
-  const campaign_slug = new URLSearchParams(window.location.search).get(
+  const { fundraiser_slug, campaign_slug } = useParams()
+
+  const campaign_slug_query = new URLSearchParams(window.location.search).get(
     "campaign_slug"
-)
+) 
   const [campaign, setCampaign] = useState()
+  const [fundraiser, setFundraiser] = useState()
 
   async function getCampaign() {
-    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/donate?url_slug=${campaign_slug}&ip_address=127.0.0.1`)
-    setCampaign(res.data.data[0])
+    console.log(campaign_slug_query, campaign_slug)
+    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/${campaign_slug || campaign_slug_query}`)
+    console.log("####setCampaign5", res.data.data)
+    setCampaign(res.data.data)
   }
+  async function getFundraiser() {
+    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/donate?url_slug=${fundraiser_slug}&ip_address=127.0.0.1`)
+    setFundraiser(res.data.data)
+}
   useEffect(() => {
     getCampaign()
   }, [campaign_slug])
+  useEffect(() => {
+    getFundraiser()
+  }, [fundraiser_slug])
   // const payment_methods = [
   //   { type: "paypal", text: "Credit Card", checked: true },
   //   { type: "applepay", text: "Apple Pay", checked: false },
@@ -159,7 +170,7 @@ const DonationForm = () => {
       <NavBar></NavBar>
       <div id='donationform'>
         <div className='myComponent' style={{ background: "#f0f0f0" }}>
-          <Container fluid="md" className='container'>
+          {(campaign_slug && campaign) && (<Container fluid="md" className='container'>
             <div className='row'>
               <div className='col-md-3 myFlex'>
                 <img src={campaign?.logoImage} className='myCenter' style={{maxWidth:"100%"}}></img>
@@ -182,7 +193,35 @@ const DonationForm = () => {
                 </div>
               </div>
             </div>
-          </Container>
+          </Container>)}
+          {(fundraiser_slug && fundraiser) && (<Container fluid="md" className='container'>
+                        <div className='row'>
+                            <div className='col-md-3 myFlex'>
+                                <img src={fundraiser?.avatar} style={{ height: "250px", width: "300px", objectFit: "cover" }} className='myCenter'></img>
+                            </div>
+                            <div className='col-md-9 myFlex'>
+                                <div className='myLeft' style={{ marginLeft: "2rem" }}>
+                                    <div className='myFlex' style={{ paddingBottom: "2rem" }}>
+                                        <p className="myLeft" style={{ fontSize: "2.5rem", fontWeight: "bold", color: "black" }}>{fundraiser?.firstName} {fundraiser?.lastName}</p>
+                                    </div>
+                                    <div className='myFlex' style={{ paddingBottom: "2.5rem" }}>
+                                        <h5 className="myLeft" style={{ fontWeight: "bold", color: "black" }}>{fundraiser?.organization?.name}</h5>
+                                    </div>
+                                    <div className='myFlex' style={{ paddingBottom: "2rem" }}>
+                                        <h3 className="myLeft" style={{ fontWeight: "bold", color: "blue" }}>
+                                            {/* ${fundraiser?.campaign?.fundRaisingGoal} */}
+                                            ${fundraiser?.donationTotals?.currentDonations} raised towards my goal of ${fundraiser?.donationTotals?.goalAmount}
+                                         {/* Raised for */}
+                                         </h3>
+                                    </div>
+                                    <div className='myFlex' style={{ paddingBottom: "0rem" }}>
+                                        <h5 className="myLeft" style={{ fontWeight: "bold", color: "black" }}>{fundraiser?.campaign?.shortDescription}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </Container>)}
+          
         </div>
         <div className='myComponent' style={{ background: "white" }}>
           
