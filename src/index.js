@@ -18,13 +18,6 @@ import themeConfig from './configs/themeConfig'
 // ** Toast
 import { Toaster } from 'react-hot-toast'
 
-// ** Bug Tracking
-import markerSDK from '@marker.io/browser';
-
-const widget = await markerSDK.loadWidget({
-  destination: '6266ca071e1f6f52f3baa1bd',
-});
-
 // ** i18n
 import './configs/i18n'
 
