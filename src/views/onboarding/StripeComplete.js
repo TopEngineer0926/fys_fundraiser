@@ -34,7 +34,7 @@ const StripeComplete = () => {
         <div className='myComponent'>
           <Container fluid="md" className='container' style={{maxWidth:"800px"}}>
             <div className='myFlex' style={{paddingBottom: "3rem"}}>
-              <h2 className='myCenter' style={{color: "black", fontWeight: "bold"}}>Thanks Thomas Brown ({(account && account.name) || ""})</h2>
+              <h2 className='myCenter' style={{color: "black", fontWeight: "bold"}}>Thanks!</h2>
             </div>
             <div className='myFlex' style={{paddingBottom: "3rem"}}>
               <h4 className='myCenter' style={{color: "black"}}>You are now connected and can accept real-time donations!</h4>

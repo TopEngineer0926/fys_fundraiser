@@ -62,7 +62,7 @@ const Router = ({ allRoutes }) => {
     {
       path: '/onboarding',
       element: <BlankLayout />,
-      children: [{ path: '/onboarding/stripe/:sourceId', element: <StripeConnect />}, { path: '/onboarding/:organizationId/complete', element: <StripeComplete />}]
+      children: [{ path: '/onboarding/stripe/:sourceId', element: <StripeConnect />}, { path: '/onboarding/stripe/:organizationId/complete', element: <StripeComplete />}]
     },
     {
       path: '/auth/not-auth',

@@ -19,7 +19,7 @@ const StripeConnect = () => {
   const [account, setAccount] = useState()
   
   async function getAccount() {
-    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/stripe/account?source=website&sourceId=${sourceId}`)
+    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/stripe/account?source=website&sourceId=&organizationId=${sourceId}`)
 
     setAccount(res.data.data)
   }
