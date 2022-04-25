@@ -54,9 +54,7 @@ const DonationForm = () => {
   const [fundraiser, setFundraiser] = useState()
 
   async function getCampaign() {
-    console.log(campaign_slug_query, campaign_slug)
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/${campaign_slug || campaign_slug_query}`)
-    console.log("####setCampaign5", res.data.data)
     setCampaign(res.data.data)
   }
   async function getFundraiser() {
