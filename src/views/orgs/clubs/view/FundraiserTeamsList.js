@@ -54,18 +54,13 @@ const FundraiserTeamsList = () => {
   const store = useSelector(state => state.clubs)
 
   const [show, setShow] = useState(false)
+  const id = window.location.pathname.split("/").pop()
 
   useEffect(() => {
-    const id = window.location.pathname.split("/").pop()
     dispatch(getClubTeams(id))
    
-  }, [dispatch])
+  }, [dispatch, id])
   
-  useEffect(() => {
-    const id = window.location.pathname.split("/").pop()
-    dispatch(getClubTeams(id))
-   
-  }, [store.clubTeams])
   // ** Hook
   const {
     control,
