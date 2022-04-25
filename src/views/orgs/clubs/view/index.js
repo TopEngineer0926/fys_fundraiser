@@ -31,7 +31,7 @@ const ClubView = () => {
   // ** Get suer on mount
   useEffect(() => {
     dispatch(getClub(parseInt(id)))
-  }, [dispatch])
+  }, [dispatch, parseInt(id)])
 
   const [active, setActive] = useState('1')
 
