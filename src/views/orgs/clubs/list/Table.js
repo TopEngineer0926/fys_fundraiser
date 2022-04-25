@@ -115,6 +115,8 @@ const ClubsList = () => {
   // ** Get data on mount
   useEffect(() => {
     dispatch(getAllData())
+  }, [])
+  useEffect(() => {
     dispatch(
       getData({
         sort,
