@@ -1,7 +1,9 @@
 // ** React Imports
 import { Fragment } from 'react'
 import { Link } from 'react-router-dom'
-
+// ** Store & Actions
+import { fundraiserPasswordReset } from '../store'
+import { useDispatch } from 'react-redux'
 // ** Reactstrap Imports
 import {
   Row,
@@ -49,6 +51,8 @@ const defaultValues = {
 
 const SecurityTab = () => {
   // ** Hooks
+  const dispatch = useDispatch()
+
   const {
     control,
     trigger,
@@ -59,6 +63,7 @@ const SecurityTab = () => {
   const onSubmit = data => {
     trigger()
     console.log(data)
+    dispatch(fundraiserPasswordReset)
   }
   return (
     <Fragment>

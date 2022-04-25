@@ -34,13 +34,11 @@ export const addFundraiserContacts = createAsyncThunk('appFundraisers/addFundrai
 //getFundraiserContacts
 export const getFundraiserContacts = createAsyncThunk('appFundraisers/getFundraiserContacts', async id => {
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${id}/contacts`)
-  console.log(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${id}/contacts`, response)
   return response.data
 })
 //fundraiserTeams
 export const getFundraiserTeams = createAsyncThunk('appFundraisers/getFundraiserTeams', async id => {
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${id}/teams`)
-  console.log(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${id}/teams`, response.data)
   return response.data.data[0]
 })
 export const addFundraiser = createAsyncThunk('appFundraisers/addFundraiser', async (fundraiser, { dispatch, getState }) => {
@@ -55,6 +53,12 @@ export const deleteFundraiser = createAsyncThunk('appFundraisers/deleteFundraise
   await dispatch(getData(getState().fundraisers.params))
   await dispatch(getAllData())
   return id
+})
+export const fundraiserPasswordReset = createAsyncThunk('appFundraisers/fundraiserPasswordReset', async (payload) => {
+  const user = JSON.parse(localStorage.getItem('userData'))
+  payload.user = user.id
+  await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/password/reset`, payload)
+  return payload
 })
 
 export const appFundraisersSlice = createSlice({
