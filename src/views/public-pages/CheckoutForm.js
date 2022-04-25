@@ -16,7 +16,6 @@ export default function CheckoutForm(props) {
     const [isLoading, setIsLoading] = useState(false)
 //props
 useEffect(() => {
-    console.log("##### props THANK YOU #####", props)
 }, [])
     useEffect(() => {
         if (!stripe) {

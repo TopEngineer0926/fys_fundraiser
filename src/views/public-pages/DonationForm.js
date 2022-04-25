@@ -45,9 +45,9 @@ const DonationForm = () => {
   })
 
   // eslint-disable-next-line no-unused-vars
-  const { campaign_slug } = useParams()
-  const fundraiserId = new URLSearchParams(window.location.search).get(
-    "fundraiser"
+  const { fundraiser_slug } = useParams()
+  const campaign_slug = new URLSearchParams(window.location.search).get(
+    "campaign_slug"
 )
   const [campaign, setCampaign] = useState()
 
@@ -90,10 +90,9 @@ const DonationForm = () => {
       user: '',
       campaign: campaign_slug,
       organization: '',
-      fundraiser: fundraiserId
+      fundraiser: fundraiser_slug
     })
       .then((data) => {
-        console.log("data.data.data####", data.data)
         setClientSecret(data.data.data.paymentIntent.client_secret)
         setDonation(data.data.data.donation)
         
