@@ -31,7 +31,6 @@ const LandingPage = () => {
     }
     useEffect(() => {
         getFundraiser()
-        getTeam()
     }, [fundraiser_slug])
     useEffect(() => {
         getTeam(fundraiser?.campaign?.id)
@@ -79,7 +78,7 @@ const LandingPage = () => {
                                             <h5 className='myCenter'>Total Donations</h5>
                                         </div>
                                         <div className='myFlex content'>
-                                            <h2 className='myCenter'>{fundraiser?.campaign?.currentDonors || 0}</h2>
+                                            <h2 className='myCenter'>{fundraiser?.donationTotals?.currentDonors || 0}</h2>
                                         </div>
                                     </div>
                                     <div className='col-md-4'>
@@ -87,7 +86,7 @@ const LandingPage = () => {
                                             <h5 className='myCenter'>Average Donation</h5>
                                         </div>
                                         <div className='myFlex content'>
-                                            <h2 className='myCenter'>${fundraiser?.campaign?.averageDonation || 0}</h2>
+                                            <h2 className='myCenter'>${fundraiser?.donationTotals?.averageDonation || 0}</h2>
                                         </div>
                                     </div>
                                     <div className='col-md-4'>
@@ -95,7 +94,7 @@ const LandingPage = () => {
                                             <h5 className='myCenter'>Total Raised</h5>
                                         </div>
                                         <div className='myFlex content'>
-                                            <h2 className='myCenter'>${fundraiser?.campaign?.currentDonations || 0}</h2>
+                                            <h2 className='myCenter'>${fundraiser?.donationTotals?.currentDonations || 0}</h2>
                                         </div>
                                     </div>
                                 </div>
@@ -103,11 +102,11 @@ const LandingPage = () => {
                                     <div className='myFlex' style={{ paddingBottom: "1rem" }}>
                                         <Progress className='myCenter' style={{ width: "90%" }}
                                             color="success"
-                                            value={(fundraiser?.campaign?.currentDonations * 100) / fundraiser?.campaign?.fundRaisingGoal}
+                                            value={(fundraiser?.donationTotals?.currentDonations * 100) / fundraiser?.donationTotals?.goalAmount}
                                         />
                                     </div>
                                     <div className='myFlex'>
-                                        <h5 className="myCenter" style={{ fontWeight: "bold" }}>${fundraiser?.campaign?.donationMin} Raised of our ${fundraiser?.campaign?.donationMax}  goal.</h5>
+                                        <h5 className="myCenter" style={{ fontWeight: "bold" }}>${fundraiser?.donationTotals?.currentDonations} Raised of our ${fundraiser?.donationTotals?.goalAmount}  goal.</h5>
                                     </div>
                                 </div>
                             </div>
