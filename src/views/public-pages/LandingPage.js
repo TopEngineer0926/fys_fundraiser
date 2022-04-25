@@ -23,8 +23,6 @@ const LandingPage = () => {
     const [team, setTeam] = useState()
     async function getTeam(id) {
         const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/organization_campaign/donate?campaign=${id}`)
-        console.log(`${process.env.REACT_APP_BASE_URL}/api/v1/organization_campaign/donate?campaign=${id}`, res.data.data)
-
         setTeam(res.data.data)
     }
     async function getFundraiser() {
@@ -57,7 +55,11 @@ const LandingPage = () => {
                                         <h5 className="myLeft" style={{ fontWeight: "bold", color: "black" }}>{fundraiser?.organization?.name}</h5>
                                     </div>
                                     <div className='myFlex' style={{ paddingBottom: "2rem" }}>
-                                        <h3 className="myLeft" style={{ fontWeight: "bold", color: "blue" }}>${fundraiser?.campaign?.fundRaisingGoal} Raised for</h3>
+                                        <h3 className="myLeft" style={{ fontWeight: "bold", color: "blue" }}>
+                                            {/* ${fundraiser?.campaign?.fundRaisingGoal} */}
+                                            ${fundraiser?.donationTotals?.currentDonations} raised towards my goal of ${fundraiser?.donationTotals?.goalAmount}
+                                         {/* Raised for */}
+                                         </h3>
                                     </div>
                                     <div className='myFlex' style={{ paddingBottom: "0rem" }}>
                                         <h5 className="myLeft" style={{ fontWeight: "bold", color: "black" }}>{fundraiser?.campaign?.shortDescription}</h5>
@@ -77,7 +79,7 @@ const LandingPage = () => {
                                             <h5 className='myCenter'>Total Donations</h5>
                                         </div>
                                         <div className='myFlex content'>
-                                            <h2 className='myCenter'>{fundraiser?.campaign?.currentDonors}</h2>
+                                            <h2 className='myCenter'>{fundraiser?.campaign?.currentDonors || 0}</h2>
                                         </div>
                                     </div>
                                     <div className='col-md-4'>
@@ -85,7 +87,7 @@ const LandingPage = () => {
                                             <h5 className='myCenter'>Average Donation</h5>
                                         </div>
                                         <div className='myFlex content'>
-                                            <h2 className='myCenter'>${fundraiser?.campaign?.averageDonation}</h2>
+                                            <h2 className='myCenter'>${fundraiser?.campaign?.averageDonation || 0}</h2>
                                         </div>
                                     </div>
                                     <div className='col-md-4'>
@@ -93,7 +95,7 @@ const LandingPage = () => {
                                             <h5 className='myCenter'>Total Raised</h5>
                                         </div>
                                         <div className='myFlex content'>
-                                            <h2 className='myCenter'>${fundraiser?.campaign?.currentDonations}</h2>
+                                            <h2 className='myCenter'>${fundraiser?.campaign?.currentDonations || 0}</h2>
                                         </div>
                                     </div>
                                 </div>
