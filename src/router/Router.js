@@ -23,6 +23,7 @@ const NotAuthorized = lazy(() => import('../views/pages/misc/NotAuthorized'))
 
 const PublicHome = lazy(() => import('../views/public-pages/Home'))
 const PublicLandingPage = lazy(() => import('../views/public-pages/LandingPage'))
+const TeamLandingPage = lazy(() => import('../views/public-pages/TeamLandingPage'))
 const PublicDonationForm = lazy(() => import('../views/public-pages/DonationForm'))
 const PublicThankYou = lazy(() => import('../views/public-pages/ThankYou'))
 const StripeConnect = lazy(() => import('../views/onboarding/StripeConnect'))
@@ -52,7 +53,7 @@ const Router = ({ allRoutes }) => {
     {
       path: '/team',
       element: <BlankLayout />,
-      children: [{ path: '/team/:team_id/campaign/:campaign_id', element: <PublicLandingPage />}]
+      children: [{ path: '/team/:team_id/campaign/:campaign_id', element: <TeamLandingPage />}]
     },
     {
       path: '/',
