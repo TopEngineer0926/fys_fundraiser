@@ -101,7 +101,7 @@ const Login = () => {
     handleSubmit,
     formState: { errors }
   } = useForm({ defaultValues })
-  const illustration = skin === 'dark' ? '3.jpg' : '3.jpg',
+  const illustration = skin === 'dark' ? '3.png' : '3.png',
     source = require(`@src/assets/images/pages/${illustration}`).default
 
   const onSubmit = data => {
