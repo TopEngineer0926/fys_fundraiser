@@ -6,60 +6,22 @@ import {
 } from 'react-feather'
 
 export default [
-  {
-    id: 'orgs',
-    title: 'Fundraising Entities',
-    icon: <Box />,
-    children: [
-      {
+    {
         id: 'organizations',
-        title: 'Organizations',
+        title: 'My Organizations',
         icon: <FileText />,
         action: 'read',
         resource: 'org-organizations',
-        children: [
-          {
-            id: 'orgList',
-            title: 'List',
-            icon: <Circle />,
-            action: 'read',
-            resource: 'org-organizations',
-            navLink: '/orgs/organizations/list'
-          },
-          {
-            id: 'orgAdd',
-            title: 'Add',
-            icon: <Circle />,
-            action: 'read',
-            resource: 'org-organizations',
-            navLink: '/orgs/organizations/add'
-          }
-        ]
-      },
+        navLink: '/orgs/organizations/list'
+    },
+          
       {
         id: 'leagues',
-        title: 'Leagues',
+        title: 'My Leagues',
         icon: <FileText />,
         action: 'read',
         resource: 'org-leagues',
-        children: [
-          {
-            id: 'leagueList',
-            title: 'List',
-            icon: <Circle />,
-            action: 'read',
-            resource: 'org-leagues',
-            navLink: '/orgs/leagues/list'
-          },
-          {
-            id: 'leagueAdd',
-            title: 'Add',
-            icon: <Circle />,
-            action: 'read',
-            resource: 'org-leagues',
-            navLink: '/orgs/leagues/add'
-          }
-        ]
+        navLink: '/orgs/leagues/list'
       },
       {
         id: 'clubs',
@@ -67,50 +29,14 @@ export default [
         icon: <FileText />,
         action: 'read',
         resource: 'org-clubs',
-        children: [
-          {
-            id: 'clubList',
-            title: 'List',
-            icon: <Circle />,
-            action: 'read',
-            resource: 'org-clubs',
-            navLink: '/orgs/clubs/list'
-          },
-          {
-            id: 'clubAdd',
-            title: 'Add',
-            icon: <Circle />,
-            action: 'read',
-            resource: 'org-clubs',
-            navLink: '/orgs/clubs/add'
-          }
-        ]
+        navLink: '/orgs/clubs/list'
       },
       {
         id: 'teams',
-        title: 'Teams',
+        title: 'My Teams',
         icon: <FileText />,
         action: 'read',
         resource: 'org-teams',
-        children: [
-          {
-            id: 'teamList',
-            title: 'List',
-            icon: <Circle />,
-            action: 'read',
-            resource: 'org-teams',
-            navLink: '/orgs/teams/list'
-          },
-          {
-            id: 'teamAdd',
-            title: 'Add',
-            icon: <Circle />,
-            action: 'read',
-            resource: 'org-teams',
-            navLink: '/orgs/teams/add'
-          }
-        ]
+        navLink: '/orgs/teams/list'
       }
     ]
-  }
-]
