@@ -99,11 +99,11 @@ const CampaignList = () => {
   } = useForm({
     
   })
+  const id = window.location.pathname.split("/").pop()
   useEffect(() => {
-    const id = window.location.pathname.split("/").pop()
     dispatch(getClubCampaigns(id))
    
-  }, [dispatch])
+  }, [id])
 
   const onSubmit = data => {
     if (Object.values(data).every(field => field.length > 0)) {

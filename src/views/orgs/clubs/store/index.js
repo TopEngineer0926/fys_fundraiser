@@ -52,7 +52,7 @@ export const getClubCampaigns = createAsyncThunk('appClubs/getClubCampaigns', as
 })
 
 export const getClubUsers = createAsyncThunk('appClubs/getClubUsers', async id => {
-  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/user_organizations/filter?organization=${id}`)
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/${id}/users`)
 
   return response.data 
 })
