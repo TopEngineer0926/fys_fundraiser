@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 // ** Reactstrap Imports
 import { Input, Label, Modal, ModalHeader, ModalBody, Form, Row, Col, Button, Card, CardHeader, Progress } from 'reactstrap'
 import { Link } from 'react-router-dom'
@@ -8,32 +8,16 @@ import Select from 'react-select'
 import { Check, ChevronDown, X } from 'react-feather'
 import { useForm, Controller } from 'react-hook-form'
 import DataTable from 'react-data-table-component'
-
+import { getClubUsers } from '../store'
+import { useDispatch, useSelector} from 'react-redux'
 // ** Styles
 import '@styles/react/libs/tables/react-dataTable-component.scss'
-
-const chapterUsers = [
-  {
-    id: 1,
-    fullName: 'Admin',
-    email: 'admin@demo.com',
-    phone: '858-688-6383',
-    role: 'Admin'
-  },
-  {
-    id: 2,
-    fullName: 'Team Manager',
-    email: 'client@demo.com',
-    phone: '858-688-6383',
-    role: 'Admin'
-  }
-]
 
 export const columns = [
   
   {
     name: 'Name',
-    selector: row => row.fullName, 
+    selector: row => row.firstName, 
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
         
@@ -43,7 +27,7 @@ export const columns = [
             className='user_name text-truncate text-body'
             onClick={() => setShow(true)}
           >
-            <span className='fw-bolder'>{row.fullName}</span>
+            <span className='fw-bolder'>{row.firstName} {row.lastName}</span>
           </Link>
         </div>
       </div>
@@ -66,7 +50,8 @@ export const columns = [
 const UserList = () => {
 
   const [show, setShow] = useState(false)
-
+  const dispatch = useDispatch()
+  const store = useSelector(state => state.clubs)
   // ** Hook
   const {
     control,
@@ -76,7 +61,11 @@ const UserList = () => {
   } = useForm({
     
   })
+  const id = window.location.pathname.split("/").pop()
 
+  useEffect(() => {
+    dispatch(getClubUsers(id))
+  }, [id])
   const onSubmit = data => {
     if (Object.values(data).every(field => field.length > 0)) {
       setShow(false)
@@ -236,7 +225,7 @@ const UserList = () => {
           noHeader
           responsive
           columns={columns}
-          data={chapterUsers}
+          data={store.clubUsers}
           className='react-dataTable'
           sortIcon={<ChevronDown size={10} />}
         />

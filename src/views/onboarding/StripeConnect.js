@@ -19,7 +19,13 @@ const StripeConnect = () => {
   const [account, setAccount] = useState()
   
   async function getAccount() {
-    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/stripe/account?source=website&sourceId=&organizationId=${sourceId}`)
+    let organizationId = ''
+    console.log(sourceId)
+    console.log(isNaN(sourceId))
+    if (isNaN(sourceId)) {
+      organizationId = sourceId
+    }
+    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/stripe/account?source=website&sourceId=${sourceId}&organizationId=${organizationId}`)
 
     setAccount(res.data.data)
   }
