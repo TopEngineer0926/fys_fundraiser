@@ -13,6 +13,7 @@ import axios from 'axios'
 
 import Footer from './Footer'
 import NavBar from './NavBar'
+import defaultAvatar from '@src/assets/images/avatars/avatar-blank.png'
 import { FacebookShareButton,  TwitterShareButton, EmailShareButton } from "react-share"
 
 const LandingPage = () => {
@@ -43,7 +44,7 @@ const LandingPage = () => {
                     <Container fluid="md" className='container'>
                         <div className='row'>
                             <div className='col-md-3 myFlex'>
-                                <img src={fundraiser?.avatar} style={{ height: "250px", width: "300px", objectFit: "cover" }} className='myCenter'></img>
+                                <img src={fundraiser?.avatar && fundraiser?.avatar || defaultAvatar} style={{ height: "250px", width: "300px", objectFit: "cover" }} className='myCenter'></img>
                             </div>
                             <div className='col-md-9 myFlex'>
                                 <div className='myLeft' style={{ marginLeft: "2rem" }}>
