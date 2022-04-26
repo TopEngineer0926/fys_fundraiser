@@ -52,7 +52,11 @@ const CampaignRoutes = [
   },
   {
     element: <CampaignView />,
-    path: '/campaigns/view/:id'
+    path: '/campaigns/view/:id',
+    meta: {
+      action: 'read',
+      resource: 'campaigns'
+    }
   }
 ]
 
