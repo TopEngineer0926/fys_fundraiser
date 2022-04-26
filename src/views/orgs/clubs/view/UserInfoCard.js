@@ -1,5 +1,6 @@
 // ** React Imports
 import { useState, Fragment } from 'react'
+import { useSelector } from 'react-redux'
 
 // ** Reactstrap Imports
 import { Row, Col, Card, Form, CardBody, Button, Badge, Modal, Input, Label, ModalBody, ModalHeader, CardHeader } from 'reactstrap'
@@ -42,11 +43,13 @@ const statusOptions = [
 
 const MySwal = withReactContent(Swal)
 
-const UserInfoCard = ({ selectedUser }) => {
+const UserInfoCard = () => {
   // ** State
   const [show, setShow] = useState(false)
+  const store = useSelector(state => state.clubs)
 
   // ** Hook
+
   const {
     reset,
     control,
@@ -55,9 +58,9 @@ const UserInfoCard = ({ selectedUser }) => {
     formState: { errors }
   } = useForm({
     defaultValues: {
-      username: selectedUser?.username,
-      lastName: selectedUser?.primary_contact?.last_name,
-      firstName: selectedUser?.primary_contact?.first_name
+      name: store.selectedUser?.name,
+      lastName: store.selectedUser?.primary_contact?.last_name,
+      firstName: store.selectedUser?.primary_contact?.first_name
     }
   })
 
@@ -111,32 +114,36 @@ const UserInfoCard = ({ selectedUser }) => {
 
   const handleReset = () => {
     reset({
-      username: selectedUser.username,
-      lastName: selectedUser?.primary_contact?.last_name,
-      firstName: selectedUser?.primary_contact?.first_name
+      name: store.selectedUser.name,
+      lastName: store.selectedUser?.primary_contact?.last_name,
+      firstName: store.selectedUser?.primary_contact?.first_name
     })
   }
 
   return (
     <Fragment>
       <Card>
-        <CardHeader><h2>{selectedUser.name}</h2></CardHeader>
+        <CardHeader><h2>{store.selectedUser.name}</h2></CardHeader>
         <CardBody>
           <h4 className='fw-bolder border-bottom pb-50 mb-1'>Primary Contact</h4>
           <div className='info-container'>
-            {selectedUser !== null ? (
+            {store.selectedUser !== null ? (
               <ul className='list-unstyled'>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Name:</span>
-                  <span>{selectedUser?.username}</span>
+                  <span>{store.selectedUser?.name}</span>
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Email:</span>
-                  <span>{selectedUser?.email}</span>
+                  <span><a href={`mailto:${store.selectedUser?.email}`}
+                  >{store.selectedUser?.email}</a></span>
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Phone:</span>
-                  <span>{selectedUser.phone}</span>
+                  <span><a href={`tel:${store.selectedUser?.phone}`} >
+                  {store.selectedUser.phone}
+                  </a>
+                    </span>
                 </li>
               </ul>
             ) : null}
@@ -221,7 +228,7 @@ const UserInfoCard = ({ selectedUser }) => {
                   classNamePrefix='select'
                   options={statusOptions}
                   theme={selectThemeColors}
-                  defaultValue={statusOptions[statusOptions.findIndex(i => i.value === selectedUser.status)]}
+                  defaultValue={statusOptions[statusOptions.findIndex(i => i.value === store.selectedUser.status)]}
                 />
               </Col>
               <Col xs={12} className='text-center mt-2 pt-50'>
