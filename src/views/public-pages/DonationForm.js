@@ -243,7 +243,7 @@ const DonationForm = () => {
                   <div className='myFlex' style={{ paddingBottom: "2rem" }}>
                     <h3 className="myLeft" style={{ fontWeight: "bold", color: "blue" }}>
                       {/* ${fundraiser?.campaign?.fundRaisingGoal} */}
-                      ${fundraiser?.donationTotals?.currentDonations} raised towards my goal of ${fundraiser?.donationTotals?.goalAmount}
+                      ${fundraiser?.donationTotals?.currentDonations} raised towards my goal of ${fundraiser?.donationTotals?.fundRaisingGoal}
                       {/* Raised for */}
                     </h3>
                   </div>
@@ -374,7 +374,7 @@ const DonationForm = () => {
             </div>
             <div className='row' style={{ paddingBottom: "1rem" }}>
               <div className='col-md-2 myFlex'>
-                <a onClick={setActiveTab} className="myRight donate_btn" href="thankyou">Continue</a>
+                <a onClick={setActiveTab} className="myRight donate_btn" href="thankyou">Continue to Payment Information</a>
               </div>
             </div>
 

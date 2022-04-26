@@ -98,11 +98,11 @@ const TeamLandingPage = () => {
                                     <div className='myFlex' style={{ paddingBottom: "1rem" }}>
                                         <Progress className='myCenter' style={{ width: "90%" }}
                                             color="success"
-                                            value={(team?.campaign?.currentDonations * 100) / team?.campaign?.fundRaisingGoal}
+                                            value={(team?.currentDonations * 100) / team?.fundRaisingGoal}
                                         />
                                     </div>
                                     <div className='myFlex'>
-                                        <h5 className="myCenter" style={{ fontWeight: "bold" }}>${team?.campaign?.currentDonations} Raised of our ${team?.campaign?.fundRaisingGoal}  goal.</h5>
+                                        <h5 className="myCenter" style={{ fontWeight: "bold" }}>${team?.currentDonations} Raised of our ${team?.fundRaisingGoal}  goal.</h5>
                                     </div>
                                 </div>
                             </div>
