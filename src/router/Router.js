@@ -52,9 +52,7 @@ const Router = ({ allRoutes }) => {
     {
       path: '/team',
       element: <BlankLayout />,
-      children: [
-        { path: '/team/:team_id/campaign/:campaign_id', element: <PublicLandingPage />},
-      ]
+      children: [{ path: '/team/:team_id/campaign/:campaign_id', element: <PublicLandingPage />}]
     },
     {
       path: '/',
