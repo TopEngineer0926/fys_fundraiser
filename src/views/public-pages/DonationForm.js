@@ -38,20 +38,22 @@ const DonationForm = () => {
   const [trasectionFee, setTrasectionFee] = useState(true)
   const [donationCheckbox, setDonationCheckbox] = useState(true)
   const [formValues, setFormValues] = useState({
-      firstName:"",
-      lastName:"",
-      email:"",
-      message: ""
+    firstName: "",
+    lastName: "",
+    email: "",
+    message: ""
   })
 
   // eslint-disable-next-line no-unused-vars
-  const { fundraiser_slug, campaign_slug } = useParams()
+  const { fundraiser_slug, campaign_slug, team_slug } = useParams()
 
   const campaign_slug_query = new URLSearchParams(window.location.search).get(
     "campaign_slug"
-) 
+  )
   const [campaign, setCampaign] = useState()
   const [fundraiser, setFundraiser] = useState()
+  const [organization, setOrganization] = useState()
+
 
   async function getCampaign() {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/${campaign_slug || campaign_slug_query}`)
@@ -60,18 +62,21 @@ const DonationForm = () => {
   async function getFundraiser() {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/donate?url_slug=${fundraiser_slug}&ip_address=127.0.0.1`)
     setFundraiser(res.data.data)
-}
+  }
+  async function getOrganization() {
+    const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/teams/${team_slug}/campaign/${campaign_slug || campaign_slug_query}`)
+    setOrganization(res.data.data)
+  }
   useEffect(() => {
     getCampaign()
   }, [campaign_slug])
   useEffect(() => {
     getFundraiser()
   }, [fundraiser_slug])
-  // const payment_methods = [
-  //   { type: "paypal", text: "Credit Card", checked: true },
-  //   { type: "applepay", text: "Apple Pay", checked: false },
-  //   { type: "googlepay", text: "Google Pay", checked: false }
-  // ]
+  useEffect(() => {
+    getOrganization()
+  }, [team_slug])
+
   const [clientSecret, setClientSecret] = useState("")
   //donation
   const [donation, setDonation] = useState("")
@@ -81,7 +86,7 @@ const DonationForm = () => {
     if (clientSecret) {
       setIsContinue(!isContinue)
     }
-    
+
   }, [clientSecret])
 
   const updateClientSecret = (value) => {
@@ -98,13 +103,13 @@ const DonationForm = () => {
       message: formValues.message,
       user: '',
       campaign: campaign_slug,
-      organization: '',
+      organization: team_slug,
       fundraiser: fundraiser_slug
     })
       .then((data) => {
         setClientSecret(data.data.data.paymentIntent.client_secret)
         setDonation(data.data.data.donation)
-        
+
       })
   }
   const appearance = {
@@ -168,10 +173,40 @@ const DonationForm = () => {
       <NavBar></NavBar>
       <div id='donationform'>
         <div className='myComponent' style={{ background: "#f0f0f0" }}>
+          {(team_slug && organization) && (
+            <Container fluid="md" className='container'>
+              <div className='row'>
+                <div className='col-md-3 myFlex'>
+                  <img src={organization?.organization?.logo || defaultAvatar} style={{ height: "250px", width: "300px", objectFit: "cover" }} className='myCenter'></img>
+                </div>
+                <div className='col-md-9 myFlex'>
+                  <div className='myLeft' style={{ marginLeft: "2rem" }}>
+                    <div className='myFlex' style={{ paddingBottom: "2rem" }}>
+                      <p className="myLeft" style={{ fontSize: "2.5rem", fontWeight: "bold", color: "black" }}>{organization?.organization?.name}</p>
+                    </div>
+                    <div className='myFlex' style={{ paddingBottom: "2.5rem" }}>
+                      <h5 className="myLeft" style={{ fontWeight: "bold", color: "black" }}>
+                        {campaign?.title}</h5>
+                    </div>
+                    <div className='myFlex' style={{ paddingBottom: "2rem" }}>
+                      <h3 className="myLeft" style={{ fontWeight: "bold", color: "blue" }}>
+                        {/* ${team?.campaign?.fundRaisingGoal} */}
+                        ${campaign?.currentDonations} raised towards my goal of ${campaign?.goalAmount}
+                        {/* Raised for */}
+                      </h3>
+                    </div>
+                    <div className='myFlex' style={{ paddingBottom: "0rem" }}>
+                      <h5 className="myLeft" style={{ fontWeight: "bold", color: "black" }}>{campaign?.shortDescription}</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Container>
+          )}
           {(campaign_slug && campaign) && (<Container fluid="md" className='container'>
             <div className='row'>
               <div className='col-md-3 myFlex'>
-                <img src={campaign?.logoImage} className='myCenter' style={{maxWidth:"100%"}}></img>
+                <img src={campaign?.logoImage} className='myCenter' style={{ maxWidth: "100%" }}></img>
               </div>
               <div className='col-md-9 myFlex'>
                 <div className='myLeft' style={{ marginLeft: "2rem" }}>
@@ -193,36 +228,36 @@ const DonationForm = () => {
             </div>
           </Container>)}
           {(fundraiser_slug && fundraiser) && (<Container fluid="md" className='container'>
-                        <div className='row'>
-                            <div className='col-md-3 myFlex'>
-                                <img src={fundraiser?.avatar} style={{ height: "250px", width: "300px", objectFit: "cover" }} className='myCenter'></img>
-                            </div>
-                            <div className='col-md-9 myFlex'>
-                                <div className='myLeft' style={{ marginLeft: "2rem" }}>
-                                    <div className='myFlex' style={{ paddingBottom: "2rem" }}>
-                                        <p className="myLeft" style={{ fontSize: "2.5rem", fontWeight: "bold", color: "black" }}>{fundraiser?.firstName} {fundraiser?.lastName}</p>
-                                    </div>
-                                    <div className='myFlex' style={{ paddingBottom: "2.5rem" }}>
-                                        <h5 className="myLeft" style={{ fontWeight: "bold", color: "black" }}>{fundraiser?.organization?.name}</h5>
-                                    </div>
-                                    <div className='myFlex' style={{ paddingBottom: "2rem" }}>
-                                        <h3 className="myLeft" style={{ fontWeight: "bold", color: "blue" }}>
-                                            {/* ${fundraiser?.campaign?.fundRaisingGoal} */}
-                                            ${fundraiser?.donationTotals?.currentDonations} raised towards my goal of ${fundraiser?.donationTotals?.goalAmount}
-                                         {/* Raised for */}
-                                         </h3>
-                                    </div>
-                                    <div className='myFlex' style={{ paddingBottom: "0rem" }}>
-                                        <h5 className="myLeft" style={{ fontWeight: "bold", color: "black" }}>{fundraiser?.campaign?.shortDescription}</h5>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </Container>)}
-          
+            <div className='row'>
+              <div className='col-md-3 myFlex'>
+                <img src={fundraiser?.avatar} style={{ height: "250px", width: "300px", objectFit: "cover" }} className='myCenter'></img>
+              </div>
+              <div className='col-md-9 myFlex'>
+                <div className='myLeft' style={{ marginLeft: "2rem" }}>
+                  <div className='myFlex' style={{ paddingBottom: "2rem" }}>
+                    <p className="myLeft" style={{ fontSize: "2.5rem", fontWeight: "bold", color: "black" }}>{fundraiser?.firstName} {fundraiser?.lastName}</p>
+                  </div>
+                  <div className='myFlex' style={{ paddingBottom: "2.5rem" }}>
+                    <h5 className="myLeft" style={{ fontWeight: "bold", color: "black" }}>{fundraiser?.organization?.name}</h5>
+                  </div>
+                  <div className='myFlex' style={{ paddingBottom: "2rem" }}>
+                    <h3 className="myLeft" style={{ fontWeight: "bold", color: "blue" }}>
+                      {/* ${fundraiser?.campaign?.fundRaisingGoal} */}
+                      ${fundraiser?.donationTotals?.currentDonations} raised towards my goal of ${fundraiser?.donationTotals?.goalAmount}
+                      {/* Raised for */}
+                    </h3>
+                  </div>
+                  <div className='myFlex' style={{ paddingBottom: "0rem" }}>
+                    <h5 className="myLeft" style={{ fontWeight: "bold", color: "black" }}>{fundraiser?.campaign?.shortDescription}</h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Container>)}
+
         </div>
         <div className='myComponent' style={{ background: "white" }}>
-          
+
           {!isContinue && (<Container fluid="md" className='container'>
             <div className="myFlex" style={{ paddingBottom: "3rem" }}>
               <h1 className='myCenter' style={{ color: "black", fontWeight: "bold" }}>Choose Your Donation Amount</h1>
@@ -241,10 +276,10 @@ const DonationForm = () => {
               <div className='col-md-6'>
                 <div className='row'>
                   <div className="col-4 myFlex" style={{ padding: ".5rem" }}>
-                    <Button.Ripple  color='primary' className="myCenter donation_btn " onClick={changeDonationAmount}>$10</Button.Ripple>
+                    <Button.Ripple color='primary' className="myCenter donation_btn " onClick={changeDonationAmount}>$10</Button.Ripple>
                   </div>
                   <div className="col-4 myFlex" style={{ padding: ".5rem" }}>
-                    <Button.Ripple color='primary'  className="myCenter donation_btn" onClick={changeDonationAmount}>$20</Button.Ripple>
+                    <Button.Ripple color='primary' className="myCenter donation_btn" onClick={changeDonationAmount}>$20</Button.Ripple>
                   </div>
                   <div className="col-4 myFlex" style={{ padding: ".5rem" }}>
                     <Button.Ripple color='primary' className="myCenter donation_btn" onClick={changeDonationAmount}>$50</Button.Ripple>
@@ -313,7 +348,7 @@ const DonationForm = () => {
               <div className='col-md-2'></div>
               <div className='col-md-8'>
                 <Label className='form-label label' for='message'>
-                Please enter a private message (optional) that will be delivered to this fundraiser.
+                  Please enter a private message (optional) that will be delivered to this fundraiser.
                 </Label>
                 <InputGroup className='input-group-merge mb-2'>
                   <InputGroupText style={{}}>
@@ -351,7 +386,7 @@ const DonationForm = () => {
             </div>
             {(
               <Elements options={options} stripe={stripePromise}>
-                <CheckoutForm formData={formValues} donation = {donation}  donationAmount={donationAmount} updateClientSecret={updateClientSecret}  />
+                <CheckoutForm formData={formValues} donation={donation} donationAmount={donationAmount} updateClientSecret={updateClientSecret} />
               </Elements>
             )}
             <div className='row' style={{ paddingBottom: "0rem" }}>
@@ -360,7 +395,7 @@ const DonationForm = () => {
               </div>
             </div>
           </Container>)}
-          
+
         </div>
       </div>
       <Footer></Footer>
