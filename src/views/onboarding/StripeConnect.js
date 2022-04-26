@@ -40,7 +40,7 @@ const StripeConnect = () => {
         <div className='myComponent'>
           <Container fluid="md" className='container' style={{maxWidth:"800px"}}>
             <div className='myFlex' style={{paddingBottom: "3rem"}}>
-              <h2 className='myCenter' style={{color: "black", fontWeight: "bold"}}>Thanks Thomas Brown</h2>
+              <h2 className='myCenter' style={{color: "black", fontWeight: "bold"}}>Thanks for registering!</h2>
             </div>
             <div className='myFlex' style={{paddingBottom: "3rem"}}>
               <h4 className='myCenter' style={{color: "black"}}>We have sent you an onboarding email with instructions on next steps and how to access our portal to manage your campaigns.</h4>
