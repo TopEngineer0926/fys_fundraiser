@@ -21,7 +21,6 @@ const TeamLandingPage = () => {
     const [team, setTeam] = useState()
     async function getTeamFundraiser() {
         const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/teams/${team_id}/campaign/${campaign_id}`)
-        console.log("setTeam(res.data.data)", res.data.data)
         setTeam(res.data.data)
     }
     useEffect(() => {
@@ -39,7 +38,7 @@ const TeamLandingPage = () => {
                     <Container fluid="md" className='container'>
                         <div className='row'>
                             <div className='col-md-3 myFlex'>
-                                <img src={team?.avatar || defaultAvatar} style={{ height: "250px", width: "300px", objectFit: "cover" }} className='myCenter'></img>
+                                <img src={team?.organization?.logo || defaultAvatar} style={{ height: "250px", width: "300px", objectFit: "cover" }} className='myCenter'></img>
                             </div>
                             <div className='col-md-9 myFlex'>
                                 <div className='myLeft' style={{ marginLeft: "2rem" }}>
@@ -99,23 +98,23 @@ const TeamLandingPage = () => {
                                     <div className='myFlex' style={{ paddingBottom: "1rem" }}>
                                         <Progress className='myCenter' style={{ width: "90%" }}
                                             color="success"
-                                            value={(team?.campaign?.currentDonations * 100) / team?.campaign?.goalAmount}
+                                            value={(team?.campaign?.currentDonations * 100) / team?.campaign?.fundRaisingGoal}
                                         />
                                     </div>
                                     <div className='myFlex'>
-                                        <h5 className="myCenter" style={{ fontWeight: "bold" }}>${team?.donationTotals?.currentDonations} Raised of our ${team?.donationTotals?.goalAmount}  goal.</h5>
+                                        <h5 className="myCenter" style={{ fontWeight: "bold" }}>${team?.campaign?.currentDonations} Raised of our ${team?.campaign?.fundRaisingGoal}  goal.</h5>
                                     </div>
                                 </div>
                             </div>
                             <div className='col-md-3 myFlex' style={{marginTop:"10px"}}>
-                                <a className="myCenter donate_btn" href={`/fundraisers/${team?.id}/donate?campaign_slug=${team?.campaign?.urlSlug}`}>Donate Now <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span></a>
+                                <a className="myCenter donate_btn" href={`/team/${team?.organization?.id}/donate?campaign_slug=${team?.campaign?.urlSlug}`}>Donate Now <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span></a>
                             </div>
                         </div>
                         <div className='myFlex' style={{ paddingBottom: "1.5rem" }}>
                             <h1 className='myCenter' style={{ color: "black", fontWeight: "bold" }}>Why am I Fundraising</h1>
                         </div>
                         <div className='myFlex'>
-                            <h5 className='myLeft' style={{ lineHeight: "1.5", textAlign: "center" }}>{team?.fundraisingReason}</h5>
+                            <h5 className='myLeft' style={{ lineHeight: "1.5", textAlign: "center" }}>{team?.campaign?.shortDescription}</h5>
                         </div>
                         <div className='row' style={{ padding: "3rem 0rem", justifyContent:"center"}}>
                             <div className='first-div' style={{ width: "20%" }}></div>
@@ -142,8 +141,8 @@ const TeamLandingPage = () => {
 
                                 <a className="socialLinkItem fillLink">
                                     <FacebookShareButton
-                                        url={`${process.env.REACT_APP_FYS_APP_URL}/team/${team_id}`}
-                                        quote={`Help support ${team?.firstName} ${team?.lastName}`}
+                                        url={`${process.env.REACT_APP_FYS_APP_URL}/team/${team?.organization?.id}/campaign/${team?.campaign?.id}`}
+                                        quote={`Help support ${team?.organization?.name}`}
                                         className="Demo__some-network__share-button"
                                     >
                                         <svg width="15" height="28" viewBox="0 0 15 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -155,8 +154,8 @@ const TeamLandingPage = () => {
                                 <a className="socialLinkItem strokeLink">
 
                                     <TwitterShareButton
-                                        url={`${process.env.REACT_APP_FYS_APP_URL}/team/${team_id}`}
-                                        title={`Help support ${team?.firstName} ${team?.lastName}`}
+                                        url={`${process.env.REACT_APP_FYS_APP_URL}/team/${team?.organization?.id}/campaign/${team?.campaign?.id}`}
+                                        title={`Help support ${team?.organization?.name}`}
                                         className="Demo__some-network__share-button"
                                     >
                                         <svg width="29" height="24" viewBox="0 0 29 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -166,8 +165,8 @@ const TeamLandingPage = () => {
                                 </a>
                                 <a className="socialLinkItem strokeLink">
                                     <EmailShareButton
-                                        url={`${process.env.REACT_APP_FYS_APP_URL}/team/${team_id}`}
-                                        subject={`Help support ${team?.firstName} ${team?.lastName}`}
+                                        url={`${process.env.REACT_APP_FYS_APP_URL}/team/${team?.organization?.id}/campaign/${team?.campaign?.id}`}
+                                        subject={`Help support ${team?.organization?.name}`}
                                         body={team?.campaign?.shortDescription}
                                         className="Demo__some-network__share-button"
                                     >

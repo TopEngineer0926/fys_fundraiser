@@ -56,6 +56,11 @@ const Router = ({ allRoutes }) => {
       children: [{ path: '/team/:team_id/campaign/:campaign_id', element: <TeamLandingPage />}]
     },
     {
+      path: '/team',
+      element: <BlankLayout />,
+      children: [{ path: '/team/:team_slug/donate', element: <PublicDonationForm />}]
+    },
+    {
       path: '/',
       index: true,
       element: <Navigate replace to={getHomeRoute()} />

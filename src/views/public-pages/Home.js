@@ -17,6 +17,8 @@ import Footer from './Footer'
 import NavBar from './NavBar'
 
 const Team = ({ team }) => {
+  const { campaign_slug } = useParams()
+
   return (
     <div className='col-md-4' style={{mamrginBottom: "2rem"}}>
       <div style={{background: "white", borderRadius: '1rem', padding: "2rem", marginBottom: "2rem"}}>
@@ -36,7 +38,7 @@ const Team = ({ team }) => {
             />
         </div>
         <div className='myFlex' style={{paddingBottom: "0rem"}}>
-          <a className="viewTeam_btn myFlex" href="#">
+          <a className="viewTeam_btn myFlex" href={`/team/${team?.organization?.id}/campaign/${campaign_slug}`}>
               <div className='myCenter'>
                 View Team <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span>
               </div>
@@ -63,7 +65,6 @@ const Home = () => {
   }
   useEffect(() => {
     getCampaign()
-    console.log("campaign#####3", campaign)
   }, [campaign_slug])
   useEffect(() => {
     getTeams()
@@ -120,7 +121,7 @@ const Home = () => {
                     <div className='myFlex' style={{paddingBottom: "1rem"}}>
                       <Progress className='myCenter' style={{width: "90%"}}
                         color="success"
-                        value={(campaign && campaign.currentDonations * 100 / campaign.goalAmount) || 0}
+                        value={(campaign?.currentDonations * 100 / campaign?.fundRaisingGoal) || 0}
                       />
                     </div>
                     <div className='myFlex'>
