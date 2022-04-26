@@ -373,8 +373,8 @@ const DonationForm = () => {
               <div className='col-md-2'></div>
             </div>
             <div className='row' style={{ paddingBottom: "1rem" }}>
-              <div className='col-md-2 myFlex'>
-                <a onClick={setActiveTab} className="myRight donate_btn" href="thankyou">Continue to Payment Information</a>
+              <div className='col-md-12 myFlex'>
+                <a onClick={setActiveTab} className="myCenter donate_btn" href="thankyou">Continue to Payment Information</a>
               </div>
             </div>
 
