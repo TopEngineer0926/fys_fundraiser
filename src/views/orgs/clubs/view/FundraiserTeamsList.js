@@ -54,17 +54,21 @@ const FundraiserTeamsList = () => {
   const store = useSelector(state => state.clubs)
 
   const [show, setShow] = useState(false)
-  const id = window.location.pathname.split("/").pop()
+  const [parent, seParent] = useState("")
 
   useEffect(() => {
-    dispatch(getClubTeams(id))
-   
-  }, [dispatch, id])
+    dispatch(getClubTeams(parent))
+  }, [dispatch, parent])
+
+  useEffect(() => {
+    const params = document.location.href.split('/')
+    const length = params.length
+    seParent(params[length - 1])
+  }, [])
   
   // ** Hook
   const {
     control,
-    setError,
     handleSubmit,
     formState: { errors }
   } = useForm({
@@ -72,25 +76,13 @@ const FundraiserTeamsList = () => {
   })
 
   const onSubmit = data => {
-    if (Object.values(data).every(field => field.length > 0)) {
-      data.organizationType = '43ea97ae-c3fe-410a-9c8b-ff10fdf520ae'
-      data.parent = window.location.pathname.split("/").pop()
       const userData = localStorage.getItem('userData')
       data.user = JSON.parse(userData).uuid
+      data.parent = parent
       dispatch(addClubTeam(data))
       const id = window.location.pathname.split("/").pop()
       dispatch(getClubTeams(id))
-
       setShow(false)
-    } else {
-      for (const key in data) {
-        if (data[key].length === 0) {
-          setError(key, {
-            type: 'manual'
-          })
-        }
-      }
-    }
   }
 
   return (
@@ -127,7 +119,7 @@ const FundraiserTeamsList = () => {
               <Row className='gy-1 pt-75'>
                 <Col md={6} xs={12}>
                   <Label className='form-label' for='name'>
-                    Name
+                  Team GM Name
                   </Label>
                   <Controller
                     defaultValue=''
@@ -141,7 +133,7 @@ const FundraiserTeamsList = () => {
                 </Col>
                 <Col md={6} xs={12}>
                   <Label className='form-label' for='email'>
-                    Billing Email
+                  Team GM Email
                   </Label>
                   <Controller
                     defaultValue=''
@@ -155,13 +147,14 @@ const FundraiserTeamsList = () => {
                 </Col>
                 <Col md={6} xs={12}>
                   <Label className='form-label' for='website'>
-                  Website
+                  Team GM First Name
                   </Label>
                   <Controller
                     defaultValue=''
                     control={control}
                     id='website'
-                    name='website'
+                    name='firstName'
+                  
                     render={({ field }) => (
                       <Input {...field} id='website' placeholder='website.com' invalid={errors.website && true} />
                     )}
@@ -170,13 +163,13 @@ const FundraiserTeamsList = () => {
                 
                 <Col md={6} xs={12}>
                   <Label className='form-label' for='tax'>
-                    Tax ID
+                  Team GM Last Name
                   </Label>
                   <Controller
                     defaultValue=''
                     control={control}
                     id='tax'
-                    name='tax'
+                    name='lastName'
                     render={({ field }) => (
                       <Input {...field} id='tax' placeholder='Tax-1234' invalid={errors.tax && true} />
                     )}
@@ -184,123 +177,33 @@ const FundraiserTeamsList = () => {
                 </Col>
                 <Col md={6} xs={12}>
                   <Label className='form-label' for='phone'>
-                    Contact
-                  </Label>
-                  <Controller
-                    defaultValue=''
-                    control={control}
-                    id='phone'
-                    name='phone'
-                    render={({ field }) => (
-                      <Input {...field} id='phone' placeholder='+1 609 933 4422' invalid={errors.phone && true} />
-                    )}
-                  />
-                </Col>
-                {/* Address */}
-                <Col md={6} xs={12}>
-                  <Label className='form-label' for='phone'>
-                  Address
+                  Team GM Phone
                   </Label>
                   <Controller
                     defaultValue=''
                     control={control}
                     id='address1'
-                    name='address1'
+                    name='phone'
                     render={({ field }) => (
                       <Input {...field} id='address1' placeholder='' invalid={errors.address1 && true} />
                     )}
                   />
                 </Col>
-                <Col md={6} xs={12}>
-                  <Label className='form-label' for='city'>
-                  City
-                  </Label>
-                  <Controller
-                    defaultValue=''
-                    control={control}
-                    id='city'
-                    name='city'
-                    render={({ field }) => (
-                      <Input {...field} id='city' placeholder='' invalid={errors.city && true} />
-                    )}
-                  />
-                </Col>
-                <Col md={6} xs={12}>
-                  <Label className='form-label' for='state'>
-                  State
-                  </Label>
-                  <Controller
-                    defaultValue=''
-                    control={control}
-                    id='state'
-                    name='state'
-                    render={({ field }) => (
-                      <Input {...field} id='state' placeholder='' invalid={errors.state && true} />
-                    )}
-                  />
-                </Col>
-                <Col md={6} xs={12}>
-                  <Label className='form-label' for='zip'>
-                  Zip
-                  </Label>
-                  <Controller
-                    defaultValue=''
-                    control={control}
-                    id='zip'
-                    name='zip'
-                    render={({ field }) => (
-                      <Input {...field} id='zip' placeholder='' invalid={errors.zip && true} />
-                    )}
-                  />
-                </Col>
-                <Col md={6} xs={12}>
-                  <Label className='form-label' for='country'>
-                  Country
-                  </Label>
-                  <Controller
-                    defaultValue=''
-                    control={control}
-                    id='country'
-                    name='country'
-                    render={({ field }) => (
-                      <Input {...field} id='country' placeholder='' invalid={errors.country && true} />
-                    )}
-                  />
-                </Col>
-
 
                 <Col xs={12}>
-                  <Label className='form-label' for='aboutUs'>
-                  About Us
-                  </Label>
                   <Controller
                     defaultValue=''
                     control={control}
                     id='aboutUs'
-                    name='aboutUs'
+                    name='nonProfit'
                     render={({ field }) => (
-                      <Input {...field} id='aboutUs' placeholder='' invalid={errors.aboutUs && true} />
+                      <Input {...field} type="checkbox" id='aboutUs' placeholder='' invalid={errors.aboutUs && true} />
                     )}
                   />
+                  <Label className='form-label' for='aboutUs'>
+                  Team GM No Profit
+                  </Label>
                 </Col>
-                {/* <Col xs={12}>
-                  <div className='d-flex align-items-center mt-1'>
-                    <div className='form-switch'>
-                      <Input type='switch' defaultChecked id='billing-switch' name='billing-switch' />
-                      <Label className='form-check-label' htmlFor='billing-switch'>
-                        <span className='switch-icon-left'>
-                          <Check size={14} />
-                        </span>
-                        <span className='switch-icon-right'>
-                          <X size={14} />
-                        </span>
-                      </Label>
-                    </div>
-                    <Label className='form-check-label fw-bolder' for='billing-switch'>
-                      Use as a billing address?
-                    </Label>
-                  </div>
-                </Col> */}
                 <Col xs={12} className='text-center mt-2 pt-50'>
                   <Button type='submit' className='me-1' color='primary'>
                     Submit
