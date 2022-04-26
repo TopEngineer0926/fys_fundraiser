@@ -63,28 +63,7 @@ const NavBar = () => {
               </Navbar>
             </Col>
             <Col md="1" xs="3" className='myFlex'>
-              <Dropdown toggle={() => {}} className="myRight">
-                <DropdownToggle className='dropdownToogle'
-                  data-toggle="dropdown"
-                  tag="span" caret
-                >
-                    <img src={require('@src/assets/images/public_pages/avatar.png').default} className='avatar'></img>
-                </DropdownToggle>
-                <DropdownMenu>
-                  <div onClick={() => {}}>
-                    profile
-                  </div>
-                  <div onClick={() => {}}>
-                    Another action
-                  </div>
-                  <div onClick={() => {}}>
-                    Something
-                  </div>
-                  <div onClick={() => {}}>
-                    Separated Link
-                  </div>
-                </DropdownMenu>
-              </Dropdown>
+              
             </Col>
           </Row>
         </Container>
