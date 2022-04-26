@@ -102,7 +102,7 @@ const DonationForm = () => {
       email: formValues.email,
       message: formValues.message,
       user: '',
-      campaign: campaign_slug,
+      campaign: campaign_slug || campaign_slug_query,
       organization: team_slug,
       fundraiser: fundraiser_slug
     })
