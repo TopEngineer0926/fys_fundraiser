@@ -22,7 +22,6 @@ import '@styles/react/apps/app-users.scss'
 const ClubView = () => {
   // ** Store Vars
   const store = useSelector(state => state.clubs)
-  const userStore = useSelector(state => state.auth)
   const dispatch = useDispatch()
 
   // ** Hooks
@@ -30,8 +29,8 @@ const ClubView = () => {
 
   // ** Get suer on mount
   useEffect(() => {
-    dispatch(getClub(parseInt(id)))
-  }, [dispatch, parseInt(id)])
+    dispatch(getClub(id))
+  }, [dispatch, id])
 
   const [active, setActive] = useState('1')
 
@@ -46,7 +45,7 @@ const ClubView = () => {
       <Breadcrumbs title='My Chapters' data={[{ title: 'Entities' }, { title: 'My Chapters' }, { title: store.selectedUser.name }]} />
       <Row>
         <Col xl='4' lg='5' xs={{ order: 1 }} md={{ order: 0, size: 5 }}>
-          <UserInfoCard selectedUser={userStore.userData} />
+          <UserInfoCard />
         </Col>
         <Col xl='8' lg='7' xs={{ order: 0 }} md={{ order: 1, size: 7 }}>
           <UserTabs active={active} toggleTab={toggleTab} />
