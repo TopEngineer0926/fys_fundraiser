@@ -44,7 +44,7 @@ const LandingPage = () => {
                     <Container fluid="md" className='container'>
                         <div className='row'>
                             <div className='col-md-3 myFlex'>
-                                <img src={fundraiser?.avatar && fundraiser?.avatar || defaultAvatar} style={{ height: "250px", width: "300px", objectFit: "cover" }} className='myCenter'></img>
+                                <img src={(fundraiser?.avatar && fundraiser?.avatar) || defaultAvatar} style={{ height: "250px", width: "300px", objectFit: "cover" }} className='myCenter'></img>
                             </div>
                             <div className='col-md-9 myFlex'>
                                 <div className='myLeft' style={{ marginLeft: "2rem" }}>
