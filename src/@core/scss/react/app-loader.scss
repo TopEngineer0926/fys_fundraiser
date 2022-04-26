@@ -7,6 +7,10 @@
   &.app-loader {
     height: 100vh;
     flex-direction: column;
+    .fallback-logo{
+      height: 40px;
+      width: auto;
+    }
     .loading {
       margin-top: 1rem;
     }
