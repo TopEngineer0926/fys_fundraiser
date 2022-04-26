@@ -191,7 +191,7 @@ const DonationForm = () => {
                     <div className='myFlex' style={{ paddingBottom: "2rem" }}>
                       <h3 className="myLeft" style={{ fontWeight: "bold", color: "blue" }}>
                         {/* ${team?.campaign?.fundRaisingGoal} */}
-                        ${campaign?.currentDonations} raised towards my goal of ${campaign?.goalAmount}
+                        ${organization?.currentDonations} raised towards my goal of ${organization?.fundRaisingGoal}
                         {/* Raised for */}
                       </h3>
                     </div>
