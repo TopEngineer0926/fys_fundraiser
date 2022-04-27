@@ -22,19 +22,21 @@ const Team = ({ team }) => {
   return (
     <div className='col-md-4' style={{mamrginBottom: "2rem"}}>
       <div style={{background: "white", borderRadius: '1rem', padding: "2rem", marginBottom: "2rem"}}>
-        <div className='myFlex' style={{paddingBottom: "1rem"}}>
-          <img src={(team && team.organization.logo) || ""} className='myCenter' alt="logo" style={{minHeight: "50px"}}></img>
-        </div>
+        {
+          team && team.organization.logo ? <div className='myFlex' style={{paddingBottom: "1rem"}}>
+          <img src={team.organization.logo} className='myCenter' alt="logo" style={{minHeight: "50px"}}></img>
+        </div> : null
+        }
         <div className='myFlex' style={{paddingBottom: "1rem"}}>
           <h3 style={{color: "black", fontWeight: "bold"}} className="myCenter">{(team && team.organization.name) || ""}</h3>
         </div>
         <div className='myFlex' style={{paddingBottom: "1rem"}}>
-          <p style={{fontWeight: "bold", paddingBottom: "1rem", fontSize: "1rem"}} className="myLeft">${(team && team.currentDonations.toString()) || ""} Raised of ${(team && team.fundRaisingGoal.toString()) || ""} Goal</p>
+          <p style={{textAlign:"center", width:"100%", fontWeight: "bold", paddingBottom: "1rem", fontSize: "1rem"}} className="myLeft">${(team && team.currentDonations.toString()) || ""} Raised of ${(team && team.fundRaisingGoal.toString()) || ""} Goal</p>
         </div>
         <div className='myFlex' style={{paddingBottom: "2rem"}}>
           <Progress className='myCenter' style={{width: "100%"}}
               color="success"
-              value={(team && team.currentDonations * 100 / team.fundRaisingGoal) || 0}
+              value={team ? (team.currentDonations * 100 / team.fundRaisingGoal) : 0}
             />
         </div>
         <div className='myFlex' style={{paddingBottom: "0rem"}}>
