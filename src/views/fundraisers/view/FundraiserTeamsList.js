@@ -45,7 +45,7 @@ export const columns = [
   },
   {
     name: 'Team Administrator',
-    selector: row => row.name
+    selector: row => row?.parent?.name
   },
   {
     name: 'Phone Number',

@@ -134,7 +134,7 @@ const UserInfoCard = ({ selectedUser }) => {
                 <Briefcase className='font-medium-2' />
               </Badge>
               <div className='ms-75'>
-                <h4 className='mb-0'>$53,456</h4>
+                <h4 className='mb-0'>${selectedUser.totalFundraised}</h4>
                 <small>In Received Donations</small>
               </div>
             </div>
@@ -153,11 +153,11 @@ const UserInfoCard = ({ selectedUser }) => {
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Email Address:</span>
-                  <span>{selectedUser.email}</span>
+                  <a href={`mailto:${selectedUser.email}`}>{selectedUser.email}</a>
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>Phone Number:</span>
-                  <span>{selectedUser.phone}</span>
+                  <a href={`tel:${selectedUser.phone}`}>{selectedUser.phone}</a>
                 </li>
               </ul>
             ) : null}
