@@ -81,12 +81,13 @@ const CustomHeader = ({ toggleSidebar, handlePerPage, rowsPerPage, handleFilter,
               onChange={e => handleFilter(e.target.value)}
             />
           </div>
-
-          <div className='d-flex align-items-center table-header-actions'>
+          {JSON.parse(localStorage.getItem('userData')).fundraiser_profile.length === 0 && (<div className='d-flex align-items-center table-header-actions'>
             <Button className='add-new-user' color='primary' onClick={toggleSidebar}>
               Add New Fundraiser
             </Button>
-          </div>
+          </div>)}
+          
+          
         </Col>
       </Row>
     </div>
@@ -247,8 +248,6 @@ const FundraisersList = () => {
     } else if (store.data.length === 0 && isFiltered) {
       return []
     } else {
-      console.log("dataToRender ---> store.allData.length", store.allData)
-
       return store.allData.slice(0, rowsPerPage)
     }
   }
