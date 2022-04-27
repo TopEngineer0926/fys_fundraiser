@@ -57,7 +57,7 @@ export const columns = [
         {renderClient(row)}
         <div className='d-flex flex-column'>
           <Link
-            to={`/teams/view/${row.id}`}
+            to={`/orgs/teams/view/${row.id}`}
             className='user_name text-truncate text-body'
             onClick={() => store.dispatch(getTeam(row.id))}
           >
