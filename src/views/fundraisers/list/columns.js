@@ -48,7 +48,6 @@ export const columns = [
           >
             <span className='fw-bolder'>{`${row.firstName} ${row.lastName}`}</span>
           </Link>
-          <small className='text-truncate text-muted mb-0'>{row.email}</small>
         </div>
       </div>
     )
@@ -67,7 +66,11 @@ export const columns = [
     sortable: true,
     sortField: 'phone',
     selector: row => row,
-    cell: row => row.phone
+    cell: row => {
+      return (
+        <a href={`tel:${row.phone}`}>{row.phone}</a>
+      )
+    }
   },
   {
     name: 'Email',
@@ -75,7 +78,11 @@ export const columns = [
     sortable: true,
     sortField: 'email',
     selector: row => row.email,
-    cell: row => row.email
+    cell: row => {
+      return (
+        <a href={`mailto:${row.email}`}>{row.email}</a>
+      )
+    }
   },
   {
     name: 'Actions',

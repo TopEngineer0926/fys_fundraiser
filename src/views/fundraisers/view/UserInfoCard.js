@@ -38,7 +38,9 @@ const UserInfoCard = ({ selectedUser }) => {
     defaultValues: {
       username: `${selectedUser.firstName} ${selectedUser.lastName}`,
       lastName: selectedUser.lastName,
-      firstName: selectedUser.firstName
+      firstName: selectedUser.firstName, 
+      parentFirstName: selectedUser.parentFirstName, 
+      parentLastName: selectedUser.parentLastName
     }
   })
 
@@ -214,7 +216,7 @@ const UserInfoCard = ({ selectedUser }) => {
                   id='parentFirstName'
                   name='parentFirstName'
                   render={({ field }) => (
-                    <Input {...field} id='parentFirstName' placeholder='John' invalid={errors.firstName && true} />
+                    <Input {...field} id='parentFirstName' placeholder='John' invalid={errors.parentFirstName && true} />
                   )}
                 />
               </Col>
@@ -228,7 +230,7 @@ const UserInfoCard = ({ selectedUser }) => {
                   id='parentLastName'
                   name='parentLastName'
                   render={({ field }) => (
-                    <Input {...field} id='parentLastName' placeholder='Doe' invalid={errors.lastName && true} />
+                    <Input {...field} id='parentLastName' placeholder='Doe' invalid={errors.parentLastName && true} />
                   )}
                 />
               </Col>

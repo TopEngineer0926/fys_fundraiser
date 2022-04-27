@@ -40,15 +40,21 @@ export const columns = [
   },
   {
     name: 'Email Address',
-    selector: row => row.email
+    selector: row => row.email,
+    cell: row => {
+      return (
+        <a href={`mailto:${row.email}`}>{row.email}</a>
+      )
+    }
   },
   {
     name: 'Phone Number',
-    selector: row => row.phone
-  },
-  {
-    name: 'Total Gifted',
-    selector: row => row.funds_gifted
+    selector: row => row.phone,
+    cell: row => {
+      return (
+        <a href={`tel:${row.phone}`}>{row.phone}</a>
+      )
+    }
   }
 ]
 
