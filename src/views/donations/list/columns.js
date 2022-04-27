@@ -1,142 +1,116 @@
 // ** React Imports
 import { Link } from 'react-router-dom'
 
-// ** Custom Components
-import Avatar from '@components/avatar'
-
 // ** Store & Actions
 import { store } from '@store/store'
-import { getDonation, deleteDonation } from '../store'
+import { getDonation } from '../store'
 
 // ** Icons Imports
-import { Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2, Archive } from 'react-feather'
+import { MoreVertical, FileText, Archive } from 'react-feather'
 
 // ** Reactstrap Imports
-import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
+import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 
-// ** Renders Client Columns
-// const renderClient = row => {
-//   console.log(row, 'row')
-//   if (row.avatar.length) {
-//     return <Avatar className='me-1' img={row.avatar} width='32' height='32' />
-//   } else {
-//     return (
-//       <Avatar
-//         initials
-//         className='me-1'
-//         color={row.avatarColor || 'light-primary'}
-//         content={row.fullName || 'John Doe'}
-//       />
-//     )
-//   }
-// }
-
-// ** Renders Role Columns
-const renderRole = row => {
-  const roleObj = {
-    subscriber: {
-      class: 'text-primary',
-      icon: User
-    },
-    maintainer: {
-      class: 'text-success',
-      icon: Database
-    },
-    editor: {
-      class: 'text-info',
-      icon: Edit2
-    },
-    author: {
-      class: 'text-warning',
-      icon: Settings
-    },
-    admin: {
-      class: 'text-danger',
-      icon: Slack
-    }
-  }
-
-  const Icon = roleObj[row.role] ? roleObj[row.role].icon : Edit2
-
-  return (
-    <span className='text-truncate text-capitalize align-middle'>
-      <Icon size={18} className={`${roleObj[row.role] ? roleObj[row.role].class : ''} me-50`} />
-      {row.role}
-    </span>
-  )
-}
-
-const statusObj = {
-  pending: 'light-warning',
-  active: 'light-success',
-  inactive: 'light-secondary'
-}
+import * as moment from "moment"
 
 export const columns = [
   {
-    name: 'Donation',
+    name: 'Date',
     sortable: true,
-    minWidth: '300px',
-    sortField: 'fullName',
-    selector: row => row.fullName,
+    minWidth: '130px',
+    sortField: 'created',
+    selector: row => row.created,
     cell: row => (
-      <div className='d-flex justify-content-left align-items-center'>
-        {/* {renderClient(row)} */}
-        <div className='d-flex flex-column'>
-          <Link
-            to={`/donations/view/${row.id}`}
-            className='user_name text-truncate text-body'
-            onClick={() => store.dispatch(getDonation(row.id))}
-          >
-            <span className='fw-bolder'>{row.fullName}</span>
-          </Link>
-          <small className='text-truncate text-muted mb-0'>{row.email}</small>
-        </div>
+      <div>
+        <Link
+          to={`/donations/view/${row.id}`}
+          className='user_name text-truncate text-body'
+          onClick={() => store.dispatch(getUser(row.id))}
+        >
+          <span className='fw-bolder'>{moment(row.created).format("MM-DD-YYYY")}</span>
+        </Link>
       </div>
     )
   },
   {
-    name: 'Role',
-    sortable: true,
-    minWidth: '172px',
-    sortField: 'role',
-    selector: row => row.role,
-    cell: row => renderRole(row)
+    name: 'Name',
+    minWidth: '150px',
+    selector: row => row.donor,
+    cell: row => (
+      <div>
+        <Link
+          to={`/donations/view/${row.id}`}
+          className='user_name text-truncate text-body'
+          onClick={() => store.dispatch(getUser(row.id))}
+        >
+          <span className='fw-bolder'>
+            <span>{row.donor.firstName}</span>
+            <span>{row.donor.lastName}</span>
+          </span>
+        </Link>
+      </div>
+    )
   },
   {
-    name: 'Plan',
-    minWidth: '138px',
+    name: 'Amount',
     sortable: true,
-    sortField: 'currentPlan',
-    selector: row => row.currentPlan,
-    cell: row => <span className='text-capitalize'>{row.currentPlan}</span>
+    minWidth: '130px',
+    sortField: 'donationAmount',
+    selector: row => row.donationAmount,
+    cell: row => (
+      <div className='d-flex justify-content-left align-items-center'>
+        {row.donationAmount}&nbsp;{row.donationCurrency}
+      </div>
+    )
   },
   {
-    name: 'Billing',
-    minWidth: '230px',
+    name: 'Campaign',
     sortable: true,
-    sortField: 'billing',
-    selector: row => row.billing,
-    cell: row => <span className='text-capitalize'>{row.billing}</span>
+    minWidth: '140px',
+    sortField: 'campaign',
+    selector: row => row.campaign,
+    cell: row => (
+      <div className='d-flex justify-content-left align-items-center'>
+        {row.campaign ? row.campaign.title : ""}
+      </div>
+    )
   },
   {
-    name: 'Organization',
-    minWidth: '230px',
+    name: 'Team',
     sortable: true,
+    minWidth: '120px',
     sortField: 'organization',
     selector: row => row.organization,
-    cell: row => <span className='text-capitalize'>{row.organization}</span>
+    cell: row => (
+      <div className='d-flex justify-content-left align-items-center'>
+        {row.organization ? row.organization.orgName : ""}
+      </div>
+    )
   },
   {
-    name: 'Status',
-    minWidth: '138px',
+    name: 'Fundraiser',
     sortable: true,
-    sortField: 'status',
-    selector: row => row.status,
+    minWidth: '160px',
+    sortField: 'fundraiser',
+    selector: row => row.fundraiser,
     cell: row => (
-      <Badge className='text-capitalize' color={statusObj[row.status]} pill>
-        {row.status}
-      </Badge>
+      <div className='d-flex justify-content-left align-items-center'>
+        {row.fundraiser ? <>
+          <span>{row.fundraiser.firstName}</span>
+          <span>{row.fundraiser.lastName}</span></> : null}
+      </div>
+    )
+  },
+  {
+    name: 'Payment Method',
+    sortable: true,
+    minWidth: '200px',
+    sortField: 'cardType',
+    selector: row => row.cardType,
+    cell: row => (
+      <div className='d-flex justify-content-left align-items-center'>
+        {row.cardType}
+      </div>
     )
   },
   {
@@ -152,27 +126,15 @@ export const columns = [
             <DropdownItem
               tag={Link}
               className='w-100'
-              to={`/fundriasers/view/${row.id}`}
+              to={`/donations/view/${row.id}`}
               onClick={() => store.dispatch(getDonation(row.id))}
             >
               <FileText size={14} className='me-50' />
-              <span className='align-middle'>Details</span>
+              <span className='align-middle'>View Receipt</span>
             </DropdownItem>
             <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
               <Archive size={14} className='me-50' />
-              <span className='align-middle'>Edit</span>
-            </DropdownItem>
-            <DropdownItem
-              tag='a'
-              href='/'
-              className='w-100'
-              onClick={e => {
-                e.preventDefault()
-                store.dispatch(deleteDonation(row.id))
-              }}
-            >
-              <Trash2 size={14} className='me-50' />
-              <span className='align-middle'>Delete</span>
+              <span className='align-middle'>Email Receipt</span>
             </DropdownItem>
           </DropdownMenu>
         </UncontrolledDropdown>
