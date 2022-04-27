@@ -13,7 +13,7 @@ import {
   Progress
 } from 'reactstrap'
 
-import defaultAvatar from '@src/assets/images/logo/fys-avatar-blank.png'
+// import defaultAvatar from '@src/assets/images/logo/fys-avatar-blank.png'
 
 import Footer from './Footer'
 import NavBar from './NavBar'
