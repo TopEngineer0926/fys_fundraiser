@@ -9,10 +9,11 @@ import { store } from '@store/store'
 import { getCampaign, deleteCampaign } from '../store'
 
 // ** Icons Imports
-import { Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2, Archive } from 'react-feather'
+import { Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2, Archive, Eye } from 'react-feather'
 
 // ** Reactstrap Imports
 import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
+import moment from 'moment'
 
 // ** Renders Client Columns
 const renderClient = row => {
@@ -31,45 +32,45 @@ const renderClient = row => {
 }
 
 // ** Renders Role Columns
-const renderRole = row => {
-  const roleObj = {
-    subscriber: {
-      class: 'text-primary',
-      icon: User
-    },
-    maintainer: {
-      class: 'text-success',
-      icon: Database
-    },
-    editor: {
-      class: 'text-info',
-      icon: Edit2
-    },
-    author: {
-      class: 'text-warning',
-      icon: Settings
-    },
-    admin: {
-      class: 'text-danger',
-      icon: Slack
-    }
-  }
+// const renderRole = row => {
+//   const roleObj = {
+//     subscriber: {
+//       class: 'text-primary',
+//       icon: User
+//     },
+//     maintainer: {
+//       class: 'text-success',
+//       icon: Database
+//     },
+//     editor: {
+//       class: 'text-info',
+//       icon: Edit2
+//     },
+//     author: {
+//       class: 'text-warning',
+//       icon: Settings
+//     },
+//     admin: {
+//       class: 'text-danger',
+//       icon: Slack
+//     }
+//   }
 
-  const Icon = roleObj[row.role] ? roleObj[row.role].icon : Edit2
+//   const Icon = roleObj[row.role] ? roleObj[row.role].icon : Edit2
 
-  return (
-    <span className='text-truncate text-capitalize align-middle'>
-      <Icon size={18} className={`${roleObj[row.role] ? roleObj[row.role].class : ''} me-50`} />
-      {row.role}
-    </span>
-  )
-}
+//   return (
+//     <span className='text-truncate text-capitalize align-middle'>
+//       <Icon size={18} className={`${roleObj[row.role] ? roleObj[row.role].class : ''} me-50`} />
+//       {row.role}
+//     </span>
+//   )
+// }
 
-const statusObj = {
-  pending: 'light-warning',
-  active: 'light-success',
-  inactive: 'light-secondary'
-}
+// const statusObj = {
+//   pending: 'light-warning',
+//   active: 'light-success',
+//   inactive: 'light-secondary'
+// }
 
 export const columns = [
   {
@@ -95,30 +96,6 @@ export const columns = [
     )
   },
   {
-    name: 'Role',
-    sortable: true,
-    minWidth: '172px',
-    sortField: 'role',
-    selector: row => row.role,
-    cell: row => renderRole(row)
-  },
-  {
-    name: 'Plan',
-    minWidth: '138px',
-    sortable: true,
-    sortField: 'currentPlan',
-    selector: row => row.currentPlan,
-    cell: row => <span className='text-capitalize'>{row.currentPlan}</span>
-  },
-  {
-    name: 'Billing',
-    minWidth: '230px',
-    sortable: true,
-    sortField: 'billing',
-    selector: row => row.billing,
-    cell: row => <span className='text-capitalize'>{row.billing}</span>
-  },
-  {
     name: 'Organization',
     minWidth: '230px',
     sortable: true,
@@ -127,22 +104,53 @@ export const columns = [
     cell: row => <span className='text-capitalize'>{row.organization?.name}</span>
   },
   {
-    name: 'Status',
-    minWidth: '138px',
+    name: 'Start Date',
+    // minWidth: '230px',
     sortable: true,
-    sortField: 'status',
-    selector: row => row.status,
-    cell: row => (
-      <Badge className='text-capitalize' color={statusObj[row.status]} pill>
-        {row.status}
-      </Badge>
-    )
+    sortField: 'organization',
+    selector: row => row.organization?.name,
+    cell: row => <span className='text-capitalize'>{moment(row.started).format('DD/MM/YYYY')}</span>
+  },
+  {
+    name: 'End Date',
+    // minWidth: '230px',
+    sortable: true,
+    sortField: 'organization',
+    selector: row => row.organization?.name,
+    cell: row => <span className='text-capitalize'>{moment(row.ended).format('DD/MM/YYYY')}</span>
+  },
+  {
+    name: 'Fundraising Goal',
+    // minWidth: '230px',
+    sortable: true,
+    sortField: 'organization',
+    selector: row => row.organization?.name,
+    cell: row => <span className='text-capitalize'>{row.fundRaisingGoal}</span>
+  },
+  {
+    name: 'Total Donors',
+    // minWidth: '230px',
+    sortable: true,
+    sortField: 'organization',
+    selector: row => row.organization?.name,
+    cell: row => <span className='text-capitalize'>{row.currentDonors}</span>
+  },
+  {
+    name: 'Total Donations',
+    // minWidth: '230px',
+    sortable: true,
+    sortField: 'organization',
+    selector: row => row.organization?.name,
+    cell: row => <span className='text-capitalize'>{row.currentDonations}</span>
   },
   {
     name: 'Actions',
     minWidth: '100px',
     cell: row => (
-      <div className='column-action'>
+      <div className='d-flex align-items-center column-action'>
+        <Link className='text-body' to={`/campaigns/${row.id}`} id={`pw-tooltip-${row.id}`}>
+          <Eye size={17} className='mx-1' />
+        </Link>
         <UncontrolledDropdown>
           <DropdownToggle tag='div' className='btn btn-sm'>
             <MoreVertical size={14} className='cursor-pointer' />
