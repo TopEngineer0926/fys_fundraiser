@@ -20,6 +20,7 @@ const ThankYou = () => {
   const [donor, setDonor] = useState()
   const [user, setUser] = useState()
   const [fcid, setFcid] = useState()
+  const [donationdata, setDonationdata] = useState()
   const shareUrl = window.location.search
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(window.location.search)
@@ -35,6 +36,7 @@ const ThankYou = () => {
         setUser(data.data.data.user)
         setFcid(data.data.data.fcid)
         setFundraiser(data.data.data.fundraiser)
+        setDonationdata(data.data.data)
       })
 
   }, [])
@@ -84,8 +86,12 @@ const ThankYou = () => {
               <h5 className='myCenter' style={{ lineHeight: "1.5rem", textAlign: "center" }}>
                 We appreciate your help in continuing our mission to provide opportunities for personal growth and development in our athletes through youth sports programs.
                 It makes a huge difference when people like you make an investment in our young athletes.
-                Thank you for making a difference.
+                Thank you for making a difference.<br /><br />
+                {(donationdata) && (
+                  <a target="_blank" href={donationdata.receiptUrl}>View/Print your receipt.</a>
+                )}
               </h5>
+              
             </div>
             <div className='row justify-content-md-center myFlex' style={{ paddingBottom: "3rem" }}>
               {/* //props */}
@@ -114,7 +120,7 @@ const ThankYou = () => {
                     <h3 className='myCenter' style={{ fontSize: "1.4rem", color: "black", fontWeight: "bold", textAlign: "center" }}>Create an Account to Track My Donations</h3>
                   </div>
                   <div className='myFlex' style={{ paddingBottom: "1rem" }}>
-                    <h5 className='myCenter' style={{ fontWeight: "bold", lineHeight: "1.5rem", textAlign: "center" }}>Consectetur adipiscing elit, do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h5>
+                    <h5 className='myCenter' style={{ fontWeight: "bold", lineHeight: "1.5rem", textAlign: "center" }}>By creating an account, you will have secure access to our site to track all of your donations and download yearly summaries for help preparing your taxes.</h5>
                   </div>
                 </div>
               </div>
