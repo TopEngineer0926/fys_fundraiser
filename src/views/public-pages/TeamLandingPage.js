@@ -13,7 +13,7 @@ import axios from 'axios'
 
 import Footer from './Footer'
 import NavBar from './NavBar'
-import defaultAvatar from '@src/assets/images/avatars/avatar-blank.png'
+import defaultAvatar from '@src/assets/images/logo/fys-avatar-blank.png'
 import { FacebookShareButton,  TwitterShareButton, EmailShareButton } from "react-share"
 
 const TeamLandingPage = () => {

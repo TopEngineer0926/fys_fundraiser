@@ -79,10 +79,10 @@ export const columns = [
   }
 ]
 
-const ContactList = () => {
+const PlayerList = () => {
   return (
     <Card>
-      <CardHeader tag='h4'>Contacts</CardHeader>
+      <CardHeader tag='h4'>Players</CardHeader>
       <div className='react-dataTable user-view-account-projects'>
         <DataTable
           noHeader
@@ -97,4 +97,4 @@ const ContactList = () => {
   )
 }
 
-export default ContactList
+export default PlayerList

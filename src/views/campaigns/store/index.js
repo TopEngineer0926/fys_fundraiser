@@ -19,8 +19,8 @@ export const getData = createAsyncThunk('appCampaigns/getData', async params => 
 })
 
 export const getCampaign = createAsyncThunk('appCampaigns/getCampaign', async id => {
-  const response = await axios.get('/api/campaigns/campaign', { id })
-  return response.data.campaign 
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/${id}`)
+  return response.data.data 
 })
 
 export const addCampaign = createAsyncThunk('appCampaigns/addCampaign', async (campaign, { dispatch, getState }) => {

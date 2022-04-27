@@ -11,7 +11,7 @@ import { Row, Col, Alert } from 'reactstrap'
 
 // ** User View Components
 import UserTabs from './Tabs'
-import UserInfoCard from './UserInfoCard'
+import CampaignInfoCard from './CampaignInfoCard'
 
 // ** Styles
 import '@styles/react/apps/app-users.scss'
@@ -26,8 +26,14 @@ const CampaignView = () => {
 
   // ** Get suer on mount
   useEffect(() => {
-    dispatch(getCampaign(parseInt(id)))
+    dispatch(getCampaign(id))
   }, [dispatch])
+  useEffect(() => {
+    if (!store.selectedUser) {
+      dispatch(getCampaign(id))
+    }
+   
+  }, [store.selectedUser])
 
   const [active, setActive] = useState('1')
 
@@ -41,7 +47,7 @@ const CampaignView = () => {
     <div className='app-user-view'>
       <Row>
         <Col xl='4' lg='5' xs={{ order: 1 }} md={{ order: 0, size: 5 }}>
-          <UserInfoCard selectedUser={store.selectedUser} />
+          <CampaignInfoCard selectedUser={store.selectedUser} />
         </Col>
         <Col xl='8' lg='7' xs={{ order: 0 }} md={{ order: 1, size: 7 }}>
           <UserTabs active={active} toggleTab={toggleTab} />

@@ -8,11 +8,10 @@ import { Nav, NavItem, NavLink, TabContent, TabPane } from 'reactstrap'
 import { User, Lock, Bookmark, Bell, Link } from 'react-feather'
 
 // ** User Components
-import InvoiceList from './InvoiceList'
-import SecurityTab from './SecurityTab'
-import Notifications from './Notifications'
-import ContactList from './ContactList'
+import LatestDonations from './LatestDonations'
+import PlayerList from './PlayerList'
 import FundraiserTeamsList from './FundraiserTeamsList'
+import StatsCard from './StatsCard'
 
 const UserTabs = ({ active, toggleTab }) => {
   return (
@@ -21,41 +20,32 @@ const UserTabs = ({ active, toggleTab }) => {
         <NavItem>
           <NavLink active={active === '1'} onClick={() => toggleTab('1')}>
             <User className='font-medium-3 me-50' />
-            <span className='fw-bold'>Fundraising Details</span>
+            <span className='fw-bold'>Campaign Details</span>
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink active={active === '2'} onClick={() => toggleTab('2')}>
             <Lock className='font-medium-3 me-50' />
-            <span className='fw-bold'>Contacts</span>
+            <span className='fw-bold'>Teams</span>
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink active={active === '3'} onClick={() => toggleTab('3')}>
             <Lock className='font-medium-3 me-50' />
-            <span className='fw-bold'>Security</span>
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink active={active === '4'} onClick={() => toggleTab('4')}>
-            <Bell className='font-medium-3 me-50' />
-            <span className='fw-bold'>Notifications</span>
+            <span className='fw-bold'>Players</span>
           </NavLink>
         </NavItem>
       </Nav>
       <TabContent activeTab={active}>
         <TabPane tabId='1'>
-          <FundraiserTeamsList />
-          <InvoiceList />
+          <StatsCard cols="3" />
+          <LatestDonations />
         </TabPane>
         <TabPane tabId='2'>
-          <ContactList />
+          <FundraiserTeamsList />
         </TabPane>
         <TabPane tabId='3'>
-          <SecurityTab />
-        </TabPane>
-        <TabPane tabId='4'>
-          <Notifications />
+          <PlayerList />
         </TabPane>
       </TabContent>
     </Fragment>

@@ -27,7 +27,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import '@styles/react/apps/app-invoice.scss'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
-const InvoiceList = () => {
+const LatestDonations = () => {
   // ** Store Vars
   const dispatch = useDispatch()
   const store = useSelector(state => state.invoice)
@@ -91,17 +91,13 @@ const InvoiceList = () => {
     <div className='invoice-list-wrapper'>
       <Card>
         <CardHeader className='py-1'>
-          <CardTitle tag='h4'>Invoices</CardTitle>
+          <CardTitle tag='h4'>Latest Donations</CardTitle>
           <UncontrolledButtonDropdown>
             <DropdownToggle color='secondary' outline caret>
               <ExternalLink className='font-small-4 me-50' />
               <span>Export</span>
             </DropdownToggle>
             <DropdownMenu end>
-              <DropdownItem className='w-100'>
-                <Printer className='font-small-4 me-50' />
-                <span>Print</span>
-              </DropdownItem>
               <DropdownItem className='w-100'>
                 <FileText className='font-small-4 me-50' />
                 <span>CSV</span>
@@ -113,10 +109,6 @@ const InvoiceList = () => {
               <DropdownItem className='w-100'>
                 <Clipboard className='font-small-4 me-50' />
                 <span>PDF</span>
-              </DropdownItem>
-              <DropdownItem className='w-100'>
-                <Copy className='font-small-4 me-50' />
-                <span>Copy</span>
               </DropdownItem>
             </DropdownMenu>
           </UncontrolledButtonDropdown>
@@ -139,4 +131,4 @@ const InvoiceList = () => {
   )
 }
 
-export default InvoiceList
+export default LatestDonations
