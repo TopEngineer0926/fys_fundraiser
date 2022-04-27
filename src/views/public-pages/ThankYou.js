@@ -18,6 +18,8 @@ const ThankYou = () => {
   const [name, setName] = useState()
   const [fundraiser, setFundraiser] = useState()
   const [donor, setDonor] = useState()
+  const [user, setUser] = useState()
+  const [fcid, setFcid] = useState()
   const shareUrl = window.location.search
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(window.location.search)
@@ -30,6 +32,8 @@ const ThankYou = () => {
         setAmount(data.data.data.donationAmount)
         setName(data.data.data.name)
         setDonor(data.data.data.donor)
+        setUser(data.data.data.user)
+        setFcid(data.data.data.fcid)
         setFundraiser(data.data.data.fundraiser)
       })
 
@@ -65,12 +69,13 @@ const ThankYou = () => {
       <NavBar></NavBar>
       <div id='thankyou' style={{ background: "white" }}>
         <div className='myComponent'>
+        {(donor) && (
           <Container fluid="md" className='container'>
             {/* <div className='myFlex' style={{paddingBottom: "3rem"}}>
               <img className="myCenter" src={require('@src/assets/images/public_pages/congratulation.svg').default} style={{width: "490px"}}></img>
             </div> */}
             <div className='myFlex' style={{ paddingBottom: "3rem" }}>
-              <h2 className='myCenter' style={{ color: "black", fontWeight: "bold" }}>THANKS {name}</h2>
+              <h2 className='myCenter' style={{ color: "black", fontWeight: "bold" }}>Thanks {name}!</h2>
             </div>
             <div className='myFlex' style={{ paddingBottom: "3rem" }}>
               <h4 className='myCenter' style={{ color: "black" }}>Your Donation of ${amount}.00 has been Processed!</h4>
@@ -82,9 +87,9 @@ const ThankYou = () => {
                 Thank you for making a difference.
               </h5>
             </div>
-            <div className='row myFlex' style={{ paddingBottom: "3rem" }}>
+            <div className='row justify-content-md-center myFlex' style={{ paddingBottom: "3rem" }}>
               {/* //props */}
-              {(fundraiser && donor) && (
+              {(fundraiser && donor && !fcid) && (
                 <div className='col-md-6' style={{ padding: "10px" }}>
                 <div style={{ background: "#efefef", padding: "2rem" }}>
                   <div onClick={fundraiserContactRegister} className='myFlex' style={{ paddingBottom: "2rem", cursor: "pointer" }}>
@@ -99,7 +104,7 @@ const ThankYou = () => {
                 </div>
               </div>
               )}
-              {donor && (
+              {(donor && !user) && (
                 <div className='col-md-6' style={{ padding: "10px" }}>
                 <div style={{ background: "#efefef", padding: "2rem" }}>
                   <div onClick={donorRegister} className='myFlex' style={{ paddingBottom: "2rem", cursor: "pointer" }}>
@@ -176,6 +181,7 @@ const ThankYou = () => {
               </div>
             </div>
           </Container>
+          )}
         </div>
       </div>
       <Footer></Footer>
