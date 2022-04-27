@@ -62,26 +62,26 @@ export const columns = [
     cell: row => `${row.parentFirstName} ${row.parentLastName}`
   },
   {
-    name: 'Team(s)',
+    name: 'Phone Number',
     minWidth: '200px',
     sortable: true,
-    sortField: 'teams',
-    selector: row => row.teams,
-    cell: row => row.teams
+    sortField: 'phone',
+    selector: row => row,
+    cell: row => row.phone
   },
   {
-    name: 'Total Donations',
+    name: 'Email',
     minWidth: '130px',
     sortable: true,
-    sortField: 'totalDonations',
-    selector: row => row.totalDonations,
-    cell: row => row.totalDonations
+    sortField: 'email',
+    selector: row => row.email,
+    cell: row => row.email
   },
   {
     name: 'Actions',
     minWidth: '250px',
     cell: row => (
-      <div className='column-action'>
+      <div className='column-action'style={{ display: "contents" }} >
         <Link to={`/fundraisers/${row.id}`} target="_blank" id={`pw-tooltip-${row.id}`}>
           <Eye size={17} className='mx-1' />
         </Link>
