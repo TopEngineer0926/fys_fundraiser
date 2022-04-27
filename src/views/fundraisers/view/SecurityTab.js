@@ -63,7 +63,7 @@ const SecurityTab = () => {
   const onSubmit = data => {
     trigger()
     console.log(data)
-    dispatch(fundraiserPasswordReset)
+    dispatch(fundraiserPasswordReset(data))
   }
   return (
     <Fragment>
