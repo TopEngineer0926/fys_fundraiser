@@ -22,7 +22,8 @@ const Faq = () => {
 
   const getFAQData = query => {
     return axios.get('/faq/data', { params: { q: query } }).then(response => {
-      setData(response.data)
+      console.log(response.data)
+      setData(null)
     })
   }
 
@@ -33,7 +34,7 @@ const Faq = () => {
   return (
     <Fragment>
       <Breadcrumbs title='FAQ' data={[{ title: 'Pages' }, { title: 'FAQ' }]} />
-      <FaqFilter searchTerm={searchTerm} setSearchTerm={setSearchTerm} getFAQData={getFAQData} />
+      {data !== null ? <FaqFilter searchTerm={searchTerm} setSearchTerm={setSearchTerm} getFAQData={getFAQData} /> : null}
       {data !== null ? <Faqs data={data} searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> : null}
       <FaqContact />
     </Fragment>

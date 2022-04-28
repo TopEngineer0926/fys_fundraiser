@@ -84,7 +84,7 @@ const CustomHeader = ({ toggleSidebar, handlePerPage, rowsPerPage, handleFilter,
 
           <div className='d-flex align-items-center table-header-actions'>
             <Button className='add-new-user' color='primary' onClick={toggleSidebar}>
-              Add New Club
+              Add New Chapter
             </Button>
           </div>
         </Col>

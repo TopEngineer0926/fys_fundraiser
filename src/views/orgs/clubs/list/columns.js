@@ -48,7 +48,10 @@ export const columns = [
     cell: row => (<Link
       to={`/orgs/clubs/view/${row.id}`}
       className='user_name text-truncate text-body'
-      onClick={() => store.dispatch(getCampaign(row.id))}><span className='text-capitalize'>{row.name}</span></Link>
+      onClick={() => store.dispatch(getClub(row.id))}
+    >
+      <span className='fw-bolder'>{row.name}</span>
+    </Link>
     )
   },
   {
@@ -80,22 +83,6 @@ export const columns = [
     sortField: 'primary_contact.phone',
     selector: row => row.phone,
     cell: row => <span className='text-capitalize'>{row.phone}</span>
-  },
-  {
-    name: 'Campaigns',
-    minWidth: '150px',
-    sortable: true,
-    sortField: 'active_campaigns',
-    selector: row => row.active_campaigns,
-    cell: row => <span className='text-capitalize'>{row.active_campaigns}</span>
-  },
-  {
-    name: 'Total Donations',
-    minWidth: '200px',
-    sortable: true,
-    sortField: 'total_donations',
-    selector: row => row.total_donations,
-    cell: row => <span className='text-capitalize'>{row.total_donations}</span>
   },
   {
     name: 'Status',

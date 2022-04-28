@@ -269,7 +269,7 @@ const DonationForm = () => {
                 <div className='form-check form-check-primary'>
                   <Input type='checkbox' id='checkbox' checked={trasectionFee} onChange={() => { setTrasectionFee(!trasectionFee) }} />
                   <Label className='form-check-label label' for='checkbox' >
-                    I like to cover all transaction fees
+                    I like to cover all transaction fees<br />(2.9% + $0.30)
                   </Label>
                 </div>
               </div>

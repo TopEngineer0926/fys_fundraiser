@@ -26,19 +26,35 @@ const PagesRoutes = [
   },
   {
     path: '/pages/faq',
-    element: <Faq />
+    element: <Faq />,
+    meta: {
+      action: 'read',
+      resource: 'faq'
+    }
   },
   {
     path: '/pages/knowledge-base',
-    element: <KnowledgeBase />
+    element: <KnowledgeBase />,
+    meta: {
+      action: 'read',
+      resource: 'faq'
+    }
   },
   {
     path: '/pages/knowledge-base/:category',
-    element: <KnowledgeBaseCategory />
+    element: <KnowledgeBaseCategory />,
+    meta: {
+      action: 'read',
+      resource: 'faq'
+    }
   },
   {
     path: '/pages/knowledge-base/:category/:question',
-    element: <KBCategoryQuestion />
+    element: <KBCategoryQuestion />,
+    meta: {
+      action: 'read',
+      resource: 'faq'
+    }
   },
   {
     path: '/pages/account-settings',

@@ -13,7 +13,7 @@ import {
   Progress
 } from 'reactstrap'
 
-// import defaultAvatar from '@src/assets/images/logo/fys-avatar-blank.png'
+import defaultAvatar from '@src/assets/images/logo/fys-avatar-blank.png'
 
 import Footer from './Footer'
 import NavBar from './NavBar'
@@ -24,11 +24,9 @@ const Team = ({ team }) => {
   return (
     <div className='col-md-4' style={{mamrginBottom: "2rem"}}>
       <div style={{background: "white", borderRadius: '1rem', padding: "2rem", marginBottom: "2rem"}}>
-        {
-          team && team.organization.logo ? <div className='myFlex' style={{paddingBottom: "1rem"}}>
-          <img src={team.organization.logo} className='myCenter' alt="logo" style={{minHeight: "50px"}}></img>
-        </div> : null
-        }
+      <div className='myFlex' style={{paddingBottom: "1rem"}}>
+        {(team && team.organization.logo) ? <img src={team.organization.logo} className='myCenter' alt="logo" style={{minHeight: "50px", maxHeight: "100px", maxWidth: "100px"}}></img> : <img src={defaultAvatar} className='myCenter' alt="logo" style={{minHeight: "50px", maxHeight: "100px", maxWidth: "100px"}}></img>}
+        </div>
         <div className='myFlex' style={{paddingBottom: "1rem"}}>
           <h3 style={{color: "black", fontWeight: "bold"}} className="myCenter">{(team && team.organization.name) || ""}</h3>
         </div>
