@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // ** Styles
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 import FundraiserTeamsList from './FundraiserTeamsList'
-import { getFundraiser, addFundraiserContacts } from '../store'
+import { getFundraiser, addFundraiserContacts, updateFundraiser } from '../store'
 
 // const projectsArr = [
 //   {
@@ -25,38 +25,6 @@ import { getFundraiser, addFundraiserContacts } from '../store'
 //     funds_gifted: 0
 //   }
 // ]
-
-export const columns = [
-  {
-    sortable: true,
-    minWidth: '300px',
-    name: 'Contact Name',
-    selector: row => row.title,
-    cell: row => {
-      return (
-        <span>{row.firstName} {row.lastName}</span>
-      )
-    }
-  },
-  {
-    name: 'Email Address',
-    selector: row => row.email,
-    cell: row => {
-      return (
-        <a href={`mailto:${row.email}`}>{row.email}</a>
-      )
-    }
-  },
-  {
-    name: 'Phone Number',
-    selector: row => row.phone,
-    cell: row => {
-      return (
-        <a href={`tel:${row.phone}`}>{row.phone}</a>
-      )
-    }
-  }
-]
 
 const ContactList = () => {
   const dispatch = useDispatch()
@@ -72,6 +40,8 @@ const ContactList = () => {
     dispatch(getFundraiser(id))
   }, [store.isFundraiserContactAdded])
   const [show, setShow] = useState(false)
+  const [storeData] = useState(store)
+  const [editModel, setEditModel] = useState('')
 
   // ** Hook
   const {
@@ -100,6 +70,54 @@ const ContactList = () => {
     }
   }
 
+  const onUpdate = data => {
+    data.fundraiser = id
+    console.log(data)
+    dispatch(updateFundraiser(data))
+    setShow(false)
+  }
+
+  const handleFilter = (e) => {
+    storeData.fundraiserContacts.forEach((contact) => {
+      if (contact.id === e.target.parentElement.id.slice(7)) {
+        setEditModel(contact)
+      }
+    })
+    setShow(true)
+  }
+
+  const columns = [
+    {
+      sortable: true,
+      minWidth: '300px',
+      name: 'Contact Name',
+      selector: row => row.title,
+      cell: row => {
+        return (
+          <span onClick={handleFilter}>{row.firstName} {row.lastName}</span>
+        )
+      }
+    },
+    {
+      name: 'Email Address',
+      selector: row => row.email,
+      cell: row => {
+        return (
+          <a href={`mailto:${row.email}`}>{row.email}</a>
+        )
+      }
+    },
+    {
+      name: 'Phone Number',
+      selector: row => row.phone,
+      cell: row => {
+        return (
+          <a href={`tel:${row.phone}`}>{row.phone}</a>
+        )
+      }
+    }
+  ]
+
   return (
     <Card>
       <CardHeader tag='h4'>
@@ -115,7 +133,10 @@ const ContactList = () => {
               className='d-flex align-items-sm-center justify-content-xl-end justify-content-start flex-xl-nowrap flex-wrap flex-sm-row flex-column pe-xl-1 p-0 mt-xl-0 mt-1'
             >
               <div className='d-flex align-items-center table-header-actions'>
-                <Button className='add-new-user' color='primary' onClick={() => setShow(true)}>
+                <Button className='add-new-user' color='primary' onClick={() => {
+                  setEditModel('')
+                  setShow(true)
+                }}>
                   Add New Contact
                 </Button>
               </div>
@@ -129,7 +150,7 @@ const ContactList = () => {
               <h1 className='mb-1'>Contact Details</h1>
               <p>Provide the information below so we can send gifting requests on your behalf</p>
             </div>
-            <Form onSubmit={handleSubmit(onSubmit)}>
+            <Form onSubmit={(!editModel) ? handleSubmit(onSubmit) : handleSubmit(onUpdate)}>
               <Row className='gy-1 pt-75'>
                 <Col md={6} xs={12}>
                   <Label className='form-label' for='firstName'>
@@ -140,6 +161,7 @@ const ContactList = () => {
                     control={control}
                     id='firstName'
                     name='firstName'
+                    value={editModel?.firstName}
                     render={({ field }) => (
                       <Input {...field} id='firstName' placeholder='John' invalid={errors.firstName && true} />
                     )}
@@ -154,6 +176,7 @@ const ContactList = () => {
                     control={control}
                     id='lastName'
                     name='lastName'
+                    value={editModel?.lastName}
                     render={({ field }) => (
                       <Input {...field} id='lastName' placeholder='Doe' invalid={errors.lastName && true} />
                     )}
@@ -168,6 +191,7 @@ const ContactList = () => {
                     control={control}
                     id='email'
                     name='email'
+                    value={editModel?.email}
                     render={({ field }) => (
                       <Input {...field} id='email' placeholder='example@domain.com' invalid={errors.lastName && true} />
                     )}
@@ -182,6 +206,7 @@ const ContactList = () => {
                     control={control}
                     id='phone'
                     name='phone'
+                    value={editModel?.phone}
                     render={({ field }) => (
                       <Input {...field} id='phone' placeholder='888-888-8888' invalid={errors.lastName && true} />
                     )}
@@ -189,7 +214,7 @@ const ContactList = () => {
                 </Col>
                 <Col xs={12} className='text-center mt-2 pt-50'>
                   <Button type='submit' className='me-1' color='primary'>
-                    Submit
+                    {(!editModel) ? 'Submit' : 'Update'}
                   </Button>
                   <Button
                     type='reset'

@@ -32,6 +32,12 @@ export const getFundraiser = createAsyncThunk('appFundraisers/getFundraiser', as
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${id}`)
   return response.data.data
 })
+export const updateFundraiser = createAsyncThunk('appFundraisers/updateFundraiser', async (fundraiser, { dispatch, getState }) => {
+  await axios.put(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser_contact/update`, fundraiser)
+  await dispatch(getData(getState().fundraisers.params))
+  await dispatch(getAllData())
+  return fundraiser
+})
 //getFundraiserCampaigns
 export const getFundraiserCampaigns = createAsyncThunk('appFundraisers/getFundraiserCampaigns', async id => {
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${id}/campaigns`)
