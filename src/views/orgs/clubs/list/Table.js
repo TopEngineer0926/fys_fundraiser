@@ -42,7 +42,7 @@ import '@styles/react/libs/react-select/_react-select.scss'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
 // ** Table Header
-const CustomHeader = ({ toggleSidebar, handlePerPage, rowsPerPage, handleFilter, searchTerm }) => {
+const CustomHeader = ({ handlePerPage, rowsPerPage, handleFilter, searchTerm }) => {
     
   return (
     <div className='invoice-list-table-header w-100 me-1 ms-50 mt-2 mb-75'>
@@ -83,7 +83,7 @@ const CustomHeader = ({ toggleSidebar, handlePerPage, rowsPerPage, handleFilter,
           </div>
 
           <div className='d-flex align-items-center table-header-actions'>
-            <Button className='add-new-user' color='primary' onClick={toggleSidebar}>
+            <Button className='add-new-user' color='primary' href='https://fundyouthsports.com/chapter-registration' target="_blank">
               Add New Chapter
             </Button>
           </div>
@@ -104,13 +104,9 @@ const ClubsList = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [sortColumn, setSortColumn] = useState('id')
   const [rowsPerPage, setRowsPerPage] = useState(10)
-  const [sidebarOpen, setSidebarOpen] = useState(false)
   const [currentRole, setCurrentRole] = useState({ value: '', label: 'Select Role' })
   const [currentPlan, setCurrentPlan] = useState({ value: '', label: 'Select Plan' })
   const [currentStatus, setCurrentStatus] = useState({ value: '', label: 'Select Status', number: 0 })
-
-  // ** Function to toggle sidebar
-  const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
 
   // ** Get data on mount
   useEffect(() => {
@@ -382,14 +378,12 @@ const ClubsList = () => {
                 rowsPerPage={rowsPerPage}
                 handleFilter={handleFilter}
                 handlePerPage={handlePerPage}
-                toggleSidebar={toggleSidebar}
               />
             }
           />
         </div>
       </Card>
 
-      <Sidebar open={sidebarOpen} toggleSidebar={toggleSidebar} />
     </Fragment>
   )
 }

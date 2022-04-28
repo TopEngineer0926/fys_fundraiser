@@ -5,7 +5,7 @@ import {
 } from 'react-feather'
 
 import { NavItem, NavLink } from 'reactstrap'
-import NotificationDropdown from './NotificationDropdown'
+// import NotificationDropdown from './NotificationDropdown'
 import UserDropdown from './UserDropdown'
 
 const NavbarUser = props => {
@@ -31,7 +31,7 @@ const NavbarUser = props => {
       </NavItem>
       {/* <NavbarSearch />
       <CartDropdown /> */}
-      <NotificationDropdown />
+      {/* <NotificationDropdown /> */}
       <UserDropdown />
     </ul>
   )

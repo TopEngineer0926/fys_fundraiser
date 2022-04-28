@@ -4,7 +4,8 @@
 const themeConfig = {
   app: {
     appName: 'FUNDRAISER CONSOLE',
-    appLogoImage: require('@src/assets/images/logo/FYS-horizontal.png').default
+    appLogoImage: require('@src/assets/images/logo/FYS-horizontal.png').default,
+    appLogoImageDark: require('@src/assets/images/logo/FYS-Logo-White-White-Star.png').default
   },
   baseApi: 'http://fys-api.herokuapp.com/api/v1',
   layout: {

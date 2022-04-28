@@ -267,6 +267,23 @@
   }
 }
 
+body {
+  .lightModeVisible {
+    display: block;
+  }
+  .darkModeVisible {
+    display: none;
+  }
+  &.dark-layout {
+    .lightModeVisible {
+      display: none;
+    }
+    .darkModeVisible {
+      display: block;
+    }
+  }
+}
+
 .horizontal-layout {
   // navbar floating
   &.navbar-floating {
