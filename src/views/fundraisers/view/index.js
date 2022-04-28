@@ -7,7 +7,7 @@ import { getFundraiser } from '../store'
 import { useSelector, useDispatch } from 'react-redux'
 
 // ** Reactstrap Imports
-import { Row, Col, Alert } from 'reactstrap'
+import { Row, Col, Alert, Spinner} from 'reactstrap'
 
 // ** User View Components
 import UserTabs from './Tabs'
@@ -55,12 +55,8 @@ const FundraiserView = () => {
       </Row>
     </div>
   ) : (
-    <Alert color='danger'>
-      <h4 className='alert-heading'>Fundraiser not found</h4>
-      <div className='alert-body'>
-        Fundraiser with id: {id} doesn't exist. Check list of all Fundraisers: <Link to='/fundraisers/list'>Fundraisers List</Link>
-      </div>
-    </Alert>
+   
+    <Spinner/>
   )
 }
 export default FundraiserView

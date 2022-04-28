@@ -1,9 +1,10 @@
 // ** React Imports
-import { Fragment } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+
 // ** Store & Actions
-import { fundraiserPasswordReset } from '../store'
-import { useDispatch } from 'react-redux'
+import { fundraiserPasswordReset, loadingStart } from '../store'
+import { useDispatch, useSelector } from 'react-redux'
 // ** Reactstrap Imports
 import {
   Row,
@@ -20,7 +21,8 @@ import {
   ModalBody,
   CardHeader,
   ModalHeader,
-  FormFeedback
+  FormFeedback,
+  Spinner
 } from 'reactstrap'
 
 // ** Custom Components
@@ -32,7 +34,7 @@ import Cleave from 'cleave.js/react'
 import 'cleave.js/dist/addons/cleave-phone.us'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm, Controller } from 'react-hook-form'
-import { Edit, Trash, Settings, MessageSquare, ChevronRight } from 'react-feather'
+import { Edit, Trash, Settings, MessageSquare, ChevronRight, DivideCircle } from 'react-feather'
 
 const SignupSchema = yup.object().shape({
   password: yup.string().min(8).required(),
@@ -52,7 +54,13 @@ const defaultValues = {
 const SecurityTab = () => {
   // ** Hooks
   const dispatch = useDispatch()
+  const store = useSelector(state => state.fundraisers)
+  const [spinner, setSpinner] = useState(store.loading)
 
+  useEffect(() => {
+      setSpinner(store.loading)
+    
+  }, [store.loading])
   const {
     control,
     trigger,
@@ -62,7 +70,7 @@ const SecurityTab = () => {
 
   const onSubmit = data => {
     trigger()
-    console.log(data)
+    dispatch(loadingStart())
     dispatch(fundraiserPasswordReset(data))
   }
   return (
@@ -116,11 +124,18 @@ const SecurityTab = () => {
               </Col>
               <Col xs={12}>
                 <Button type='submit' color='primary'>
-                  Change Password
+                  <div className='fw-bold d-flex align-items-center'>
+                    {spinner && (<Spinner className='font-small-4 me-50' />)}
+                    <span>
+                      Change Password
+                    </span>
+
+                  </div>
                 </Button>
               </Col>
             </Row>
           </Form>
+
         </CardBody>
       </Card>
     </Fragment>
