@@ -83,7 +83,7 @@ const TeamLandingPage = () => {
                                                 <h5 className='myCenter'>Average Donation</h5>
                                             </div>
                                             <div className='myFlex content'>
-                                                <h2 className='myCenter'>${team?.averageDonation || 0}</h2>
+                                                <h2 className='myCenter'>${team?.averageDonation.toFixed(2) || 0}</h2>
                                             </div>
                                         </div>
                                         <div className='col-md-4'>
@@ -91,7 +91,7 @@ const TeamLandingPage = () => {
                                                 <h5 className='myCenter'>Total Raised</h5>
                                             </div>
                                             <div className='myFlex content'>
-                                                <h2 className='myCenter'>${team?.currentDonations || 0}</h2>
+                                                <h2 className='myCenter'>${team?.currentDonations.toFixed(2) || 0}</h2>
                                             </div>
                                         </div>
                                     </div>

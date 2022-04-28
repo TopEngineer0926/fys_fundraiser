@@ -50,6 +50,9 @@ const DonationForm = () => {
   const campaign_slug_query = new URLSearchParams(window.location.search).get(
     "campaign_slug"
   )
+  const organization_slug_query = new URLSearchParams(window.location.search).get(
+    "organization_slug"
+  )
   const [campaign, setCampaign] = useState()
   const [fundraiser, setFundraiser] = useState()
   const [organization, setOrganization] = useState()
@@ -103,7 +106,7 @@ const DonationForm = () => {
       message: formValues.message,
       user: '',
       campaign: campaign_slug || campaign_slug_query,
-      organization: team_slug,
+      organization: team_slug || organization_slug_query,
       fundraiser: fundraiser_slug
     })
       .then((data) => {

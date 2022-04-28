@@ -100,7 +100,7 @@ const Home = () => {
                           <h5 className='myCenter'>Total Donations</h5>
                         </div>
                         <div className='myFlex content'>
-                          <h2 className='myCenter'>{(campaign && campaign.currentDonors.toString()) || 0}</h2>
+                          <h2 className='myCenter'>{(campaign && campaign.currentDonors) || 0}</h2>
                         </div>
                       </div>
                       <div className='col-md-4'>
@@ -108,7 +108,7 @@ const Home = () => {
                           <h5 className='myCenter'>Average Donation</h5>
                         </div>
                         <div className='myFlex content'>
-                          <h2 className='myCenter'>${(campaign && campaign.averageDonation.toString()) || 0}</h2>
+                          <h2 className='myCenter'>${(campaign && campaign.averageDonation.toFixed(2)) || 0}</h2>
                         </div>
                       </div>
                       <div className='col-md-4'>
@@ -116,7 +116,7 @@ const Home = () => {
                           <h5 className='myCenter'>Total Raised</h5>
                         </div>
                         <div className='myFlex content'>
-                          <h2 className='myCenter'>${(campaign && campaign.currentDonations.toString()) || 0}</h2>
+                          <h2 className='myCenter'>${(campaign && campaign.currentDonations.toFixed(2)) || 0}</h2>
                         </div>
                       </div>
                     </div>
