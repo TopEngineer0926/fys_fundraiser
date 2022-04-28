@@ -32,11 +32,9 @@ export const getFundraiser = createAsyncThunk('appFundraisers/getFundraiser', as
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${id}`)
   return response.data.data
 })
-export const updateFundraiser = createAsyncThunk('appFundraisers/updateFundraiser', async (fundraiser, { dispatch, getState }) => {
-  await axios.put(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser_contact/update`, fundraiser)
-  await dispatch(getData(getState().fundraisers.params))
-  await dispatch(getAllData())
-  return fundraiser
+export const updateFundraiserContact = createAsyncThunk('appFundraisers/updateFundraiserContact', async (fundraiser_contact) => {
+  await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser_contact/update`, fundraiser_contact)
+  return fundraiser_contact
 })
 //getFundraiserCampaigns
 export const getFundraiserCampaigns = createAsyncThunk('appFundraisers/getFundraiserCampaigns', async id => {
@@ -88,7 +86,8 @@ export const appFundraisersSlice = createSlice({
     fundraiserTeams: [],
     fundraiserContacts: [],
     selectedUser: null,
-    isFundraiserContactAdded: false,
+    isFundraiserContactAdded: null,
+    isFundraiserContactUpdated: null,
     loading: false
   },
   reducers: {},
@@ -105,18 +104,21 @@ export const appFundraisersSlice = createSlice({
         state.fundraiserTeams = action.payload.teams
       })
       .addCase(getFundraiser.fulfilled, (state, action) => {
+
         state.selectedUser = action.payload
         state.fundraiserTeams = action.payload.teams || []
         state.fundraiserCampaigns = action.payload.campaigns || []
         state.fundraiserContacts = action.payload.contacts || []
-
         
       })
-      .addCase(addFundraiserContacts.fulfilled, (state) => {
-        state.isFundraiserContactAdded = true
+      .addCase(addFundraiserContacts.fulfilled, (state, action) => {
+        state.isFundraiserContactAdded = action.payload
       })
+      .addCase(updateFundraiserContact.fulfilled, (state, action) => {
+        state.isFundraiserContactUpdated = action.payload
+      })
+      
       .addCase(fundraiserPasswordReset.fulfilled, (state, action) => {
-        console.log("fundraiserPasswordReset action", action.payload)
         state.loading = false
         toast(() => (
           <ToastContent  message={action.payload.message} />

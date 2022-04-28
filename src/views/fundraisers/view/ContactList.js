@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // ** Styles
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 import FundraiserTeamsList from './FundraiserTeamsList'
-import { getFundraiser, addFundraiserContacts, updateFundraiser } from '../store'
+import { getFundraiser, addFundraiserContacts, updateFundraiserContact } from '../store'
 
 // const projectsArr = [
 //   {
@@ -39,12 +39,19 @@ const ContactList = () => {
   useEffect(() => {
     dispatch(getFundraiser(id))
   }, [store.isFundraiserContactAdded])
+  useEffect(() => {
+    dispatch(getFundraiser(id))
+  }, [store.isFundraiserContactUpdated])
   const [show, setShow] = useState(false)
+  // eslint-disable-next-line no-unused-vars
   const [storeData] = useState(store)
-  const [editModel, setEditModel] = useState('')
+  const [editModel, setEditModel] = useState(null)
+
 
   // ** Hook
   const {
+    reset,
+    setValue,
     control,
     setError,
     handleSubmit,
@@ -52,12 +59,16 @@ const ContactList = () => {
   } = useForm({
     
   })
-
+  const handleDiscard = () => {
+    reset()
+    setShow(false)
+  }
   const onSubmit = data => {
     if (Object.values(data).every(field => field.length > 0)) {
       data.fundraiser = id
-      console.log(data)
       dispatch(addFundraiserContacts(data))
+      dispatch(getFundraiser(id))
+
       setShow(false)
     } else {
       for (const key in data) {
@@ -71,19 +82,28 @@ const ContactList = () => {
   }
 
   const onUpdate = data => {
+    data.id = editModel.id
     data.fundraiser = id
-    console.log(data)
-    dispatch(updateFundraiser(data))
+    console.log("onUpdate", data)
+    dispatch(updateFundraiserContact(data))
+    dispatch(getFundraiser(id))
+
     setShow(false)
   }
 
-  const handleFilter = (e) => {
-    storeData.fundraiserContacts.forEach((contact) => {
-      if (contact.id === e.target.parentElement.id.slice(7)) {
-        setEditModel(contact)
-      }
-    })
+  const handleFilter = (contact) => {
+    setValue('firstName', contact.firstName)
+    setValue('lastName', contact.lastName)
+    setValue('email', contact.email)
+    setValue('phone', contact.phone)
+    setEditModel(contact)
     setShow(true)
+
+    // storeData.fundraiserContacts.forEach((contact) => {
+      // if (contact.id === e.target.parentElement.id.slice(7)) {
+      //   
+      // }
+    // })
   }
 
   const columns = [
@@ -94,7 +114,7 @@ const ContactList = () => {
       selector: row => row.title,
       cell: row => {
         return (
-          <span onClick={handleFilter}>{row.firstName} {row.lastName}</span>
+          <span onClick={() => { handleFilter(row) }}>{row.firstName} {row.lastName}</span>
         )
       }
     },
@@ -221,7 +241,7 @@ const ContactList = () => {
                     color='secondary'
                     outline
                     onClick={() => {
-                      handleReset()
+                      handleDiscard()
                       setShow(false)
                     }}
                   >
