@@ -37,10 +37,15 @@ const ContactList = () => {
     dispatch(getFundraiser(id))
   }, [dispatch])
   useEffect(() => {
-    dispatch(getFundraiser(id))
+    if (store.isFundraiserContactAdded) {
+      dispatch(getFundraiser(id))
+    }
   }, [store.isFundraiserContactAdded])
   useEffect(() => {
-    dispatch(getFundraiser(id))
+    if (store.isFundraiserContactUpdated) {
+      dispatch(getFundraiser(id))
+
+    }
   }, [store.isFundraiserContactUpdated])
   const [show, setShow] = useState(false)
   // eslint-disable-next-line no-unused-vars
@@ -67,7 +72,6 @@ const ContactList = () => {
     if (Object.values(data).every(field => field.length > 0)) {
       data.fundraiser = id
       dispatch(addFundraiserContacts(data))
-      dispatch(getFundraiser(id))
 
       setShow(false)
     } else {
@@ -84,9 +88,7 @@ const ContactList = () => {
   const onUpdate = data => {
     data.id = editModel.id
     data.fundraiser = id
-    console.log("onUpdate", data)
     dispatch(updateFundraiserContact(data))
-    dispatch(getFundraiser(id))
 
     setShow(false)
   }
@@ -98,12 +100,6 @@ const ContactList = () => {
     setValue('phone', contact.phone)
     setEditModel(contact)
     setShow(true)
-
-    // storeData.fundraiserContacts.forEach((contact) => {
-      // if (contact.id === e.target.parentElement.id.slice(7)) {
-      //   
-      // }
-    // })
   }
 
   const columns = [
