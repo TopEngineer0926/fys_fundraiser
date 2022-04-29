@@ -25,9 +25,7 @@ const FundraiserView = () => {
   const { id } = useParams()
 
   // ** Get suer on mount
-  useEffect(() => {
-    dispatch(getFundraiser(id))
-  }, [dispatch])
+  
   useEffect(() => {
     if (!store.selectedUser) {
       dispatch(getFundraiser(id))
