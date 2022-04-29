@@ -33,9 +33,7 @@ const ContactList = () => {
   const { id } = useParams()
 
   // ** Get suer on mount
-  useEffect(() => {
-    dispatch(getFundraiser(id))
-  }, [dispatch])
+ 
   useEffect(() => {
     if (store.isFundraiserContactAdded) {
       dispatch(getFundraiser(id))
