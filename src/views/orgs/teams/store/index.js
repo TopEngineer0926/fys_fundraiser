@@ -9,7 +9,7 @@ import { getUserData } from '@utils'
 export const getAllData = createAsyncThunk('appTeams/getAllData', async () => {
   const user = getUserData()
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/teams/?userId=${user.id}`)
-  return response.data[0].organizations
+  return response.data.data[0].organizations
 })
 
 export const getData = createAsyncThunk('appTeams/getData', async params => {
@@ -17,7 +17,7 @@ export const getData = createAsyncThunk('appTeams/getData', async params => {
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/teams/?userId=${user.id}`)
   return {
     params,
-    data: response.data.teams,
+    data: response.data.data[0].organizations,
     totalPages: response.data.total
   }
 })
@@ -34,13 +34,6 @@ export const addTeam = createAsyncThunk('appTeams/addTeam', async (team, { dispa
   return team
 })
 
-export const deleteTeam = createAsyncThunk('appTeams/deleteTeam', async (id, { dispatch, getState }) => {
-  await axios.delete('/teams/delete', { id })
-  await dispatch(getData(getState().teams.params))
-  await dispatch(getAllData())
-  return id
-})
-
 export const appTeamsSlice = createSlice({
   name: 'appTeams',
   initialState: {
@@ -54,8 +47,8 @@ export const appTeamsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(getAllData.fulfilled, (state, action) => {
-        state.allData = action.payload.data
-        state.total = action.payload.data.length
+        state.allData = action.payload
+        state.total = action.payload.length
       })
       .addCase(getData.fulfilled, (state, action) => {
         state.data = action.payload.data
@@ -63,7 +56,6 @@ export const appTeamsSlice = createSlice({
         state.total = action.payload.data.length
       })
       .addCase(getTeam.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.selectedUser = action.payload
       })
   }
