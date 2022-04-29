@@ -16,7 +16,7 @@ import '@styles/react/apps/app-users.scss'
 const FundraisersList = () => {
   return (
     <div className='app-user-list'>
-      <Breadcrumbs title='Fundraisers' data={[{ title: 'My Fundraisers' }]} />
+      <Breadcrumbs title='Players' data={[{ title: 'My Players' }]} />
       <Table />
     </div>
   )

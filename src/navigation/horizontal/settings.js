@@ -1,5 +1,5 @@
 // ** Icons Import
-import { Box, Shield, Circle } from 'react-feather'
+import { Box, Shield, Circle, User } from 'react-feather'
 
 export default [
   {
@@ -7,6 +7,12 @@ export default [
     title: 'Settings',
     icon: <Box />,
     children: [
+      {
+        id: 'users',
+        title: 'User',
+        icon: <User />,
+        navLink: '/apps/user/list'
+      },
       {
         id: 'roles-permissions',
         title: 'Roles & Permissions',

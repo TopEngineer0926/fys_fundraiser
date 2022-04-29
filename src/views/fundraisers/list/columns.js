@@ -32,7 +32,7 @@ const renderClient = row => {
 
 export const columns = [
   {
-    name: 'Fundraiser',
+    name: 'Player Name',
     sortable: true,
     minWidth: '300px',
     sortField: 'fullName',

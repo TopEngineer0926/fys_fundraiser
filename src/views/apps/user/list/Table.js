@@ -18,7 +18,7 @@ import DataTable from 'react-data-table-component'
 import { ChevronDown, Share, Printer, FileText, File, Grid, Copy } from 'react-feather'
 
 // ** Utils
-import { selectThemeColors } from '@utils'
+// import { selectThemeColors } from '@utils'
 
 // ** Reactstrap Imports
 import {
@@ -176,9 +176,9 @@ const UsersList = () => {
   const [sortColumn, setSortColumn] = useState('id')
   const [rowsPerPage, setRowsPerPage] = useState(10)
   const [sidebarOpen, setSidebarOpen] = useState(false)
-  const [currentRole, setCurrentRole] = useState({ value: '', label: 'Select Role' })
-  const [currentPlan, setCurrentPlan] = useState({ value: '', label: 'Select Plan' })
-  const [currentStatus, setCurrentStatus] = useState({ value: '', label: 'Select Status', number: 0 })
+  // const [currentRole, setCurrentRole] = useState({ value: '', label: 'Select Role' })
+  // const [currentPlan, setCurrentPlan] = useState({ value: '', label: 'Select Plan' })
+  // const [currentStatus, setCurrentStatus] = useState({ value: '', label: 'Select Status', number: 0 })
 
   // ** Function to toggle sidebar
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
@@ -192,38 +192,38 @@ const UsersList = () => {
         sortColumn,
         q: searchTerm,
         page: currentPage,
-        perPage: rowsPerPage,
-        role: currentRole.value,
-        status: currentStatus.value,
-        currentPlan: currentPlan.value
+        perPage: rowsPerPage
+        // role: currentRole.value,
+        // status: currentStatus.value,
+        // currentPlan: currentPlan.value
       })
     )
   }, [dispatch, store.data.length, sort, sortColumn, currentPage])
 
   // ** User filter options
-  const roleOptions = [
-    { value: '', label: 'Select Role' },
-    { value: 'admin', label: 'Admin' },
-    { value: 'author', label: 'Author' },
-    { value: 'editor', label: 'Editor' },
-    { value: 'maintainer', label: 'Maintainer' },
-    { value: 'subscriber', label: 'Subscriber' }
-  ]
+  // const roleOptions = [
+  //   { value: '', label: 'Select Role' },
+  //   { value: 'admin', label: 'Admin' },
+  //   { value: 'author', label: 'Author' },
+  //   { value: 'editor', label: 'Editor' },
+  //   { value: 'maintainer', label: 'Maintainer' },
+  //   { value: 'subscriber', label: 'Subscriber' }
+  // ]
 
-  const planOptions = [
-    { value: '', label: 'Select Plan' },
-    { value: 'basic', label: 'Basic' },
-    { value: 'company', label: 'Company' },
-    { value: 'enterprise', label: 'Enterprise' },
-    { value: 'team', label: 'Team' }
-  ]
+  // const planOptions = [
+  //   { value: '', label: 'Select Plan' },
+  //   { value: 'basic', label: 'Basic' },
+  //   { value: 'company', label: 'Company' },
+  //   { value: 'enterprise', label: 'Enterprise' },
+  //   { value: 'team', label: 'Team' }
+  // ]
 
-  const statusOptions = [
-    { value: '', label: 'Select Status', number: 0 },
-    { value: 'pending', label: 'Pending', number: 1 },
-    { value: 'active', label: 'Active', number: 2 },
-    { value: 'inactive', label: 'Inactive', number: 3 }
-  ]
+  // const statusOptions = [
+  //   { value: '', label: 'Select Status', number: 0 },
+  //   { value: 'pending', label: 'Pending', number: 1 },
+  //   { value: 'active', label: 'Active', number: 2 },
+  //   { value: 'inactive', label: 'Inactive', number: 3 }
+  // ]
 
   // ** Function in get data on page change
   const handlePagination = page => {
@@ -233,10 +233,10 @@ const UsersList = () => {
         sortColumn,
         q: searchTerm,
         perPage: rowsPerPage,
-        page: page.selected + 1,
-        role: currentRole.value,
-        status: currentStatus.value,
-        currentPlan: currentPlan.value
+        page: page.selected + 1
+        // role: currentRole.value,
+        // status: currentStatus.value,
+        // currentPlan: currentPlan.value
       })
     )
     setCurrentPage(page.selected + 1)
@@ -251,10 +251,10 @@ const UsersList = () => {
         sortColumn,
         q: searchTerm,
         perPage: value,
-        page: currentPage,
-        role: currentRole.value,
-        currentPlan: currentPlan.value,
-        status: currentStatus.value
+        page: currentPage
+        // role: currentRole.value,
+        // currentPlan: currentPlan.value,
+        // status: currentStatus.value
       })
     )
     setRowsPerPage(value)
@@ -269,10 +269,10 @@ const UsersList = () => {
         q: val,
         sortColumn,
         page: currentPage,
-        perPage: rowsPerPage,
-        role: currentRole.value,
-        status: currentStatus.value,
-        currentPlan: currentPlan.value
+        perPage: rowsPerPage
+        // role: currentRole.value,
+        // status: currentStatus.value,
+        // currentPlan: currentPlan.value
       })
     )
   }
@@ -303,9 +303,9 @@ const UsersList = () => {
   // ** Table data to render
   const dataToRender = () => {
     const filters = {
-      role: currentRole.value,
-      currentPlan: currentPlan.value,
-      status: currentStatus.value,
+      // role: currentRole.value,
+      // currentPlan: currentPlan.value,
+      // status: currentStatus.value,
       q: searchTerm
     }
 
@@ -331,17 +331,17 @@ const UsersList = () => {
         sortColumn,
         q: searchTerm,
         page: currentPage,
-        perPage: rowsPerPage,
-        role: currentRole.value,
-        status: currentStatus.value,
-        currentPlan: currentPlan.value
+        perPage: rowsPerPage
+        // role: currentRole.value,
+        // status: currentStatus.value,
+        // currentPlan: currentPlan.value
       })
     )
   }
 
   return (
     <Fragment>
-      <Card>
+      {/* <Card>
         <CardHeader>
           <CardTitle tag='h4'>Filters</CardTitle>
         </CardHeader>
@@ -427,7 +427,7 @@ const UsersList = () => {
             </Col>
           </Row>
         </CardBody>
-      </Card>
+      </Card> */}
 
       <Card className='overflow-hidden'>
         <div className='react-dataTable'>

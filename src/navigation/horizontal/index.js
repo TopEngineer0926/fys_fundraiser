@@ -5,7 +5,7 @@ import fundraisers from './fundraisers'
 import campaigns from './campaigns'
 import donations from './donations'
 // import reports from './reports'
-// import settings from './settings'
+import settings from './settings'
 
 // ** Merge & Export
-export default [...orgs, ...campaigns, ...fundraisers, ...donations]
+export default [...orgs, ...campaigns, ...fundraisers, ...donations, ...settings]
