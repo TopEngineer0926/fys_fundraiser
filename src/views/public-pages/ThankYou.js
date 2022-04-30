@@ -80,7 +80,7 @@ const ThankYou = () => {
               <h2 className='myCenter' style={{ color: "black", fontWeight: "bold" }}>Thanks {name}!</h2>
             </div>
             <div className='myFlex' style={{ paddingBottom: "3rem" }}>
-              <h4 className='myCenter' style={{ color: "black" }}>Your Donation of ${amount}.00 has been Processed!</h4>
+              <h4 className='myCenter' style={{ color: "black" }}>Your Donation of ${amount} has been Processed!</h4>
             </div>
             <div className='myFlex' style={{ paddingBottom: "5rem" }}>
               <h5 className='myCenter' style={{ lineHeight: "1.5rem", textAlign: "center" }}>
