@@ -8,34 +8,39 @@ import Avatar from '@components/avatar'
 // ** Reactstrap Imports
 import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col } from 'reactstrap'
 
-const StatsCard = ({ cols }) => {
+const StatsCard = ({ cols, selectedUser }) => {
+
+  let totalDonations = Object.values(selectedUser.donations).reduce((r, { donationAmount }) => r + donationAmount, 0)
+  totalDonations = Math.floor(totalDonations / 100)
+  const avgDonation = Math.floor(totalDonations / selectedUser.donations.length)
+
   const data = [
     {
-      title: '10',
+      title:  selectedUser.teams.length,
       subtitle: 'Teams',
       color: 'light-primary',
       icon: <TrendingUp size={24} />
     },
     {
-      title: '300',
+      title: selectedUser.fundraisers.length,
       subtitle: 'Players',
       color: 'light-info',
       icon: <User size={24} />
     },
     {
-      title: '57',
+      title: selectedUser.donations.length,
       subtitle: 'Donors',
       color: 'light-info',
       icon: <User size={24} />
     },
     {
-      title: '$50,125',
+      title: `$ ${totalDonations}`,
       subtitle: 'Dontations',
       color: 'light-danger',
       icon: <Box size={24} />
     },
     {
-      title: '$150',
+      title: `$ ${avgDonation}`,
       subtitle: 'Avg. Donation',
       color: 'light-danger',
       icon: <Box size={24} />

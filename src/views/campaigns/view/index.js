@@ -50,7 +50,7 @@ const CampaignView = () => {
           <CampaignInfoCard selectedUser={store.selectedUser} />
         </Col>
         <Col xl='8' lg='7' xs={{ order: 0 }} md={{ order: 1, size: 7 }}>
-          <UserTabs active={active} toggleTab={toggleTab} />
+          <UserTabs selectedUser={store.selectedUser} active={active} toggleTab={toggleTab} />
         </Col>
       </Row>
     </div>

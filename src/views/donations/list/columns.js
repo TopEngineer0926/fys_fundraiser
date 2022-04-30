@@ -22,13 +22,13 @@ export const columns = [
     selector: row => row.created,
     cell: row => (
       <div>
-        <Link
+        {/* <Link
           to={`/donations/view/${row.id}`}
           className='user_name text-truncate text-body'
           onClick={() => store.dispatch(getUser(row.id))}
-        >
+        > */}
           <span className='fw-bolder'>{moment(row.created).format("MM-DD-YYYY")}</span>
-        </Link>
+        {/* </Link> */}
       </div>
     )
   },
@@ -38,16 +38,16 @@ export const columns = [
     selector: row => row.donor,
     cell: row => (
       <div>
-        <Link
+        {/* <Link
           to={`/donations/view/${row.id}`}
           className='user_name text-truncate text-body'
           onClick={() => store.dispatch(getUser(row.id))}
-        >
+        > */}
           <span className='fw-bolder'>
             <span>{row.donor.firstName} </span>
             <span>{row.donor.lastName}</span>
           </span>
-        </Link>
+        {/* </Link> */}
       </div>
     )
   },

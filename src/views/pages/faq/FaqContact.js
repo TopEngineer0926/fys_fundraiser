@@ -20,7 +20,7 @@ const FaqContact = () => {
               <div className='avatar avatar-tag bg-light-primary mb-2 mx-auto'>
                 <Smartphone size={18} />
               </div>
-              <h4><a href="sms:5109885931">510-988-5931</a></h4>
+              <h4><a href="sms:8888515185">888-851-5185</a></h4>
               <span className='text-body'>Text us your questions!</span>
             </CardBody>
           </Card>
@@ -31,7 +31,7 @@ const FaqContact = () => {
               <div className='avatar avatar-tag bg-light-primary mb-2 mx-auto'>
                 <Mail size={18} />
               </div>
-              <h4><a href="mailto:support@fundyouthsports.zendesk.com">support@fundyouthsports.zendesk.com</a></h4>
+              <h4><a href="mailto:support@fundyouthsports.com">support@fundyouthsports.com</a></h4>
               <span className='text-body'>The best way to get your answer fast!</span>
             </CardBody>
           </Card>

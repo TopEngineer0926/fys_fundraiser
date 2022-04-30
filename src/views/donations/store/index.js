@@ -4,8 +4,11 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 // ** Axios Imports
 import axios from 'axios'
 
+import { getUserData } from '@utils'
+
 export const getAllData = createAsyncThunk('appDonations/getAllData', async () => {
-  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/donation/list`)
+  const user = getUserData()
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/donation/list?userRole=${user.role}&userId=${user.id}`)
   return response.data
 })
 
@@ -50,7 +53,7 @@ export const appDonationsSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(getAllData.fulfilled, (state, action) => {
-        console.log("getAllData -> appDonations", action.payload)
+        // console.log("getAllData -> appDonations", action.payload)
         state.allData = action.payload
       })
       // .addCase(getData.fulfilled, (state, action) => {
@@ -60,7 +63,7 @@ export const appDonationsSlice = createSlice({
       //   state.total = action.payload.totalPages
       // })
       .addCase(getDonation.fulfilled, (state, action) => {
-        console.log(action.payload)
+        // console.log(action.payload)
         state.selectedUser = action.payload
       })
   }

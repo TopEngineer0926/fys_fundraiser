@@ -13,7 +13,7 @@ import PlayerList from './PlayerList'
 import FundraiserTeamsList from './FundraiserTeamsList'
 import StatsCard from './StatsCard'
 
-const UserTabs = ({ active, toggleTab }) => {
+const UserTabs = ({ selectedUser, active, toggleTab }) => {
   return (
     <Fragment>
       <Nav pills className='mb-2'>
@@ -38,8 +38,8 @@ const UserTabs = ({ active, toggleTab }) => {
       </Nav>
       <TabContent activeTab={active}>
         <TabPane tabId='1'>
-          <StatsCard cols="3" />
-          <LatestDonations />
+          <StatsCard selectedUser={selectedUser} cols="3" />
+          <LatestDonations selectedUser={selectedUser} />
         </TabPane>
         <TabPane tabId='2'>
           <FundraiserTeamsList />
