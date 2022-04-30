@@ -22,7 +22,7 @@ import {
 
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-
+import defaultAvatar from '@src/assets/images/logo/fys-avatar-blank.png'
 import CheckoutForm from './CheckoutForm'
 import Footer from './Footer'
 import NavBar from './NavBar'
@@ -35,8 +35,8 @@ const DonationForm = () => {
   const [isContinue, setIsContinue] = useState(false)
   const [customDonation, setCustomDonation] = useState(false)
   const [donationAmount, setDonationAmount] = useState(10)
-  const [trasectionFee, setTrasectionFee] = useState(true)
-  const [donationCheckbox, setDonationCheckbox] = useState(true)
+  const [transactionFee, setTransactionFee] = useState(false)
+  const [donationCheckbox, setDonationCheckbox] = useState(false)
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
@@ -105,6 +105,8 @@ const DonationForm = () => {
       email: formValues.email,
       message: formValues.message,
       user: '',
+      coverFees: (transactionFee) ? 1 : 0,
+      showAnnonymous: (donationCheckbox) ? 1 : 0,
       campaign: campaign_slug || campaign_slug_query,
       organization: team_slug || organization_slug_query,
       fundraiser: fundraiser_slug
@@ -265,16 +267,10 @@ const DonationForm = () => {
             <div className="myFlex" style={{ paddingBottom: "3rem" }}>
               <h1 className='myCenter' style={{ color: "black", fontWeight: "bold" }}>Choose Your Donation Amount</h1>
             </div>
-            <div className='row' style={{ paddingBottom: "4rem" }}>
+            <div className='row' style={{ paddingBottom: "2rem" }}>
               <div className='col-md-1'></div>
               <div className='col-md-4' style={{ padding: "1rem" }}>
                 <Input type='text' id='readonlyInput' readOnly={!customDonation} value={`${donationAmount}`} style={{ textAlign: "center", marginBottom: "2rem", height: "4rem", fontSize: "1.5rem" }} onChange={addCustomDonationAmount} />
-                <div className='form-check form-check-primary'>
-                  <Input type='checkbox' id='checkbox' checked={trasectionFee} onChange={() => { setTrasectionFee(!trasectionFee) }} />
-                  <Label className='form-check-label label' for='checkbox' >
-                    I like to cover all transaction fees<br />(2.9% + $0.30)
-                  </Label>
-                </div>
               </div>
               <div className='col-md-6'>
                 <div className='row'>
@@ -301,6 +297,18 @@ const DonationForm = () => {
                 </div>
               </div>
               <div className='col-md-1'></div>
+            </div>
+            <div className='row' style={{ paddingBottom: "3rem" }}>
+              <div className='col-md-2'></div>
+              <div className="col-md-8" style={{ textAlign: "center" }}>
+                <div className='form-check form-check-primary'>
+                  <Input type='checkbox' id='checkbox' checked={transactionFee} style={{ border: "1px solid #000000" }} onChange={() => { setTransactionFee(!transactionFee) }} />
+                  <Label className='form-check-label label' for='checkbox' >
+                    I like to make my donation fo further and cover the transaction fees associated with this donation. <br /><span style={{ fontWeight: "normal", fontSize: ".9rem" }}>(2.9% + $0.30 per transaction as charged by our credit card processor)</span>
+                  </Label>
+                </div>
+              </div>
+              <div className='col-md-2'></div>
             </div>
             <div style={{ borderBottom: "solid 1px rgb(200, 200, 200)", marginBottom: "4rem" }}></div>
             <div className="myFlex" style={{ paddingBottom: "2rem" }}>

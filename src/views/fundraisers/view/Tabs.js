@@ -46,7 +46,7 @@ const UserTabs = ({ fundraiser, active, toggleTab }) => {
       <TabContent activeTab={active}>
         <TabPane tabId='1'>
           {fundraiser && (
-            <><FundraiserTeamsList fundraiser={fundraiser} /><CampaignList/></>
+            <><FundraiserTeamsList fundraiser={fundraiser} /><CampaignList /></>
           )}
 
         </TabPane>
