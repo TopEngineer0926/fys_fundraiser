@@ -44,7 +44,7 @@ export const columns = [
           onClick={() => store.dispatch(getUser(row.id))}
         >
           <span className='fw-bolder'>
-            <span>{row.donor.firstName}</span>
+            <span>{row.donor.firstName} </span>
             <span>{row.donor.lastName}</span>
           </span>
         </Link>
@@ -59,7 +59,7 @@ export const columns = [
     selector: row => row.donationAmount,
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
-        {row.donationAmount}&nbsp;{row.donationCurrency}
+        {Math.floor(row.donationAmount / 100)}&nbsp;{row.donationCurrency}
       </div>
     )
   },

@@ -1,11 +1,14 @@
 // ** Redux Imports
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
+import { getUserData } from '@utils'
+
 // ** Axios Imports
 import axios from 'axios'
 
 export const getAllData = createAsyncThunk('appCampaigns/getAllData', async () => {
-  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/campaign/list`)
+  const user = getUserData()
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/campaign/listbyuser/?userId=${user.id}`)
   return response.data
 })
 

@@ -10,9 +10,11 @@ import {
 import axios from 'axios'
 import Avatar from '@components/avatar'
 
+import { getUserData } from '@utils'
 
 export const getAllData = createAsyncThunk('appFundraisers/getAllData', async () => {
-  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/filter?userRole=Fundraiser&userId=1f1c5799-e018-4534-a819-95f28dc31b1f`)
+  const user = getUserData()
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/filter?userRole=${user.role}&userId=${user.id}`)
   return response.data
 })
 export const loadingStart = createAsyncThunk('appFundraisers/loadingStart', async () => {

@@ -271,7 +271,7 @@ const OrganizationsList = () => {
 
   return (
     <Fragment>
-      <Card hidden="true">
+      <Card hidden={true}>
         <CardHeader>
           <CardTitle tag='h4'>Filters</CardTitle>
         </CardHeader>

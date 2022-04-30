@@ -201,7 +201,6 @@ const DonationsList = () => {
     } else if ((store.allData.data || []).length === 0 && isFiltered) {
       return []
     } else {
-      console.log(store.allData.data)
       return (store.allData.data || []).slice(0, rowsPerPage)
     }
   }

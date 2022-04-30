@@ -62,7 +62,7 @@ const UserInfoCard = ({ selectedUser }) => {
           initials
           color={selectedUser.avatarColor || 'light-primary'}
           className='rounded mt-3 mb-2'
-          content={selectedUser.fullName}
+          content={selectedUser.firstName}
           contentStyles={{
             borderRadius: 0,
             fontSize: 'calc(48px)',

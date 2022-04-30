@@ -100,15 +100,15 @@ export const columns = [
     minWidth: '230px',
     sortable: true,
     sortField: 'organization',
-    selector: row => row.organization?.name,
-    cell: row => <span className='text-capitalize'>{row.organization?.name}</span>
+    selector: row => row.organization_name,
+    cell: row => <span className='text-capitalize'>{row.organization_name}</span>
   },
   {
     name: 'Start Date',
     // minWidth: '230px',
     sortable: true,
     sortField: 'organization',
-    selector: row => row.organization?.name,
+    selector: row => row.id,
     cell: row => <span className='text-capitalize'>{moment(row.started).format('DD/MM/YYYY')}</span>
   },
   {
@@ -116,7 +116,7 @@ export const columns = [
     // minWidth: '230px',
     sortable: true,
     sortField: 'organization',
-    selector: row => row.organization?.name,
+    selector: row => row.id,
     cell: row => <span className='text-capitalize'>{moment(row.ended).format('DD/MM/YYYY')}</span>
   },
   {
@@ -124,7 +124,7 @@ export const columns = [
     // minWidth: '230px',
     sortable: true,
     sortField: 'organization',
-    selector: row => row.organization?.name,
+    selector: row => row.id,
     cell: row => <span className='text-capitalize'>{row.fundRaisingGoal}</span>
   },
   {
@@ -132,7 +132,7 @@ export const columns = [
     // minWidth: '230px',
     sortable: true,
     sortField: 'organization',
-    selector: row => row.organization?.name,
+    selector: row => row.id,
     cell: row => <span className='text-capitalize'>{row.currentDonors}</span>
   },
   {
@@ -140,7 +140,7 @@ export const columns = [
     // minWidth: '230px',
     sortable: true,
     sortField: 'organization',
-    selector: row => row.organization?.name,
+    selector: row => row.id,
     cell: row => <span className='text-capitalize'>{row.currentDonations}</span>
   },
   {

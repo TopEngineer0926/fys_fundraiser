@@ -23,8 +23,14 @@ export const getData = createAsyncThunk('appTeams/getData', async params => {
 })
 
 export const getTeam = createAsyncThunk('appTeams/getTeam', async id => {
-  const response = await axios.get('/api/teams/team', { id })
-  return response.data.team 
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/teams/${id}`)
+  return response.data 
+})
+
+export const getTeamUsers = createAsyncThunk('appTeams/getTeamUsers', async id => {
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/${id}/users`)
+
+  return response.data 
 })
 
 export const addTeam = createAsyncThunk('appTeams/addTeam', async (team, { dispatch, getState }) => {
