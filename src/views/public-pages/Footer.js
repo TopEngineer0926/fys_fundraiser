@@ -1,13 +1,8 @@
 import './public-pages.scss'
 
 import { Container } from 'reactstrap'
-import markerSDK from '@marker.io/browser'
 
 const Footer = () => {
-
-    markerSDK.loadWidget({
-        destination: '6266ca071e1f6f52f3baa1bd'
-      })
 
   return (
     <div id="footer">

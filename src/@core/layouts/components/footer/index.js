@@ -1,13 +1,8 @@
 // ** Icons Import
 import { Heart } from 'react-feather'
-import markerSDK from '@marker.io/browser'
 
 const Footer = () => {
 
-  markerSDK.loadWidget({
-    destination: '6266ca071e1f6f52f3baa1bd'
-  })
-  
     return (
     <p className='clearfix mb-0'>
       <span className='float-md-start d-block d-md-inline-block mt-25'>
