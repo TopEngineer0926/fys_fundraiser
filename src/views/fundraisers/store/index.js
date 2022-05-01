@@ -77,6 +77,26 @@ export const fundraiserPasswordReset = createAsyncThunk('appFundraisers/fundrais
   return response.data.data
 })
 
+export const updateFundraiser = createAsyncThunk('appFundraisers/updateFundraiser', async ({
+  id,
+  lastName,
+  firstName,
+  parentFirstName,
+  parentLastName,
+  email,
+  phone }, { dispatch }) => {
+  await axios.patch(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${id}`, {
+    lastName,
+    firstName,
+    parentFirstName,
+    parentLastName,
+    email,
+    phone
+  })
+  await dispatch(getFundraiser(id))
+  return response.data.data
+})
+
 export const appFundraisersSlice = createSlice({
   name: 'appFundraisers',
   initialState: {
@@ -101,7 +121,7 @@ export const appFundraisersSlice = createSlice({
       .addCase(loadingStart.fulfilled, (state) => {
         state.loading = true
       })
-      
+
       .addCase(getFundraiserTeams.fulfilled, (state, action) => {
         state.fundraiserTeams = action.payload.teams
       })
@@ -111,7 +131,7 @@ export const appFundraisersSlice = createSlice({
         state.fundraiserTeams = action.payload.teams || []
         state.fundraiserCampaigns = action.payload.campaigns || []
         state.fundraiserContacts = action.payload.contacts || []
-        
+
       })
       .addCase(addFundraiserContacts.fulfilled, (state, action) => {
         state.isFundraiserContactAdded = action.payload
@@ -119,19 +139,19 @@ export const appFundraisersSlice = createSlice({
       .addCase(updateFundraiserContact.fulfilled, (state, action) => {
         state.isFundraiserContactUpdated = action.payload
       })
-      
+
       .addCase(fundraiserPasswordReset.fulfilled, (state, action) => {
         state.loading = false
         toast(() => (
-          <ToastContent  message={action.payload.message} />
+          <ToastContent message={action.payload.message} />
         ))
       })
   }
 })
-const ToastContent = ({message }) => {
+const ToastContent = ({ message }) => {
   return (
     <div className='d-flex'>
-       <div className='me-1'>
+      <div className='me-1'>
         <Avatar size='sm' color='success' icon={<Lock size={12} />} />
       </div>
       <div className='d-flex flex-column'>

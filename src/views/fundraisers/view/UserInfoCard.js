@@ -15,6 +15,9 @@ import Avatar from '@components/avatar'
 // ** Styles
 import '@styles/react/libs/react-select/_react-select.scss'
 
+import { useDispatch } from 'react-redux'
+import { updateFundraiser } from '../store'
+
 const roleColors = {
   editor: 'light-info',
   admin: 'light-danger',
@@ -40,9 +43,13 @@ const UserInfoCard = ({ selectedUser }) => {
       lastName: selectedUser.lastName,
       firstName: selectedUser.firstName, 
       parentFirstName: selectedUser.parentFirstName, 
-      parentLastName: selectedUser.parentLastName
+      parentLastName: selectedUser.parentLastName,
+      email: selectedUser.email,
+      phone: selectedUser.phone
     }
   })
+
+  const dispatch = useDispatch()
 
   // ** render user img
   const renderUserImg = () => {
@@ -80,6 +87,8 @@ const UserInfoCard = ({ selectedUser }) => {
 
   const onSubmit = data => {
     if (Object.values(data).every(field => field.length > 0)) {
+      data['id'] = selectedUser['id']
+      dispatch(updateFundraiser(data))
       setShow(false)
     } else {
       for (const key in data) {
@@ -238,22 +247,28 @@ const UserInfoCard = ({ selectedUser }) => {
                 <Label className='form-label' for='email'>
                   Email
                 </Label>
-                <Input
-                  type='email'
+                <Controller
+                  defaultValue=''
+                  control={control}
                   id='email'
-                  defaultValue={selectedUser.email}
-                  placeholder='example@domain.com'
+                  name='email'
+                  render={({ field }) => (
+                    <Input {...field} id='email' type="email" placeholder='example@domain.com' invalid={errors.email && true} />
+                  )}
                 />
               </Col>
               <Col md={6} xs={12}>
                 <Label className='form-label' for='phone'>
                   Phone
                 </Label>
-                <Input
-                  type='text'
+                <Controller
+                  defaultValue=''
+                  control={control}
                   id='phone'
-                  defaultValue={selectedUser.phone}
-                  placeholder='888-888-8888'
+                  name='phone'
+                  render={({ field }) => (
+                    <Input {...field} id='phone' placeholder='888-888-8888' invalid={errors.phone && true} />
+                  )}
                 />
               </Col>
               <Col xs={12} className='text-center mt-2 pt-50'>
