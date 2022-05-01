@@ -8,18 +8,31 @@ import { getUserData } from '@utils'
 
 export const getAllData = createAsyncThunk('appTeams/getAllData', async () => {
   const user = getUserData()
-  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/teams/?userId=${user.id}`)
-  return response.data.data[0].organizations
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/teams/?userId=${user.id}&userRole=${user.role}`)
+  if (user.role === "Super Admin") {
+    return response.data.data
+  } else {
+    return response.data.data[0].organizations
+  }
 })
 
 export const getData = createAsyncThunk('appTeams/getData', async params => {
   const user = getUserData()
-  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/teams/?userId=${user.id}`)
-  return {
-    params,
-    data: response.data.data[0].organizations,
-    totalPages: response.data.total
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/teams/?userId=${user.id}&userRole=${user.role}`)
+  if (user.role === "Super Admin") {
+    return {
+      params,
+      data: response.data.data,
+      totalPages: response.data.total
+    }
+  } else {
+    return {
+      params,
+      data: response.data.data[0].organizations,
+      totalPages: response.data.total
+    }
   }
+  
 })
 
 export const getTeam = createAsyncThunk('appTeams/getTeam', async id => {

@@ -8,7 +8,7 @@ import {
 export default [
     {
         id: 'organizations',
-        title: 'My Organizations',
+        title: 'Organizations',
         icon: <FileText />,
         action: 'read',
         resource: 'org-organizations',
@@ -17,7 +17,7 @@ export default [
           
       {
         id: 'leagues',
-        title: 'My Leagues',
+        title: 'Leagues',
         icon: <FileText />,
         action: 'read',
         resource: 'org-leagues',
@@ -33,7 +33,7 @@ export default [
       },
       {
         id: 'teams',
-        title: 'My Teams',
+        title: 'Teams',
         icon: <FileText />,
         action: 'read',
         resource: 'org-teams',

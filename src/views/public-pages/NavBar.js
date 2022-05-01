@@ -20,12 +20,12 @@ const NavBar = () => {
     <div id="Navbar" style={{borderBottom: "solid 1px rgb(200, 200, 200)"}}>
         <Container fluid="md" style={{maxWidth: "1100px"}}>
           <Row className='navbar-styling'>
-            <Col md="4" xs="6" className='myFlex'>
+            <Col md="4" xs="8" className='myFlex'>
               <NavLink href='https://fundyouthsports.com/' className="myLeft">
                 <img src={require('@src/assets/images/public_pages/logo.png').default} className='logo'></img>
               </NavLink>
             </Col>
-            <Col md="7" xs="3" className='myFlex'>
+            <Col md="7" xs="4" className='myFlex d-none d-md-flex'>
               <Navbar className='myCenter Navbar'
                 color="light"
                 container="md"
@@ -61,9 +61,6 @@ const NavBar = () => {
                   </Nav>
                 </Collapse>
               </Navbar>
-            </Col>
-            <Col md="1" xs="3" className='myFlex'>
-              
             </Col>
           </Row>
         </Container>

@@ -1,6 +1,6 @@
 // ** Third Party Components
 import classnames from 'classnames'
-import { TrendingUp, User, Box, DollarSign } from 'react-feather'
+import { TrendingUp, User, Box } from 'react-feather'
 
 // ** Custom Components
 import Avatar from '@components/avatar'
@@ -41,7 +41,7 @@ const StatsCard = ({ cols, selectedUser }) => {
     },
     {
       title: `$ ${avgDonation}`,
-      subtitle: 'Avg. Donation',
+      subtitle: 'Average',
       color: 'light-danger',
       icon: <Box size={24} />
     }

@@ -11,27 +11,6 @@ import Avatar from '@components/avatar'
 // ** Styles
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
-const projectsArr = [
-  {
-    progress: 60,
-    hours: '210:30h',
-    progressColor: 'info',
-    totalTasks: '233/240',
-    subtitle: 'React Project',
-    title: 'BGC eCommerce App',
-    img: require('@src/assets/images/icons/brands/react-label.png').default
-  },
-  {
-    hours: '89h',
-    progress: 15,
-    totalTasks: '9/50',
-    progressColor: 'danger',
-    subtitle: 'UI/UX Project',
-    title: 'Falcon Logo Design',
-    img: require('@src/assets/images/icons/brands/xd-label.png').default
-  }
-]
-
 export const columns = [
   {
     sortable: true,
@@ -42,44 +21,36 @@ export const columns = [
       return (
         <div className='d-flex justify-content-left align-items-center'>
           <div className='avatar-wrapper'>
-            <Avatar className='me-1' img={row.img} alt={row.title} imgWidth='32' />
+            <Avatar className='me-1' img={row.organization.logo} alt={row.organization.name} imgWidth='32' />
           </div>
           <div className='d-flex flex-column'>
-            <span className='text-truncate fw-bolder'>{row.title}</span>
-            <small className='text-muted'>{row.subtitle}</small>
+            <span className='text-truncate fw-bolder'>{row.organization.name}</span>
+            {/* <small className='text-muted'>{row.organization}</small> */}
           </div>
         </div>
       )
     }
   },
   {
-    name: 'Total Tasks',
-    selector: row => row.totalTasks
+    name: 'Goal',
+    selector: row => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(row.fundRaisingGoal)
   },
   {
-    name: 'Progress',
-    selector: row => row.progress,
-    sortable: true,
-    cell: row => {
-      return (
-        <div className='d-flex flex-column w-100'>
-          <small className='mb-1'>{`${row.progress}%`}</small>
-          <Progress
-            value={row.progress}
-            style={{ height: '6px' }}
-            className={`w-100 progress-bar-${row.progressColor}`}
-          />
-        </div>
-      )
-    }
+    name: 'Donations',
+    textAlign: 'right',
+    selector: row => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(row.currentDonations)
   },
   {
-    name: 'Hours',
-    selector: row => row.hours
+    name: 'Donors',
+    selector: row => row.currentDonors
+  },
+  {
+    name: 'Average',
+    selector: row => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(row.averageDonation)
   }
 ]
 
-const FundraiserTeamsList = () => {
+const FundraiserTeamsList = ({ selectedUser }) => {
   return (
     <Card>
       <CardHeader tag='h4'>Current Teams</CardHeader>
@@ -88,7 +59,7 @@ const FundraiserTeamsList = () => {
           noHeader
           responsive
           columns={columns}
-          data={projectsArr}
+          data={selectedUser.teams}
           className='react-dataTable'
           sortIcon={<ChevronDown size={10} />}
         />

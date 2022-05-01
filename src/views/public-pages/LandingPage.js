@@ -49,13 +49,13 @@ const LandingPage = () => {
                                 </div>
                                 <div className='col-md-9 myFlex'>
                                     <div className='myLeft' style={{ marginLeft: "2rem" }}>
-                                        <div className='myFlex' style={{ paddingBottom: "2rem" }}>
-                                            <p className="myLeft" style={{ fontSize: "2.5rem", fontWeight: "bold", color: "black" }}>{fundraiser?.firstName} {fundraiser?.lastName}</p>
+                                        <div className='myFlex' style={{ paddingBottom: "1rem" }}>
+                                            <p className="myLeft" style={{ fontSize: "2.5rem", lineHeight: "2.5rem", fontWeight: "bold", color: "black" }}>{fundraiser?.firstName} {fundraiser?.lastName}</p>
                                         </div>
-                                        <div className='myFlex' style={{ paddingBottom: "2.5rem" }}>
+                                        <div className='myFlex' style={{ paddingBottom: "1.5rem" }}>
                                             <h5 className="myLeft" style={{ fontWeight: "bold", color: "black" }}>{fundraiser?.organization?.name}</h5>
                                         </div>
-                                        <div className='myFlex' style={{ paddingBottom: "2rem" }}>
+                                        <div className='myFlex' style={{ paddingBottom: "1.5rem" }}>
                                             <h3 className="myLeft" style={{ fontWeight: "bold", color: "blue" }}>
                                                 {/* ${fundraiser?.campaign?.fundRaisingGoal} */}
                                                 ${fundraiser?.donationTotals?.currentDonations} raised towards my goal of ${fundraiser?.donationTotals?.fundRaisingGoal}
@@ -75,7 +75,7 @@ const LandingPage = () => {
                             <div className='row' style={{ background: "white", borderRadius: "1rem", padding: "1rem 0rem 1rem 0rem", marginTop: "-10rem", marginBottom: "5rem", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" }}>
                                 <div className='col-md-9'>
                                     <div className='row' style={{ paddingBottom: "1.5rem" }}>
-                                        <div className='col-md-4'>
+                                        <div className='col-4'>
                                             <div className='myFlex title'>
                                                 <h5 className='myCenter'>Total Donations</h5>
                                             </div>
@@ -83,15 +83,15 @@ const LandingPage = () => {
                                                 <h2 className='myCenter'>{fundraiser?.donationTotals?.currentDonors || 0}</h2>
                                             </div>
                                         </div>
-                                        <div className='col-md-4'>
+                                        <div className='col-4'>
                                             <div className='myFlex title'>
-                                                <h5 className='myCenter'>Average Donation</h5>
+                                                <h5 className='myCenter'>Avg. Donation</h5>
                                             </div>
                                             <div className='myFlex content'>
                                                 <h2 className='myCenter'>${fundraiser?.donationTotals?.averageDonation.toFixed(2) || 0}</h2>
                                             </div>
                                         </div>
-                                        <div className='col-md-4'>
+                                        <div className='col-4'>
                                             <div className='myFlex title'>
                                                 <h5 className='myCenter'>Total Raised</h5>
                                             </div>
@@ -119,7 +119,7 @@ const LandingPage = () => {
                                 <h1 className='myCenter' style={{ color: "black", fontWeight: "bold" }}>Why am I Fundraising</h1>
                             </div>
                             <div className='myFlex'>
-                                <h5 className='myLeft' style={{ lineHeight: "1.5", textAlign: "center" }}>{fundraiser?.fundraisingReason}</h5>
+                                <h5 className='myLeft' style={{ fontSize: "1.25rem", lineHeight: "1.5", textAlign: "center" }}>{fundraiser?.fundraisingReason}</h5>
                             </div>
                             <div className='row' style={{ padding: "3rem 0rem", justifyContent: "center" }}>
                                 <div className='first-div' style={{ width: "20%" }}></div>
