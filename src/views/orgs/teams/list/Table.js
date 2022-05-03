@@ -38,9 +38,13 @@ import {
 import '@styles/react/libs/react-select/_react-select.scss'
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
+import { getUserData } from '@utils'
+
 // ** Table Header
 const CustomHeader = ({ toggleSidebar, handlePerPage, rowsPerPage, handleFilter, searchTerm }) => {
-    
+
+  const user = getUserData()
+
   return (
     <div className='invoice-list-table-header w-100 me-1 ms-50 mt-2 mb-75'>
       <Row>
@@ -78,12 +82,13 @@ const CustomHeader = ({ toggleSidebar, handlePerPage, rowsPerPage, handleFilter,
               onChange={e => handleFilter(e.target.value)}
             />
           </div>
-
-          <div className='d-flex align-items-center table-header-actions'>
-            <Button className='add-new-user' color='primary' onClick={toggleSidebar}>
-              Add New Team
-            </Button>
-          </div>
+          {
+            user && user['role'] === "Chapter Admin" ? <div className='d-flex align-items-center table-header-actions'>
+              <Button className='add-new-user' color='primary' onClick={toggleSidebar}>
+                Add New Team
+              </Button>
+            </div> : null
+          }
         </Col>
       </Row>
     </div>
