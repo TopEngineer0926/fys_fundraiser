@@ -32,18 +32,18 @@ export const getData = createAsyncThunk('appTeams/getData', async params => {
       totalPages: response.data.total
     }
   }
-  
+
 })
 
 export const getTeam = createAsyncThunk('appTeams/getTeam', async id => {
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/teams/${id}`)
-  return response.data 
+  return response?.data?.data
 })
 
 export const getTeamUsers = createAsyncThunk('appTeams/getTeamUsers', async id => {
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/${id}/users`)
 
-  return response.data 
+  return response.data
 })
 
 export const addTeam = createAsyncThunk('appTeams/addTeam', async (team, { dispatch, getState }) => {
@@ -51,6 +51,19 @@ export const addTeam = createAsyncThunk('appTeams/addTeam', async (team, { dispa
   await dispatch(getData(getState().teams.params))
   await dispatch(getAllData())
   return team
+})
+
+export const addPlayer = createAsyncThunk('appTeams/addPlayer', async (playerData, { dispatch }) => {
+  const { teamId, ...player } = playerData
+  const response = await axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/team/${teamId}/player`, player)
+  await dispatch(getTeam(teamId))
+  return response?.data?.data
+})
+
+export const updateOrganization = createAsyncThunk('appTeams/updateOrganization', async (updatedTeam, { dispatch }) => {
+  const response = await axios.patch(`${process.env.REACT_APP_BASE_URL}/api/v1/organization`, updatedTeam)
+  await dispatch(getTeam(updatedTeam.id))
+  return response?.data?.data
 })
 
 export const appTeamsSlice = createSlice({

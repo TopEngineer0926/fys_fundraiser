@@ -26,12 +26,12 @@ export const columns = [
       <div className='d-flex justify-content-left align-items-center'>
         <div className='d-flex flex-column'>
           <Link
-              to={`/orgs/teams/view/${row.id}`}
-              className='user_name text-truncate text-body'
-              onClick={() => store.dispatch(getTeam(row.id))}
-            >
-              <span className='fw-bolder'>{row?.name}</span>
-            </Link>
+            to={`/orgs/teams/view/${row.id}`}
+            className='user_name text-truncate text-body'
+            onClick={() => store.dispatch(getTeam(row.id))}
+          >
+            <span className='fw-bolder'>{row?.name}</span>
+          </Link>
         </div>
       </div>
     )

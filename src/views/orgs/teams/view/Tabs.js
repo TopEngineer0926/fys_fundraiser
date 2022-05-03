@@ -36,7 +36,7 @@ const UserTabs = ({ selectedUser, active, toggleTab }) => {
       </Nav>
       <TabContent activeTab={active}>
         <TabPane tabId='1'>
-          <FundraiserList playerList={selectedUser.data.fundraisers} />
+          <FundraiserList playerList={selectedUser.fundraisers} />
         </TabPane>
         <TabPane tabId='2'>
           <ContactList />
