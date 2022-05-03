@@ -2,7 +2,7 @@
 import { useState, Fragment } from 'react'
 
 // ** Reactstrap Imports
-import { Row, Col, Card, Form, CardBody, Button, Badge, Modal, Input, Label, ModalBody, ModalHeader } from 'reactstrap'
+import { Row, Col, Card, Form, CardBody, Button, Badge, Modal, Input, Label, ModalBody, ModalHeader, Alert } from 'reactstrap'
 
 // ** Third Party Components
 import Swal from 'sweetalert2'
@@ -16,7 +16,7 @@ import Avatar from '@components/avatar'
 import '@styles/react/libs/react-select/_react-select.scss'
 
 import { useDispatch } from 'react-redux'
-import { updateFundraiser } from '../store'
+import { resendInvitation, updateFundraiser } from '../store'
 
 const roleColors = {
   editor: 'light-info',
@@ -29,6 +29,7 @@ const roleColors = {
 const UserInfoCard = ({ selectedUser }) => {
   // ** State
   const [show, setShow] = useState(false)
+  const [invitationResponse, setInvitationResponse] = useState()
 
   // ** Hook
   const {
@@ -113,6 +114,26 @@ const UserInfoCard = ({ selectedUser }) => {
     })
   }
 
+  const closeAlert = () => {
+    setTimeout(() => {
+      setInvitationResponse()
+    }, 5000)
+  }
+
+  const onResendInvitation = () => {
+    resendInvitation(selectedUser['id']).then((res) => {
+      if (res && res['data'] && res['status'] === 200) {
+        setInvitationResponse({success : true, message : "Inviation sent successfully"})
+      } else {
+        setInvitationResponse({success : false, message : "Something went wrong"})
+      }
+      closeAlert()
+    }).catch(() => {
+      setInvitationResponse({success : false, message : "Something went wrong"})
+      closeAlert()
+    })
+  }
+
   return (
     <Fragment>
       <Card>
@@ -179,7 +200,19 @@ const UserInfoCard = ({ selectedUser }) => {
             <Button color='primary' onClick={() => setShow(true)}>
               Edit
             </Button>
+            <span className='custom-button-saprator' style={{width:"5px"}} ></span>
+            <Button color='primary' onClick={() => onResendInvitation()}>
+              Resend Invitation
+            </Button>
           </div>
+          { invitationResponse ? <div className='pt-1'>
+              <Alert color={invitationResponse['success'] ? 'success' : 'danger'}>
+                <div className='alert-body'>
+                  <span className='align-middle ms-50'>{invitationResponse['message']}</span>
+                </div>
+            </Alert>
+          </div> : null
+          }
         </CardBody>
       </Card>
       <Modal isOpen={show} toggle={() => setShow(!show)} className='modal-dialog-centered modal-lg'>

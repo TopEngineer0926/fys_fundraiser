@@ -171,6 +171,12 @@ export const updateFundraiser = createAsyncThunk(
   }
 )
 
+export const resendInvitation = (id) => {
+  return axios.post(
+    `${process.env.REACT_APP_BASE_URL}/api/v1/admin/fundraiser/${id}/resendInvitation`
+  )
+}
+
 export const appFundraisersSlice = createSlice({
   name: "appFundraisers",
   initialState: {
