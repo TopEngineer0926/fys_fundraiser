@@ -105,7 +105,11 @@ const UserInfoCard = ({ selectedUser }) => {
     reset({
       username: `${selectedUser.firstName} ${selectedUser.lastName}`,
       lastName: selectedUser.lastName,
-      firstName: selectedUser.firstName
+      firstName: selectedUser.firstName, 
+      parentFirstName: selectedUser.parentFirstName, 
+      parentLastName: selectedUser.parentLastName,
+      email: selectedUser.email,
+      phone: selectedUser.phone
     })
   }
 
@@ -281,7 +285,7 @@ const UserInfoCard = ({ selectedUser }) => {
                   outline
                   onClick={() => {
                     handleReset()
-                    setShow(false)
+                    // setShow(false)
                   }}
                 >
                   Discard
