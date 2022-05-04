@@ -29,7 +29,6 @@ import NavBar from './NavBar'
 import { useParams } from 'react-router-dom'
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_PUBLIC_KEY)
-// const stripePromise = loadStripe("pk_test_51Ki3ePKfYeuFPXSARtPYY3vEVPYUhaObzEc2jG9ThhXJmk2wll54vDOnjAexlk4EL3kv5HXpzrcuW2T80KDgsy1W006Z5Z3OpM")
 
 const DonationForm = () => {
   const [isContinue, setIsContinue] = useState(false)

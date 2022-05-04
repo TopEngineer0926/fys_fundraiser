@@ -4,6 +4,7 @@ import { lazy } from 'react'
 const Login = lazy(() => import('../../views/pages/authentication/Login'))
 const LoginBasic = lazy(() => import('../../views/pages/authentication/LoginBasic'))
 const LoginCover = lazy(() => import('../../views/pages/authentication/LoginCover'))
+const AutoLogin = lazy(() => import('../../views/pages/authentication/AutoLogin'))
 
 const Register = lazy(() => import('../../views/pages/authentication/Register'))
 const RegisterBasic = lazy(() => import('../../views/pages/authentication/RegisterBasic'))
@@ -48,6 +49,15 @@ const AuthenticationRoutes = [
     }
   },
   {
+    path: '/otl',
+    element: <AutoLogin />,
+    meta: {
+      layout: 'blank',
+      publicRoute: true,
+      restricted: true
+    }
+  },
+  {
     path: '/register',
     element: <Register />,
     meta: {
@@ -80,7 +90,7 @@ const AuthenticationRoutes = [
 
   {
     path: '/forgot-password',
-    element: <ForgotPassword />,
+    element: <ForgotPasswordBasic />,
     layout: 'BlankLayout',
     meta: {
       layout: 'blank',

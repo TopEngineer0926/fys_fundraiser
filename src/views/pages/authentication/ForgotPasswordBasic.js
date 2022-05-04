@@ -25,12 +25,11 @@ const ForgotPasswordBasic = () => {
           <CardBody>
             <Link className='brand-logo' to='/' onClick={e => e.preventDefault()}>
               <img src={require('@src/assets/images/logo/FYS-horizontal.png').default} style={{width: "auto", height: "30px"}}></img>
-              <h2 className='brand-text text-primary ms-1'>Fundraising Portal</h2>
             </Link>
-            <CardTitle tag='h4' className='mb-1'>
+            <CardTitle tag='h4' className='mb-1 text-center'>
               Forgot Password? 🔒
             </CardTitle>
-            <CardText className='mb-2'>
+            <CardText className='mb-2 text-center'>
               Enter your email and we'll send you instructions to reset your password
             </CardText>
             <Form className='auth-forgot-password-form mt-2' onSubmit={e => e.preventDefault()}>
