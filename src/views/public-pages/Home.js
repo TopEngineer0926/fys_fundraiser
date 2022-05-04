@@ -7,7 +7,7 @@ import React, {
 
 import axios from 'axios'
 import Carousel from 'react-elastic-carousel'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate} from 'react-router-dom'
 import {
   Container,
   Progress
@@ -54,6 +54,8 @@ const Team = ({ team }) => {
 
 const Home = () => {
   const { campaign_slug } = useParams()
+  const navigate = useNavigate()
+
   const [campaign, setCampaign] = useState()
   const [teams, setTeams] = useState()
   async function getTeams() {
@@ -68,6 +70,8 @@ const Home = () => {
   useEffect(() => {
     if (campaign_slug) {
       getCampaign()
+    } else if (campaign_slug === 'undefined') {
+      navigate('/misc/error')
     }
   }, [campaign_slug])
   useEffect(() => {

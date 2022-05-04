@@ -29,25 +29,10 @@ import Footer from './Footer'
 import NavBar from './NavBar'
 import { useParams, useNavigate} from 'react-router-dom'
 import Avatar from "@components/avatar"
-import toast from "react-hot-toast"
 
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_PUBLIC_KEY)
 // const stripePromise = loadStripe("pk_test_51Ki3ePKfYeuFPXSARtPYY3vEVPYUhaObzEc2jG9ThhXJmk2wll54vDOnjAexlk4EL3kv5HXpzrcuW2T80KDgsy1W006Z5Z3OpM")
-const ToastContent = ({ message }) => {
-  return (
-    <div className="d-flex">
-      <div className="me-1">
-        <Avatar size="sm" color="success" icon={<Search size={12} />} />
-      </div>
-      <div className="d-flex flex-column">
-        <div className="d-flex justify-content-between">
-        </div>
-        <span>{message}</span>
-      </div>
-    </div>
-  )
-}
 const DonationForm = () => {
   const [isContinue, setIsContinue] = useState(false)
   const [customDonation, setCustomDonation] = useState(false)
@@ -80,8 +65,7 @@ const DonationForm = () => {
   async function getCampaign() {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/${campaign_slug || campaign_slug_query}`)
     if (res.data.hasError) {
-      navigate('/notfound')
-      toast(() => <ToastContent message='Campaign not found' />)
+      navigate('/misc/error')
     } else {
       setCampaign(res.data.data)
     }
@@ -90,8 +74,7 @@ const DonationForm = () => {
   async function getFundraiser() {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/donate?url_slug=${fundraiser_slug}&ip_address=127.0.0.1`)
     if (res.data.hasError) {
-      navigate('/notfound')
-      toast(() => <ToastContent message='Fundraiser not found' />)
+      navigate('/misc/error')
     } else {
       setFundraiser(res.data.data)
     }
@@ -99,11 +82,10 @@ const DonationForm = () => {
   async function getOrganization() {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/teams/${team_slug}/campaign/${campaign_slug || campaign_slug_query}`)
     if (res.data.hasError) {
-      if (!team_slug && (campaign_slug || campaign_slug_query)) {
-        toast(() => <ToastContent message='Team not found' />)
+      if ((!team_slug || team_slug === 'undefined') && (campaign_slug || campaign_slug_query)) {
         navigate(`/campaigns/${campaign_slug || campaign_slug_query}`)
-
-        
+      } else {
+        navigate(`/misc/error`)
       }
     } else {
       setOrganization(res.data.data)
