@@ -87,6 +87,39 @@ const CampaignList = () => {
     setSortColumn(column.sortField)
   }
 
+  const getMyGoal = (campaignId) => {
+
+    const data = {
+      fundRaisingGoal: "",
+      currentDonations: ""
+    }
+
+    const campaignTotals = store.selectedUser?.campaignTotals ?? []
+    const matchData = campaignTotals.find((campaign) => campaign.campaign === campaignId)
+
+    if (matchData) {
+      data.fundRaisingGoal = matchData.fundRaisingGoal
+      data.currentDonations = matchData.currentDonations
+    }
+
+
+    return data
+  }
+
+  const getFundraiserId = (campaignId) => {
+
+    let fundraiserId = null
+
+    const campaignTotals = store.selectedUser?.campaignTotals ?? []
+    const matchData = campaignTotals.find((campaign) => campaign.campaign === campaignId)
+
+    if (matchData) {
+      fundraiserId = matchData.fundraiser
+    }
+
+    return fundraiserId
+  }
+
   const campaignListColumns = [
     {
       name: "Campaign Name",
@@ -111,16 +144,17 @@ const CampaignList = () => {
     },
     {
       minWidth: "200px",
-      name: "Team Goal",
-      selector: (row) => row.teamGoal,
+      name: "My Goal",
+      selector: (row) => row.personalGoal,
       cell: (row) => {
+        const { fundRaisingGoal, currentDonations } = getMyGoal(row.id)
         return (
           <div className="d-flex justify-content-left align-items-center">
             <div className="d-flex flex-column">
               <span className="text-truncate fw-bolder">
-                Received: ${row.totalTeamDonations}
+                Received: ${currentDonations}
               </span>
-              <small className="text-muted">Goal: ${row.teamGoal}</small>
+              <small className="text-muted">Goal: ${fundRaisingGoal}</small>
             </div>
           </div>
         )
@@ -158,7 +192,7 @@ const CampaignList = () => {
                 setShow(true)
                 setSelectedFundrasingCampaing(row)
                 reset({
-                  personalGoal: row.goalAmount,
+                  personalGoal: row.personalGoal,
                   fundraisingReason: row.fundraisingReason
                 })
               }}
@@ -176,7 +210,8 @@ const CampaignList = () => {
       setShow(false)
       dispatch(
         updateFundraiserCampaign({
-          id: selectedFundraisingCampaing.id,
+          fundraiserId: getFundraiserId(selectedFundraisingCampaing.id),
+          campaignId: selectedFundraisingCampaing.id,
           fundraisingReason: data.fundraisingReason,
           personalGoal: Number(data.personalGoal)
         })
@@ -247,6 +282,7 @@ const CampaignList = () => {
                   render={({ field }) => (
                     <Input
                       {...field}
+                      type={"textarea"}
                       id="fundraisingReason"
                       placeholder="ex. i am ..."
                       invalid={errors.fundraisingReason && true}
