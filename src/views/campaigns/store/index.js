@@ -23,7 +23,7 @@ export const getData = createAsyncThunk('appCampaigns/getData', async params => 
 
 export const getCampaign = createAsyncThunk('appCampaigns/getCampaign', async id => {
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/${id}`)
-  return response.data.data 
+  return response.data.data
 })
 
 export const addCampaign = createAsyncThunk('appCampaigns/addCampaign', async (campaign, { dispatch, getState }) => {
@@ -63,7 +63,7 @@ export const appCampaignsSlice = createSlice({
       //   // state.total = action.payload.totalPages
       // })
       .addCase(getCampaign.fulfilled, (state, action) => {
-        console.log(action.payload)
+        // console.log(action.payload)
         state.selectedUser = action.payload
       })
   }

@@ -16,6 +16,8 @@ import Avatar from '@components/avatar'
 
 // ** Styles
 import '@styles/react/libs/react-select/_react-select.scss'
+import moment from 'moment'
+import { Link } from 'react-router-dom'
 
 const MySwal = withReactContent(Swal)
 
@@ -109,12 +111,27 @@ const CampaignInfoCard = ({ selectedUser }) => {
             {selectedUser !== null ? (
               <ul className='list-unstyled'>
                 <li className='mb-75'>
+                  <span className='fw-bolder me-25'>Organization:</span>
+                  <span>{selectedUser?.organization?.name}</span>
+                </li>
+                <li className='mb-75'>
+                  <span className='fw-bolder me-25'>Why are we fundraising:</span>
+                  <span>{selectedUser.shortDescription}</span>
+                </li>
+                <li className='mb-75'>
+                  <span className='fw-bolder me-25'>Fundraising Goal:</span>
+                  <span>{selectedUser.fundRaisingGoal}</span>
+                </li>
+                <li className='mb-75'>
                   <span className='fw-bolder me-25'>Start Date:</span>
-                  <span>{selectedUser.started}</span>
+                  <span>{moment(selectedUser.started).format('DD/MM/YYYY')}</span>
                 </li>
                 <li className='mb-75'>
                   <span className='fw-bolder me-25'>End Date:</span>
-                  <span>{selectedUser.ended}</span>
+                  <span>{moment(selectedUser.ended).format('DD/MM/YYYY')}</span>
+                </li>
+                <li className='mb-75'>
+                  <Link to={`/campaign/${selectedUser.id}`}>Link to campaign</Link>
                 </li>
               </ul>
             ) : null}
