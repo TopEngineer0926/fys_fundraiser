@@ -143,7 +143,7 @@ const TeamLandingPage = () => {
 
                                     <a className="socialLinkItem fillLink">
                                         <FacebookShareButton
-                                            url={`${process.env.REACT_APP_FYS_APP_URL}/team/${team?.organization?.id}/campaign/${team?.campaign?.id}`}
+                                            url={`${process.env.REACT_APP_FYS_APP_URL}/team/${team?.organization?.id ? team?.organization?.id : '/'}/campaign/${team?.campaign?.id ? team?.campaign?.id : '/'}`}
                                             quote={`Help support ${team?.organization?.name}`}
                                             className="Demo__some-network__share-button"
                                         >
