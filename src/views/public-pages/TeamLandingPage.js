@@ -24,11 +24,13 @@ const TeamLandingPage = () => {
         setTeam(res.data.data)
     }
     useEffect(() => {
-        getTeamFundraiser()
+        if (campaign_id && team_id) {
+            getTeamFundraiser()
+        }
     }, [])
-    useEffect(() => {
-        getTeamFundraiser()
-    }, [campaign_id, team_id])
+    // useEffect(() => {
+        // getTeamFundraiser()
+    // }, [campaign_id, team_id])
     
     return (
         <div>

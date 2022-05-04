@@ -66,11 +66,14 @@ const Home = () => {
     setCampaign(res.data.data)
   }
   useEffect(() => {
-    getCampaign()
+    if (campaign_slug) {
+      getCampaign()
+    }
   }, [campaign_slug])
   useEffect(() => {
-    getTeams()
-    console.log(teams)
+    if (campaign) {
+      getTeams()
+    }
   }, [campaign])
 
   return (

@@ -71,13 +71,19 @@ const DonationForm = () => {
     setOrganization(res.data.data)
   }
   useEffect(() => {
-    getCampaign()
+    if (campaign_slug) {
+      getCampaign()
+    }
   }, [campaign_slug])
   useEffect(() => {
-    getFundraiser()
+    if (fundraiser_slug) {
+      getFundraiser()
+    }
   }, [fundraiser_slug])
   useEffect(() => {
-    getOrganization()
+    if (team_slug) {
+      getOrganization()
+    }
   }, [team_slug])
 
   const [clientSecret, setClientSecret] = useState("")

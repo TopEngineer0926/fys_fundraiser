@@ -20,12 +20,7 @@ const LandingPage = () => {
     const { fundraiser_slug } = useParams()
     const [fundraiser, setFundraiser] = useState()
 
-    // eslint-disable-next-line no-unused-vars
-    const [team, setTeam] = useState()
-    async function getTeam(id) {
-        const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/organization_campaign/donate?campaign=${id}`)
-        setTeam(res.data.data)
-    }
+
     async function getFundraiser() {
         const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/donate?url_slug=${fundraiser_slug}&ip_address=127.0.0.1`)
         setFundraiser(res.data.data)
@@ -33,9 +28,6 @@ const LandingPage = () => {
     useEffect(() => {
         getFundraiser()
     }, [fundraiser_slug])
-    useEffect(() => {
-        getTeam(fundraiser?.campaign?.id)
-    }, [fundraiser])
     return (
         <div>
             <NavBar></NavBar>
