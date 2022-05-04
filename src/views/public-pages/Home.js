@@ -7,7 +7,7 @@ import React, {
 
 import axios from 'axios'
 import Carousel from 'react-elastic-carousel'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate} from 'react-router-dom'
 import {
   Container,
   Progress
@@ -54,6 +54,8 @@ const Team = ({ team }) => {
 
 const Home = () => {
   const { campaign_slug } = useParams()
+  const navigate = useNavigate()
+
   const [campaign, setCampaign] = useState()
   const [teams, setTeams] = useState()
   async function getTeams() {
@@ -66,11 +68,16 @@ const Home = () => {
     setCampaign(res.data.data)
   }
   useEffect(() => {
-    getCampaign()
+    if (campaign_slug) {
+      getCampaign()
+    } else if (campaign_slug === 'undefined') {
+      navigate('/misc/error')
+    }
   }, [campaign_slug])
   useEffect(() => {
-    getTeams()
-    console.log(teams)
+    if (campaign) {
+      getTeams()
+    }
   }, [campaign])
 
   return (
@@ -90,7 +97,7 @@ const Home = () => {
                       <p className="myLeft" style={{ fontSize: "2rem", lineHeight: "2rem", fontWeight: "bold", color: "black" }}>{(campaign && campaign.title) || ""}</p>
                     </div>
                     <div className='col-md-6 myFlex'>
-                      <a className="myRight donate_btn" href={`/campaigns/${campaign_slug}/donate`}>Donate <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span></a>
+                      <a className="myRight donate_btn" href={`/campaigns/${campaign_slug ? campaign_slug : '/'}/donate`}>Donate <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span></a>
                     </div>
                   </div>
                   <div className='' style={{ background: "white", borderRadius: "1rem", padding: "1rem 0rem 1rem 0rem" }}>

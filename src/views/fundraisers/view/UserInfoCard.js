@@ -51,6 +51,7 @@ const UserInfoCard = ({ selectedUser }) => {
   })
 
   const dispatch = useDispatch()
+  const user = JSON.parse(localStorage.getItem('userData'))
 
   // ** render user img
   const renderUserImg = () => {
@@ -200,10 +201,14 @@ const UserInfoCard = ({ selectedUser }) => {
             <Button color='primary' onClick={() => setShow(true)}>
               Edit
             </Button>
-            <span className='custom-button-saprator' style={{width:"5px"}} ></span>
-            <Button color='primary' onClick={() => onResendInvitation()}>
-              Resend Invitation
-            </Button>
+            {
+              user && user['role'] !== 'Fundraiser' ? <>
+               <span className='custom-button-saprator' style={{width:"5px"}} ></span>
+                <Button color='primary' onClick={() => onResendInvitation()}>
+                  Resend Invitation
+                </Button>
+            </> : null
+            }
           </div>
           { invitationResponse ? <div className='pt-1'>
               <Alert color={invitationResponse['success'] ? 'success' : 'danger'}>

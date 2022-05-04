@@ -20,12 +20,7 @@ const LandingPage = () => {
     const { fundraiser_slug } = useParams()
     const [fundraiser, setFundraiser] = useState()
 
-    // eslint-disable-next-line no-unused-vars
-    const [team, setTeam] = useState()
-    async function getTeam(id) {
-        const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/organization_campaign/donate?campaign=${id}`)
-        setTeam(res.data.data)
-    }
+
     async function getFundraiser() {
         const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/donate?url_slug=${fundraiser_slug}&ip_address=127.0.0.1`)
         setFundraiser(res.data.data)
@@ -33,9 +28,6 @@ const LandingPage = () => {
     useEffect(() => {
         getFundraiser()
     }, [fundraiser_slug])
-    useEffect(() => {
-        getTeam(fundraiser?.campaign?.id)
-    }, [fundraiser])
     return (
         <div>
             <NavBar></NavBar>
@@ -112,7 +104,7 @@ const LandingPage = () => {
                                     </div>
                                 </div>
                                 <div className='col-md-3 myFlex' style={{ marginTop: "10px" }}>
-                                    <a className="myCenter donate_btn" href={`/fundraisers/${fundraiser?.id}/donate?campaign_slug=${fundraiser?.campaign?.id}&organization_slug=${fundraiser?.organization?.id}`}>Donate Now <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span></a>
+                                    <a className="myCenter donate_btn" href={`/fundraisers/${fundraiser?.id ? fundraiser?.id : '/'}/donate?campaign_slug=${fundraiser?.campaign?.id}&organization_slug=${fundraiser?.organization?.id}`}>Donate Now <span><svg className="svg" width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.92505 16.6L13.3584 11.1667C14 10.525 14 9.475 13.3584 8.83334L7.92505 3.4" stroke="white" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round"></path></svg></span></a>
                                 </div>
                             </div>
                             <div className='myFlex' style={{ paddingBottom: "1.5rem" }}>

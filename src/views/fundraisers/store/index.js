@@ -139,9 +139,9 @@ export const fundraiserPasswordReset = createAsyncThunk(
 export const updateFundraiserCampaign = createAsyncThunk(
   "appFundraisers/updateFundraiserCampaign",
   async (fundraiserData, { dispatch, getState }) => {
-    const { id, ...rest } = fundraiserData
+    const { fundraiserId, campaignId, ...rest } = fundraiserData
     const response = await axios.patch(
-      `${process.env.REACT_APP_BASE_URL}/api/v1/campaign_fundraiser/${id}`,
+      `${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${fundraiserId}/campaign/${campaignId}/`,
       rest
     )
     await dispatch(getFundraiser(getState().fundraisers.selectedUser.id))
@@ -208,7 +208,7 @@ export const appFundraisersSlice = createSlice({
       .addCase(getFundraiser.fulfilled, (state, action) => {
         state.selectedUser = action.payload
         state.fundraiserTeams = action.payload.teams || []
-        state.fundraiserCampaigns = action.payload.campaignTotals || []
+        state.fundraiserCampaigns = action.payload.campaigns || []
         state.fundraiserContacts = action.payload.contacts || []
       })
       .addCase(addFundraiserContacts.fulfilled, (state, action) => {

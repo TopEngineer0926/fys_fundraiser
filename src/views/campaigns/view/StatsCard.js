@@ -10,13 +10,13 @@ import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col } from 'react
 
 const StatsCard = ({ cols, selectedUser }) => {
 
-  let totalDonations = Object.values(selectedUser.donations).reduce((r, { donationAmount }) => r + donationAmount, 0)
-  totalDonations = Math.floor(totalDonations / 100)
-  const avgDonation = Math.floor(totalDonations / selectedUser.donations.length)
+  // let totalDonations = Object.values(selectedUser.donations).reduce((r, { donationAmount }) => r + donationAmount, 0)
+  // totalDonations = Math.floor(totalDonations / 100)
+  // const avgDonation = Math.floor(totalDonations / selectedUser.donations.length)
 
   const data = [
     {
-      title:  selectedUser.teams.length,
+      title: selectedUser.teams.length,
       subtitle: 'Teams',
       color: 'light-primary',
       icon: <TrendingUp size={24} />
@@ -28,19 +28,19 @@ const StatsCard = ({ cols, selectedUser }) => {
       icon: <User size={24} />
     },
     {
-      title: selectedUser.donations.length,
+      title: selectedUser.currentDonors,
       subtitle: 'Donors',
       color: 'light-info',
       icon: <User size={24} />
     },
     {
-      title: `$ ${totalDonations}`,
+      title: `$ ${selectedUser.currentDonations}`,
       subtitle: 'Dontations',
       color: 'light-danger',
       icon: <Box size={24} />
     },
     {
-      title: `$ ${avgDonation}`,
+      title: `$ ${selectedUser.averageDonation}`,
       subtitle: 'Average',
       color: 'light-danger',
       icon: <Box size={24} />

@@ -9,7 +9,8 @@ import React, {
 import axios from 'axios'
 import {
   Mail,
-  User
+  User,
+  Search
 } from 'react-feather'
 import {
   Button,
@@ -26,10 +27,11 @@ import defaultAvatar from '@src/assets/images/logo/fys-avatar-blank.png'
 import CheckoutForm from './CheckoutForm'
 import Footer from './Footer'
 import NavBar from './NavBar'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate} from 'react-router-dom'
+import Avatar from "@components/avatar"
+
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_PUBLIC_KEY)
-
 const DonationForm = () => {
   const [isContinue, setIsContinue] = useState(false)
   const [customDonation, setCustomDonation] = useState(false)
@@ -45,6 +47,7 @@ const DonationForm = () => {
 
   // eslint-disable-next-line no-unused-vars
   const { fundraiser_slug, campaign_slug, team_slug } = useParams()
+  const navigate = useNavigate()
 
   const campaign_slug_query = new URLSearchParams(window.location.search).get(
     "campaign_slug"
@@ -52,6 +55,7 @@ const DonationForm = () => {
   const organization_slug_query = new URLSearchParams(window.location.search).get(
     "organization_slug"
   )
+
   const [campaign, setCampaign] = useState()
   const [fundraiser, setFundraiser] = useState()
   const [organization, setOrganization] = useState()
@@ -59,24 +63,47 @@ const DonationForm = () => {
 
   async function getCampaign() {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/${campaign_slug || campaign_slug_query}`)
-    setCampaign(res.data.data)
+    if (res.data.hasError) {
+      navigate('/misc/error')
+    } else {
+      setCampaign(res.data.data)
+    }
+    
   }
   async function getFundraiser() {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/donate?url_slug=${fundraiser_slug}&ip_address=127.0.0.1`)
-    setFundraiser(res.data.data)
+    if (res.data.hasError) {
+      navigate('/misc/error')
+    } else {
+      setFundraiser(res.data.data)
+    }
   }
   async function getOrganization() {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/teams/${team_slug}/campaign/${campaign_slug || campaign_slug_query}`)
-    setOrganization(res.data.data)
+    if (res.data.hasError) {
+      if ((!team_slug || team_slug === 'undefined') && (campaign_slug || campaign_slug_query)) {
+        navigate(`/campaigns/${campaign_slug || campaign_slug_query}`)
+      } else {
+        navigate(`/misc/error`)
+      }
+    } else {
+      setOrganization(res.data.data)
+    }
   }
   useEffect(() => {
-    getCampaign()
+    if (campaign_slug) {
+      getCampaign()
+    }
   }, [campaign_slug])
   useEffect(() => {
-    getFundraiser()
+    if (fundraiser_slug) {
+      getFundraiser()
+    }
   }, [fundraiser_slug])
   useEffect(() => {
-    getOrganization()
+    if (team_slug) {
+      getOrganization()
+    }
   }, [team_slug])
 
   const [clientSecret, setClientSecret] = useState("")

@@ -8,7 +8,7 @@ import {
     Container,
     Progress
 } from 'reactstrap'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
 import Footer from './Footer'
@@ -18,17 +18,23 @@ import { FacebookShareButton,  TwitterShareButton, EmailShareButton } from "reac
 
 const TeamLandingPage = () => {
     const { team_id, campaign_id } = useParams()
+    const navigate = useNavigate()
+
     const [team, setTeam] = useState()
     async function getTeamFundraiser() {
         const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/teams/${team_id}/campaign/${campaign_id}`)
         setTeam(res.data.data)
     }
     useEffect(() => {
-        getTeamFundraiser()
+        if (campaign_id && team_id && team_id !== 'undefined') {
+            getTeamFundraiser()
+        } else if ((!team_id || team_id === 'undefined') && campaign_id) {
+            navigate(`/campaigns/${campaign_id}`)
+        }
     }, [])
-    useEffect(() => {
-        getTeamFundraiser()
-    }, [campaign_id, team_id])
+    // useEffect(() => {
+        // getTeamFundraiser()
+    // }, [campaign_id, team_id])
     
     return (
         <div>
@@ -141,7 +147,7 @@ const TeamLandingPage = () => {
 
                                     <a className="socialLinkItem fillLink">
                                         <FacebookShareButton
-                                            url={`${process.env.REACT_APP_FYS_APP_URL}/team/${team?.organization?.id}/campaign/${team?.campaign?.id}`}
+                                            url={`${process.env.REACT_APP_FYS_APP_URL}/team/${team?.organization?.id ? team?.organization?.id : '/'}/campaign/${team?.campaign?.id ? team?.campaign?.id : '/'}`}
                                             quote={`Help support ${team?.organization?.name}`}
                                             className="Demo__some-network__share-button"
                                         >
