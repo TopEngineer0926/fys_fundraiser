@@ -29,9 +29,11 @@ import defaultAvatar from '@src/assets/images/logo/fys-avatar-blank.png'
 import CheckoutForm from './CheckoutForm'
 import Footer from './Footer'
 import NavBar from './NavBar'
-import { useParams, useNavigate} from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import Avatar from "@components/avatar"
 import toast from 'react-hot-toast'
+import { useForm, Controller } from "react-hook-form"
+
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_PUBLIC_KEY)
 const DonationForm = () => {
@@ -39,13 +41,17 @@ const DonationForm = () => {
   const [customDonation, setCustomDonation] = useState(false)
   const [donationAmount, setDonationAmount] = useState(10)
   const [transactionFee, setTransactionFee] = useState(false)
-  const [donationCheckbox, setDonationCheckbox] = useState(false)
+  // const [donationCheckbox, setDonationCheckbox] = useState(false)
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    message: ""
+    message: "",
+    showAnnonymous: false
+
   })
+  const { control, handleSubmit, formState: { errors } } = useForm()
+  
 
   const ToastError = ({ t }) => {
     return (
@@ -87,7 +93,7 @@ const DonationForm = () => {
     } else {
       setCampaign(res.data.data)
     }
-    
+
   }
   async function getFundraiser() {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/donate?url_slug=${fundraiser_slug}&ip_address=127.0.0.1`)
@@ -149,7 +155,7 @@ const DonationForm = () => {
       message: formValues.message,
       user: '',
       coverFees: (transactionFee) ? 1 : 0,
-      showAnnonymous: (donationCheckbox) ? 1 : 0,
+      showAnnonymous: (formValues.showAnnonymous) ? 1 : 0,
       campaign: campaign_slug || campaign_slug_query,
       organization: team_slug || organization_slug_query,
       fundraiser: fundraiser_slug
@@ -157,7 +163,6 @@ const DonationForm = () => {
       .then((data) => {
         console.log("success....success")
         setClientSecret(data.data.data.paymentIntent.client_secret)
-        console.log(data.data.data.paymentIntent.client_secret)
         setDonation(data.data.data.donation)
       })
       .catch(error => {
@@ -167,6 +172,15 @@ const DonationForm = () => {
           <ToastError t={t} />
         ))
       })
+  }
+  const onSubmit = data => {
+    formValues.firstName = data.firstName
+    formValues.lastName = data.lastName
+    formValues.email = data.email
+    formValues.message = data.message
+    formValues.showAnnonymous = data.showAnnonymous
+
+    paymentIntent()
   }
   const appearance = {
     theme: 'stripe'
@@ -194,11 +208,10 @@ const DonationForm = () => {
     })
   }
 
-  const setActiveTab = (e) => {
-    e.preventDefault()
-    console.log(donationAmount)
-    paymentIntent()
-  }
+  // const setActiveTab = (e) => {
+  //   e.preventDefault()
+    
+  // }
   const options = {
     clientSecret,
     appearance
@@ -366,80 +379,129 @@ const DonationForm = () => {
             <div className="myFlex" style={{ paddingBottom: "2rem" }}>
               <h1 className='myCenter' style={{ color: "black", fontWeight: "bold" }}>Donor Information</h1>
             </div>
-            <div className='row' style={{ paddingBottom: "2rem" }}>
-              <div className='col-md-2'></div>
-              <div className='col-md-4'>
-                <Label className='form-label label' for='firstname'>
-                  First name
-                </Label>
-                <InputGroup className='input-group-merge mb-2'>
-                  <InputGroupText>
-                    <User size={14} />
-                  </InputGroupText>
-                  <Input type='text' id='firstname' placeholder='First name' name="firstName" value={formValues.firstName} onChange={ChangeFormValues} />
-                </InputGroup>
-              </div>
-              <div className='col-md-4'>
-                <Label className='form-label label' for='lastname'>
-                  Last name
-                </Label>
-                <InputGroup className='input-group-merge mb-2'>
-                  <InputGroupText>
-                    <User size={14} />
-                  </InputGroupText>
-                  <Input type='text' id='lastname' placeholder='Last name' name="lastName" value={formValues.lastName} onChange={ChangeFormValues} />
-                </InputGroup>
-              </div>
-              <div className='col-md-2'></div>
-            </div>
-            <div className='row' style={{ paddingBottom: "2rem" }}>
-              <div className='col-md-2'></div>
-              <div className='col-md-8'>
-                <Label className='form-label label' for='email'>
-                  Email
-                </Label>
-                <InputGroup className='input-group-merge mb-2'>
-                  <InputGroupText>
-                    <Mail size={14} />
-                  </InputGroupText>
-                  <Input type='email' id='email' placeholder='Enter your email' name="email" value={formValues.email} onChange={ChangeFormValues} />
-                </InputGroup>
-              </div>
-              <div className='col-md-2'></div>
-            </div>
-            <div className='row' style={{ paddingBottom: "2rem" }}>
-              <div className='col-md-2'></div>
-              <div className='col-md-8'>
-                <Label className='form-label label' for='message'>
-                  Please enter a private message (optional) that will be delivered to this fundraiser.
-                </Label>
-                <InputGroup className='input-group-merge mb-2'>
-                  <InputGroupText style={{}}>
-                    <Mail size={14} />
-                  </InputGroupText>
-                  <Input type='textarea' id='message' rows='3' placeholder='Enter your message' name="message" value={formValues.message} onChange={ChangeFormValues} />
-                </InputGroup>
-              </div>
-              <div className='col-md-2'></div>
-            </div>
+            
 
-            <div className='row' style={{ paddingBottom: "2rem" }}>
-              <div className='col-md-2'></div>
-              <div className='col-md-8'>
-                <div className='form-check form-check-primary'>
-                  <Input type='checkbox' id='checkbox1' checked={donationCheckbox} onChange={() => { setDonationCheckbox(!donationCheckbox) }} />
-                  <Label className='form-check-label label' for='checkbox1'>
-                    Make this an anonymous donation
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className='row' style={{ paddingBottom: "2rem" }}>
+                <div className='col-md-2'></div>
+                <div className='col-md-4'>
+                  <Label className='form-label label' for='firstname'>
+                    First name
                   </Label>
+                  <InputGroup className='input-group-merge mb-2'>
+                    <InputGroupText>
+                      <User size={14} />
+                    </InputGroupText>
+                    <Controller
+                      name='firstName'
+                      rules={{ required: true }}
+                      control={control}
+                      render={({ field }) => (
+                        <Input id='firstName' placeholder='First name' invalid={errors.firstName && true} {...field} />
+                      )}
+                    />
+
+                  </InputGroup>
+                  {errors.firstName && <span>This field is required</span>}
                 </div>
+                <div className='col-md-4'>
+                  <Label className='form-label label' for='lastname'>
+                    Last name
+                  </Label>
+                  <InputGroup className='input-group-merge mb-2'>
+                    <InputGroupText>
+                      <User size={14} />
+                    </InputGroupText>
+                    <Controller
+                      name='lastName'
+                      rules={{ required: true }}
+                      control={control}
+                      render={({ field }) => (
+                        <Input id='lastName' placeholder='Last name' invalid={errors.lastName && true} {...field} />
+                      )}
+                    />
+                    {/* <Input type='text' id='lastname' placeholder='Last name'  {...register("lastName", { required: true })} /> */}
+                  </InputGroup>
+                  {errors.lastName && <span>This field is required</span>}
+                </div>
+                <div className='col-md-2'></div>
               </div>
-              <div className='col-md-2'></div>
-            </div>
-            <div className='row' style={{ paddingBottom: "1rem" }}>
+              <div className='row' style={{ paddingBottom: "2rem" }}>
+                <div className='col-md-2'></div>
+                <div className='col-md-8'>
+                  <Label className='form-label label' for='email'>
+                    Email
+                  </Label>
+                  <InputGroup className='input-group-merge mb-2'>
+                    <InputGroupText>
+                      <Mail size={14} />
+                    </InputGroupText>
+                    {/* <Input type='email' id='email' placeholder='Enter your email' name="email" value={formValues.email} onChange={ChangeFormValues} /> */}
+                    {/* <Input type='email' id='email' placeholder='Enter your email' {...register("email", { required: true })} /> */}
+                    <Controller
+                      name='email'
+                      rules={{ required: true }}
+                      control={control}
+                      render={({ field }) => (
+                        <Input id='email' placeholder='Enter your email' invalid={errors.email && true} {...field} />
+                      )}
+                    />
+                  </InputGroup>
+                  {errors.email && <span>This field is required</span>}
+                </div>
+                <div className='col-md-2'></div>
+              </div>
+              <div className='row' style={{ paddingBottom: "2rem" }}>
+                <div className='col-md-2'></div>
+                <div className='col-md-8'>
+                  <Label className='form-label label' for='message'>
+                    Please enter a private message (optional) that will be delivered to this fundraiser.
+                  </Label>
+                  <InputGroup className='input-group-merge mb-2'>
+                    <InputGroupText style={{}}>
+                      <Mail size={14} />
+                    </InputGroupText>
+                    {/* <Input type='textarea' id='message' rows='3' placeholder='Enter your message' name="message" value={formValues.message} onChange={ChangeFormValues} /> */}
+                    {/* <Input type='textarea' id='message' rows='3' placeholder='Enter your message' {...register("message", {})} /> */}
+                    <Controller
+                      name='message'
+                      control={control}
+                      render={({ field }) => (
+                        <Input  type='textarea' id='message' rows='3' placeholder='Enter your message' {...field} />
+                      )}
+                    />
+                  </InputGroup>
+
+                </div>
+                <div className='col-md-2'></div>
+              </div>
+
+              <div className='row' style={{ paddingBottom: "2rem" }}>
+                <div className='col-md-2'></div>
+                <div className='col-md-8'>
+                  <div className='form-check form-check-primary'>
+                    <Controller
+                      name='showAnnonymous'
+                      control={control}
+                      render={({ field }) => (
+                        <Input  type='checkbox' id='showAnnonymous' {...field} />
+                      )}
+                    />
+                    <Label className='form-check-label label' for='checkbox1'>
+                      Make this an anonymous donation
+                    </Label>
+                  </div>
+                </div>
+                <div className='col-md-2'></div>
+              </div>
+              <div className='row' style={{ paddingBottom: "1rem" }}>
               <div className='col-md-12 myFlex'>
-                <a onClick={setActiveTab} className="myCenter donate_btn" href="thankyou">Continue to Payment Information</a>
+                {/* <a onClick={setActiveTab} className="myCenter donate_btn" href="thankyou">Continue to Payment Information</a> */}
+                <input  className="myCenter donate_btn" type="submit" value = "Continue to Payment Information" />
+
               </div>
             </div>
+            </form>
 
 
           </Container>)}
