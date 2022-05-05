@@ -10,7 +10,9 @@ import axios from 'axios'
 import {
   Mail,
   User,
-  Search
+  Search,
+  Lock,
+  X
 } from 'react-feather'
 import {
   Button,
@@ -29,7 +31,7 @@ import Footer from './Footer'
 import NavBar from './NavBar'
 import { useParams, useNavigate} from 'react-router-dom'
 import Avatar from "@components/avatar"
-
+import toast from 'react-hot-toast'
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_PUBLIC_KEY)
 const DonationForm = () => {
@@ -44,6 +46,23 @@ const DonationForm = () => {
     email: "",
     message: ""
   })
+
+  const ToastError = ({ t }) => {
+    return (
+      <div className='d-flex'>
+        <div className='me-1'>
+          <Avatar size='sm' color='danger' icon={<Lock size={12} />} />
+        </div>
+        <div className='d-flex flex-column'>
+          <div className='d-flex justify-content-between'>
+            <h6></h6>
+            <X size={12} className='cursor-pointer' onClick={() => toast.dismiss(t?.id)} />
+          </div>
+          <span>Your submission failed. Please check your form fields and try again.</span>
+        </div>
+      </div>
+    )
+  }
 
   // eslint-disable-next-line no-unused-vars
   const { fundraiser_slug, campaign_slug, team_slug } = useParams()
@@ -124,8 +143,6 @@ const DonationForm = () => {
   function paymentIntent() {
     axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/stripe/pi`, {
       cardAmount: donationAmount * 100,
-      transferGroup: "transfer11123456",
-      items: "asdf",
       firstName: formValues.firstName,
       lastName: formValues.lastName,
       email: formValues.email,
@@ -138,9 +155,17 @@ const DonationForm = () => {
       fundraiser: fundraiser_slug
     })
       .then((data) => {
+        console.log("success....success")
         setClientSecret(data.data.data.paymentIntent.client_secret)
+        console.log(data.data.data.paymentIntent.client_secret)
         setDonation(data.data.data.donation)
-
+      })
+      .catch(error => {
+        console.log("error....error")
+        console.log(error)
+        toast(t => (
+          <ToastError t={t} />
+        ))
       })
   }
   const appearance = {
@@ -171,6 +196,7 @@ const DonationForm = () => {
 
   const setActiveTab = (e) => {
     e.preventDefault()
+    console.log(donationAmount)
     paymentIntent()
   }
   const options = {
