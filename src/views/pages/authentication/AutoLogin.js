@@ -11,15 +11,21 @@ import { handleLogin } from '@store/authentication'
 import toast from 'react-hot-toast'
 
 import { getHomeRouteForLoggedInUser } from '@utils'
+import Avatar from '@components/avatar'
 
 // ** Reactstrap Imports
 import {
-  Button,
   Card,
   CardBody,
   CardText,
   CardTitle
 } from 'reactstrap'
+
+import {
+  Coffee,
+  Lock,
+  X
+} from 'react-feather'
 
 const AutoLogin = () => {
   const [searchParams] = useSearchParams()
