@@ -402,7 +402,7 @@ const DonationForm = () => {
                     />
 
                   </InputGroup>
-                  {errors.firstName && <span>This field is required</span>}
+                  {errors.firstName && <span className='text-danger'>First name is required</span>}
                 </div>
                 <div className='col-md-4'>
                   <Label className='form-label label' for='lastname'>
@@ -422,7 +422,7 @@ const DonationForm = () => {
                     />
                     {/* <Input type='text' id='lastname' placeholder='Last name'  {...register("lastName", { required: true })} /> */}
                   </InputGroup>
-                  {errors.lastName && <span>This field is required</span>}
+                  {errors.lastName && <span className='text-danger'>Last name is required</span>}
                 </div>
                 <div className='col-md-2'></div>
               </div>
@@ -440,14 +440,19 @@ const DonationForm = () => {
                     {/* <Input type='email' id='email' placeholder='Enter your email' {...register("email", { required: true })} /> */}
                     <Controller
                       name='email'
-                      rules={{ required: true }}
+                      error={errors.email?.message}
+                      rules={{ required: 'Email is required',
+                        pattern: {
+                          value: /^(([^<>()\\[\]\\.,;:\s@"]+(\.[^<>()\\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                          message: 'Please enter a valid Email'
+                        } }}
                       control={control}
                       render={({ field }) => (
                         <Input id='email' placeholder='Enter your email' invalid={errors.email && true} {...field} />
                       )}
                     />
                   </InputGroup>
-                  {errors.email && <span>This field is required</span>}
+                  {errors.email && <span className='text-danger'>{errors.email?.message}</span>}
                 </div>
                 <div className='col-md-2'></div>
               </div>

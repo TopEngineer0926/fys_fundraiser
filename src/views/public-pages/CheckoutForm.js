@@ -84,13 +84,15 @@ useEffect(() => {
         <form id="payment-form" onSubmit={handleSubmit}>
             <PaymentElement id="payment-element" />
             <br />
-            <button className="myLeft donate_btn" disabled={isLoading || !stripe || !elements} id="submit">
+            <button className="myLeft stripe-donat-btn" disabled={isLoading || !stripe || !elements} id="submit">
                 <span id="button-text">
                     {isLoading ? <div className="spinner" id="spinner"></div> : "Donate Now"}
                 </span>
             </button>
             {/* Show any error or success messages */}
-            {message && <div id="payment-message">{message}</div>}
+            {message && <div id="payment-message" class="stripe-donat-error">
+            <span className='text-danger'>{message}</span>
+            </div>}
         </form>
     )
 }

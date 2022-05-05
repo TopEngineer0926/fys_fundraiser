@@ -39,6 +39,25 @@
     }
   }
 }
+#payment-form {
+  .stripe-donat-btn {
+    background-color: #d61717;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    padding: 0.6rem 1.5rem 0.5rem 1.5rem !important;
+    &:hover {
+        background: #690000 !important;
+    }
+    .svg {
+      margin-bottom: 3px;
+    }
+  }
+  .stripe-donat-error {
+    padding: 0.6rem 1.5rem 0.5rem 1.5rem !important;
+    
+  }
+}
 #home {
   #banner {
     background: rgb(240, 240, 240);
