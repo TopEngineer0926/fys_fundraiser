@@ -9,6 +9,8 @@ import { AbilityContext } from '@src/utility/context/Can'
 import { useDispatch } from 'react-redux'
 import { handleLogin } from '@store/authentication'
 
+import { getHomeRouteForLoggedInUser } from '@utils'
+
 // ** Reactstrap Imports
 import {
   Button,
@@ -26,8 +28,38 @@ const AutoLogin = () => {
   const navigate = useNavigate()
   const ability = useContext(AbilityContext)
 
-  console.log(uuid)
-  console.log(token)
+  const ToastContent = ({ t, name, role }) => {
+    return (
+      <div className='d-flex'>
+        <div className='me-1'>
+          <Avatar size='sm' color='success' icon={<Coffee size={12} />} />
+        </div>
+        <div className='d-flex flex-column'>
+          <div className='d-flex justify-content-between'>
+            <h6>{name}</h6>
+            <X size={12} className='cursor-pointer' onClick={() => toast.dismiss(t.id)} />
+          </div>
+          <span>You have successfully logged in as an {role} user to fYS. Now you can start to explore. Enjoy!</span>
+        </div>
+      </div>
+    )
+  }
+  const ToastError = ({ t }) => {
+    return (
+      <div className='d-flex'>
+        <div className='me-1'>
+          <Avatar size='sm' color='danger' icon={<Lock size={12} />} />
+        </div>
+        <div className='d-flex flex-column'>
+          <div className='d-flex justify-content-between'>
+            <h6></h6>
+            <X size={12} className='cursor-pointer' onClick={() => toast.dismiss(t?.id)} />
+          </div>
+          <span>The user name or password are incorrect. This is easily corrected by typing the correct user name and password.</span>
+        </div>
+      </div>
+    )
+  }
 
   if (uuid && token) {
         axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/user/otl`, { uuid: searchParams.get("uuid"), token: searchParams.get("token") })
