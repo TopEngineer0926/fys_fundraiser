@@ -54,9 +54,7 @@ const AutoLogin = () => {
               type: 'manual'
             })
           }
-        }
-      
-    
+        }    
   }
 
   return (

@@ -49,6 +49,15 @@ const AuthenticationRoutes = [
     }
   },
   {
+    path: '/email-confirm',
+    element: <VerifyEmailBasic />,
+    meta: {
+      layout: 'blank',
+      publicRoute: true,
+      restricted: true
+    }
+  },
+  {
     path: '/otl',
     element: <AutoLogin />,
     meta: {
