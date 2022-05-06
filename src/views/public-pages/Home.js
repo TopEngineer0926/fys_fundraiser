@@ -20,6 +20,9 @@ import NavBar from './NavBar'
 
 const Team = ({ team }) => {
   const { campaign_slug } = useParams()
+  function formatNumber(formatValue) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(formatValue)
+  }
 
   return (
     <div className='col-md-4' style={{mamrginBottom: "2rem"}}>
@@ -31,7 +34,7 @@ const Team = ({ team }) => {
           <h3 style={{color: "black", fontWeight: "bold"}} className="myCenter">{(team && team.organization.name) || ""}</h3>
         </div>
         <div className='myFlex' style={{paddingBottom: "1rem"}}>
-          <p style={{textAlign:"center", width:"100%", fontWeight: "bold", paddingBottom: "1rem", fontSize: "1rem"}} className="myLeft">${(team && team.currentDonations.toString()) || ""} Raised of ${(team && team.fundRaisingGoal.toString()) || ""} Goal</p>
+          <p style={{textAlign:"center", width:"100%", fontWeight: "bold", paddingBottom: "1rem", fontSize: "1rem"}} className="myLeft">{(team && formatNumber(team.currentDonations.toFixed(0))) || ""} Raised of {(team && formatNumber(team.fundRaisingGoal.toFixed(0))) || ""} Goal</p>
         </div>
         <div className='myFlex' style={{paddingBottom: "2rem"}}>
           <Progress className='myCenter' style={{width: "100%"}}
@@ -63,6 +66,11 @@ const Home = () => {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/organization_campaign/donate?campaign=${id}`)
     setTeams(res.data.data)
   }
+  function formatNumber(formatValue) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(formatValue)
+  }
+
+
   async function getCampaign() {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/campaign/${campaign_slug}`)
     setCampaign(res.data.data)
@@ -115,7 +123,7 @@ const Home = () => {
                           <h5 className='myCenter'>Average Donation</h5>
                         </div>
                         <div className='myFlex content'>
-                          <h2 className='myCenter'>${(campaign && campaign.averageDonation.toFixed(2)) || 0}</h2>
+                          <h2 className='myCenter'>{(campaign && formatNumber(campaign.averageDonation.toFixed(0))) || 0}</h2>
                         </div>
                       </div>
                       <div className='col-md-4'>
@@ -123,7 +131,7 @@ const Home = () => {
                           <h5 className='myCenter'>Total Raised</h5>
                         </div>
                         <div className='myFlex content'>
-                          <h2 className='myCenter'>${(campaign && campaign.currentDonations.toFixed(2)) || 0}</h2>
+                          <h2 className='myCenter'>{(campaign && formatNumber(campaign.currentDonations.toFixed(0))) || 0}</h2>
                         </div>
                       </div>
                     </div>
@@ -134,7 +142,7 @@ const Home = () => {
                           value={(campaign?.currentDonations * 100 / campaign?.fundRaisingGoal) || 0} />
                       </div>
                       <div className='myFlex'>
-                        <h5 className="myCenter" style={{ fontWeight: "bold" }}>${(campaign && campaign.currentDonations.toString()) || ""} Raised of our ${(campaign && campaign.fundRaisingGoal.toString()) || ""} goal.</h5>
+                        <h5 className="myCenter" style={{ fontWeight: "bold" }}>{(campaign && formatNumber(campaign.currentDonations.toFixed(0))) || ""} Raised of our {(campaign && formatNumber(campaign.fundRaisingGoal.toFixed(0))) || ""} goal.</h5>
                       </div>
                     </div>
                   </div>

@@ -35,6 +35,10 @@ const TeamLandingPage = () => {
     // useEffect(() => {
         // getTeamFundraiser()
     // }, [campaign_id, team_id])
+
+    function formatNumber(formatValue) {
+        return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(formatValue)
+      }
     
     return (
         <div>
@@ -59,7 +63,7 @@ const TeamLandingPage = () => {
                                         <div className='myFlex' style={{ paddingBottom: "2rem" }}>
                                             <h3 className="myLeft" style={{ fontWeight: "bold", color: "blue" }}>
                                                 {/* ${team?.campaign?.fundRaisingGoal} */}
-                                                ${team?.currentDonations} raised towards my goal of ${team?.fundRaisingGoal}
+                                                {formatNumber(team?.currentDonations.toFixed(0))} raised towards my goal of {formatNumber(team?.fundRaisingGoal.toFixed(0))}
                                                 {/* Raised for */}
                                             </h3>
                                         </div>
@@ -89,7 +93,7 @@ const TeamLandingPage = () => {
                                                 <h5 className='myCenter'>Average Donation</h5>
                                             </div>
                                             <div className='myFlex content'>
-                                                <h2 className='myCenter'>${team?.averageDonation.toFixed(2) || 0}</h2>
+                                                <h2 className='myCenter'>{formatNumber(team?.averageDonation.toFixed(0)) || 0}</h2>
                                             </div>
                                         </div>
                                         <div className='col-md-4'>
@@ -97,7 +101,7 @@ const TeamLandingPage = () => {
                                                 <h5 className='myCenter'>Total Raised</h5>
                                             </div>
                                             <div className='myFlex content'>
-                                                <h2 className='myCenter'>${team?.currentDonations.toFixed(2) || 0}</h2>
+                                                <h2 className='myCenter'>{formatNumber(team?.currentDonations.toFixed(0)) || 0}</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -108,7 +112,7 @@ const TeamLandingPage = () => {
                                                 value={(team?.currentDonations * 100) / team?.fundRaisingGoal} />
                                         </div>
                                         <div className='myFlex'>
-                                            <h5 className="myCenter" style={{ fontWeight: "bold" }}>${team?.currentDonations} Raised of our ${team?.fundRaisingGoal}  goal.</h5>
+                                            <h5 className="myCenter" style={{ fontWeight: "bold" }}>{formatNumber(team?.currentDonations.toFixed(0))} Raised of our {formatNumber(team?.fundRaisingGoal.toFixed(0))} goal.</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -120,7 +124,7 @@ const TeamLandingPage = () => {
                                 <h1 className='myCenter' style={{ color: "black", fontWeight: "bold" }}>Why am I Fundraising</h1>
                             </div>
                             <div className='myFlex'>
-                                <h5 className='myLeft' style={{ lineHeight: "1.5", textAlign: "center" }}>{team?.campaign?.shortDescription}</h5>
+                                <h5 className='myLeft' style={{ lineHeight: "1.5", textAlign: "center" }}>{team?.organization?.aboutUs}</h5>
                             </div>
                             <div className='row' style={{ padding: "3rem 0rem", justifyContent: "center" }}>
                                 <div className='first-div' style={{ width: "20%" }}></div>
