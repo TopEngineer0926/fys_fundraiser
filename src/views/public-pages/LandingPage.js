@@ -83,7 +83,7 @@ const LandingPage = () => {
                                                 <h5 className='myCenter'>Avg. Donation</h5>
                                             </div>
                                             <div className='myFlex content'>
-                                                <h2 className='myCenter'>${fundraiser?.donationTotals?.averageDonation.toFixed(2) || 0}</h2>
+                                                <h2 className='myCenter'>{formatNumber(fundraiser?.donationTotals?.averageDonation.toFixed(0)) || 0}</h2>
                                             </div>
                                         </div>
                                         <div className='col-4'>
@@ -91,7 +91,7 @@ const LandingPage = () => {
                                                 <h5 className='myCenter'>Total Raised</h5>
                                             </div>
                                             <div className='myFlex content'>
-                                                <h2 className='myCenter'>${fundraiser?.donationTotals?.currentDonations.toFixed(2) || 0}</h2>
+                                                <h2 className='myCenter'>{formatNumber(fundraiser?.donationTotals?.currentDonations.toFixed(0)) || 0}</h2>
                                             </div>
                                         </div>
                                     </div>
@@ -102,7 +102,7 @@ const LandingPage = () => {
                                                 value={(fundraiser?.donationTotals?.currentDonations * 100) / fundraiser?.donationTotals?.fundRaisingGoal} />
                                         </div>
                                         <div className='myFlex'>
-                                            <h5 className="myCenter" style={{ fontWeight: "bold" }}>${fundraiser?.donationTotals?.currentDonations} Raised of our ${fundraiser?.donationTotals?.fundRaisingGoal}  goal.</h5>
+                                            <h5 className="myCenter" style={{ fontWeight: "bold" }}>{formatNumber(fundraiser?.donationTotals?.currentDonations.toFixed(0))} Raised of our ${fundraiser?.donationTotals?.fundRaisingGoal}  goal.</h5>
                                         </div>
                                     </div>
                                 </div>

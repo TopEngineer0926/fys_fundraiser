@@ -25,7 +25,7 @@ const UserTabs = ({ selectedUser, active, toggleTab }) => {
       </Nav>
       <TabContent activeTab={active}>
         <TabPane tabId='1'>
-          <StatsCard selectedUser={selectedUser} cols={{ md: '2', sm: '4', xs: '12' }} />
+          <StatsCard selectedUser={selectedUser} cols={{ md: '3', sm: '4', xs: '12' }} />
           <FundraiserTeamsList selectedUser={selectedUser} />
         </TabPane>
       </TabContent>

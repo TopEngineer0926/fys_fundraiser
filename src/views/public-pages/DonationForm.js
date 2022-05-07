@@ -208,10 +208,6 @@ const DonationForm = () => {
     })
   }
 
-  // const setActiveTab = (e) => {
-  //   e.preventDefault()
-    
-  // }
   const options = {
     clientSecret,
     appearance
@@ -317,7 +313,7 @@ const DonationForm = () => {
                   <div className='myFlex' style={{ paddingBottom: "2rem" }}>
                     <h3 className="myLeft" style={{ fontWeight: "bold", color: "blue" }}>
                       {/* ${fundraiser?.campaign?.fundRaisingGoal} */}
-                      ${fundraiser?.donationTotals?.currentDonations} raised towards my goal of ${fundraiser?.donationTotals?.fundRaisingGoal}
+                      {formatNumber(fundraiser?.donationTotals?.currentDonations.toFixed(0))} raised towards my goal of ${fundraiser?.donationTotals?.fundRaisingGoal}
                       {/* Raised for */}
                     </h3>
                   </div>
