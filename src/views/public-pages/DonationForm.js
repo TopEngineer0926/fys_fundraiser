@@ -238,6 +238,10 @@ const DonationForm = () => {
     )
   }
 
+  function formatNumber(formatValue) {
+      return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(formatValue)
+    }
+
   return (
     <div>
       <NavBar></NavBar>
@@ -261,7 +265,7 @@ const DonationForm = () => {
                     <div className='myFlex' style={{ paddingBottom: "2rem" }}>
                       <h3 className="myLeft" style={{ fontWeight: "bold", color: "blue" }}>
                         {/* ${team?.campaign?.fundRaisingGoal} */}
-                        ${organization?.currentDonations} raised towards my goal of ${organization?.fundRaisingGoal}
+                        {formatNumber(organization?.currentDonations.toFixed(0))} raised towards my goal of {formatNumber(organization?.fundRaisingGoal.toFixed(0))}
                         {/* Raised for */}
                       </h3>
                     </div>

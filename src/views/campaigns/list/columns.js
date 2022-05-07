@@ -6,13 +6,12 @@ import Avatar from '@components/avatar'
 
 // ** Store & Actions
 import { store } from '@store/store'
-import { getCampaign, deleteCampaign } from '../store'
+import { getCampaign } from '../store'
 
 // ** Icons Imports
-import { Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2, Archive, Eye } from 'react-feather'
+import { Eye } from 'react-feather'
 
 // ** Reactstrap Imports
-import { Badge, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
 import moment from 'moment'
 
 // ** Renders Client Columns
@@ -30,47 +29,6 @@ const renderClient = row => {
     )
   }
 }
-
-// ** Renders Role Columns
-// const renderRole = row => {
-//   const roleObj = {
-//     subscriber: {
-//       class: 'text-primary',
-//       icon: User
-//     },
-//     maintainer: {
-//       class: 'text-success',
-//       icon: Database
-//     },
-//     editor: {
-//       class: 'text-info',
-//       icon: Edit2
-//     },
-//     author: {
-//       class: 'text-warning',
-//       icon: Settings
-//     },
-//     admin: {
-//       class: 'text-danger',
-//       icon: Slack
-//     }
-//   }
-
-//   const Icon = roleObj[row.role] ? roleObj[row.role].icon : Edit2
-
-//   return (
-//     <span className='text-truncate text-capitalize align-middle'>
-//       <Icon size={18} className={`${roleObj[row.role] ? roleObj[row.role].class : ''} me-50`} />
-//       {row.role}
-//     </span>
-//   )
-// }
-
-// const statusObj = {
-//   pending: 'light-warning',
-//   active: 'light-success',
-//   inactive: 'light-secondary'
-// }
 
 export const columns = [
   {
@@ -151,38 +109,6 @@ export const columns = [
         <Link className='text-body' to={`/campaigns/${row.id}`} id={`pw-tooltip-${row.id}`}>
           <Eye size={17} className='mx-1' />
         </Link>
-        <UncontrolledDropdown>
-          <DropdownToggle tag='div' className='btn btn-sm'>
-            <MoreVertical size={14} className='cursor-pointer' />
-          </DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem
-              tag={Link}
-              className='w-100'
-              to={`/fundriasers/view/${row.id}`}
-              onClick={() => store.dispatch(getCampaign(row.id))}
-            >
-              <FileText size={14} className='me-50' />
-              <span className='align-middle'>Details</span>
-            </DropdownItem>
-            <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
-              <Archive size={14} className='me-50' />
-              <span className='align-middle'>Edit</span>
-            </DropdownItem>
-            <DropdownItem
-              tag='a'
-              href='/'
-              className='w-100'
-              onClick={e => {
-                e.preventDefault()
-                store.dispatch(deleteCampaign(row.id))
-              }}
-            >
-              <Trash2 size={14} className='me-50' />
-              <span className='align-middle'>Delete</span>
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
       </div>
     )
   }
