@@ -83,7 +83,7 @@ const CustomHeader = ({ toggleSidebar, handlePerPage, rowsPerPage, handleFilter,
           </div>
           {JSON.parse(localStorage.getItem('userData')).fundraiser_profile.length === 0 && (<div className='d-flex align-items-center table-header-actions'>
             <Button className='add-new-user' color='primary' onClick={toggleSidebar}>
-              Add New Fundraiser
+              Add New Player
             </Button>
           </div>)}
           
