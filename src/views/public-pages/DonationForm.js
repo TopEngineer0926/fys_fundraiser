@@ -369,7 +369,7 @@ const DonationForm = () => {
                 <div className='form-check form-check-primary'>
                   <Input type='checkbox' id='checkbox' checked={transactionFee} style={{ border: "1px solid #000000" }} onChange={() => { setTransactionFee(!transactionFee) }} />
                   <Label className='form-check-label label' for='checkbox' >
-                    I like to make my donation fo further and cover the transaction fees associated with this donation. <br /><span style={{ fontWeight: "normal", fontSize: ".9rem" }}>(2.9% + $0.30 per transaction as charged by our credit card processor)</span>
+                    I'd like to make my donation go further and cover the transaction fees associated with this donation. <br /><span style={{ fontWeight: "normal", fontSize: ".9rem" }}>(2.9% + $0.30 per transaction as charged by our credit card processor)</span>
                   </Label>
                 </div>
               </div>
