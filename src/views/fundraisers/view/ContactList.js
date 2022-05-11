@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // ** Styles
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 import FundraiserTeamsList from './FundraiserTeamsList'
-import { getFundraiser, addFundraiserContacts, updateFundraiserContact } from '../store'
+import { getFundraiser, addFundraiserContacts, updateFundraiserContact, deleteContactDetails } from '../store'
 
 // const projectsArr = [
 //   {
@@ -33,7 +33,7 @@ const ContactList = () => {
   const { id } = useParams()
 
   // ** Get suer on mount
- 
+
   useEffect(() => {
     if (store.isFundraiserContactAdded) {
       dispatch(getFundraiser(id))
@@ -46,6 +46,7 @@ const ContactList = () => {
     }
   }, [store.isFundraiserContactUpdated])
   const [show, setShow] = useState(false)
+  const [showConfirmation, setShowConfirmation] = useState(false)
   // eslint-disable-next-line no-unused-vars
   const [storeData] = useState(store)
   const [editModel, setEditModel] = useState(null)
@@ -60,7 +61,7 @@ const ContactList = () => {
     handleSubmit,
     formState: { errors }
   } = useForm({
-    
+
   })
   const handleDiscard = () => {
     reset()
@@ -98,6 +99,12 @@ const ContactList = () => {
     setValue('phone', contact.phone)
     setEditModel(contact)
     setShow(true)
+  }
+
+  const handleDelete = () => {
+    setShow(false)
+    setShowConfirmation(false)
+    dispatch(deleteContactDetails(editModel.id))
   }
 
   const columns = [
@@ -232,18 +239,37 @@ const ContactList = () => {
                   </Button>
                   <Button
                     type='reset'
-                    color='secondary'
-                    outline
+                    color='danger'
+                    className='me-1'
                     onClick={() => {
-                      handleDiscard()
-                      setShow(false)
+                      setShowConfirmation(true)
                     }}
                   >
-                    Discard
+                    Delete
                   </Button>
                 </Col>
               </Row>
             </Form>
+          </ModalBody>
+        </Modal>
+        <Modal isOpen={showConfirmation} className='modal-dialog-centered'>
+          <ModalBody>
+            <div className='text-center mb-2'>
+              <p>Are you sure want to delete the contact?</p>
+            </div>
+            <Col xs={12} className='text-center mt-2 pt-50'>
+              <Button type='submit' className='me-1' color='danger' onClick={handleDelete}>yes</Button>
+              <Button
+                type='reset'
+                color='secondary'
+                outline
+                onClick={() => {
+                  setShowConfirmation(false)
+                }}
+              >
+                No
+              </Button>
+            </Col>
           </ModalBody>
         </Modal>
       </CardHeader>
