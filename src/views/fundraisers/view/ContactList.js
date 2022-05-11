@@ -54,7 +54,6 @@ const ContactList = () => {
 
   // ** Hook
   const {
-    reset,
     setValue,
     control,
     setError,
@@ -63,10 +62,10 @@ const ContactList = () => {
   } = useForm({
 
   })
-  const handleDiscard = () => {
-    reset()
-    setShow(false)
-  }
+  // const handleDiscard = () => {
+  //   reset()
+  //   setShow(false)
+  // }
   const onSubmit = data => {
     if (Object.values(data).every(field => field.length > 0)) {
       data.fundraiser = id
