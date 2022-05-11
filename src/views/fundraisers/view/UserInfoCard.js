@@ -30,6 +30,7 @@ const UserInfoCard = ({ selectedUser }) => {
   // ** State
   const [show, setShow] = useState(false)
   const [invitationResponse, setInvitationResponse] = useState()
+  const [showResendModal, setShowResendModal] = useState(false)
 
   // ** Hook
   const {
@@ -115,23 +116,17 @@ const UserInfoCard = ({ selectedUser }) => {
     })
   }
 
-  const closeAlert = () => {
-    setTimeout(() => {
-      setInvitationResponse()
-    }, 5000)
-  }
-
   const onResendInvitation = () => {
     resendInvitation(selectedUser['id']).then((res) => {
       if (res && res['data'] && res['status'] === 200) {
-        setInvitationResponse({success : true, message : "Inviation sent successfully"})
+        setInvitationResponse({success : true, message : "Invitation sent successfully"})
       } else {
         setInvitationResponse({success : false, message : "Something went wrong"})
       }
-      closeAlert()
+      setShowResendModal(true)
     }).catch(() => {
       setInvitationResponse({success : false, message : "Something went wrong"})
-      closeAlert()
+      setShowResendModal(true)
     })
   }
 
@@ -210,14 +205,16 @@ const UserInfoCard = ({ selectedUser }) => {
             </> : null
             }
           </div>
-          { invitationResponse ? <div className='pt-1'>
-              <Alert color={invitationResponse['success'] ? 'success' : 'danger'}>
-                <div className='alert-body'>
-                  <span className='align-middle ms-50'>{invitationResponse['message']}</span>
-                </div>
-            </Alert>
-          </div> : null
-          }
+          {showResendModal ? <Modal isOpen={showResendModal} className='modal-dialog-centered modal-xs'>
+            <ModalBody>
+              <div className="d-flex justify-content-center mb-1">
+                <span className='text-center'>{invitationResponse['message']}</span>
+              </div>
+              <div className="d-flex justify-content-center">
+                <Button onClick={() => setShowResendModal(!showResendModal)}>OK</Button>
+              </div>
+            </ModalBody>
+          </Modal> : null}
         </CardBody>
       </Card>
       <Modal isOpen={show} toggle={() => setShow(!show)} className='modal-dialog-centered modal-lg'>

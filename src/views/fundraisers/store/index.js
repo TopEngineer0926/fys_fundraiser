@@ -123,6 +123,12 @@ export const deleteFundraiser = createAsyncThunk(
   }
 )
 
+export const deleteContactDetails = createAsyncThunk("appFundraisers/deleteContactDetails", async (id, { getState }) => {
+  await axios.delete(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/${getState().fundraisers.selectedUser.id}/contact/${id}`)
+  const updatedContactDetails = getState().fundraisers.fundraiserContacts.filter(item => item.id !== id)
+  return updatedContactDetails
+})
+
 export const fundraiserPasswordReset = createAsyncThunk(
   "appFundraisers/fundraiserPasswordReset",
   async (payload) => {
@@ -216,6 +222,9 @@ export const appFundraisersSlice = createSlice({
       })
       .addCase(updateFundraiserContact.fulfilled, (state, action) => {
         state.isFundraiserContactUpdated = action.payload
+      })
+      .addCase(deleteContactDetails.fulfilled, (state, action) => {
+        state.fundraiserContacts = action.payload
       })
 
       .addCase(fundraiserPasswordReset.fulfilled, (state, action) => {

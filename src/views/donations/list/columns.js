@@ -19,7 +19,7 @@ export const columns = [
     sortable: true,
     minWidth: '130px',
     sortField: 'created',
-    selector: row => row.created,
+    selector: row => row.created_on,
     cell: row => (
       <div>
         {/* <Link
@@ -27,7 +27,7 @@ export const columns = [
           className='user_name text-truncate text-body'
           onClick={() => store.dispatch(getUser(row.id))}
         > */}
-          <span className='fw-bolder'>{moment(row.created).format("MM-DD-YYYY")}</span>
+        <span className='fw-bolder'>{moment(row.created_on).format("MM-DD-YYYY")}</span>
         {/* </Link> */}
       </div>
     )
@@ -35,7 +35,7 @@ export const columns = [
   {
     name: 'Name',
     minWidth: '150px',
-    selector: row => row.donor,
+    // selector: row => row.donor,
     cell: row => (
       <div>
         {/* <Link
@@ -43,10 +43,10 @@ export const columns = [
           className='user_name text-truncate text-body'
           onClick={() => store.dispatch(getUser(row.id))}
         > */}
-          <span className='fw-bolder'>
-            <span>{row.donor.firstName} </span>
-            <span>{row.donor.lastName}</span>
-          </span>
+        <span className='fw-bolder'>
+          <span>{row.first_name} </span>
+          <span>{row.last_name}</span>
+        </span>
         {/* </Link> */}
       </div>
     )
@@ -55,11 +55,12 @@ export const columns = [
     name: 'Amount',
     sortable: true,
     minWidth: '130px',
-    sortField: 'donationAmount',
-    selector: row => row.donationAmount,
+    sortField: 'donation_amount',
+    selector: row => row.amount,
+
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
-        {Math.floor(row.donationAmount / 100)}&nbsp;{row.donationCurrency}
+        {Math.floor(row.donation_amount)}&nbsp;{row.donation_currency}
       </div>
     )
   },
@@ -71,7 +72,7 @@ export const columns = [
     selector: row => row.campaign,
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
-        {row.campaign ? row.campaign.title : ""}
+        {row.campaign ? row.campaign : ""}
       </div>
     )
   },
@@ -94,10 +95,9 @@ export const columns = [
     sortField: 'fundraiser',
     selector: row => row.fundraiser,
     cell: row => (
-      <div className='d-flex justify-content-left align-items-center'>
-        {row.fundraiser ? <>
-          <span>{row.fundraiser.firstName}</span>
-          <span>{row.fundraiser.lastName}</span></> : null}
+      <div className='d-flex justify-content-left align-items-center'>  
+            <span>{row.player_first_name}</span>
+            <span>{row.player_last_name}</span>
       </div>
     )
   },
@@ -106,10 +106,10 @@ export const columns = [
     sortable: true,
     minWidth: '200px',
     sortField: 'cardType',
-    selector: row => row.cardType,
+    selector: row => row.card_type,
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
-        {row.cardType}
+        {row.card_type}
       </div>
     )
   },

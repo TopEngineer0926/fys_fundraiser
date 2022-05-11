@@ -40,7 +40,7 @@ import '@styles/react/libs/tables/react-dataTable-component.scss'
 
 // ** Table Header
 const CustomHeader = ({ handlePerPage, rowsPerPage, handleFilter, searchTerm }) => {
-    
+
   return (
     <div className='invoice-list-table-header w-100 me-1 ms-50 mt-2 mb-75'>
       <Row>
@@ -55,9 +55,9 @@ const CustomHeader = ({ handlePerPage, rowsPerPage, handleFilter, searchTerm }) 
               onChange={handlePerPage}
               style={{ width: '5rem' }}
             >
-              <option value='10'>10</option>
-              <option value='25'>25</option>
-              <option value='50'>50</option>
+              <option value='10' >10</option>
+              <option value='25' >25 </option>
+              <option value='50' >50</option>
             </Input>
             <label htmlFor='rows-per-page'>Entries</label>
           </div>
@@ -94,7 +94,7 @@ const DonationsList = () => {
   // ** Store Vars
   const dispatch = useDispatch()
   const store = useSelector(state => state.donations)
-  
+
   // ** States
   const [sort, setSort] = useState('desc')
   const [searchTerm, setSearchTerm] = useState('')
@@ -108,17 +108,20 @@ const DonationsList = () => {
 
   // ** Get data on mount
   useEffect(() => {
-    dispatch(getAllData())
+
+    const params = {
+      sort,
+      sortColumn,
+      q: searchTerm,
+      page: currentPage,
+      perPage: rowsPerPage
+    }
+
+    dispatch(getAllData(params))
     dispatch(
-      getData({
-        sort,
-        sortColumn,
-        q: searchTerm,
-        page: currentPage,
-        perPage: rowsPerPage
-      })
+      getData(params)
     )
-  }, [dispatch, store.data.length, sort, sortColumn, currentPage])
+  }, [dispatch, store.data.length, sort, sortColumn, currentPage, rowsPerPage, searchTerm])
 
   // ** Function in get data on page change
   const handlePagination = page => {
@@ -147,6 +150,7 @@ const DonationsList = () => {
       })
     )
     setRowsPerPage(value)
+    setCurrentPage(1)
   }
 
   // ** Function in get data on search query change
@@ -165,7 +169,7 @@ const DonationsList = () => {
 
   // ** Custom Pagination
   const CustomPagination = () => {
-    const count = Number(Math.ceil(store.total / rowsPerPage))
+    const count = Number(Math.ceil(store.allData?.data?.count / rowsPerPage))
 
     return (
       <ReactPaginate
@@ -196,12 +200,12 @@ const DonationsList = () => {
       return filters[k].length > 0
     })
 
-    if ((store.allData.data || []).length > 0) {
-      return (store.allData.data || [])
-    } else if ((store.allData.data || []).length === 0 && isFiltered) {
+    if ((store.allData?.data?.list || []).length > 0) {
+      return (store.allData.data.list || []).slice(0, rowsPerPage) || []
+    } else if ((store.allData?.data?.list || []).length === 0 && isFiltered) {
       return []
     } else {
-      return (store.allData.data || []).slice(0, rowsPerPage)
+      return (store.allData?.data?.list || []).slice(0, rowsPerPage)
     }
   }
 
@@ -221,7 +225,7 @@ const DonationsList = () => {
 
   return (
     <Fragment>
-      
+
       <Card className='overflow-hidden'>
         <div className='react-dataTable'>
           <DataTable
