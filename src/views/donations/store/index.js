@@ -6,9 +6,9 @@ import axios from 'axios'
 
 import { getUserData } from '@utils'
 
-export const getAllData = createAsyncThunk('appDonations/getAllData', async () => {
+export const getAllData = createAsyncThunk('appDonations/getAllData', async (params) => {
   const user = getUserData()
-  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/donation/list?userRole=${user.role}&userId=${user.id}`)
+  const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/donation/list?userRole=${user.role}&userId=${user.id}&search=${params.q}&limit=${params.perPage}&page=${params.page}&order=${1}`)
   return response.data
 })
 
