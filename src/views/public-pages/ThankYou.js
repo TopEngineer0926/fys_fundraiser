@@ -102,10 +102,10 @@ const ThankYou = () => {
                     <img className="myCenter" src={require('@src/assets/images/public_pages/thanks1.svg').default}></img>
                   </div>
                   <div className='myFlex' style={{ paddingBottom: "2rem" }}>
-                    <h3 className='myCenter' style={{ fontSize: "1.4rem", color: "black", fontWeight: "bold", textAlign: "center" }}>Notify Me of Future Fund Paisors for Billy</h3>
+                    <h3 className='myCenter' style={{ fontSize: "1.4rem", color: "black", fontWeight: "bold", textAlign: "center" }}>Notify Me of Future Fundraising Campaigns</h3>
                   </div>
                   <div className='myFlex' style={{ paddingBottom: "1rem" }}>
-                    <h5 className='myCenter' style={{ fontWeight: "bold", lineHeight: "1.5rem", textAlign: "center" }}>Consectetur adipiscing elit, do eiusmod tempor incididunt ut labore et dolore magna aliqua.</h5>
+                    <h5 className='myCenter' style={{ fontWeight: "bold", lineHeight: "1.5rem", textAlign: "center" }}>By clicking here, you will be added to my list of contacts who will be notified when we have future fundraising events.</h5>
                   </div>
                 </div>
               </div>

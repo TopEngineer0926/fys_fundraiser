@@ -10,6 +10,10 @@ import { Card, CardHeader, CardTitle, CardBody, CardText, Row, Col } from 'react
 
 const StatsCard = ({ cols, selectedUser }) => {
 
+  function formatNumber(formatValue) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(formatValue)
+  }
+
   // let totalDonations = Object.values(selectedUser.donations).reduce((r, { donationAmount }) => r + donationAmount, 0)
   // totalDonations = Math.floor(totalDonations / 100)
   // const avgDonation = Math.floor(totalDonations / selectedUser.donations.length)
@@ -19,31 +23,36 @@ const StatsCard = ({ cols, selectedUser }) => {
       title: selectedUser.teams.length,
       subtitle: 'Teams',
       color: 'light-primary',
-      icon: <TrendingUp size={24} />
+      icon: <TrendingUp size={24} />,
+      col: 2
     },
     {
       title: selectedUser.fundraisers.length,
       subtitle: 'Players',
       color: 'light-info',
-      icon: <User size={24} />
+      icon: <User size={24} />,
+      col: 2
     },
     {
       title: selectedUser.currentDonors,
       subtitle: 'Donors',
       color: 'light-info',
-      icon: <User size={24} />
+      icon: <User size={24} />,
+      col: 2
     },
     {
-      title: `$ ${selectedUser.currentDonations}`,
+      title: `${formatNumber(selectedUser.currentDonations.toFixed(0))}`,
       subtitle: 'Dontations',
       color: 'light-danger',
-      icon: <Box size={24} />
+      icon: <Box size={24} />,
+      col: 3
     },
     {
-      title: `$ ${selectedUser.averageDonation}`,
+      title: `${formatNumber(selectedUser.averageDonation.toFixed(0))}`,
       subtitle: 'Average',
       color: 'light-danger',
-      icon: <Box size={24} />
+      icon: <Box size={24} />,
+      col: 2
     }
   ]
 
@@ -56,7 +65,7 @@ const StatsCard = ({ cols, selectedUser }) => {
           key={index}
           {...cols}
           className={classnames({
-            [`mb-2 mb-${margin}-0`]: index !== data.length - 1
+            [`mb-2 mb-${margin}-2`]: index !== data.length - 1
           })}
         >
           <div className='d-flex align-items-center'>

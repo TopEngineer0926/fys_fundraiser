@@ -14,7 +14,8 @@ import {
   File,
   Clipboard,
   Copy,
-  Edit
+  Edit,
+  Eye
 } from "react-feather"
 
 // ** Reactstrap Imports
@@ -35,7 +36,8 @@ import {
   Row,
   Col,
   Label,
-  Input
+  Input, 
+  Progress
 } from "reactstrap"
 
 // ** Store & Actions
@@ -90,6 +92,9 @@ const CampaignList = () => {
   const getMyGoal = (campaignId) => {
 
     const data = {
+      fundraiser: "",
+      campaign: "",
+      organization: "",
       fundRaisingGoal: "",
       currentDonations: ""
     }
@@ -98,10 +103,12 @@ const CampaignList = () => {
     const matchData = campaignTotals.find((campaign) => campaign.campaign === campaignId)
 
     if (matchData) {
+      data.fundraiser = matchData.fundraiser
+      data.campaign = matchData.campaign
+      data.organization = matchData.organization
       data.fundRaisingGoal = matchData.fundRaisingGoal
       data.currentDonations = matchData.currentDonations
     }
-
 
     return data
   }
@@ -118,6 +125,10 @@ const CampaignList = () => {
     }
 
     return fundraiserId
+  }
+
+  function formatNumber(formatValue) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(formatValue)
   }
 
   const campaignListColumns = [
@@ -143,36 +154,20 @@ const CampaignList = () => {
       cell: (row) => row?.organization?.name
     },
     {
-      minWidth: "200px",
-      name: "My Goal",
-      selector: (row) => row.personalGoal,
-      cell: (row) => {
+      name: 'My Goal',
+      selector: row => row.progress,
+      sortable: true,
+      cell: row => {
         const { fundRaisingGoal, currentDonations } = getMyGoal(row.id)
+        const progress = (currentDonations / fundRaisingGoal) * 100
         return (
-          <div className="d-flex justify-content-left align-items-center">
-            <div className="d-flex flex-column">
-              <span className="text-truncate fw-bolder">
-                Received: ${currentDonations}
-              </span>
-              <small className="text-muted">Goal: ${fundRaisingGoal}</small>
-            </div>
-          </div>
-        )
-      }
-    },
-    {
-      minWidth: "200px",
-      name: "Personal Goal",
-      selector: (row) => row.personalGoal,
-      cell: (row) => {
-        return (
-          <div className="d-flex justify-content-left align-items-center">
-            <div className="d-flex flex-column">
-              <span className="text-truncate fw-bolder">
-                Received: ${row.totalPersonalDonations}
-              </span>
-              <small className="text-muted">Goal: ${row.personalGoal}</small>
-            </div>
+          <div className='d-flex flex-column w-100'>
+            <small className='mb-1'>{`${formatNumber(currentDonations.toFixed(0))} raised of my ${formatNumber(fundRaisingGoal.toFixed(0))} goal`}</small>
+            <Progress
+              value={progress}
+              style={{ height: '6px' }}
+              className={`w-100 progress-bar-green`}
+            />
           </div>
         )
       }
@@ -182,8 +177,12 @@ const CampaignList = () => {
       name: "Action",
       selector: (row) => row.personalGoal,
       cell: (row) => {
+        const { fundraiser } = getMyGoal(row.id)
         return (
           <div className="d-flex align-items-center column-action">
+            <Link className='text-body' to={`/fundraisers/${fundraiser}`} target="_blank" id={`pw-tooltip-${fundraiser}`}>
+              <Eye size={17} className='mx-1' />
+            </Link>
             <Button
               size="sm"
               color="transparent"
@@ -192,8 +191,8 @@ const CampaignList = () => {
                 setShow(true)
                 setSelectedFundrasingCampaing(row)
                 reset({
-                  personalGoal: row.personalGoal,
-                  fundraisingReason: row.fundraisingReason
+                  personalGoal: store.selectedUser?.personalGoal,
+                  fundraisingReason: store.selectedUser?.fundraisingReason
                 })
               }}
             >
@@ -258,7 +257,7 @@ const CampaignList = () => {
       <Modal
         isOpen={show}
         toggle={() => setShow(!show)}
-        className="modal-dialog-centered"
+        className="modal-dialog-centered modal-lg"
       >
         <ModalHeader
           className="bg-transparent"
@@ -285,6 +284,7 @@ const CampaignList = () => {
                       type={"textarea"}
                       id="fundraisingReason"
                       placeholder="ex. i am ..."
+                      rows="6"
                       invalid={errors.fundraisingReason && true}
                     />
                   )}
