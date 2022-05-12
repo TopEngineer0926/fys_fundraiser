@@ -2,7 +2,7 @@
 import '@styles/react/pages/page-authentication.scss'
 
 // ** React Imports
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import axios from 'axios'
 
 import {
@@ -101,10 +101,12 @@ const Login = () => {
     handleSubmit,
     formState: { errors }
   } = useForm({ defaultValues })
+  const [errorMessage, setErrorMessage] = useState('')
   const illustration = skin === 'dark' ? '3.png' : '3.png',
     source = require(`@src/assets/images/pages/${illustration}`).default
 
   const onSubmit = data => {
+    setErrorMessage('')
     if (Object.values(data).every(field => field.length > 0)) {
       axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/login`, {
         email: data.loginEmail,
@@ -125,7 +127,15 @@ const Login = () => {
             ))
           }
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+          if (err.response.data.hasError) {
+            if (err.response.data.data.message) {
+              setErrorMessage(err.response.data.data?.message)
+            } else {
+              setErrorMessage('Something went wrong. Please try again!')
+            }
+          }
+        })
     } else {
       for (const key in data) {
         if (data[key].length === 0) {
@@ -199,6 +209,7 @@ const Login = () => {
                   Remember Me
                 </Label>
               </div>
+              {errorMessage && <span className="d-flex justify-content-center text-danger mb-1 fs-4 font-weight-bold">{errorMessage}</span>}
               <Button type='submit' color='primary' block>
                 Sign in
               </Button>
