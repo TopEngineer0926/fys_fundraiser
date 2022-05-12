@@ -9,6 +9,7 @@ import { User, Lock, Bookmark, Bell, Link } from 'react-feather'
 
 // ** User Components
 import ContactList from './ContactList'
+import UserList from './UserList'
 import FundraiserList from './FundraiserList'
 
 const UserTabs = ({ selectedUser, active, toggleTab }) => {
@@ -39,10 +40,10 @@ const UserTabs = ({ selectedUser, active, toggleTab }) => {
           <FundraiserList playerList={selectedUser.fundraisers} />
         </TabPane>
         <TabPane tabId='2'>
-          <ContactList />
+          <ContactList teamCampaigns={selectedUser.campaigns} />
         </TabPane>
         <TabPane tabId='3'>
-          <ContactList />
+          <UserList />
         </TabPane>
       </TabContent>
     </Fragment>
