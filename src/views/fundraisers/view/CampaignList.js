@@ -319,11 +319,10 @@ const CampaignList = () => {
                   color="secondary"
                   outline
                   onClick={() => {
-                    handleReset()
                     setShow(false)
                   }}
                 >
-                  Discard
+                  Cancel
                 </Button>
               </Col>
             </Row>
