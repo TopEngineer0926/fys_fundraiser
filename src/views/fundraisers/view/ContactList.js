@@ -5,10 +5,12 @@ import { useParams } from 'react-router-dom'
 import { Input, Label, Modal, ModalHeader, ModalBody, Form, Row, Col, Button, Card, CardHeader, Progress } from 'reactstrap'
 
 // ** Third Party Components
-import { ChevronDown } from 'react-feather'
+import { ChevronDown, Check, X } from 'react-feather'
 import { useForm, Controller } from 'react-hook-form'
 import DataTable from 'react-data-table-component'
 import { useDispatch, useSelector } from 'react-redux'
+import Select from 'react-select'
+import classnames from 'classnames'
 
 // ** Styles
 import '@styles/react/libs/tables/react-dataTable-component.scss'
@@ -26,15 +28,39 @@ import { getFundraiser, addFundraiserContacts, updateFundraiserContact, deleteCo
 //   }
 // ]
 
+const CustomLabel = ({ htmlFor }) => {
+  return (
+    <Label className='form-check-label' htmlFor={htmlFor}>
+      <span className='switch-icon-left'>
+        <Check size={14} />
+      </span>
+      <span className='switch-icon-right'>
+        <X size={14} />
+      </span>
+    </Label>
+  )
+}
+
 const ContactList = () => {
   const dispatch = useDispatch()
   const store = useSelector(state => state.fundraisers)
-
   const { id } = useParams()
+  const [campaignOptions, setCampaignOptions] = useState([])
+
+  const getFundraiserCampaigns = () => {
+    let campaignList = []
+    store.fundraiserCampaigns.map(item => {
+      const option = { id: item.id, label: `${item.title} - ${item.organization.name}` }
+      campaignList = [...campaignList, option]
+    })
+
+    setCampaignOptions(campaignList)
+  }
 
   // ** Get suer on mount
 
   useEffect(() => {
+    getFundraiserCampaigns()
     if (store.isFundraiserContactAdded) {
       dispatch(getFundraiser(id))
     }
@@ -67,14 +93,32 @@ const ContactList = () => {
   //   setShow(false)
   // }
   const onSubmit = data => {
-    if (Object.values(data).every(field => field.length > 0)) {
-      data.fundraiser = id
-      dispatch(addFundraiserContacts(data))
+    let isNotValidData = false
+    Object.keys(data).map(item => {
+      if (!data[item] && !String(data[item]).length) {
+        isNotValidData = true
+      }
+    })
+
+    // if (Object.values(data).every(field => field.length > 0)) {
+    if (!isNotValidData) {
+      const contactData = { ...data }
+      contactData.fundraiser = id
+      contactData.campaignId = data.campaign.id
+      contactData.invitationFlag = contactData.invitationFlag || false
+
+      delete contactData.campaign
+      dispatch(addFundraiserContacts(contactData))
 
       setShow(false)
     } else {
       for (const key in data) {
-        if (data[key].length === 0) {
+        if (data[key] === null || data[key] === undefined) {
+          setError('campaign', {
+            type: 'manual'
+          })
+        }
+        if (data[key] !== null && data[key] !== undefined && data[key].length === 0) {
           setError(key, {
             type: 'manual'
           })
@@ -84,9 +128,14 @@ const ContactList = () => {
   }
 
   const onUpdate = data => {
-    data.id = editModel.id
-    data.fundraiser = id
-    dispatch(updateFundraiserContact(data))
+    const contactData = { ...data }
+    contactData.fundraiser = id
+    contactData.campaignId = data.campaign.id
+    contactData.id = editModel.id
+    contactData.invitationFlag = contactData.invitationFlag || false
+
+    delete contactData.campaign
+    dispatch(updateFundraiserContact(contactData))
 
     setShow(false)
   }
@@ -96,6 +145,13 @@ const ContactList = () => {
     setValue('lastName', contact.lastName)
     setValue('email', contact.email)
     setValue('phone', contact.phone)
+    setValue('invitationFlag', contact?.invitationFlag)
+
+    store.fundraiserCampaigns.map(item => {
+      if (contact?.campaign === item.id) {
+        setValue('campaign', { id: item.id, label: `${item.title} - ${item.organization.name}` })
+      }
+    })
     setEditModel(contact)
     setShow(true)
   }
@@ -232,19 +288,61 @@ const ContactList = () => {
                     )}
                   />
                 </Col>
+                <div className="mt-3 mb-1">
+                  <Controller
+                    control={control}
+                    name="invitationFlag"
+                    id="invitationFlag"
+                    value={editModel?.invitationFlag || false}
+                    render={({ field }) => (
+                      <div className="d-flex align-items-center ms-1">
+                        <div className='form-switch form-check-danger'>
+                          <Input type='switch' id='icon-danger' name='icon-danger' {...field} />
+                          <CustomLabel htmlFor='icon-danger' />
+                        </div>
+                        <h5 className="ms-1 m-0 font-weight-bold">Send Invitations for a current campaign</h5>
+                      </div>
+                    )}
+                  />
+                </div>
+                <Col xs={12}>
+                  <Label className="form-label" for="campaign">
+                    Campaign
+                  </Label>
+                  <Controller
+                    control={control}
+                    name='campaign'
+                    id='campaign'
+                    render={({ field }) => (
+                      <Select
+                        isClearable={false}
+                        classNamePrefix="select"
+                        placeholder={<span>Campaign Name - Organization Name</span>}
+                        options={campaignOptions}
+                        value={editModel?.campaign?.label}
+                        className={classnames('react-select', { 'is-invalid': errors.campaign && true })}
+                        {...field}
+                      />
+                    )}
+                  />
+                </Col>
                 <Col xs={12} className='text-center mt-2 pt-50'>
                   <Button type='submit' className='me-1' color='primary'>
                     {(!editModel) ? 'Submit' : 'Update'}
                   </Button>
                   <Button
                     type='reset'
-                    color='danger'
+                    color={(!editModel) ? 'secondary' : 'danger'}
                     className='me-1'
                     onClick={() => {
-                      setShowConfirmation(true)
+                      if (editModel) {
+                        setShowConfirmation(true)
+                      } else {
+                        setShow(false)
+                      }
                     }}
                   >
-                    Delete
+                    {(!editModel) ? 'Cancel' : 'Delete'}
                   </Button>
                 </Col>
               </Row>
