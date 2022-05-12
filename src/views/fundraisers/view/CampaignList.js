@@ -226,13 +226,6 @@ const CampaignList = () => {
     }
   }
 
-  const handleReset = () => {
-    reset({
-      personalGoal: selectedFundraisingCampaing.personalGoal || "",
-      fundraisingReason: selectedFundraisingCampaing.fundraisingReason || ""
-    })
-  }
-
   return (
     <div className="invoice-list-wrapper">
       <Card>
