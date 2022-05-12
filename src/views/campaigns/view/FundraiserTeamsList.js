@@ -15,16 +15,43 @@ import moment from 'moment'
 export const columns = [
   {
     name: 'Date',
-    selector: row => moment(row?.created).format('DD/MM/YYYY')
+    selector: row => moment(row?.created).format('MM/DD/YYYY')
   },
   {
-    name: 'Name',
-    selector: row => row?.name
+    name: 'Donor Name',
+    minWidth: '150px',
+    // selector: row => row.donor,
+    cell: row => (
+      <div>
+        <span className='fw-bolder'>
+          <span>{row.donor.firstName} {row.donor.lastName}</span>
+        </span>
+      </div>
+    )
+  },
+  {
+    name: 'Player Name',
+    minWidth: '150px',
+    // selector: row => row.donor,
+    cell: row => (
+      <div>
+        <span className='fw-bolder'>
+          <span>{row.fundraiser?.firstName} {row.fundraiser?.lastName}</span>
+        </span>
+      </div>
+    )
   },
   {
     name: 'Amount',
+    maxWidth: '125px',
     textAlign: 'right',
-    selector: row => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(row.donationAmount)
+    selector: row => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(((row.donationAmount - row.coverFeeAmount) / 100))
+  },
+  {
+    name: 'Fees Covered',
+    maxWidth: '150px',
+    textAlign: 'right',
+    selector: row => new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(((row.coverFeeAmount) / 100))
   }
 ]
 
