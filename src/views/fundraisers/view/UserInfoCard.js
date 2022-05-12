@@ -5,7 +5,6 @@ import { useState, Fragment } from 'react'
 import { Row, Col, Card, Form, CardBody, Button, Badge, Modal, Input, Label, ModalBody, ModalHeader, Alert } from 'reactstrap'
 
 // ** Third Party Components
-import Swal from 'sweetalert2'
 import { Check, Briefcase, X } from 'react-feather'
 import { useForm, Controller } from 'react-hook-form'
 
@@ -17,14 +16,6 @@ import '@styles/react/libs/react-select/_react-select.scss'
 
 import { useDispatch } from 'react-redux'
 import { resendInvitation, updateFundraiser } from '../store'
-
-const roleColors = {
-  editor: 'light-info',
-  admin: 'light-danger',
-  author: 'light-warning',
-  maintainer: 'light-success',
-  subscriber: 'light-primary'
-}
 
 const UserInfoCard = ({ selectedUser }) => {
   // ** State
@@ -59,11 +50,11 @@ const UserInfoCard = ({ selectedUser }) => {
     if (selectedUser !== null && selectedUser?.avatar?.length) {
       return (
         <img
-          height='110'
-          width='110'
+          height='250'
+          width='250'
           alt='user-avatar'
           src={selectedUser.avatar}
-          className='img-fluid rounded mt-3 mb-2'
+          className='img-fluid rounded mt-1 mb-2'
         />
       )
     } else {
@@ -129,6 +120,10 @@ const UserInfoCard = ({ selectedUser }) => {
       setShowResendModal(true)
     })
   }
+  
+  function formatNumber(formatValue) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(formatValue)
+  }
 
   return (
     <Fragment>
@@ -136,17 +131,12 @@ const UserInfoCard = ({ selectedUser }) => {
         <CardBody>
           <div className='user-avatar-section'>
             <div className='d-flex align-items-center flex-column'>
-              {renderUserImg()}
               <div className='d-flex flex-column align-items-center text-center'>
                 <div className='user-info'>
-                  <h4>{selectedUser !== null ? selectedUser.fullName : 'Eleanor Aguilar'}</h4>
-                  {selectedUser !== null ? (
-                    <Badge color={roleColors[selectedUser.role]} className='text-capitalize'>
-                      {selectedUser.role}
-                    </Badge>
-                  ) : null}
+                  <h4>{selectedUser !== null ? `${selectedUser.firstName} ${selectedUser.lastName}` : ''}</h4>
                 </div>
               </div>
+              {renderUserImg()}
             </div>
           </div>
           <div className='d-flex justify-content-around my-2 pt-75'>
@@ -164,7 +154,7 @@ const UserInfoCard = ({ selectedUser }) => {
                 <Briefcase className='font-medium-2' />
               </Badge>
               <div className='ms-75'>
-                <h4 className='mb-0'>${selectedUser.totalFundraised}</h4>
+                <h4 className='mb-0'>{formatNumber(selectedUser.totalFundraised.toFixed(0))}</h4>
                 <small>In Received Donations</small>
               </div>
             </div>
@@ -323,7 +313,7 @@ const UserInfoCard = ({ selectedUser }) => {
                     // setShow(false)
                   }}
                 >
-                  Discard
+                  Cancel
                 </Button>
               </Col>
             </Row>

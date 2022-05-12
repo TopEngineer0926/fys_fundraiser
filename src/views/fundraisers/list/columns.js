@@ -6,13 +6,13 @@ import Avatar from '@components/avatar'
 
 // ** Store & Actions
 import { store } from '@store/store'
-import { getFundraiser, deleteFundraiser } from '../store'
+import { getFundraiser } from '../store'
 
 // ** Icons Imports
-import { Eye, Slack, User, Settings, Database, Edit2, MoreVertical, FileText, Trash2, Archive } from 'react-feather'
+import { Eye } from 'react-feather'
 
 // ** Reactstrap Imports
-import { Badge, UncontrolledTooltip, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap'
+import { Badge, UncontrolledTooltip } from 'reactstrap'
 
 // ** Renders Client Columns
 const renderClient = row => {
@@ -95,38 +95,6 @@ export const columns = [
         <UncontrolledTooltip placement='top' target={`pw-tooltip-${row.id}`}>
           View Public Page
         </UncontrolledTooltip>
-        <UncontrolledDropdown>
-          <DropdownToggle tag='div' className='btn btn-sm'>
-            <MoreVertical size={14} className='cursor-pointer' />
-          </DropdownToggle>
-          <DropdownMenu>
-            <DropdownItem
-              tag={Link}
-              className='w-100'
-              to={`/fundriasers/view/${row.id}`}
-              onClick={() => store.dispatch(getFundraiser(row.id))}
-            >
-              <FileText size={14} className='me-50' />
-              <span className='align-middle'>Details</span>
-            </DropdownItem>
-            <DropdownItem tag='a' href='/' className='w-100' onClick={e => e.preventDefault()}>
-              <Archive size={14} className='me-50' />
-              <span className='align-middle'>Edit</span>
-            </DropdownItem>
-            <DropdownItem
-              tag='a'
-              href='/'
-              className='w-100'
-              onClick={e => {
-                e.preventDefault()
-                store.dispatch(deleteFundraiser(row.id))
-              }}
-            >
-              <Trash2 size={14} className='me-50' />
-              <span className='align-middle'>Delete</span>
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
       </div>
     )
   }

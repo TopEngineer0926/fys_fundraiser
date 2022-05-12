@@ -12,6 +12,7 @@ import { Row, Col, Alert, Spinner} from 'reactstrap'
 // ** User View Components
 import UserTabs from './Tabs'
 import UserInfoCard from './UserInfoCard'
+import Breadcrumbs from '@components/breadcrumbs'
 
 // ** Styles
 import '@styles/react/apps/app-users.scss'
@@ -43,6 +44,7 @@ const FundraiserView = () => {
 
   return store.selectedUser !== null && store.selectedUser !== undefined ? (
     <div className='app-user-view'>
+      <Breadcrumbs title='Players' data={[{ title: 'My Players', link: '/fundraisers/list' }]} />
       <Row>
         <Col xl='4' lg='5' xs={{ order: 1 }} md={{ order: 0, size: 5 }}>
           <UserInfoCard selectedUser={store.selectedUser} />

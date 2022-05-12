@@ -45,15 +45,27 @@ export const columns = [
   },
   {
     name: 'Team Administrator',
-    selector: row => row?.parent?.name
+    maxWidth: '200px',
+    selector: row => `${row?.admin?.user?.firstName}  ${row?.admin?.user?.lastName}`
   },
   {
     name: 'Phone Number',
-    selector: row => row.phone
+    maxWidth: '175px',
+    selector: row => row?.admin?.user?.phone,
+    cell: row => {
+      return (
+        <a href={`tel:${row?.admin?.user?.phone}`}>{row?.admin?.user?.phone}</a>
+      )
+    }
   },
   {
     name: 'Email Address',
-    selector: row => row.email
+    selector: row => row?.admin?.user?.email,
+    cell: row => {
+      return (
+        <a href={`mailto:${row?.admin?.user?.email}`}>{row?.admin?.user?.email}</a>
+      )
+    }
   }
 ]
 

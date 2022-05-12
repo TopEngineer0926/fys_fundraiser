@@ -21,17 +21,23 @@ const UserTabs = ({ fundraiser, active, toggleTab }) => {
         <NavItem>
           <NavLink active={active === "1"} onClick={() => toggleTab("1")}>
             <User className="font-medium-3 me-50" />
-            <span className="fw-bold">Fundraising Details</span>
+            <span className="fw-bold">Campaigns</span>
           </NavLink>
         </NavItem>
         <NavItem>
           <NavLink active={active === "2"} onClick={() => toggleTab("2")}>
+            <User className="font-medium-3 me-50" />
+            <span className="fw-bold">Teams</span>
+          </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink active={active === "3"} onClick={() => toggleTab("3")}>
             <Lock className="font-medium-3 me-50" />
             <span className="fw-bold">Contacts</span>
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink active={active === "3"} onClick={() => toggleTab("3")}>
+          <NavLink active={active === "4"} onClick={() => toggleTab("4")}>
             <Lock className="font-medium-3 me-50" />
             <span className="fw-bold">Security</span>
           </NavLink>
@@ -47,15 +53,21 @@ const UserTabs = ({ fundraiser, active, toggleTab }) => {
         <TabPane tabId="1">
           {fundraiser && (
             <>
-              <FundraiserTeamsList fundraiser={fundraiser} />
               <CampaignList />
             </>
           )}
         </TabPane>
         <TabPane tabId="2">
-          <ContactList fundraiser={fundraiser} />
+          {fundraiser && (
+            <>
+              <FundraiserTeamsList fundraiser={fundraiser} />
+            </>
+          )}
         </TabPane>
         <TabPane tabId="3">
+          <ContactList fundraiser={fundraiser} />
+        </TabPane>
+        <TabPane tabId="4">
           <SecurityTab />
         </TabPane>
         {/* <TabPane tabId='4'>
