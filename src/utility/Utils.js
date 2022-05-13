@@ -155,7 +155,7 @@ export const generateCroppedImageFile = async (
 
   ctx.putImageData(data, 0, 0)
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     canvas.toBlob((file) => {
       const extension = imageName.substring(imageName.lastIndexOf('.'))
       const updatedFile = new File([file], `${imageName.split('.')[0]}${new Date().getTime()}${extension}`, { lastModified: new Date() })
