@@ -1,12 +1,15 @@
 // ** React Imports
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useCallback, useRef } from 'react'
 
 // ** Reactstrap Imports
 import { Row, Col, Card, Form, CardBody, Button, Badge, Modal, Input, Label, ModalBody, ModalHeader, Alert } from 'reactstrap'
 
 // ** Third Party Components
-import { Check, Briefcase, X } from 'react-feather'
+import Swal from 'sweetalert2'
+import { Check, Briefcase, X, Edit2 } from 'react-feather'
 import { useForm, Controller } from 'react-hook-form'
+import { useDropzone } from 'react-dropzone'
+import Cropper from 'react-easy-crop'
 
 // ** Custom Components
 import Avatar from '@components/avatar'
@@ -14,14 +17,24 @@ import Avatar from '@components/avatar'
 // ** Styles
 import '@styles/react/libs/react-select/_react-select.scss'
 
-import { useDispatch } from 'react-redux'
-import { resendInvitation, updateFundraiser } from '../store'
+import { useDispatch, useSelector } from 'react-redux'
+import { getFundraiser, resendInvitation, updateFundraiser, uploadProfileImage } from '../store'
+import { generateCroppedImageFile } from '../../../utility/Utils'
 
 const UserInfoCard = ({ selectedUser }) => {
+  // ** Ref
+  const inputRef = useRef()
   // ** State
   const [show, setShow] = useState(false)
   const [invitationResponse, setInvitationResponse] = useState()
   const [showResendModal, setShowResendModal] = useState(false)
+  const [showEditModal, setShowEditModal] = useState(false)
+  const [uploadedImage, setUploadedImage] = useState(null)
+  const [croppedArea, setCroppedArea] = useState(null)
+  const [crop, setCrop] = useState({ x: 0, y: 0 })
+  const [zoom, setZoom] = useState(1)
+  const [imageName, setImageName] = useState(null)
+  const [updatedImage, setUpdatedImage] = useState(selectedUser?.avatar)
 
   // ** Hook
   const {
@@ -34,8 +47,8 @@ const UserInfoCard = ({ selectedUser }) => {
     defaultValues: {
       username: `${selectedUser.firstName} ${selectedUser.lastName}`,
       lastName: selectedUser.lastName,
-      firstName: selectedUser.firstName, 
-      parentFirstName: selectedUser.parentFirstName, 
+      firstName: selectedUser.firstName,
+      parentFirstName: selectedUser.parentFirstName,
       parentLastName: selectedUser.parentLastName,
       email: selectedUser.email,
       phone: selectedUser.phone
@@ -45,36 +58,76 @@ const UserInfoCard = ({ selectedUser }) => {
   const dispatch = useDispatch()
   const user = JSON.parse(localStorage.getItem('userData'))
 
+  const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
+    setCroppedArea(croppedAreaPixels)
+  }
+
+
+  const handleSelectFile = useCallback(async (event) => {
+    if (event.target.files && event.target.files.length) {
+      const reader = new FileReader()
+      setImageName(event.target.files[0].name)
+      reader.readAsDataURL(event.target.files[0])
+      reader.addEventListener("load", () => {
+        setUploadedImage(reader.result)
+      })
+    }
+
+  }, [])
+
+  const handleUpload = async () => {
+    const file = await generateCroppedImageFile(uploadedImage, croppedArea, imageName)
+    const formData = new FormData()
+    formData.append('avatar', file)
+    const uploadImage = await uploadProfileImage(formData, selectedUser.id)
+    if (!uploadImage.data.hasError) {
+      dispatch(getFundraiser(selectedUser.id))
+      setShowEditModal(false)
+      setUploadedImage(null)
+      setUpdatedImage(uploadImage.data?.data)
+    }
+  }
+
   // ** render user img
   const renderUserImg = () => {
     if (selectedUser !== null && selectedUser?.avatar?.length) {
       return (
-        <img
-          height='250'
-          width='250'
-          alt='user-avatar'
-          src={selectedUser.avatar}
-          className='img-fluid rounded mt-1 mb-2'
-        />
+        <div className="position-relative">
+          <img
+            height='250'
+            width='250'
+            alt='user-avatar'
+            src={updatedImage || selectedUser.avatar}
+            className='img-fluid rounded mt-1 mb-2'
+          />
+          <Button color="primary" className="position-absolute p-0 top-0 start-0 mt-1" onClick={() => setShowEditModal(true)}>
+            <Edit2 />
+          </Button>
+        </div>
       )
     } else {
       return (
-        <Avatar
-          initials
-          color={selectedUser.avatarColor || 'light-primary'}
-          className='rounded mt-3 mb-2'
-          content={selectedUser.firstName}
-          contentStyles={{
-            borderRadius: 0,
-            fontSize: 'calc(48px)',
-            width: '100%',
-            height: '100%'
-          }}
-          style={{
-            height: '110px',
-            width: '110px'
-          }}
-        />
+        <div className="potision-relative">
+          <Avatar
+            initials
+            color={selectedUser.avatarColor || 'light-primary'}
+            className='rounded mt-3 mb-2'
+            content={selectedUser.firstName}
+            contentStyles={{
+              borderRadius: 0,
+              fontSize: 'calc(48px)',
+              width: '100%',
+              height: '100%'
+            }}
+            style={{
+              height: '110px',
+              width: '110px'
+            }}
+          />
+          <Button color="primary" className="position-absolute p-0 top-0 start-0" onClick={() => setShowEditModal(true)}>
+            <Edit2 />
+          </Button>
+        </div>
       )
     }
   }
@@ -99,8 +152,8 @@ const UserInfoCard = ({ selectedUser }) => {
     reset({
       username: `${selectedUser.firstName} ${selectedUser.lastName}`,
       lastName: selectedUser.lastName,
-      firstName: selectedUser.firstName, 
-      parentFirstName: selectedUser.parentFirstName, 
+      firstName: selectedUser.firstName,
+      parentFirstName: selectedUser.parentFirstName,
       parentLastName: selectedUser.parentLastName,
       email: selectedUser.email,
       phone: selectedUser.phone
@@ -110,17 +163,17 @@ const UserInfoCard = ({ selectedUser }) => {
   const onResendInvitation = () => {
     resendInvitation(selectedUser['id']).then((res) => {
       if (res && res['data'] && res['status'] === 200) {
-        setInvitationResponse({success : true, message : "Invitation sent successfully"})
+        setInvitationResponse({ success: true, message: "Invitation sent successfully" })
       } else {
-        setInvitationResponse({success : false, message : "Something went wrong"})
+        setInvitationResponse({ success: false, message: "Something went wrong" })
       }
       setShowResendModal(true)
     }).catch(() => {
-      setInvitationResponse({success : false, message : "Something went wrong"})
+      setInvitationResponse({ success: false, message: "Something went wrong" })
       setShowResendModal(true)
     })
   }
-  
+
   function formatNumber(formatValue) {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(formatValue)
   }
@@ -188,11 +241,11 @@ const UserInfoCard = ({ selectedUser }) => {
             </Button>
             {
               user && user['role'] !== 'Fundraiser' ? <>
-               <span className='custom-button-saprator' style={{width:"5px"}} ></span>
+                <span className='custom-button-saprator' style={{ width: "5px" }} ></span>
                 <Button color='primary' onClick={() => onResendInvitation()}>
                   Resend Invitation
                 </Button>
-            </> : null
+              </> : null
             }
           </div>
           {showResendModal ? <Modal isOpen={showResendModal} className='modal-dialog-centered modal-xs'>
@@ -318,6 +371,30 @@ const UserInfoCard = ({ selectedUser }) => {
               </Col>
             </Row>
           </Form>
+        </ModalBody>
+      </Modal>
+      <Modal isOpen={showEditModal} toggle={() => setShowEditModal(!showEditModal)} className='modal-dialog-centered'>
+        <ModalBody>
+          <h4 className="text-center">Please upload the image</h4>
+          {uploadedImage && <Cropper
+            image={uploadedImage}
+            crop={crop}
+            zoom={zoom}
+            aspect={1}
+            cropSize={{ width: 400, height: 400 }}
+            onCropChange={setCrop}
+            onZoomChange={setZoom}
+            onCropComplete={onCropComplete}
+            objectFit="contain"
+            style={{ containerStyle: { width: '100%', height: 500, position: 'relative' } }}
+          />}
+          <div className="d-flex justify-content-center mt-1">
+            <input type="file" accept="image/*" ref={inputRef} className="d-none" onChange={handleSelectFile} />
+            <Button color="primary" className="me-1" onClick={!uploadedImage ? () => inputRef.current.click() : handleUpload}>
+              {uploadedImage ? 'Upload' : 'Select'}
+            </Button>
+            <Button onClick={() => setShowEditModal(false)}>Cancel</Button>
+          </div>
         </ModalBody>
       </Modal>
     </Fragment>

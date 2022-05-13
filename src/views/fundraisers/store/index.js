@@ -183,6 +183,10 @@ export const resendInvitation = (id) => {
   )
 }
 
+export const uploadProfileImage = (formData, id) => {
+  return axios.post(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/fundraiser/${id}/avatar`, formData)
+}
+
 export const appFundraisersSlice = createSlice({
   name: "appFundraisers",
   initialState: {
