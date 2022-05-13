@@ -28,7 +28,7 @@ const FundraiserView = () => {
   // ** Get suer on mount
   
   useEffect(() => {
-    if (!store.selectedUser) {
+    if (!store.selectedUser || store.selectedUser.id !== id) {
       dispatch(getFundraiser(id))
     }
    

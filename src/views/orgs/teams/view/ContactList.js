@@ -2,93 +2,88 @@
 import { Card, CardHeader, Progress } from 'reactstrap'
 
 // ** Third Party Components
-import { ChevronDown } from 'react-feather'
+import { ChevronDown, Eye } from 'react-feather'
 import DataTable from 'react-data-table-component'
+import { Link } from "react-router-dom"
 
 // ** Custom Components
 import Avatar from '@components/avatar'
+import moment from 'moment'
 
 // ** Styles
 import '@styles/react/libs/tables/react-dataTable-component.scss'
 
-const projectsArr = [
-  {
-    progress: 60,
-    hours: '210:30h',
-    progressColor: 'info',
-    totalTasks: '233/240',
-    subtitle: 'React Project',
-    title: 'BGC eCommerce App',
-    img: require('@src/assets/images/icons/brands/react-label.png').default
-  },
-  {
-    hours: '89h',
-    progress: 15,
-    totalTasks: '9/50',
-    progressColor: 'danger',
-    subtitle: 'UI/UX Project',
-    title: 'Falcon Logo Design',
-    img: require('@src/assets/images/icons/brands/xd-label.png').default
-  }
-]
+const ContactList = ({ teamCampaigns }) => {
 
-export const columns = [
-  {
-    sortable: true,
-    minWidth: '300px',
-    name: 'Project',
-    selector: row => row.title,
-    cell: row => {
-      return (
-        <div className='d-flex justify-content-left align-items-center'>
-          <div className='avatar-wrapper'>
-            <Avatar className='me-1' img={row.img} alt={row.title} imgWidth='32' />
-          </div>
-          <div className='d-flex flex-column'>
-            <span className='text-truncate fw-bolder'>{row.title}</span>
-            <small className='text-muted'>{row.subtitle}</small>
-          </div>
-        </div>
-      )
-    }
-  },
-  {
-    name: 'Total Tasks',
-    selector: row => row.totalTasks
-  },
-  {
-    name: 'Progress',
-    selector: row => row.progress,
-    sortable: true,
-    cell: row => {
-      return (
-        <div className='d-flex flex-column w-100'>
-          <small className='mb-1'>{`${row.progress}%`}</small>
-          <Progress
-            value={row.progress}
-            style={{ height: '6px' }}
-            className={`w-100 progress-bar-${row.progressColor}`}
-          />
-        </div>
-      )
-    }
-  },
-  {
-    name: 'Hours',
-    selector: row => row.hours
+  function formatNumber(formatValue) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(formatValue)
   }
-]
 
-const ContactList = () => {
+  const columns = [
+    {
+      sortable: true,
+      minWidth: '300px',
+      name: 'Campaign',
+      selector: row => row.campaign.title,
+      cell: row => {
+        return (
+          <div className='d-flex justify-content-left align-items-center'>
+            <div className='avatar-wrapper'>
+              <Avatar className='me-1' img={row.img} alt={row.campaign.title} imgWidth='32' />
+            </div>
+            <div className='d-flex flex-column'>
+              <span className='text-truncate fw-bolder'>{row.campaign.title}</span>
+              <small className='text-muted'>{moment(row.campaign.started).format('MM/DD/YYYY')} - {moment(row.campaign.ended).format('MM/DD/YYYY')}</small>
+            </div>
+          </div>
+        )
+      }
+    },
+    {
+      name: 'Goal',
+      selector: row => row.progress,
+      sortable: true,
+      cell: row => {
+        const fundRaisingGoal = row.fundRaisingGoal
+        const currentDonations = row.currentDonations
+        const progress = (currentDonations / fundRaisingGoal) * 100
+        return (
+          <div className='d-flex flex-column w-100'>
+            <small className='mb-1'>{`${formatNumber(currentDonations.toFixed(0))} raised of my ${formatNumber(fundRaisingGoal.toFixed(0))} goal`}</small>
+            <Progress
+              value={progress}
+              style={{ height: '6px' }}
+              className={`w-100 progress-bar-green`}
+            />
+          </div>
+        )
+      }
+    },
+    {
+      minWidth: "200px",
+      name: "Action",
+      selector: (row) => row.organization,
+      cell: (row) => {
+        return (
+          <div className="d-flex align-items-center column-action">
+            <Link className='text-body' to={`/team/${row.organization}/campaign/${row.campaign.id}`} target="_blank" id={`pw-tooltip-${row.campaign.organization}`}>
+              <Eye size={17} className='mx-1' />
+            </Link>
+          </div>
+        )
+      }
+    }
+  ]
+
   return (
     <Card>
-      <CardHeader tag='h4'>Contacts</CardHeader>
+      <CardHeader tag='h4'>Campaigns</CardHeader>
       <div className='react-dataTable user-view-account-projects'>
         <DataTable
           noHeader
           responsive
           columns={columns}
-          data={projectsArr}
+          data={teamCampaigns}
           className='react-dataTable'
           sortIcon={<ChevronDown size={10} />}
         />

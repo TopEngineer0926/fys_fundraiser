@@ -10,10 +10,10 @@ import { getUserData } from "@utils"
 
 export const getAllData = createAsyncThunk(
   "appFundraisers/getAllData",
-  async () => {
+  async (params) => {
     const user = getUserData()
     const response = await axios.get(
-      `${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/filter?userRole=${user.role}&userId=${user.id}`
+      `${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/filter?userRole=${user.role}&userId=${user.id}&search=${params.q}&limit=${params.perPage}&page=${params.page}&order=${1}`
     )
     return response.data
   }

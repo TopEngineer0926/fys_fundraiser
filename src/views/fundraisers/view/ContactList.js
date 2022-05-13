@@ -374,6 +374,7 @@ const ContactList = () => {
         <DataTable
           noHeader
           responsive
+          selectableRows
           columns={columns}
           data={store.fundraiserContacts}
           className='react-dataTable'

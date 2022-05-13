@@ -115,20 +115,20 @@ const FundraisersList = () => {
 
   // ** Get data on mount
   useEffect(() => {
-    dispatch(getAllData())
+
+    const params = {
+      sort,
+      sortColumn,
+      q: searchTerm,
+      page: currentPage,
+      perPage: rowsPerPage
+    } 
+
+    dispatch(getAllData(params))
     dispatch(
-      getData({
-        sort,
-        sortColumn,
-        q: searchTerm,
-        page: currentPage,
-        perPage: rowsPerPage,
-        role: currentRole.value,
-        status: currentStatus.value,
-        currentPlan: currentPlan.value
-      })
+      getData(params)
     )
-  }, [dispatch, store.data.length, sort, sortColumn, currentPage])
+  }, [dispatch, store.data.length, sort, sortColumn, currentPage, rowsPerPage, searchTerm])
 
   // ** User filter options
   const roleOptions = [
@@ -188,6 +188,7 @@ const FundraisersList = () => {
       })
     )
     setRowsPerPage(value)
+    setCurrentPage(1)
   }
 
   // ** Function in get data on search query change
@@ -205,11 +206,12 @@ const FundraisersList = () => {
         currentPlan: currentPlan.value
       })
     )
+    setCurrentPage(1)
   }
 
   // ** Custom Pagination
   const CustomPagination = () => {
-    const count = Number(Math.ceil(store.total / rowsPerPage))
+    const count = Number(Math.ceil(store.allData.count / rowsPerPage))
 
     return (
       <ReactPaginate
@@ -243,12 +245,12 @@ const FundraisersList = () => {
       return filters[k].length > 0
     })
 
-    if (store.data.length > 0) {
-      return store.data
-    } else if (store.data.length === 0 && isFiltered) {
+    if ((store.allData?.list || []).length > 0) {
+      return (store.allData.list || []).slice(0, rowsPerPage) || []
+    } else if ((store.allData?.list || []).length === 0 && isFiltered) {
       return []
     } else {
-      return store.allData.slice(0, rowsPerPage)
+      return (store.allData?.list || []).slice(0, rowsPerPage)
     }
   }
 

@@ -17,7 +17,7 @@ export const columns = [
   {
     name: 'Date',
     sortable: true,
-    minWidth: '130px',
+    maxWidth: '130px',
     sortField: 'created',
     selector: row => row.created_on,
     cell: row => (
@@ -33,7 +33,7 @@ export const columns = [
     )
   },
   {
-    name: 'Name',
+    name: 'Donor Name',
     minWidth: '150px',
     // selector: row => row.donor,
     cell: row => (
@@ -44,8 +44,7 @@ export const columns = [
           onClick={() => store.dispatch(getUser(row.id))}
         > */}
         <span className='fw-bolder'>
-          <span>{row.first_name} </span>
-          <span>{row.last_name}</span>
+          <span>{row.first_name} {row.last_name}</span>
         </span>
         {/* </Link> */}
       </div>
@@ -84,7 +83,7 @@ export const columns = [
     selector: row => row.organization,
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>
-        {row.organization ? row.organization.orgName : ""}
+        {row.team_name}
       </div>
     )
   },
@@ -96,20 +95,7 @@ export const columns = [
     selector: row => row.fundraiser,
     cell: row => (
       <div className='d-flex justify-content-left align-items-center'>  
-            <span>{row.player_first_name}</span>
-            <span>{row.player_last_name}</span>
-      </div>
-    )
-  },
-  {
-    name: 'Payment Method',
-    sortable: true,
-    minWidth: '200px',
-    sortField: 'cardType',
-    selector: row => row.card_type,
-    cell: row => (
-      <div className='d-flex justify-content-left align-items-center'>
-        {row.card_type}
+          <span>{row.player_first_name} {row.player_last_name}</span>
       </div>
     )
   },

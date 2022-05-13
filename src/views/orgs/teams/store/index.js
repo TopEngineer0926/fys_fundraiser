@@ -9,7 +9,7 @@ import { getUserData } from '@utils'
 export const getAllData = createAsyncThunk('appTeams/getAllData', async () => {
   const user = getUserData()
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/teams/?userId=${user.id}&userRole=${user.role}`)
-  if (user.role === "Super Admin") {
+  if (user.role === "Super Admin" || user.role === "Chapter Admin") {
     return response.data.data
   } else {
     return response.data.data[0].organizations
@@ -19,7 +19,7 @@ export const getAllData = createAsyncThunk('appTeams/getAllData', async () => {
 export const getData = createAsyncThunk('appTeams/getData', async params => {
   const user = getUserData()
   const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/admin/organization/teams/?userId=${user.id}&userRole=${user.role}`)
-  if (user.role === "Super Admin") {
+  if (user.role === "Super Admin" || user.role === "Chapter Admin") {
     return {
       params,
       data: response.data.data,

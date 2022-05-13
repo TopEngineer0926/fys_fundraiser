@@ -165,6 +165,7 @@ const DonationsList = () => {
         perPage: rowsPerPage
       })
     )
+    setCurrentPage(1)
   }
 
   // ** Custom Pagination
