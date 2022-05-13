@@ -89,6 +89,7 @@ const createImage = (url) =>
   // eslint-disable-next-line implicit-arrow-linebreak
   new Promise((resolve, reject) => {
     const image = new Image()
+    if (reject) console.log(reject)
     image.addEventListener("load", () => resolve(image))
     image.addEventListener("error", (error) => reject(error))
     image.setAttribute("crossOrigin", "anonymous")
@@ -157,6 +158,7 @@ export const generateCroppedImageFile = async (
 
   return new Promise((resolve, reject) => {
     canvas.toBlob((file) => {
+      if (reject) console.log(reject)
       const extension = imageName.substring(imageName.lastIndexOf('.'))
       const updatedFile = new File([file], `${imageName.split('.')[0]}${new Date().getTime()}${extension}`, { lastModified: new Date() })
       resolve(updatedFile)

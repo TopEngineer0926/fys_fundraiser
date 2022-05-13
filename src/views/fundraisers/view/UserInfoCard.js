@@ -8,7 +8,7 @@ import { Row, Col, Card, Form, CardBody, Button, Badge, Modal, Input, Label, Mod
 import Swal from 'sweetalert2'
 import { Check, Briefcase, X, Edit2 } from 'react-feather'
 import { useForm, Controller } from 'react-hook-form'
-import { useDropzone } from 'react-dropzone'
+// import { useDropzone } from 'react-dropzone'
 import Cropper from 'react-easy-crop'
 
 // ** Custom Components
@@ -17,7 +17,7 @@ import Avatar from '@components/avatar'
 // ** Styles
 import '@styles/react/libs/react-select/_react-select.scss'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { getFundraiser, resendInvitation, updateFundraiser, uploadProfileImage } from '../store'
 import { generateCroppedImageFile } from '../../../utility/Utils'
 
