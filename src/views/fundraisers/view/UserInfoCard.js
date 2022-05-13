@@ -58,6 +58,7 @@ const UserInfoCard = ({ selectedUser }) => {
   const dispatch = useDispatch()
   const user = JSON.parse(localStorage.getItem('userData'))
 
+  // eslint-disable-next-line no-unused-vars
   const onCropComplete = (croppedAreaPercentage, croppedAreaPixels) => {
     setCroppedArea(croppedAreaPixels)
   }
