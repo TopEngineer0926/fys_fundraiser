@@ -158,7 +158,6 @@ export const generateCroppedImageFile = async (
 
   return new Promise((resolve) => {
     canvas.toBlob((file) => {
-      if (reject) console.log(reject)
       const extension = imageName.substring(imageName.lastIndexOf('.'))
       const updatedFile = new File([file], `${imageName.split('.')[0]}${new Date().getTime()}${extension}`, { lastModified: new Date() })
       resolve(updatedFile)
