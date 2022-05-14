@@ -20,6 +20,7 @@ import '@styles/react/libs/react-select/_react-select.scss'
 import { useDispatch } from 'react-redux'
 import { getFundraiser, resendInvitation, updateFundraiser, uploadProfileImage } from '../store'
 import { generateCroppedImageFile } from '../../../utility/Utils'
+import defaultAvatar from '@src/assets/images/avatars/avatar-blank.png'
 
 const UserInfoCard = ({ selectedUser }) => {
   // ** Ref
@@ -108,24 +109,15 @@ const UserInfoCard = ({ selectedUser }) => {
       )
     } else {
       return (
-        <div className="potision-relative">
-          <Avatar
-            initials
-            color={selectedUser.avatarColor || 'light-primary'}
-            className='rounded mt-3 mb-2'
-            content={selectedUser.firstName}
-            contentStyles={{
-              borderRadius: 0,
-              fontSize: 'calc(48px)',
-              width: '100%',
-              height: '100%'
-            }}
-            style={{
-              height: '110px',
-              width: '110px'
-            }}
+        <div className="position-relative">
+          <img
+            height='250'
+            width='250'
+            alt='user-avatar'
+            src={defaultAvatar}
+            className='img-fluid rounded mt-1 mb-2'
           />
-          <Button color="primary" className="position-absolute p-0 top-0 start-0" onClick={() => setShowEditModal(true)}>
+          <Button color="primary" className="position-absolute p-0 top-0 start-0 mt-1" onClick={() => setShowEditModal(true)}>
             <Edit2 />
           </Button>
         </div>

@@ -62,7 +62,6 @@ const UserDropdown = () => {
     let orgList = []
     userData?.organizations.map(item => {
       const option = { id: item.id, label: `${item.name}` }
-      console.log(option)
       orgList = [...orgList, option]
     })
 
@@ -93,8 +92,6 @@ const UserDropdown = () => {
   const upFund = (userData && userData.fundraiser_profile.length) || 0
   const upDonor = (userData && userData.donor_profile.length) || 0
   const userProfiles = upOrgs + upFund + upDonor
-
-  console.log(userData)
 
   const [userProfileType, setUserProfileType] = useState('userProfileApp')
   const handleContinue = () => {

@@ -46,7 +46,7 @@ const NavbarBookmarks = props => {
         </NavItem>
       </ul>
       <ul className='navbar-nav bookmark-icons d-xl-none'>
-        <NavItem class="nav-item">
+        <NavItem className="nav-item">
           <span className='brand-logo'>
             <img src={themeConfig.app.appLogoImage} alt='logo' className="lightModeVisible" style={{width: "auto", height: "30px"}}/>
             <img src={themeConfig.app.appLogoImageDark} alt='logo' className="darkModeVisible" style={{width: "auto", height: "30px"}}/>
