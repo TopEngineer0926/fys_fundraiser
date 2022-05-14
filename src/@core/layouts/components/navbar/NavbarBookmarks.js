@@ -22,6 +22,8 @@ import {
   getBookmarks
 } from '@store/navbar'
 
+import themeConfig from '@configs/themeConfig'
+
 const NavbarBookmarks = props => {
   // ** Props
   const { setMenuVisibility } = props
@@ -45,7 +47,10 @@ const NavbarBookmarks = props => {
       </ul>
       <ul className='navbar-nav bookmark-icons d-xl-none'>
         <NavItem class="nav-item">
-          asdf
+          <span className='brand-logo'>
+            <img src={themeConfig.app.appLogoImage} alt='logo' className="lightModeVisible" style={{width: "auto", height: "30px"}}/>
+            <img src={themeConfig.app.appLogoImageDark} alt='logo' className="darkModeVisible" style={{width: "auto", height: "30px"}}/>
+          </span>
         </NavItem>
       </ul>
     </Fragment>
