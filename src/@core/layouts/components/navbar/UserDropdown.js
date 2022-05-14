@@ -173,9 +173,7 @@ const UserDropdown = () => {
                 <span>
                   <span className='custom-option-item-title d-block h3'>Organization</span>
                   <span className='mt-75'>Manage the data for an organization you have administrative rights to.</span>
-                  <Label className="form-label" for="campaign">
-                    Campaign
-                  </Label>
+                  
                   <Controller
                     control={control}
                     name='organizationId'

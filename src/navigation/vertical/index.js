@@ -1,12 +1,11 @@
 // ** Navigation imports
-import apps from './apps'
-import pages from './pages'
-import forms from './forms'
-import tables from './tables'
-import others from './others'
-import charts from './charts'
-import dashboards from './dashboards'
-import uiElements from './ui-elements'
+// import dashboards from './dashboards'
+import orgs from './organizations'
+import fundraisers from './fundraisers'
+import campaigns from './campaigns'
+import donations from './donations'
+// import reports from './reports'
+import settings from './settings'
 
 // ** Merge & Export
-export default [...dashboards, ...apps, ...pages, ...uiElements, ...forms, ...tables, ...charts, ...others]
+export default [...orgs, ...campaigns, ...fundraisers, ...donations, ...settings]

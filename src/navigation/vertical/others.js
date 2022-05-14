@@ -7,7 +7,7 @@ export default [
   },
   {
     id: 'access-control',
-    title: 'Access Control',
+    title: 'Access Controls',
     icon: <Shield size={12} />,
     action: 'read',
     resource: 'ACL',
