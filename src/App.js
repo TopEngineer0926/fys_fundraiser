@@ -9,6 +9,10 @@ import { getRoutes } from './router/routes'
 // ** Hooks Imports
 import { useLayout } from '@hooks/useLayout'
 
+import ReactGA from 'react-ga'
+const TRACKING_ID = "G-83WE5NQCFK" // OUR_TRACKING_ID
+ReactGA.initialize(TRACKING_ID)
+
 const App = () => {
   const [allRoutes, setAllRoutes] = useState([])
 
@@ -16,6 +20,7 @@ const App = () => {
   const { layout } = useLayout()
 
   useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search)
     setAllRoutes(getRoutes(layout))
   }, [layout])
 
