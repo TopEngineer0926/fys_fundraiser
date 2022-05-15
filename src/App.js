@@ -13,6 +13,14 @@ import ReactGA from 'react-ga'
 const TRACKING_ID = "G-83WE5NQCFK" // OUR_TRACKING_ID
 ReactGA.initialize(TRACKING_ID)
 
+import Bugsnag from '@bugsnag/js'
+import BugsnagPluginReact from '@bugsnag/plugin-react'
+
+Bugsnag.start({
+  apiKey: '729aaf5d2b6ba1ee3d3cc526d3d5ba76',
+  plugins: [new BugsnagPluginReact()]
+})
+
 // import * as Sentry from "@sentry/react"
 // import { BrowserTracing } from "@sentry/tracing"
 
@@ -32,6 +40,8 @@ const App = () => {
   // ** Hooks
   const { layout } = useLayout()
 
+  const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React)
+
   useEffect(() => {
     ReactGA.pageview(window.location.pathname + window.location.search)
 
@@ -39,9 +49,11 @@ const App = () => {
   }, [layout])
 
   return (
+    <ErrorBoundary>
     <Suspense fallback={null}>
       <Router allRoutes={allRoutes} />
     </Suspense>
+    </ErrorBoundary>
   )
 }
 

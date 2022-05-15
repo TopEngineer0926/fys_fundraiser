@@ -104,8 +104,8 @@ const ContactList = () => {
     if (!isNotValidData) {
       const contactData = { ...data }
       contactData.fundraiser = id
-      contactData.campaignId = data.campaign.id
-      contactData.invitationFlag = contactData.invitationFlag || false
+      contactData.campaignId = (data.campaign) ? data.campaign.id : null
+      contactData.invitationFlag = data.invitationFlag || false
 
       delete contactData.campaign
       dispatch(addFundraiserContacts(contactData))
