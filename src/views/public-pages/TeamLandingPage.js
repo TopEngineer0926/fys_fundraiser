@@ -48,13 +48,13 @@ const TeamLandingPage = () => {
                     <div className='myComponent' style={{ paddingBottom: "10rem" }}>
                         <Container fluid="md" className='container'>
                             <div className='row'>
-                                <div className='col-md-3 myFlex'>
-                                    <img src={team?.organization?.logo || defaultAvatar} style={{ height: "250px", width: "300px", objectFit: "cover" }} className='myCenter'></img>
+                                <div className='col-md-4 myFlex'>
+                                    <img src={team?.organization?.logo || defaultAvatar} style={{ maxHeight: "350px", maxWidth: "100%", objectFit: "cover" }} className='myCenter'></img>
                                 </div>
-                                <div className='col-md-9 myFlex'>
+                                <div className='col-md-8 myFlex'>
                                     <div className='myLeft' style={{ marginLeft: "2rem" }}>
                                         <div className='myFlex' style={{ paddingBottom: "2rem" }}>
-                                            <p className="myLeft" style={{ fontSize: "2.5rem", fontWeight: "bold", color: "black" }}>{team?.organization?.name}</p>
+                                            <p className="myLeft" style={{ fontSize: "2.5rem", lineHeight: "2.5rem", fontWeight: "bold", color: "black" }}>{team?.organization?.name}</p>
                                         </div>
                                         <div className='myFlex' style={{ paddingBottom: "2.5rem" }}>
                                             <h5 className="myLeft" style={{ fontWeight: "bold", color: "black" }}>

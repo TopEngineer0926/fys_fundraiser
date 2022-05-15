@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 
 // ** Reactstrap Imports
 import { Input, Label, Modal, ModalHeader, ModalBody, Form, Row, Col, Button, Card, CardHeader, Progress } from 'reactstrap'
 
 // ** Third Party Components
-import { ChevronDown, Check, X } from 'react-feather'
+import { ChevronDown, Check, X, Edit } from 'react-feather'
 import { useForm, Controller } from 'react-hook-form'
 import DataTable from 'react-data-table-component'
 import { useDispatch, useSelector } from 'react-redux'
@@ -191,6 +191,20 @@ const ContactList = () => {
           <a href={`tel:${row.phone}`}>{row.phone}</a>
         )
       }
+    },
+    {
+      name: 'Actions',
+      minWidth: '250px',
+      cell: row => (
+        <div className='column-action'style={{ display: "contents" }} >
+          <Button
+              size="sm"
+              color="transparent"
+              className="btn btn-icon" onClick={() => { handleFilter(row) }}>
+            <Edit size={17} className='mx-1' />
+          </Button>
+        </div>
+      )
     }
   ]
 

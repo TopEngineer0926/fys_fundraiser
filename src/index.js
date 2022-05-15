@@ -46,6 +46,9 @@ import './@core/assets/fonts/feather/iconfont.css'
 import './@core/scss/core.scss'
 import './assets/scss/style.scss'
 
+// import * as Sentry from "@sentry/react"
+// import { BrowserTracing } from "@sentry/tracing"
+
 // ** Service Worker
 import * as serviceWorker from './serviceWorker'
 
