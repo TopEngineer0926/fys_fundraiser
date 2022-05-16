@@ -113,22 +113,33 @@ const FundraisersList = () => {
   // ** Function to toggle sidebar
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
 
+  const params = {
+    sort,
+    sortColumn,
+    page: currentPage,
+    perPage: rowsPerPage,
+    q: searchTerm
+  } 
+
   // ** Get data on mount
   useEffect(() => {
-
-    const params = {
-      sort,
-      sortColumn,
-      q: searchTerm,
-      page: currentPage,
-      perPage: rowsPerPage
-    } 
-
     dispatch(getAllData(params))
     dispatch(
       getData(params)
     )
-  }, [dispatch, store.data.length, sort, sortColumn, currentPage, rowsPerPage, searchTerm])
+  }, [dispatch, store.data.length, sort, sortColumn, currentPage, rowsPerPage])
+
+  useEffect(() => {
+    const delayFn = setTimeout(() => {
+    dispatch(getAllData(params))
+    dispatch(
+      getData(params)
+    )
+  }, 1000) 
+  return () => clearTimeout(delayFn)
+
+  }, [searchTerm])
+
 
   // ** User filter options
   const roleOptions = [
@@ -194,7 +205,7 @@ const FundraisersList = () => {
   // ** Function in get data on search query change
   const handleFilter = val => {
     setSearchTerm(val)
-    dispatch(
+      dispatch(
       getData({
         sort,
         q: val,
@@ -205,7 +216,7 @@ const FundraisersList = () => {
         status: currentStatus.value,
         currentPlan: currentPlan.value
       })
-    )
+    )    
     setCurrentPage(1)
   }
 

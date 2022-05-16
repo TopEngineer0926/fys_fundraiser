@@ -106,22 +106,32 @@ const DonationsList = () => {
   // ** Function to toggle sidebar
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen)
 
+  const params = {
+    sort,
+    sortColumn,
+    q: searchTerm,
+    page: currentPage,
+    perPage: rowsPerPage
+  }
+
   // ** Get data on mount
   useEffect(() => {
-
-    const params = {
-      sort,
-      sortColumn,
-      q: searchTerm,
-      page: currentPage,
-      perPage: rowsPerPage
-    }
-
     dispatch(getAllData(params))
     dispatch(
       getData(params)
     )
-  }, [dispatch, store.data.length, sort, sortColumn, currentPage, rowsPerPage, searchTerm])
+  }, [dispatch, store.data.length, sort, sortColumn, currentPage, rowsPerPage])
+
+  useEffect(() => {
+    const delayFn = setTimeout(() => {
+    dispatch(getAllData(params))
+    dispatch(
+      getData(params)
+    )
+  }, 1000) 
+  return () => clearTimeout(delayFn)
+
+  }, [searchTerm]) 
 
   // ** Function in get data on page change
   const handlePagination = page => {
