@@ -126,6 +126,11 @@ const DonationForm = () => {
     }
   }, [organization])
   useEffect(() => {
+    if (fundraiser) {
+      document.title = `FundYouthSports - ${fundraiser.firstName} ${fundraiser.lastName} - Donate`
+    }
+  }, [fundraiser])
+  useEffect(() => {
     if (campaign_slug) {
       getCampaign()
     }

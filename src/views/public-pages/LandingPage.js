@@ -31,6 +31,11 @@ const LandingPage = () => {
     useEffect(() => {
         getFundraiser()
     }, [fundraiser_slug])
+    useEffect(() => {
+        if (fundraiser) {
+          document.title = `FundYouthSports - ${fundraiser.firstName} ${fundraiser.lastName}`
+        }
+      }, [fundraiser])
     return (
         <div>
             <NavBar></NavBar>
