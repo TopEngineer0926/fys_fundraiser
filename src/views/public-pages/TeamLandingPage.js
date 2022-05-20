@@ -35,7 +35,11 @@ const TeamLandingPage = () => {
     // useEffect(() => {
         // getTeamFundraiser()
     // }, [campaign_id, team_id])
-
+    useEffect(() => {
+        if (team) {
+          document.title = `FundYouthSports - ${team.organization.name} - ${team.campaign.title} Campaign Home`
+        }
+      }, [team])
     function formatNumber(formatValue) {
         return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(formatValue)
       }
