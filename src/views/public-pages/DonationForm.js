@@ -95,6 +95,11 @@ const DonationForm = () => {
     }
 
   }
+  useEffect(() => {
+    if (campaign) {
+      document.title = `FundYouthSports - ${campaign.title} Campaign Home - Donate`
+    }
+  }, [campaign])
   async function getFundraiser() {
     const res = await axios.get(`${process.env.REACT_APP_BASE_URL}/api/v1/fundraiser/donate?url_slug=${fundraiser_slug}&ip_address=127.0.0.1`)
     if (res.data.hasError) {

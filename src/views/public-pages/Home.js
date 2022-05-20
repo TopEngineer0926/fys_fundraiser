@@ -84,6 +84,7 @@ const Home = () => {
   }, [campaign_slug])
   useEffect(() => {
     if (campaign) {
+      document.title = `FundYouthSports - ${campaign.title} Campaign Home`
       getTeams()
     }
   }, [campaign])
