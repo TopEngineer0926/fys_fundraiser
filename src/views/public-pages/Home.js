@@ -17,6 +17,7 @@ import defaultAvatar from '@src/assets/images/logo/fys-avatar-blank.png'
 
 import Footer from './Footer'
 import NavBar from './NavBar'
+import ReactGA from 'react-ga'
 
 const Team = ({ team }) => {
   const { campaign_slug } = useParams()
@@ -85,6 +86,10 @@ const Home = () => {
   useEffect(() => {
     if (campaign) {
       document.title = `FundYouthSports - ${campaign.title} Campaign Home`
+      const TRACKING_ID = "G-ELF3MK18FV" // OUR_TRACKING_ID
+      ReactGA.initialize(TRACKING_ID)
+      ReactGA.set({ page: location.pathname }) // Update the user's current page
+      ReactGA.pageview({path: location.pathname, title: `FundYouthSports - ${campaign.title} Campaign Home`}) // Record a pageview for the given page
       window.gtag('event', 'Campaign_Home', {
         campaign_id: campaign.id
       })

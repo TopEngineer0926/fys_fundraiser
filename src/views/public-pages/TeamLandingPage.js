@@ -15,6 +15,7 @@ import Footer from './Footer'
 import NavBar from './NavBar'
 import defaultAvatar from '@src/assets/images/logo/fys-avatar-blank.png'
 import { FacebookShareButton,  TwitterShareButton, EmailShareButton } from "react-share"
+import ReactGA from 'react-ga'
 
 const TeamLandingPage = () => {
     const { team_id, campaign_id } = useParams()
@@ -38,6 +39,10 @@ const TeamLandingPage = () => {
     useEffect(() => {
         if (team) {
           document.title = `FundYouthSports - ${team.organization.name} - ${team.campaign.title} Campaign Home`
+          const TRACKING_ID = "G-ELF3MK18FV" // OUR_TRACKING_ID
+          ReactGA.initialize(TRACKING_ID)
+          ReactGA.set({ page: location.pathname }) // Update the user's current page
+          ReactGA.pageview({path: location.pathname, title: `FundYouthSports - ${team.organization.name} - ${team.campaign.title} Campaign Home`}) // Record a pageview for the given page
           window.gtag('event', 'Team_Home', {
             team_id,
             campaign_id

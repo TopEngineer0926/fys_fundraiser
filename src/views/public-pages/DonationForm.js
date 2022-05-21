@@ -33,7 +33,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import Avatar from "@components/avatar"
 import toast from 'react-hot-toast'
 import { useForm, Controller } from "react-hook-form"
-
+import ReactGA from 'react-ga'
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_TEST_PUBLIC_KEY)
 const DonationForm = () => {
@@ -98,6 +98,10 @@ const DonationForm = () => {
   useEffect(() => {
     if (campaign) {
       document.title = `FundYouthSports - ${campaign.title} Campaign Home - Donate`
+      const TRACKING_ID = "G-ELF3MK18FV" // OUR_TRACKING_ID
+      ReactGA.initialize(TRACKING_ID)
+      ReactGA.set({ page: location.pathname }) // Update the user's current page
+      ReactGA.pageview({path: location.pathname, title: `FundYouthSports - ${campaign.title} Campaign Home - Donate`})
       window.gtag('event', 'Campaign_Home_Donate', {
         campaign_id: campaign.id
       })
@@ -126,6 +130,10 @@ const DonationForm = () => {
   useEffect(() => {
     if (organization) {
       document.title = `FundYouthSports - ${organization.organization.name} - ${organization.campaign.title} Campaign Home - Donate`
+      const TRACKING_ID = "G-ELF3MK18FV" // OUR_TRACKING_ID
+      ReactGA.initialize(TRACKING_ID)
+      ReactGA.set({ page: location.pathname }) // Update the user's current page
+      ReactGA.pageview({path: location.pathname, title: `FundYouthSports - ${organization.organization.name} - ${organization.campaign.title} Campaign Home - Donate`})
       window.gtag('event', 'Team_Home_Donate', {
         team_id: organization.organization.id,
         campaign_id: organization.campaign.id
@@ -135,6 +143,10 @@ const DonationForm = () => {
   useEffect(() => {
     if (fundraiser) {
       document.title = `FundYouthSports - ${fundraiser.firstName} ${fundraiser.lastName} - Donate`
+      const TRACKING_ID = "G-ELF3MK18FV" // OUR_TRACKING_ID
+      ReactGA.initialize(TRACKING_ID)
+      ReactGA.set({ page: location.pathname }) // Update the user's current page
+      ReactGA.pageview({path: location.pathname, title: `FundYouthSports - ${fundraiser.firstName} ${fundraiser.lastName} - Donate`})
       window.gtag('event', 'Fundraiser_Home_Donate', {
         player_id: fundraiser.id,
         campaign_id: fundraiser.campaign.id,

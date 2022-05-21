@@ -15,6 +15,7 @@ import Footer from './Footer'
 import NavBar from './NavBar'
 import defaultAvatar from '@src/assets/images/avatars/avatar-blank.png'
 import { FacebookShareButton, TwitterShareButton, EmailShareButton } from "react-share"
+import ReactGA from 'react-ga'
 
 const LandingPage = () => {
     const { fundraiser_slug } = useParams()
@@ -34,6 +35,10 @@ const LandingPage = () => {
     useEffect(() => {
         if (fundraiser) {
           document.title = `FundYouthSports - ${fundraiser.firstName} ${fundraiser.lastName}`
+          const TRACKING_ID = "G-ELF3MK18FV" // OUR_TRACKING_ID
+          ReactGA.initialize(TRACKING_ID)
+          ReactGA.set({ page: location.pathname }) // Update the user's current page
+          ReactGA.pageview({path: location.pathname, title: `FundYouthSports - ${fundraiser.firstName} ${fundraiser.lastName}`}) // Record a pageview for the given page
           window.gtag('event', 'Fundraiser_Home', {
             player_id: fundraiser.id,
             campaign_id: fundraiser.campaign.id,
