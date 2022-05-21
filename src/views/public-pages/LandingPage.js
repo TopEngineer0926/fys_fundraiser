@@ -34,6 +34,11 @@ const LandingPage = () => {
     useEffect(() => {
         if (fundraiser) {
           document.title = `FundYouthSports - ${fundraiser.firstName} ${fundraiser.lastName}`
+          window.gtag('event', 'Fundraiser_Home', {
+            player_id: fundraiser.id,
+            campaign_id: fundraiser.campaign.id,
+            team_id: fundraiser.organization.id
+          })
         }
       }, [fundraiser])
     return (

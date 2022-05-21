@@ -10,7 +10,7 @@ import { getRoutes } from './router/routes'
 import { useLayout } from '@hooks/useLayout'
 
 import ReactGA from 'react-ga'
-const TRACKING_ID = "G-83WE5NQCFK" // OUR_TRACKING_ID
+const TRACKING_ID = "G-ELF3MK18FV" // OUR_TRACKING_ID
 ReactGA.initialize(TRACKING_ID)
 
 import Bugsnag from '@bugsnag/js'
@@ -43,6 +43,8 @@ const App = () => {
   const ErrorBoundary = Bugsnag.getPlugin('react').createErrorBoundary(React)
 
   useEffect(() => {
+    ReactGA.set({ page: location.pathname }) // Update the user's current page
+    ReactGA.pageview(location.pathname) // Record a pageview for the given page
     ReactGA.pageview(window.location.pathname + window.location.search)
 
     setAllRoutes(getRoutes(layout))

@@ -38,6 +38,10 @@ const TeamLandingPage = () => {
     useEffect(() => {
         if (team) {
           document.title = `FundYouthSports - ${team.organization.name} - ${team.campaign.title} Campaign Home`
+          window.gtag('event', 'Team_Home', {
+            team_id,
+            campaign_id
+          })
         }
       }, [team])
     function formatNumber(formatValue) {

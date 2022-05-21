@@ -98,6 +98,9 @@ const DonationForm = () => {
   useEffect(() => {
     if (campaign) {
       document.title = `FundYouthSports - ${campaign.title} Campaign Home - Donate`
+      window.gtag('event', 'Campaign_Home_Donate', {
+        campaign_id: campaign.id
+      })
     }
   }, [campaign])
   async function getFundraiser() {
@@ -123,11 +126,20 @@ const DonationForm = () => {
   useEffect(() => {
     if (organization) {
       document.title = `FundYouthSports - ${organization.organization.name} - ${organization.campaign.title} Campaign Home - Donate`
+      window.gtag('event', 'Team_Home_Donate', {
+        team_id: organization.organization.id,
+        campaign_id: organization.campaign.id
+      })
     }
   }, [organization])
   useEffect(() => {
     if (fundraiser) {
       document.title = `FundYouthSports - ${fundraiser.firstName} ${fundraiser.lastName} - Donate`
+      window.gtag('event', 'Fundraiser_Home_Donate', {
+        player_id: fundraiser.id,
+        campaign_id: fundraiser.campaign.id,
+        team_id: fundraiser.organization.id
+      })
     }
   }, [fundraiser])
   useEffect(() => {

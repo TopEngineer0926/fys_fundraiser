@@ -85,6 +85,9 @@ const Home = () => {
   useEffect(() => {
     if (campaign) {
       document.title = `FundYouthSports - ${campaign.title} Campaign Home`
+      window.gtag('event', 'Campaign_Home', {
+        campaign_id: campaign.id
+      })
       getTeams()
     }
   }, [campaign])
